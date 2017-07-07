@@ -1,0 +1,329 @@
+Configuration:
+    School:
+      roleClass: AppBundle\Controller\Configuration\SchoolController
+      actions: ["view","add","edit","delete"]
+      key: schools
+
+    Department:
+      roleClass: AppBundle\Controller\Configuration\DepartmentController
+      actions: ["view","add","edit","delete"]
+      key: departmets
+
+    Countries:
+      roleClass: AppBundle\Controller\Configuration\CountryController
+      actions: ["view","add","edit","delete"]
+      key: countries
+
+    Currencies:
+      roleClass: AppBundle\Controller\Configuration\CurrencyController
+      actions: ["view","add","edit","delete"]
+      key: currencies
+
+    Nationalities:
+      roleClass: AppBundle\Controller\Configuration\NationalityController
+      actions: ["view","add","edit","delete"]
+      key: nationalities
+
+    Regions:
+      roleClass: AppBundle\Controller\Configuration\RegionController
+      actions: ["view","add","edit","delete"]
+      key: regions
+
+    StudyPeriods:
+      roleClass: AppBundle\Controller\Configuration\StudyPeriodController
+      actions: ["view","add","edit","delete"]
+      key: study-periods
+
+    AcademicYears:
+      roleClass: AppBundle\Controller\Configuration\AcademicYearController
+      actions: ["view","add","edit","delete"]
+      key: academic-years
+
+    AcademicYearEvents:
+      roleClass: AppBundle\Controller\Configuration\AcademicYearEventController
+      actions: ["view","add","edit","delete"]
+      key: academic-year-events
+
+    MaritalStatus:
+      roleClass: AppBundle\Controller\Configuration\MaritalStatusController
+      actions: ["view","add","edit","delete"]
+      key: marital-status
+
+    CourseTypes:
+      roleClass: AppBundle\Controller\Configuration\CourseTypeController
+      actions: ["view","add","edit","delete"]
+      key: course-types
+
+    Courses:
+      roleClass: AppBundle\Controller\Configuration\CourseController
+      actions: ["view","add","edit","delete"]
+      key: courses
+
+    CourseDistribution:
+      roleClass: AppBundle\Controller\Configuration\CourseDepartmentController
+      actions: ["view","add","delete","approve","decline","more"]
+      key: course-distribution
+
+    Module:
+      roleClass: AppBundle\Controller\Configuration\ModuleController
+      actions: ["view","add","edit","delete"]
+      key: module
+
+    WeightType:
+      roleClass: AppBundle\Controller\Configuration\WeightTypeController
+      actions: ["view","add","edit","delete"]
+      key: weight-type
+
+    ExamType:
+      roleClass: AppBundle\Controller\Configuration\ExamTypeController
+      actions: ["view","add","edit","delete"]
+      key: exam-type
+
+
+    ModuleType:
+      roleClass: AppBundle\Controller\Configuration\ModuleTypeController
+      actions: ["view","add","edit","delete"]
+      key: module-type
+
+
+    ModuleAction:
+      roleClass: AppBundle\Controller\Configuration\ModuleActionController
+      actions: ["view","add","edit","delete","more"]
+      key: module-action
+
+
+    ModuleActionActivities:
+      roleClass: AppBundle\Controller\Configuration\ModuleActionActivitiesController
+      actions: ["view","add","edit","delete"]
+      key: module-action-activities
+
+
+    GradeCriteria:
+      roleClass: AppBundle\Controller\Configuration\GradeCriteriaController
+      actions: ["view","add","edit","delete","more"]
+      key: grade-criteria
+
+    Grade:
+      roleClass: AppBundle\Controller\Configuration\GradeController
+      actions: ["view","add","edit","delete"]
+      key: grade
+
+    GPACriteria:
+      roleClass: AppBundle\Controller\Configuration\GPACriteriaController
+      actions: ["view","add","edit","delete","more"]
+      key: gpa-criteria
+
+    GPA:
+      roleClass: AppBundle\Controller\Configuration\GPAController
+      actions: ["view","add","edit","delete"]
+      key: gpa
+
+
+
+    ExaminationProcessVersion:
+      roleClass: AppBundle\Controller\Configuration\ExaminationProcessVersionController
+      actions: ["view","add","edit","delete","more"]
+      key: examination-process-version
+
+
+    ExaminationProcessVersionStages:
+      roleClass: AppBundle\Controller\Configuration\ExaminationApprovalStageController
+      actions: ["view","add","edit","delete"]
+      key: examination-process-version-stages
+
+
+    ResultRemark:
+      roleClass: AppBundle\Controller\Configuration\ResultRemarkController
+      actions: ["view","add","edit","delete"]
+      key: result-remark
+
+
+    RemarkReason:
+      roleClass: AppBundle\Controller\Configuration\RemarkReasonController
+      actions: ["view","add","edit","delete"]
+      key: remark-reason
+
+
+    Curriculum:
+      roleClass: AppBundle\Controller\Configuration\CurriculumController
+      actions: ["view","add","edit","delete","more"]
+      key: curriculum
+
+
+    CurriculumModules:
+      roleClass: AppBundle\Controller\Configuration\CurriculumModuleController
+      actions: ["view","add","edit","delete"]
+      key: curriculum-modules
+
+
+    ProposedFormOfStudy:
+      roleClass: AppBundle\Controller\Configuration\ProposedFormOfStudyController
+      actions: ["view","add","edit","delete"]
+      key: proposed-form-of-study
+
+
+    PersonRelationshipType:
+      roleClass: AppBundle\Controller\Configuration\PersonRelationshipTypeController
+      actions: ["view","add","edit","delete"]
+      key: person-relationship-type
+
+
+    InsuranceProvider:
+      roleClass: AppBundle\Controller\Configuration\InsuranceProviderController
+      actions: ["view","add","edit","delete"]
+      key: insurance-provider
+
+
+    FeeType:
+      roleClass: AppBundle\Controller\Configuration\FeeTypeController
+      actions: ["view","add","edit","delete"]
+      key: fee-type
+
+
+    FeeStructure:
+      roleClass: AppBundle\Controller\Configuration\FeeStructureController
+      actions: ["view","add","edit","delete","more"]
+      key: fee-structure
+
+    Fee:
+      roleClass: AppBundle\Controller\Configuration\FeeController
+      actions: ["view","add","edit","delete"]
+      key: fee
+
+
+    EntryCategory:
+      roleClass: AppBundle\Controller\Configuration\EntryCategoryController
+      actions: ["view","add","edit","delete"]
+      key: entry-category
+
+
+    SubjectCode:
+      roleClass: AppBundle\Controller\Configuration\SubjectCodeController
+      actions: ["view","add","edit","delete"]
+      key: subject-code
+
+
+    EnrollmentTerminationReason:
+      roleClass: AppBundle\Controller\Configuration\EnrollmentTerminationReasonController
+      actions: ["view","add","edit","delete"]
+      key: enrollment-termination-reason
+
+
+    EnrollmentProcessVersion:
+      roleClass: AppBundle\Controller\Configuration\EnrollmentProcessVersionController
+      actions: ["view","add","edit","delete","more"]
+      key: enrollment-process-version
+
+    EnrollmentApprovalStage:
+      roleClass: AppBundle\Controller\Configuration\EnrollmentApprovalStageController
+      actions: ["view","add","edit","delete"]
+      key: enrollment-approval-stage
+
+    EducationLevel:
+      roleClass: AppBundle\Controller\Configuration\EducationLevelController
+      actions: ["view","add","edit","delete"]
+      key: education-level
+
+    SponsorType:
+      roleClass: AppBundle\Controller\Configuration\SponsorTypeController
+      actions: ["view","add","edit","delete"]
+      key: sponsor-type
+
+    Staff:
+      roleClass: AppBundle\Controller\UserAccounts\StaffController
+      actions: ["view","add","edit","delete","info","approve","decline"]
+      key: staff
+
+    Roles:
+      roleClass: AppBundle\Controller\UserAccounts\RoleController
+      actions: ["view","add","edit","delete"]
+      key: role-configuration
+
+Registration:
+    StudentUploads:
+      roleClass: AppBundle\Controller\Registration\StudentUploadsController
+      actions: ["view","bulk-upload"]
+      key: student-uploads
+
+    StudentEnrollment:
+      roleClass: AppBundle\Controller\Registration\StudentEnrollmentController
+      actions: ["view","add"]
+      key: student-enrollment
+
+    StudentAdmission:
+      roleClass: AppBundle\Controller\Registration\StudentAdmissionController
+      actions: ["view","edit"]
+      key: student-admission
+
+    RegistrationApproval:
+      roleClass: AppBundle\Controller\Registration\StudentRegistrationApprovalController
+      actions: ["view","info","approve","decline"]
+      key: registration-approval
+
+
+Academic:
+    ModuleAssignment:
+      roleClass: AppBundle\Controller\Academic\ModuleAssignmentController
+      actions: ["view","add","edit","delete","info"]
+      key: module-assignment
+
+    ModuleResultsApproval:
+      roleClass: AppBundle\Controller\Academic\ModuleResultsApprovalController
+      actions: ["view","approve","decline"]
+      key: module-results-approval
+
+    ModuleResultsAssigned:
+      roleClass: AppBundle\Controller\Academic\ModuleAssignedController
+      actions: ["view","info"]
+      key: module-assigned
+
+    ModuleResultsUpload:
+      roleClass: AppBundle\Controller\Academic\ModuleAssignedController
+      actions: ["view","info"]
+      key: module-results-upload
+
+    GPACalculation:
+      roleClass: AppBundle\Controller\Academic\GPACalculationController
+      actions: ["view","add"]
+      key: gpa-calculation
+
+Reports:
+    TranscriptReport:
+        roleClass: AppBundle\Controller\Report\Academic\TranscriptReportController
+        actions: ["view","info"]
+        key: transcript-report
+
+
+
+Accomodation:
+    Building:
+      roleClass: AppBundle\Controller\Accommodation\BuildingController
+      actions: ["view","add","edit","delete"]
+      key: building
+
+    Block:
+      roleClass: AppBundle\Controller\Accommodation\BlockController
+      actions: ["view","add","edit","delete","more"]
+      key: block
+
+    Room:
+      roleClass: AppBundle\Controller\Accommodation\RoomController
+      actions: ["view","add","edit","delete"]
+      key: room
+
+    StudentAccommodation:
+      roleClass: AppBundle\Controller\Accommodation\StudentAccommodationController
+      actions: ["view","add","more","edit","delete"]
+      key: student-accomodation-controller
+
+
+Finance:
+    Invoice:
+      roleClass: AppBundle\Controller\Finance\InvoiceController
+      actions: ["view","more"]
+      key: invoices
+
+    InvoicePayments:
+      roleClass: AppBundle\Controller\Finance\InvoicePaymentController
+      actions: ["view","add","approve","decline"]
+      key: invoices-payments

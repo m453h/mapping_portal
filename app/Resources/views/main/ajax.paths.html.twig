@@ -1,0 +1,17 @@
+<!--suppress ALL -->
+<script type="text/javascript">
+var imageUpload = document.getElementById('imageUploadBox');
+
+if(imageUpload !=null)
+{
+    var imageUploadPath =  imageUpload.dataset.imageUploadPath;
+    var primaryIdentifier =  imageUpload.dataset.primaryIdentifier;
+    var imageFile =  imageUpload.dataset.imageFile;
+}
+
+var departmentCoursePath = '{{ path('api_get_department_courses') }}';
+var userCoursePath = '{{ path('api_get_user_courses') }}';
+var curriculumPath = '{{ path('api_get_curriculum') }}';
+var staffPath = '{{ path('api_get_staff') }}';
+var modulePath = '{{ path('api_get_module') }}';
+</script>
