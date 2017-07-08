@@ -57,7 +57,8 @@
     <script src="{{ asset('vendor/hongkhanh-cropbox/jquery/cropbox-min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.js') }}"></script>
     <script src="{{ asset('vendor/simplemde-markdown-editor/dist/simplemde.min.js') }}"></script>
-
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 {% endblock %}
 </body>

@@ -1,5 +1,12 @@
 $(document).ready(function() {
 	
+
+	handleSelectBox('regionId','districtId',Routing.generate('api_get_districts'));
+	handleSelectBox('districtId','wardId',Routing.generate('api_get_wards'));
+	
+
+
+
 });
 
 
@@ -28,7 +35,6 @@ function handleSelectBox(sourceId,targetId,link)
 	});
 
 }
-
 
 function loadList(id, response){
 	$('#'+id).append($("<option></option>").attr("value",'').text(''));

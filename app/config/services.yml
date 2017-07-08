@@ -65,3 +65,18 @@ services:
                 - { name: security.voter }
             # small performance boost
             public: false
+
+
+    app.form.type.ward_form:
+                    class: AppBundle\Form\Location\WardFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }
+
+
+
+    app.form.type.village_street_form:
+                    class: AppBundle\Form\Location\VillageStreetFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }

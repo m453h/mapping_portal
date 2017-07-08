@@ -30,3 +30,28 @@ AppBundle\Entity\UserAccounts\Permission:
       object: AppBundle\Controller\AppUsers\UserController
       actions: ['view','add','edit','delete','info','approve','decline']
       role: '@role_administrator'
+
+    permission_0:
+      object: AppBundle\Controller\AppUsers\UserController
+      actions: ['view','add','edit','delete','info','approve','decline']
+      role: '@role_administrator'
+
+    permission_1:
+      object: AppBundle\Controller\Location\RegionController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_2:
+      object: AppBundle\Controller\Location\DistrictController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_3:
+      object: AppBundle\Controller\Location\WardController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_4:
+      object: AppBundle\Controller\Location\VillageStreetController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'

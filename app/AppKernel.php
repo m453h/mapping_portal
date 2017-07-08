@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new AppBundle\AppBundle(),
         ];
 
