@@ -6,7 +6,7 @@ namespace AppBundle\Entity\Configuration;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Configuration\LandOwnerShipStatusRepository")
  * @ORM\Table(name="cfg_land_ownership_status")
  */
 class LandOwnerShipStatus

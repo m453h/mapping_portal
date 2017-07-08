@@ -6,7 +6,7 @@ namespace AppBundle\Entity\Configuration;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Configuration\ZoneRepository")
  * @ORM\Table(name="cfg_zones")
  */
 class Zone
