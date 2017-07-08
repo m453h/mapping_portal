@@ -1,0 +1,90 @@
+AppBundle\Entity\Location\Region:
+    region_0:
+        regionName: Arusha
+
+    region_1:
+        regionName: Dar es Salaam
+
+    region_2:
+        regionName: Dodoma
+
+    region_3:
+        regionName: Geita
+
+    region_4:
+        regionName: Iringa
+
+    region_5:
+        regionName: Kagera
+
+    region_6:
+        regionName: Katavi
+
+    region_7:
+        regionName: Kigoma
+
+    region_8:
+        regionName: Kilimanjaro
+
+    region_9:
+        regionName: Lindi
+
+    region_10:
+        regionName: Manyara
+
+    region_11:
+        regionName: Mara
+
+    region_12:
+        regionName: Mbeya
+
+    region_13:
+        regionName: Morogoro
+
+    region_14:
+        regionName: Mtwara
+
+    region_15:
+        regionName: Mwanza
+
+    region_16:
+        regionName: Njombe
+
+    region_17:
+        regionName: Pemba North
+
+    region_18:
+        regionName: Pemba South
+
+    region_19:
+        regionName: Pwani
+
+    region_20:
+        regionName: Rukwa
+
+    region_21:
+        regionName: Ruvuma
+
+    region_22:
+        regionName: Shinyanga
+
+    region_23:
+        regionName: Simiyu
+
+    region_24:
+        regionName: Singida
+
+    region_25:
+        regionName: Tabora
+
+    region_26:
+        regionName: Tanga
+
+    region_27:
+        regionName: Zanzibar North
+
+    region_28:
+        regionName: Zanzibar South
+
+    region_29:
+        regionName: Zanzibar Urban West

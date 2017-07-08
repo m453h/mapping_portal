@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\Location;
+namespace AppBundle\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="cfg_court_categories")
  */
-class CourtCategories
+class CourtCategory
 {
 
     /**

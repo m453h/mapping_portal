@@ -54,7 +54,6 @@ class RegionController extends Controller
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
         $grid->addGridHeader('Name','name','text',true);
-        $grid->addGridHeader('Code',null,'text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('region_list');

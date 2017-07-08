@@ -25,14 +25,6 @@ class Region
      */
     private $regionName;
 
-
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $regionCode;
-
-
     
     /**
      * @return mixed
@@ -66,21 +58,6 @@ class Region
         $this->regionId = $regionId;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRegionCode()
-    {
-        return $this->regionCode;
-    }
-
-    /**
-     * @param mixed $regionCode
-     */
-    public function setRegionCode($regionCode)
-    {
-        $this->regionCode = $regionCode;
-    }
-
+    
 
 }

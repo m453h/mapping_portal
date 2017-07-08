@@ -12,6 +12,7 @@ class LoadFixtures implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         Fixtures::load(__DIR__.'/fixtures.yml', $manager, ['providers' => [$this]]);
+        Fixtures::load(__DIR__ . '/regions.yml', $manager, ['providers' => [$this]]);
     }
 
 

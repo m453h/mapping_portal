@@ -1,15 +1,15 @@
 <?php
 
 
-namespace AppBundle\Entity\Location;
+namespace AppBundle\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cfg_court_building_ownership")
+ * @ORM\Table(name="cfg_court_levels")
  */
-class CourtBuildingOwnership
+class CourtLevel
 {
 
     /**
@@ -17,7 +17,7 @@ class CourtBuildingOwnership
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $statusId;
+    private $levelId;
 
 
     /**
@@ -47,17 +47,17 @@ class CourtBuildingOwnership
     /**
      * @return mixed
      */
-    public function getStatusId()
+    public function getLevelId()
     {
-        return $this->statusId;
+        return $this->levelId;
     }
 
     /**
-     * @param mixed $statusId
+     * @param mixed $levelId
      */
-    public function setStatusId($statusId)
+    public function setLevelId($levelId)
     {
-        $this->statusId = $statusId;
+        $this->levelId = $levelId;
     }
 
 

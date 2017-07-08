@@ -13,8 +13,7 @@ class RegionFormType extends  AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('regionName',null,['required'=>true])
-            ->add('regionCode',null,['required'=>true]);
+            ->add('regionName',null,['required'=>true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

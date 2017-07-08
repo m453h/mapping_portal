@@ -1,3 +1,61 @@
+#Land Ownership Status
+AppBundle\Entity\Configuration\LandOwnerShipStatus:
+    ownership_status_0:
+      description: Judiciary Owned
+
+    ownership_status_1:
+      description: Rented
+
+
+#Court Building Ownership Status
+AppBundle\Entity\Configuration\CourtBuildingOwnerShipStatus:
+    ownership_status_0:
+      description: Judiciary Owned
+
+    ownership_status_1:
+      description: Rented
+
+
+#Court Building Status
+AppBundle\Entity\Configuration\CourtBuildingStatus:
+     building_status_0:
+      description: New
+
+     building_status_1:
+      description: Very Good
+
+     building_status_2:
+      description: Good
+
+     building_status_3:
+      description: Unconducive
+
+     building_status_4:
+      description: Dilapidated
+
+#Court Category Status
+AppBundle\Entity\Configuration\CourtCategory:
+    category_0:
+      description: Court of Appeal
+
+    category_1:
+      description: High Court
+
+    category_2:
+      description: Resident Magistrates Court/Regional Court
+
+    category_3:
+      description: District Court
+
+    category_4:
+      description: Primary Court
+
+#Court Building Ownership Status
+AppBundle\Entity\Configuration\CourtLevel:
+    level_0:
+      description: Resident magistrate
+
+
 #User Roles
 AppBundle\Entity\UserAccounts\Role:
     role_administrator:

@@ -18,7 +18,7 @@ class RegionRepository extends EntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('region_id,region_name,region_code')
+        $queryBuilder->select('region_id,region_name')
             ->from('cfg_regions', 'r');
 
         $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
