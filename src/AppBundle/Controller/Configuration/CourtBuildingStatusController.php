@@ -3,9 +3,11 @@
 namespace AppBundle\Controller\Configuration;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\CourtBuildingStatus;
 use AppBundle\Entity\Configuration\LandOwnerShipStatus;
 use AppBundle\Entity\Configuration\Zone;
 use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
+use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
 use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
@@ -16,11 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CourtBuildingOwnershipStatusController extends Controller
+class CourtBuildingStatusController extends Controller
 {
 
     /**
-     * @Route("/court-building-ownership-status", name="court_building_ownership_status_list")
+     * @Route("/court-building-status", name="court_building_status_list")
      * @param Request $request
      * @return Response
      *
@@ -40,11 +42,11 @@ class CourtBuildingOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
-            ->findAllCourtBuildingOwnerShipStatus($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
+            ->findAllCourtBuildingOwnerStatus($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
-            ->countAllLandOwnerShipStatus($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
+            ->countAllCourtBuildingStatus($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -58,7 +60,7 @@ class CourtBuildingOwnershipStatusController extends Controller
         $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('court_building_ownership_status_list');
+        $grid->setPath('court_building_status_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -67,13 +69,13 @@ class CourtBuildingOwnershipStatusController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Court Building Ownership Status',
+                'title'=>'Existing Court Building Status',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/court-building-ownership-status/add", name="court_building_ownership_status_add")
+     * @Route("/court-building-status/add", name="court_building_status_add")
      * @param Request $request
      * @return Response
      */
@@ -83,7 +85,7 @@ class CourtBuildingOwnershipStatusController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(CourtBuildingOwnershipStatusFormType::class);
+        $form = $this->createForm(CourtBuildingStatusFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -97,15 +99,15 @@ class CourtBuildingOwnershipStatusController extends Controller
 
             $this->addFlash('success','Status successfully created');
 
-            return $this->redirectToRoute('court_building_ownership_status_list');
+            return $this->redirectToRoute('court_building_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.building.ownership.status',
+                'formTemplate'=>'configuration/court.building.status',
                 'form'=>$form->createView(),
-                'title'=>'Court Building Ownership Status Details',
+                'title'=>'Court Building Status Details',
             )
 
         );
@@ -113,18 +115,18 @@ class CourtBuildingOwnershipStatusController extends Controller
 
 
     /**
-     * @Route("/court-building-ownership-status/edit/{statusId}", name="court_building_ownership_status_edit")
+     * @Route("/court-building-status/edit/{statusId}", name="court_building_status_edit")
      * @param Request $request
-     * @param CourtBuildingOwnershipStatus $status
+     * @param CourtBuildingStatus $status
      * @return Response
      */
-    public function editAction(Request $request,CourtBuildingOwnershipStatus $status)
+    public function editAction(Request $request,CourtBuildingStatus $status)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(CourtBuildingOwnershipStatusFormType::class,$status);
+        $form = $this->createForm(CourtBuildingStatusFormType::class,$status);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -137,22 +139,22 @@ class CourtBuildingOwnershipStatusController extends Controller
 
             $this->addFlash('success', 'Status successfully updated!');
 
-            return $this->redirectToRoute('court_building_ownership_status_list');
+            return $this->redirectToRoute('court_building_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.building.ownership.status',
+                'formTemplate'=>'configuration/court.building.status',
                 'form'=>$form->createView(),
-                'title'=>'Court Building Ownership Status Details',
+                'title'=>'Court Building Status Details',
             )
 
         );
     }
 
     /**
-     * @Route("/court-building-ownership-status/delete/{Id}", name="court_building_ownership_status_delete")
+     * @Route("/court-building-status/delete/{Id}", name="court_building_status_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -165,9 +167,9 @@ class CourtBuildingOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')->find($Id);
 
-        if($data instanceof CourtBuildingOwnershipStatus)
+        if($data instanceof CourtBuildingStatus)
         {
             $em->remove($data);
             $em->flush();
@@ -179,7 +181,7 @@ class CourtBuildingOwnershipStatusController extends Controller
         }
 
         
-        return $this->redirectToRoute('court_building_ownership_status_list');
+        return $this->redirectToRoute('court_building_status_list');
 
     }
     

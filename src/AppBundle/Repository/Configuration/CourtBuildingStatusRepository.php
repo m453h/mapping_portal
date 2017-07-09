@@ -12,7 +12,7 @@ class CourtBuildingStatusRepository extends EntityRepository
      * @param array $options
      * @return QueryBuilder
      */
-    public function findAllCourtBuildingOwnerShipStatus($options = [])
+    public function findAllCourtBuildingOwnerStatus($options = [])
     {
 
         $conn = $this->getEntityManager()->getConnection();
@@ -52,7 +52,7 @@ class CourtBuildingStatusRepository extends EntityRepository
     }
 
 
-    public function countAllLandOwnerShipStatus(QueryBuilder $queryBuilder)
+    public function countAllCourtBuildingStatus(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
             $queryBuilder->select('COUNT(DISTINCT status_id) AS total_results')
