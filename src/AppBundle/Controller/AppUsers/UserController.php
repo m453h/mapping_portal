@@ -64,6 +64,8 @@ class UserController extends Controller
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('app_users_list');
+        $grid->setSecondaryPath('app_user_region_list');
+        $grid->setIgnoredButtons(["more"]);
         $grid->setCurrentObject($class);
         $grid->setButtons();
 
@@ -366,6 +368,7 @@ class UserController extends Controller
             $info->setLink('Activate Account','app_user_unblock','activate-user',$Id);
             $info->setLink('Block Account','app_user_block','block-user',$Id);
             $info->setLink('Reset Password','app_user_password_reset','password',$Id);
+            $info->setLink('Assign Regions','app_user_region_list','module',$Id);
 
             $info->setPath('app_user_info');
 

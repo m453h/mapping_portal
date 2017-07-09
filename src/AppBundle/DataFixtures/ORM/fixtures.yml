@@ -86,7 +86,7 @@ AppBundle\Entity\UserAccounts\UserRole:
 AppBundle\Entity\UserAccounts\Permission:
     permission_0:
       object: AppBundle\Controller\AppUsers\UserController
-      actions: ['view','add','edit','delete','info','approve','decline']
+      actions: ['view','add','edit','delete','info','approve','decline','more']
       role: '@role_administrator'
 
     permission_1:
@@ -137,5 +137,10 @@ AppBundle\Entity\UserAccounts\Permission:
 
     permission_10:
       object: AppBundle\Controller\Configuration\CourtBuildingOwnershipStatusController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_11:
+      object: AppBundle\Controller\AppUsers\AppUserRegionController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'

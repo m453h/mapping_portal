@@ -4,6 +4,8 @@ $(document).ready(function() {
 
 	$('#loader').hide();
 
+	$('.select2-basic').select2({ width: '99%'});
+
 	$(function() {
 
 		var index = $('li.current_ancestor').index();

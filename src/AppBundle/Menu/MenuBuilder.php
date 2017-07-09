@@ -90,7 +90,9 @@ class MenuBuilder
 
 
         $menu->addChild('App Users', array('uri' => '#', 'extras' => array('icon' => 'mobile')))
-            ->addChild('Manage Users', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))->getParent()
+            ->addChild('Manage Users', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))
+            ->addChild('Manage Regions Assigned', array('route' => 'app_user_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
+            ->getParent()
             ->getParent();
 
 

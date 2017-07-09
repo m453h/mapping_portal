@@ -73,10 +73,15 @@ services:
                     tags:
                         - { name: form.type }
 
-
-
     app.form.type.village_street_form:
                     class: AppBundle\Form\Location\VillageStreetFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }
+
+
+    app.form.type.app_user_region_form:
+                    class: AppBundle\Form\AppUsers\AppUserRegionFormType
                     autowire: true
                     tags:
                         - { name: form.type }
