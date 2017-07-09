@@ -71,6 +71,7 @@ class MenuBuilder
 
 
         $menu->addChild('Configuration', array('uri' => '#', 'extras' => array('icon' => 'cogs')))
+            ->addChild('Land Ownership status', array('route' => 'land_ownership_status_list', 'extras' => $this->getCrudLinks('land_ownership_status')))->getParent()
             ->addChild('Manage Zones', array('route' => 'zone_list', 'extras' => $this->getCrudLinks('zone')))->getParent()
             ->getParent();
 
