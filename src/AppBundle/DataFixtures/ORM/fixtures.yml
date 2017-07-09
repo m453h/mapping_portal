@@ -89,11 +89,6 @@ AppBundle\Entity\UserAccounts\Permission:
       actions: ['view','add','edit','delete','info','approve','decline']
       role: '@role_administrator'
 
-    permission_0:
-      object: AppBundle\Controller\AppUsers\UserController
-      actions: ['view','add','edit','delete','info','approve','decline']
-      role: '@role_administrator'
-
     permission_1:
       object: AppBundle\Controller\Location\RegionController
       actions: ['view','add','edit','delete']
@@ -111,5 +106,36 @@ AppBundle\Entity\UserAccounts\Permission:
 
     permission_4:
       object: AppBundle\Controller\Location\VillageStreetController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+
+    permission_5:
+      object: AppBundle\Controller\Configuration\ZoneController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_6:
+      object: AppBundle\Controller\Configuration\LandOwnershipStatusController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_7:
+      object: AppBundle\Controller\Configuration\CourtLevelController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_8:
+      object: AppBundle\Controller\Configuration\CourtCategoryController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_9:
+      object: AppBundle\Controller\Configuration\CourtBuildingStatusController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_10:
+      object: AppBundle\Controller\Configuration\CourtBuildingOwnershipStatusController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'

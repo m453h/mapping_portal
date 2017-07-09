@@ -71,7 +71,7 @@ class MenuBuilder
 
 
         $menu->addChild('Configuration', array('uri' => '#', 'extras' => array('icon' => 'cogs')))
-            //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
+            ->addChild('Manage Zones', array('route' => 'zone_list', 'extras' => $this->getCrudLinks('zone')))->getParent()
             ->getParent();
 
 
