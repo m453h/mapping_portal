@@ -63,5 +63,29 @@ class UserRepository extends EntityRepository
                 ->setMaxResults(1);
         };
     }
-    
+
+
+    /**
+     * @return QueryBuilder
+     */
+    public function findLatestDownloadVersion()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $result = $queryBuilder->select('version_id')
+            ->from('app_data_versions', 'v')
+            ->orderBy('version_id','DESC')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+
+
+        return $result;
+    }
+
+
+
+
 }

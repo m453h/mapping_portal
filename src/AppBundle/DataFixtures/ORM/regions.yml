@@ -88,3 +88,419 @@ AppBundle\Entity\Location\Region:
 
     region_29:
         regionName: Zanzibar Urban West
+
+
+AppBundle\Entity\Location\District:
+    district_0:
+         districtName : Meru District Council
+         region : '@region_0'
+
+    district_1:
+         districtName : Arusha City Council
+         region : '@region_0'
+
+    district_2:
+         districtName : Arusha District Council
+         region : '@region_0'
+
+    district_3:
+         districtName : Karatu District Council
+         region : '@region_0'
+
+    district_4:
+         districtName : Longido District Council
+         region : '@region_0'
+
+    district_5:
+         districtName : Monduli District Council
+         region : '@region_0'
+
+    district_6:
+         districtName : Ngorongoro District Council
+         region : '@region_0'
+
+    district_7:
+         districtName : Ilala Municipal Council
+         region : '@region_1'
+
+    district_8:
+         districtName : Kinondoni Municipal Council
+         region : '@region_1'
+
+    district_9:
+         districtName : Temeke Municipal Council
+         region : '@region_1'
+
+    district_10:
+         districtName : Kigamboni Municipal Council
+         region : '@region_1'
+
+    district_11:
+         districtName : Ubungo Municipal Council
+         region : '@region_1'
+
+    district_12:
+         districtName : Bahi District Council
+         region : '@region_2'
+
+    district_13:
+         districtName : Chamwino District Council
+         region : '@region_2'
+
+    district_14:
+         districtName : Chemba District Council
+         region : '@region_2'
+
+    district_15:
+         districtName : Dodoma Municipal Council
+         region : '@region_2'
+
+    district_16:
+         districtName : Kondoa District Council
+         region : '@region_2'
+
+    district_17:
+         districtName : Kongwa District Council
+         region : '@region_2'
+
+    district_18:
+         districtName : Mpwapwa District Council
+         region : '@region_2'
+
+    district_19:
+         districtName : Bukombe District Council
+         region : '@region_3'
+
+    district_20:
+         districtName : Chato District Council
+         region : '@region_3'
+
+    district_21:
+         districtName : Geita Town Council & Geita District Council
+         region : '@region_3'
+
+    district_22:
+         districtName : Mbogwe District Council
+         region : '@region_3'
+
+    district_23:
+         districtName : Nyang'hwale District Council
+         region : '@region_3'
+
+
+    district_24:
+         districtName : Iringa District Council
+         region : '@region_4'
+
+    district_25:
+         districtName : Iringa Municipal Council
+         region : '@region_4'
+
+    district_26:
+         districtName : Kilolo District Council
+         region : '@region_4'
+
+    district_27:
+         districtName : Mafinga Town Council
+         region : '@region_4'
+
+    district_28:
+         districtName : Mufindi District Council
+         region : '@region_4'
+
+
+    district_29:
+         districtName : Biharamulo District Council
+         region : '@region_5'
+
+    district_30:
+         districtName : Bukoba District Council
+         region : '@region_5'
+
+    district_31:
+         districtName : Bukoba Municipal Council
+         region : '@region_5'
+
+    district_32:
+         districtName : Karagwe District Council
+         region : '@region_5'
+
+    district_33:
+         districtName : Kyerwa District Council
+         region : '@region_5'
+
+    district_34:
+         districtName : Missenyi District Council
+         region : '@region_5'
+
+    district_35:
+         districtName : Muleba District Council
+         region : '@region_5'
+
+    district_36:
+         districtName : Ngara District Council
+         region : '@region_5'
+
+    district_37:
+         districtName : Mlele District Council
+         region : '@region_6'
+
+    district_38:
+         districtName : Mpanda District Council
+         region : '@region_6'
+
+    district_39:
+         districtName : Mpanda Town Council
+         region : '@region_6'
+
+    district_40:
+         districtName : Buhigwe District Council
+         region : '@region_7'
+
+    district_41:
+         districtName : Kakonko District Council
+         region : '@region_7'
+
+    district_42:
+         districtName : Kasulu District Council
+         region : '@region_7'
+
+    district_43:
+         districtName : Kasulu Town Council
+         region : '@region_7'
+
+    district_44:
+         districtName : Kibondo District Council
+         region : '@region_7'
+
+    district_45:
+         districtName : Kigoma District Council
+         region : '@region_7'
+
+    district_46:
+         districtName : Kigoma-Ujiji Municipal Council
+         region : '@region_7'
+
+    district_47:
+         districtName : Uvinza District Council
+         region : '@region_7'
+
+
+    district_48:
+         districtName : Hai District Council
+         region : '@region_8'
+
+    district_49:
+         districtName : Moshi District Council
+         region : '@region_8'
+
+    district_50:
+         districtName : Moshi Municipal Council
+         region : '@region_8'
+
+    district_51:
+         districtName : Mwanga District Council
+         region : '@region_8'
+
+    district_52:
+         districtName : Rombo District Council
+         region : '@region_8'
+
+    district_53:
+         districtName : Same District Council
+         region : '@region_8'
+
+    district_54:
+         districtName : Siha District Council
+         region : '@region_8'
+
+    district_55:
+         districtName : Kilwa District Council
+         region : '@region_9'
+
+    district_56:
+         districtName : Lindi District Council
+         region : '@region_9'
+
+    district_57:
+         districtName : Lindi Municipal Council
+         region : '@region_9'
+
+    district_58:
+         districtName : Liwale District Council
+         region : '@region_9'
+
+    district_59:
+         districtName : Nachingwea District Council
+         region : '@region_9'
+
+    district_60:
+         districtName : Ruangwa District Council
+         region : '@region_9'
+
+    district_61:
+         districtName : Babati Town Council
+         region : '@region_10'
+
+    district_62:
+         districtName : Babati District Council
+         region : '@region_10'
+
+    district_63:
+         districtName : Hanang District Council
+         region : '@region_10'
+
+    district_64:
+         districtName : Kiteto District Council
+         region : '@region_10'
+
+    district_65:
+         districtName : Mbulu District Council
+         region : '@region_10'
+
+    district_66:
+         districtName : Simanjiro District Council
+         region : '@region_10'
+
+    district_67:
+         districtName : Bunda District Council
+         region : '@region_11'
+
+    district_68:
+         districtName : Butiama District Council
+         region : '@region_11'
+
+    district_69:
+         districtName : Musoma District Council
+         region : '@region_11'
+
+    district_70:
+         districtName : Musoma Municipal Council
+         region : '@region_11'
+
+    district_71:
+         districtName : Rorya District Council
+         region : '@region_11'
+
+    district_72:
+         districtName : Serengeti District Council
+         region : '@region_11'
+
+    district_73:
+         districtName : Tarime District Council
+         region : '@region_11'
+
+
+    district_74:
+         districtName : Busokelo District Council
+         region : '@region_12'
+
+    district_75:
+         districtName : Chunya District Council
+         region : '@region_12'
+
+    district_76:
+         districtName : Kyela District Council
+         region : '@region_12'
+
+    district_77:
+         districtName : Mbarali District Council
+         region : '@region_12'
+
+    district_78:
+         districtName : Mbeya City Council
+         region : '@region_12'
+
+    district_79:
+         districtName : Mbeya District Council
+         region : '@region_12'
+
+    district_80:
+         districtName : Rungwe District Council
+         region : '@region_12'
+
+
+    district_81:
+         districtName : Gairo District Council
+         region : '@region_13'
+
+    district_82:
+         districtName : Kilombero District Council
+         region : '@region_13'
+
+    district_83:
+         districtName : Kilosa District Council
+         region : '@region_13'
+
+    district_84:
+         districtName : Morogoro District Council
+         region : '@region_13'
+
+    district_85:
+         districtName : Morogoro Municipal Council
+         region : '@region_13'
+
+    district_86:
+         districtName : Mvomero District Council
+         region : '@region_13'
+
+    district_87:
+         districtName : Ulanga District Council
+         region : '@region_13'
+
+
+    district_88:
+         districtName : Masasi District Council
+         region : '@region_14'
+
+    district_89:
+         districtName : Masasi Town Council
+         region : '@region_14'
+
+    district_90:
+         districtName : Mtwara District Council
+         region : '@region_14'
+
+    district_91:
+         districtName : Mtwara Municipal Council
+         region : '@region_14'
+
+    district_92:
+         districtName : Nanyumbu District Council
+         region : '@region_14'
+
+    district_93:
+         districtName : Newala District Council
+         region : '@region_14'
+
+    district_94:
+         districtName : Tandahimba District Council
+         region : '@region_14'
+
+    district_95:
+         districtName : Ilemela Municipal Council
+         region : '@region_15'
+
+    district_96:
+         districtName : Kwimba District Council
+         region : '@region_15'
+
+    district_97:
+         districtName : Magu District Council
+         region : '@region_15'
+
+    district_98:
+         districtName : Misungwi District Council
+         region : '@region_15'
+
+    district_99:
+         districtName : Nyamagana Municipal Council
+         region : '@region_15'
+
+    district_100:
+         districtName : Sengerema District Council
+         region : '@region_15'
+
+    district_101:
+         districtName : Ukerewe District Council
+         region : '@region_15'

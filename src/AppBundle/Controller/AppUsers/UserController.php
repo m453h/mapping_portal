@@ -536,4 +536,106 @@ class UserController extends Controller
     }
 
 
+
+    /**
+     * @Route("/api/getInitialDataLoad", name="api_initial_data_load")
+     * @return Response
+     *
+     */
+    public function getDataLoadAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data['status'] = 'PASS';
+
+        $regions = $em->getRepository('AppBundle:Location\Region')
+            ->findAllRegions(['sortBy'=>'region_name','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $districts = $em->getRepository('AppBundle:Location\District')
+            ->findAllDistricts(['sortBy'=>'district_name','sortType'=>'ASC'])
+            ->select('district_id,district_name,region_name')
+            ->execute()
+            ->fetchAll();
+
+
+        $wards = $em->getRepository('AppBundle:Location\Ward')
+            ->findAllWards(['sortBy'=>'ward_name','sortType'=>'ASC'])
+            ->select('ward_id,ward_name,w.district_id')
+            ->execute()
+            ->fetchAll();
+
+        $courtBuildingOwnershipStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
+            ->findAllCourtBuildingOwnerShipStatus(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+
+        $courtBuildingStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
+            ->findAllCourtBuildingOwnerStatus(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $courtCategories = $em->getRepository('AppBundle:Configuration\CourtCategory')
+            ->findAllCourtCategories(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $courtLevels = $em->getRepository('AppBundle:Configuration\CourtLevel')
+            ->findAllCourtLevels(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $landOwnershipStatus = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
+            ->findAllLandOwnerShipStatus(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $zones = $em->getRepository('AppBundle:Configuration\Zone')
+            ->findAllZones(['sortBy'=>'zone_name','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+
+
+        $data['message'] = 'downloadAction';
+        $data['regions'] = $regions;
+        $data['districts'] = $districts;
+        $data['wards'] = $wards;
+        $data['courtCategories'] = $courtCategories;
+        $data['courtBuildingOwnershipStatus'] = $courtBuildingOwnershipStatus;
+        $data['courtBuildingStatus'] = $courtBuildingStatus;
+        $data['courtLevels'] = $courtLevels;
+        $data['landOwnershipStatus'] = $landOwnershipStatus;
+        $data['zones'] = $zones;
+
+
+        return new JsonResponse($data);
+    }
+
+
+
+    /**
+     * @Route("/api/verifyDownloadVersion", name="api_download_version")
+     * @return Response
+     *
+     */
+    public function verifyDownloadVersionAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $results = $em->getRepository('AppBundle:AppUsers\DataVersion')
+            ->findLatestDownloadVersion();
+        
+        $results['message'] = 'downloadVerification';
+
+        return new JsonResponse($results);
+    }
+
+
+
+
+
 }

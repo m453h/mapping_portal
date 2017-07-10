@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AppBundle\Entity\Location;
+namespace AppBundle\Entity\AppUsers;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AppUsers\UserRepository")
  * @ORM\Table(name="app_data_versions")
  */
 class DataVersion
