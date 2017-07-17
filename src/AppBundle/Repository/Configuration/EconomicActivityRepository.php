@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository\Configuration;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
@@ -61,6 +62,22 @@ class EconomicActivityRepository extends EntityRepository
                 ->resetQueryPart('groupBy')
                 ->setMaxResults(1);
         };
+    }
+    
+    public function getAllEconomicActivityKeys()
+    {
+        $results = $this->findAllEconomicActivities(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $data = new ArrayCollection();
+
+        foreach ( $results as $result)
+        {
+            $data->set($result['description'],$result['activity_id']);
+        }
+        
+        return $data;
     }
     
 }

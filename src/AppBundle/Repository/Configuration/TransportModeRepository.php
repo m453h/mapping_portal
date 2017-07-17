@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository\Configuration;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
@@ -62,5 +63,23 @@ class TransportModeRepository extends EntityRepository
                 ->setMaxResults(1);
         };
     }
-    
+
+
+    public function getAllTransportModesKeys()
+    {
+        $results = $this->findAllTransportModes(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $data = new ArrayCollection();
+
+        foreach ( $results as $result)
+        {
+            $data->set($result['description'],$result['mode_id']);
+        }
+
+        return $data;
+    }
+
+
 }
