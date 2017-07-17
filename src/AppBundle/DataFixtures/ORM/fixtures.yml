@@ -144,3 +144,15 @@ AppBundle\Entity\UserAccounts\Permission:
       object: AppBundle\Controller\AppUsers\AppUserRegionController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'
+
+
+    permission_12:
+      object: AppBundle\Controller\Configuration\EconomicActivityController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+
+    permission_13:
+      object: AppBundle\Controller\Configuration\TransportModeController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'

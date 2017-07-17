@@ -555,7 +555,7 @@ class UserController extends Controller
 
         $districts = $em->getRepository('AppBundle:Location\District')
             ->findAllDistricts(['sortBy'=>'district_name','sortType'=>'ASC'])
-            ->select('district_id,district_name,region_name')
+            ->select('district_id,district_name,r.region_id')
             ->execute()
             ->fetchAll();
 
@@ -597,8 +597,17 @@ class UserController extends Controller
             ->execute()
             ->fetchAll();
 
+        $activities = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+            ->findAllEconomicActivities(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
 
+        $transportModes = $em->getRepository('AppBundle:Configuration\TransportMode')
+            ->findAllTransportModes(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
 
+        
         $data['message'] = 'downloadAction';
         $data['regions'] = $regions;
         $data['districts'] = $districts;
@@ -609,8 +618,9 @@ class UserController extends Controller
         $data['courtLevels'] = $courtLevels;
         $data['landOwnershipStatus'] = $landOwnershipStatus;
         $data['zones'] = $zones;
-
-
+        $data['economicActivities'] = $activities;
+        $data['transportModes'] = $transportModes;
+        
         return new JsonResponse($data);
     }
 

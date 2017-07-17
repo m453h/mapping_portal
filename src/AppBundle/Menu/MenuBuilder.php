@@ -75,12 +75,14 @@ class MenuBuilder
             ->addChild('Court Category', array('route' => 'court_category_list', 'extras' => $this->getCrudLinks('court_category')))->getParent()
             ->addChild('Court Building Status', array('route' => 'court_building_status_list', 'extras' => $this->getCrudLinks('court_building_status')))->getParent()
             ->addChild('Court Building Ownership Status', array('route' => 'court_building_ownership_status_list', 'extras' => $this->getCrudLinks('court_building_ownership_status')))->getParent()
+            ->addChild('Economic Activity', array('route' => 'economic_activity_list', 'extras' => $this->getCrudLinks('economic_activity')))->getParent()
             ->addChild('Land Ownership Status', array('route' => 'land_ownership_status_list', 'extras' => $this->getCrudLinks('land_ownership_status')))->getParent()
-            ->addChild('Manage Zones', array('route' => 'zone_list', 'extras' => $this->getCrudLinks('zone')))->getParent()
+            ->addChild('Transport Mode', array('route' => 'transport_mode_list', 'extras' => $this->getCrudLinks('transport_mode')))->getParent()
             ->getParent();
 
 
         $menu->addChild('Locations', array('uri' => '#', 'extras' => array('icon' => 'map-marker')))
+            ->addChild('Manage Zones', array('route' => 'zone_list', 'extras' => $this->getCrudLinks('zone')))->getParent()
             ->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->addChild('Manage Districts', array('route' => 'district_list', 'extras' => $this->getCrudLinks('district')))->getParent()
             ->addChild('Manage Wards', array('route' => 'ward_list', 'extras' => $this->getCrudLinks('ward')))->getParent()

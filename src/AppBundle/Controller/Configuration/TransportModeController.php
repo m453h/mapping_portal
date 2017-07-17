@@ -2,9 +2,21 @@
 
 namespace AppBundle\Controller\Configuration;
 
+use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\CourtBuildingStatus;
+use AppBundle\Entity\Configuration\CourtCategory;
+use AppBundle\Entity\Configuration\CourtLevel;
+use AppBundle\Entity\Configuration\EconomicActivity;
 use AppBundle\Entity\Configuration\LandOwnerShipStatus;
+use AppBundle\Entity\Configuration\TransportMode;
 use AppBundle\Entity\Configuration\Zone;
+use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
+use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
+use AppBundle\Form\Configuration\CourtCategoryFormType;
+use AppBundle\Form\Configuration\CourtLevelFormType;
+use AppBundle\Form\Configuration\EconomicActivityFormType;
 use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
+use AppBundle\Form\Configuration\TransportModeFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
@@ -14,11 +26,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class LandOwnershipStatusController extends Controller
+class TransportModeController extends Controller
 {
 
     /**
-     * @Route("/land-ownership-status", name="land_ownership_status_list")
+     * @Route("/transport-mode", name="transport_mode_list")
      * @param Request $request
      * @return Response
      *
@@ -38,11 +50,11 @@ class LandOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
-            ->findAllLandOwnerShipStatus($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\TransportMode')
+            ->findAllTransportModes($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
-            ->countAllLandOwnerShipStatus($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\TransportMode')
+            ->countAllTransportModes($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -56,7 +68,7 @@ class LandOwnershipStatusController extends Controller
         $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('land_ownership_status_list');
+        $grid->setPath('transport_mode_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -65,13 +77,13 @@ class LandOwnershipStatusController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Land Ownership Status',
+                'title'=>'Existing Transport Mode',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/land-ownership-status/add", name="land_ownership_status_add")
+     * @Route("/transport-mode/add", name="transport_mode_add")
      * @param Request $request
      * @return Response
      */
@@ -81,7 +93,7 @@ class LandOwnershipStatusController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(LandOwnerShipStatusFormType::class);
+        $form = $this->createForm(TransportModeFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -93,17 +105,17 @@ class LandOwnershipStatusController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Status successfully created');
+            $this->addFlash('success','Transport mode successfully created');
 
-            return $this->redirectToRoute('land_ownership_status_list');
+            return $this->redirectToRoute('transport_mode_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.ownership.status',
+                'formTemplate'=>'configuration/court.category',
                 'form'=>$form->createView(),
-                'title'=>'Land Ownership Status Details',
+                'title'=>'Transport Mode Details',
             )
 
         );
@@ -111,18 +123,18 @@ class LandOwnershipStatusController extends Controller
 
 
     /**
-     * @Route("/land-ownership-status/edit/{statusId}", name="land_ownership_status_edit")
+     * @Route("/transport-mode/edit/{modeId}", name="transport_mode_edit")
      * @param Request $request
-     * @param LandOwnerShipStatus $status
+     * @param TransportMode $mode
      * @return Response
      */
-    public function editAction(Request $request,LandOwnerShipStatus $status)
+    public function editAction(Request $request,TransportMode $mode)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(LandOwnerShipStatusFormType::class,$status);
+        $form = $this->createForm(TransportModeFormType::class,$mode);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -133,24 +145,24 @@ class LandOwnershipStatusController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'Status successfully updated!');
+            $this->addFlash('success', 'Transport mode successfully updated!');
 
-            return $this->redirectToRoute('land_ownership_status_list');
+            return $this->redirectToRoute('transport_mode_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.ownership.status',
+                'formTemplate'=>'configuration/court.category',
                 'form'=>$form->createView(),
-                'title'=>'Land Ownership Status Details',
+                'title'=>'Transport Mode Details',
             )
 
         );
     }
 
     /**
-     * @Route("/land-ownership-status/delete/{Id}", name="land_ownership_status_delete")
+     * @Route("/transport-mode/delete/{Id}", name="transport_mode_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -163,21 +175,21 @@ class LandOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\TransportMode')->find($Id);
 
-        if($data instanceof LandOwnerShipStatus)
+        if($data instanceof TransportMode)
         {
             $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'Status successfully removed !');
+            $this->addFlash('success', 'Transport mode successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Status not found !');
+            $this->addFlash('error', 'Transport mode not found !');
         }
 
         
-        return $this->redirectToRoute('land_ownership_status_list');
+        return $this->redirectToRoute('transport_mode_list');
 
     }
     
