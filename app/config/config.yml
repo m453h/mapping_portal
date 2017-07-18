@@ -87,10 +87,3 @@ vich_uploader:
     db_driver: orm # or mongodb or propel or phpcr
 
     mappings:
-      image_file:
-          uri_prefix:         /file_uploads/news
-          upload_destination: '%kernel.root_dir%/../web/file_uploads/news'
-          inject_on_load:     false
-          delete_on_update:   true
-          delete_on_remove:   true
-          namer:              vich_uploader.namer_uniqid

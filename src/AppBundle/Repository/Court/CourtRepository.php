@@ -65,6 +65,7 @@ class CourtRepository extends EntityRepository
 
     /**
      * @param $data
+     * @return string
      */
     public function recordCourtDetails($data)
     {
@@ -95,6 +96,7 @@ class CourtRepository extends EntityRepository
             ->setValue('latitude',':latitude')
             ->setValue('longitude',':longitude')
             ->setValue('time_created','CURRENT_TIMESTAMP')
+            ->setValue('unique_court_id',':uniqueCourtId')
 
             ->setParameter('courtLevelId',$data['courtLevelId'])
             ->setParameter('courtCategoryId',$data['courtCategoryId'])
@@ -116,6 +118,7 @@ class CourtRepository extends EntityRepository
             ->setParameter('totalStaff',$data['totalStaff'])
             ->setParameter('latitude',$data['latitude'])
             ->setParameter('longitude',$data['longitude'])
+            ->setParameter('uniqueCourtId',$data['uniqueCourtId'])
             ->execute();
         
         $courtId = $conn->lastInsertId();
@@ -133,7 +136,7 @@ class CourtRepository extends EntityRepository
             $this->recordCourtEconomicActivityDetails($activityId,$courtId);
         }
 
-        
+        return $courtId;
     }
 
     
@@ -167,4 +170,31 @@ class CourtRepository extends EntityRepository
             ->setParameter('court_id',$courtId)
             ->execute();
     }
+
+
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function updateCourtDetails($data)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $queryBuilder
+            ->update('tbl_court_details')
+            ->set('first_court_view',':first')
+            ->set('second_court_view',':second')
+            ->set('third_court_view',':third')
+            ->where('court_id = :courtId')
+            ->setParameter('first',$data['first'])
+            ->setParameter('second',$data['second'])
+            ->setParameter('third',$data['third'])
+            ->setParameter('courtId',$data['courtId'])
+            ->execute();
+        
+    }
+
 }

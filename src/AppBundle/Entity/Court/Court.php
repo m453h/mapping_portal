@@ -169,9 +169,16 @@ class Court
      * @ORM\Column(type="string", nullable=true)
      */
     private $thirdCourtView;
-    
-    
-    
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $uniqueCourtId;
+
+
+
+
 
     /**
      * @return mixed
@@ -588,6 +595,22 @@ class Court
     {
         $this->thirdCourtView = $thirdCourtView;
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function getUniqueCourtId()
+    {
+        return $this->uniqueCourtId;
+    }
+
+    /**
+     * @param mixed $uniqueCourtId
+     */
+    public function setUniqueCourtId($uniqueCourtId)
+    {
+        $this->uniqueCourtId = $uniqueCourtId;
+    }
+
 
 }

@@ -58,6 +58,10 @@ services:
                 class: AppBundle\Helpers\ImageUploader
                 autowire: true
 
+    app.helper.base_64_decoder:
+                class: AppBundle\Helpers\Base64Decoder
+                autowire: true
+
     app.acl_voter:
             class: AppBundle\Security\ACLVoter
             autowire: true

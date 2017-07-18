@@ -4,7 +4,7 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     gym.evolve.co.tz
+    database_name:     courtmapping
     database_user:     root
     database_password: ~
     # You should uncomment this if you want use pdo_sqlite
@@ -20,4 +20,4 @@ parameters:
 
     #The maximum number of elements to be displayed by the grid view
     grid_per_page_limit:    10
-
+    court_images: '%kernel.root_dir%/../web/file_uploads/court_images'

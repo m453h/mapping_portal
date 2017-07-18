@@ -81,7 +81,6 @@ class CourtController extends Controller
         $content =  $request->getContent();
         
         $data = json_decode($content,true);
-        $this->get('logger')->error($content);
 
         $coordinates = explode(',',$data['coordinates']);
         $data['latitude'] = $coordinates[0];
@@ -89,71 +88,36 @@ class CourtController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $em->getRepository('AppBundle:Court\Court')
+        $courtId = $em->getRepository('AppBundle:Court\Court')
             ->recordCourtDetails($data);
 
-        /*
-      
-        $group = explode(',',$data['group']);
+        $decoder = $this->get('app.helper.base_64_decoder');
+       
+        $uploadPath = $this->getParameter('court_images');
+
+        $decoder->setUploadPath($uploadPath);
+
+
+        $record = ['first'=>null,'second'=>null,'third'=>null,'courtId'=>$courtId];
+
+        if(!empty($data['courtBmpOne']))
+        {
+            $record['first'] = $decoder->decodeBase64($data['courtBmpOne']);
+        }
+
+        if(!empty($data['courtBmpTwo']))
+        {
+            $record['second'] = $decoder->decodeBase64($data['courtBmpTwo']);
+        }
+
+        if(!empty($data['courtBmpThree']))
+        {
+            $record['third'] = $decoder->decodeBase64($data['courtBmpThree']);
+        }
+
+        $em->getRepository('AppBundle:Court\Court')
+            ->updateCourtDetails($record);
         
-        $data['message'] = 'registration';
-
-        $groupIds = $em->getRepository('AppBundle:AppUsers\Group')->findAllGroupIds();
-
-        $role = $em->getRepository('AppBundle:AppUsers\Role')->findOneBy(['roleName'=>$data['role']]);
-
-        $appUser = new User();
-
-        $user = new \AppBundle\Entity\UserAccounts\User();
-
-        $encoder = $this->container->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, $data['password']);
-
-        $isMarried = false;
-
-        if($data['isMarried'] == 'Yes')
-        {
-            $isMarried = true;
-        }
-
-        $appUser->setMobile($data['mobile']);
-        $appUser->setIsMarried($isMarried);
-        $appUser->setFirstName($data['firstName']);
-        $appUser->setSurname($data['surname']);
-        $appUser->setRole($role);
-        $appUser->setAccountStatus('A');
-        $appUser->setUsername($data['mobile']);
-        $appUser->setPassword($encoded);
-
-        try
-        {
-            $data['token'] = base64_encode(random_bytes(64));
-            $appUser->setToken($data['token']);
-            $em->persist($appUser);
-            $em->flush();
-            $data['status'] = 'PASS';
-            $appUserId = $appUser->getUserId();
-            $appUserGroupRepository = $em->getRepository('AppBundle:AppUsers\UserGroup');
-
-            foreach ($group as $groupName)
-            {
-                $appUserGroupRepository->recordUserGroup($groupIds->get(trim($groupName)),$appUserId);
-            }
-
-
-        }
-        catch (NotNullConstraintViolationException $e)
-        {
-            $data['status'] = 'FAIL';
-        }
-        catch (UniqueConstraintViolationException $e)
-        {
-            $data['status'] = 'FAIL-UNIQUE';
-        }
-
-        unset($data['password']);*/
-
-
         //Encode Password
         return new JsonResponse($data);
     }
