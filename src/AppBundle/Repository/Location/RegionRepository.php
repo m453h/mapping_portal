@@ -18,7 +18,7 @@ class RegionRepository extends EntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('region_id,region_name')
+        $queryBuilder->select('r.region_id,region_name')
             ->from('cfg_regions', 'r');
 
         $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
@@ -33,6 +33,14 @@ class RegionRepository extends EntityRepository
         {
             return $queryBuilder->andWhere('lower(r.region_name) LIKE lower(:name)')
                 ->setParameter('name', '%' . $options['name'] . '%');
+        }
+
+        if (!empty($options['userId']))
+        {
+
+            return $queryBuilder->join('r','app_users_regions','ar','ar.region_id=r.region_id')
+                ->andWhere('user_id=:userId')
+                ->setParameter('userId', $options['userId']);
         }
 
         return $queryBuilder;
@@ -56,7 +64,7 @@ class RegionRepository extends EntityRepository
     public function countAllRegions(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT region_id) AS total_results')
+            $queryBuilder->select('COUNT(DISTINCT r.region_id) AS total_results')
                 ->groupBy('region_id')
                 ->resetQueryPart('orderBy')
                 ->resetQueryPart('groupBy')

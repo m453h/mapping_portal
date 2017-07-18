@@ -16,3 +16,5 @@
 /web/bundles/
 /.idea
 /app/DoctrineMigrations/*
+/web/file_uploads/*
+app/DoctrineMigrations/

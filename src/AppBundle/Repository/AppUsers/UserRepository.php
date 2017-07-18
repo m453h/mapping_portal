@@ -74,7 +74,7 @@ class UserRepository extends EntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $result = $queryBuilder->select('version_id')
+        $result = $queryBuilder->select('version_id AS "versionId"')
             ->from('app_data_versions', 'v')
             ->orderBy('version_id','DESC')
             ->setMaxResults(1)

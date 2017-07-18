@@ -36,6 +36,14 @@ class DistrictRepository extends EntityRepository
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 
+        if (!empty($options['userId']))
+        {
+
+            return $queryBuilder->join('r','app_users_regions','ar','ar.region_id=r.region_id')
+                ->andWhere('user_id=:userId')
+                ->setParameter('userId', $options['userId']);
+        }
+
         return $queryBuilder;
     }
 

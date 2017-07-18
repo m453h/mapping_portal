@@ -384,77 +384,7 @@ class UserController extends Controller
 
     }
 
-
-    /**
-     * @Route("/api/registration", name="api_registration")
-     * @param Request $request
-     * @return Response
-     *
-     */
-    public function registrationAction(Request $request)
-    {
-        $content =  $request->getContent();
-
-        //$content = '{"firstName":"Michael","surname":"Hudson","mobile":"a1","group":"Leaders","role":"Leader","isMarried":"Yes","password":"12"}';
-
-        $data = json_decode($content,true);
-        $this->get('logger')->error($content);
-        $em = $this->getDoctrine()->getManager();
-
-        $group = $em->getRepository('AppBundle:AppUsers\Group')->findOneBy(['groupName'=>$data['group']]);
-        $role = $em->getRepository('AppBundle:AppUsers\Role')->findOneBy(['roleName'=>$data['role']]);
-
-        $appUser = new User();
-
-        $user = new \AppBundle\Entity\UserAccounts\User();
-
-
-        $encoder = $this->container->get('security.password_encoder');
-        $encoded = $encoder->encodePassword($user, $data['password']);
-
-        $isMarried = false;
-
-        if($data['isMarried'] == 'Yes')
-        {
-            $isMarried = true;
-        }
-        
-        $appUser->setMobile($data['mobile']);
-        $appUser->setIsMarried($isMarried);
-        $appUser->setFirstName($data['firstName']);
-        $appUser->setSurname($data['surname']);
-        $appUser->setGroup($group);
-        $appUser->setRole($role);
-        $appUser->setUsername($data['mobile']);
-        $appUser->setPassword($encoded);
-
-        try
-        {
-            $em->persist($appUser);
-            $em->flush();
-            $data['status'] = 'PASS';
-            $data['token'] = base64_encode(random_bytes(64));
-            $appUser->setToken($data['token']);
-
-        }
-        catch (NotNullConstraintViolationException $e)
-        {
-            $data['status'] = 'FAIL';
-        }
-        catch (UniqueConstraintViolationException $e)
-        {
-            $data['status'] = 'FAIL-UNIQUE';
-        }
-
-        unset($data['password']);
-
-
-        //Encode Password
-        return new JsonResponse($data);
-    }
-
-
-
+    
     /**
      * @Route("/api/login", name="api_login")
      * @param Request $request
@@ -464,14 +394,12 @@ class UserController extends Controller
     public function loginAction(Request $request)
     {
         $content =  $request->getContent();
-
-        //$content = '{"username":"255654061261","password":"1234"}';
-
+$content = '{"username":"0654061261","password":"123456"}';
         $data = json_decode($content,true);
-        $this->get('logger')->error($content);
+        
         $em = $this->getDoctrine()->getManager();
 
-        $data['status'] = 'FAIL';
+        $data['status'] = 'FAIL-A';
 
         $username = null;
 
@@ -492,13 +420,44 @@ class UserController extends Controller
 
             if ($encoder->isPasswordValid($appUser->getPassword(), $data['password'], $user->getSalt()))
             {
-                $data['status'] = 'PASS';
-                $data['token'] = base64_encode(random_bytes(64));
+
+                if($appUser->getAccountStatus()=='A')
+                {
+                    $data['status'] = 'PASS';
+                    $data['token'] = base64_encode(random_bytes(64));
+                    $userId = $appUser->getUserId();
+
+                    $data['regions'] = $em->getRepository('AppBundle:Location\Region')
+                        ->findAllRegions(['sortBy'=>'region_name','sortType'=>'ASC','userId'=>$userId])
+                        ->execute()
+                        ->fetchAll();
+
+                    $data['districts'] = $em->getRepository('AppBundle:Location\District')
+                        ->findAllDistricts(['sortBy'=>'district_name','sortType'=>'ASC','userId'=>$userId])
+                        ->select('district_id,district_name,r.region_id')
+                        ->execute()
+                        ->fetchAll();
+
+
+                    $data['wards'] = $em->getRepository('AppBundle:Location\Ward')
+                        ->findAllWards(['sortBy'=>'ward_name','sortType'=>'ASC','userId'=>$userId])
+                        ->select('ward_id,ward_name,w.district_id')
+                        ->execute()
+                        ->fetchAll();
+                   
+                }
+                else
+                {
+                    $data['status'] = 'FAIL-B';
+                }
+
                 $appUser->setToken($data['token']);
                 $em->persist($appUser);
                 $em->flush();
             }
         }
+
+
 
         unset($data['password']);
 
@@ -518,7 +477,7 @@ class UserController extends Controller
         $content =  $request->getContent();
 
         $data = json_decode($content,true);
-        $this->get('logger')->error($content);
+        
         $em = $this->getDoctrine()->getManager();
 
         $data['status'] = 'FAIL';
@@ -548,23 +507,6 @@ class UserController extends Controller
 
         $data['status'] = 'PASS';
 
-        $regions = $em->getRepository('AppBundle:Location\Region')
-            ->findAllRegions(['sortBy'=>'region_name','sortType'=>'ASC'])
-            ->execute()
-            ->fetchAll();
-
-        $districts = $em->getRepository('AppBundle:Location\District')
-            ->findAllDistricts(['sortBy'=>'district_name','sortType'=>'ASC'])
-            ->select('district_id,district_name,r.region_id')
-            ->execute()
-            ->fetchAll();
-
-
-        $wards = $em->getRepository('AppBundle:Location\Ward')
-            ->findAllWards(['sortBy'=>'ward_name','sortType'=>'ASC'])
-            ->select('ward_id,ward_name,w.district_id')
-            ->execute()
-            ->fetchAll();
 
         $courtBuildingOwnershipStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
             ->findAllCourtBuildingOwnerShipStatus(['sortBy'=>'description','sortType'=>'ASC'])
@@ -609,9 +551,8 @@ class UserController extends Controller
 
         
         $data['message'] = 'downloadAction';
-        $data['regions'] = $regions;
-        $data['districts'] = $districts;
-        $data['wards'] = $wards;
+        //$data['districts'] = $districts;
+        //$data['wards'] = $wards;
         $data['courtCategories'] = $courtCategories;
         $data['courtBuildingOwnershipStatus'] = $courtBuildingOwnershipStatus;
         $data['courtBuildingStatus'] = $courtBuildingStatus;
