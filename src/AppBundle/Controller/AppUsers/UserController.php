@@ -511,19 +511,14 @@ class UserController extends Controller
             ->findAllCourtBuildingOwnerShipStatus(['sortBy'=>'description','sortType'=>'ASC'])
             ->execute()
             ->fetchAll();
-        
+
+        $levels = $em->getRepository('AppBundle:Configuration\CourtLevel')
+            ->findAllCourtLevels(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
         $courtBuildingStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
             ->findAllCourtBuildingOwnerStatus(['sortBy'=>'description','sortType'=>'ASC'])
-            ->execute()
-            ->fetchAll();
-
-        $courtCategories = $em->getRepository('AppBundle:Configuration\CourtCategory')
-            ->findAllCourtCategories(['sortBy'=>'description','sortType'=>'ASC'])
-            ->execute()
-            ->fetchAll();
-
-        $courtLevels = $em->getRepository('AppBundle:Configuration\CourtLevel')
-            ->findAllCourtLevels(['sortBy'=>'description','sortType'=>'ASC'])
             ->execute()
             ->fetchAll();
 
@@ -547,17 +542,28 @@ class UserController extends Controller
             ->execute()
             ->fetchAll();
 
-        
+        $environmentalStatus = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')
+            ->findAllCourtEnvironmentalStatus(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+        $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
+            ->findAllLandUses(['sortBy'=>'description','sortType'=>'ASC'])
+            ->execute()
+            ->fetchAll();
+
+
         $data['message'] = 'downloadAction';
-        $data['courtCategories'] = $courtCategories;
+        $data['levels'] = $levels;
         $data['courtBuildingOwnershipStatus'] = $courtBuildingOwnershipStatus;
         $data['courtBuildingStatus'] = $courtBuildingStatus;
-        $data['courtLevels'] = $courtLevels;
         $data['landOwnershipStatus'] = $landOwnershipStatus;
         $data['zones'] = $zones;
         $data['economicActivities'] = $activities;
         $data['transportModes'] = $transportModes;
-        
+        $data['environmentalStatus'] = $environmentalStatus;
+        $data['landUse'] = $landUse;
+
         return new JsonResponse($data);
     }
 

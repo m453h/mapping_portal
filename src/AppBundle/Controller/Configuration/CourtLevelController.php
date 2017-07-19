@@ -4,11 +4,13 @@ namespace AppBundle\Controller\Configuration;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
 use AppBundle\Entity\Configuration\CourtBuildingStatus;
+use AppBundle\Entity\Configuration\CourtCategory;
 use AppBundle\Entity\Configuration\CourtLevel;
 use AppBundle\Entity\Configuration\LandOwnerShipStatus;
 use AppBundle\Entity\Configuration\Zone;
 use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
 use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
+use AppBundle\Form\Configuration\CourtCategoryFormType;
 use AppBundle\Form\Configuration\CourtLevelFormType;
 use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
@@ -99,7 +101,7 @@ class CourtLevelController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Level successfully created');
+            $this->addFlash('success','Court Level successfully created');
 
             return $this->redirectToRoute('court_level_list');
         }
@@ -117,7 +119,7 @@ class CourtLevelController extends Controller
 
 
     /**
-     * @Route("/court-level/edit/{levelId}", name="court_level_edit")
+     * @Route("/court-category/edit/{categoryId}", name="court_level_edit")
      * @param Request $request
      * @param CourtLevel $level
      * @return Response
@@ -139,7 +141,7 @@ class CourtLevelController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'Level successfully updated!');
+            $this->addFlash('success', 'Court level successfully updated!');
 
             return $this->redirectToRoute('court_level_list');
         }
@@ -149,7 +151,7 @@ class CourtLevelController extends Controller
             array(
                 'formTemplate'=>'configuration/court.level',
                 'form'=>$form->createView(),
-                'title'=>'Court Level Status Details',
+                'title'=>'Court Level Details',
             )
 
         );
@@ -175,11 +177,11 @@ class CourtLevelController extends Controller
         {
             $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'Level successfully removed !');
+            $this->addFlash('success', 'Court level successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Level not found !');
+            $this->addFlash('error', 'Category not found !');
         }
 
         

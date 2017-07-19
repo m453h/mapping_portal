@@ -72,7 +72,6 @@ class MenuBuilder
 
         $menu->addChild('Configuration', array('uri' => '#', 'extras' => array('icon' => 'cogs')))
             ->addChild('Court Level', array('route' => 'court_level_list', 'extras' => $this->getCrudLinks('court_level')))->getParent()
-            ->addChild('Court Category', array('route' => 'court_category_list', 'extras' => $this->getCrudLinks('court_category')))->getParent()
             ->addChild('Court Building Status', array('route' => 'court_building_status_list', 'extras' => $this->getCrudLinks('court_building_status')))->getParent()
             ->addChild('Court Building Ownership Status', array('route' => 'court_building_ownership_status_list', 'extras' => $this->getCrudLinks('court_building_ownership_status')))->getParent()
             ->addChild('Economic Activity', array('route' => 'economic_activity_list', 'extras' => $this->getCrudLinks('economic_activity')))->getParent()

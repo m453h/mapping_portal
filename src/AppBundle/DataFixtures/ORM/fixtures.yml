@@ -34,12 +34,24 @@ AppBundle\Entity\Configuration\CourtBuildingStatus:
       description: Dilapidated
 
 #Court Category Status
-AppBundle\Entity\Configuration\CourtCategory:
+AppBundle\Entity\Configuration\CourtLevel:
     category_0:
       description: Court of Appeal
 
-    category_1:
-      description: High Court
+    category_1_1:
+      description: High Court - Zone Registry
+
+    category_1_2:
+      description: High Court - Land Division
+
+    category_1_3:
+      description: High Court - Commercial Division
+
+    category_1_4:
+      description: High Court - Labour Division
+
+    category_1_5:
+      description: High Court - Corruption Division
 
     category_2:
       description: Resident Magistrates Court/Regional Court
@@ -80,6 +92,46 @@ AppBundle\Entity\Configuration\LandUse:
       description: Private
 
     use_3:
+      description: Others
+
+#Court Environmental Status
+AppBundle\Entity\Configuration\EconomicActivity:
+    activity_0:
+      description: Agriculture
+
+    activity_1:
+      description: Mining
+
+    activity_2:
+      description: Industry
+
+    activity_3:
+      description: Business
+
+    activity_4:
+      description: Livestock Keeping
+
+    activity_5:
+      description: Fisheries
+
+    activity_6:
+      description: Other
+
+#Court Environmental Status
+AppBundle\Entity\Configuration\TransportMode:
+    mode_0:
+      description: Road
+
+    mode_1:
+      description: Air
+
+    mode_2:
+      description: Water
+
+    mode_2:
+      description: Rail
+
+    mode_3:
       description: Others
 
 
@@ -150,11 +202,6 @@ AppBundle\Entity\UserAccounts\Permission:
 
     permission_7:
       object: AppBundle\Controller\Configuration\CourtLevelController
-      actions: ['view','add','edit','delete']
-      role: '@role_administrator'
-
-    permission_8:
-      object: AppBundle\Controller\Configuration\CourtCategoryController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'
 

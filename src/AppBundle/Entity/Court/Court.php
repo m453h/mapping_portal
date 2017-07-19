@@ -26,14 +26,7 @@ class Court
      */
     private $courtLevel;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Configuration\CourtCategory")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="category_id",nullable=false)
-     */
-    private $courtCategory;
-
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location\Ward")
      * @ORM\JoinColumn(name="ward_id", referencedColumnName="ward_id",nullable=false)
@@ -212,22 +205,7 @@ class Court
         $this->courtId = $courtId;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCourtCategory()
-    {
-        return $this->courtCategory;
-    }
-
-    /**
-     * @param mixed $courtCategory
-     */
-    public function setCourtCategory($courtCategory)
-    {
-        $this->courtCategory = $courtCategory;
-    }
-
+    
     /**
      * @return mixed
      */

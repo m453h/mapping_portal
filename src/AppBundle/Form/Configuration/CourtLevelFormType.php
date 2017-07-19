@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Configuration;
 
+use AppBundle\Entity\Configuration\CourtCategory;
 use AppBundle\Entity\Configuration\CourtLevel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
