@@ -68,6 +68,20 @@ AppBundle\Entity\Configuration\CourtEnvironmentalStatus:
       description: Poor
 
 
+#Court Environmental Status
+AppBundle\Entity\Configuration\LandUse:
+    use_0:
+      description: Commercial
+
+    use_1:
+      description: Government Institutions
+
+    use_2:
+      description: Private
+
+    use_3:
+      description: Others
+
 
 
 #User Roles
@@ -173,5 +187,10 @@ AppBundle\Entity\UserAccounts\Permission:
 
     permission_14:
       object: AppBundle\Controller\Configuration\CourtEnvironmentalStatusController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_15:
+      object: AppBundle\Controller\Configuration\LandUseController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'

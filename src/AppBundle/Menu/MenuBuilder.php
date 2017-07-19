@@ -79,6 +79,7 @@ class MenuBuilder
             ->addChild('Land Ownership Status', array('route' => 'land_ownership_status_list', 'extras' => $this->getCrudLinks('land_ownership_status')))->getParent()
             ->addChild('Transport Mode', array('route' => 'transport_mode_list', 'extras' => $this->getCrudLinks('transport_mode')))->getParent()
             ->addChild('Court Environmental Status', array('route' => 'court_environmental_status_list', 'extras' => $this->getCrudLinks('court_environmental_status')))->getParent()
+            ->addChild('Land use', array('route' => 'land_use_list', 'extras' => $this->getCrudLinks('land_use')))->getParent()
             ->getParent();
 
 
