@@ -97,6 +97,7 @@ class CourtRepository extends EntityRepository
             ->setValue('longitude',':longitude')
             ->setValue('time_created','CURRENT_TIMESTAMP')
             ->setValue('unique_court_id',':uniqueCourtId')
+            ->setValue('user_id',':userId')
 
             ->setParameter('courtLevelId',$data['courtLevelId'])
             ->setParameter('courtCategoryId',$data['courtCategoryId'])
@@ -119,6 +120,7 @@ class CourtRepository extends EntityRepository
             ->setParameter('latitude',$data['latitude'])
             ->setParameter('longitude',$data['longitude'])
             ->setParameter('uniqueCourtId',$data['uniqueCourtId'])
+            ->setParameter('userId',$data['userId'])
             ->execute();
         
         $courtId = $conn->lastInsertId();

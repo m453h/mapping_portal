@@ -16,7 +16,7 @@ class CourtController extends Controller
 {
 
     /**
-     * @Route("/court-building-ownership-status", name="court_building_ownership_status_list")
+     * @Route("/court-building-ownership-status", name="court_list")
      * @param Request $request
      * @return Response
      *
@@ -88,6 +88,9 @@ class CourtController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $data['userId'] = $em->getRepository('AppBundle:AppUsers\User')
+            ->getUserIdByToken($data['authToken']);
+
         $courtId = $em->getRepository('AppBundle:Court\Court')
             ->recordCourtDetails($data);
 
@@ -115,6 +118,8 @@ class CourtController extends Controller
             $record['third'] = $decoder->decodeBase64($data['courtBmpThree']);
         }
 
+        $data['status'] = "PASS";
+        
         $em->getRepository('AppBundle:Court\Court')
             ->updateCourtDetails($record);
         

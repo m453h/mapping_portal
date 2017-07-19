@@ -56,6 +56,20 @@ AppBundle\Entity\Configuration\CourtLevel:
       description: Resident magistrate
 
 
+#Court Environmental Status
+AppBundle\Entity\Configuration\CourtEnvironmentalStatus:
+    e_quality_0:
+      description: Very Good
+
+    e_quality_1:
+      description: Good
+
+    e_quality_2:
+      description: Poor
+
+
+
+
 #User Roles
 AppBundle\Entity\UserAccounts\Role:
     role_administrator:
@@ -154,5 +168,10 @@ AppBundle\Entity\UserAccounts\Permission:
 
     permission_13:
       object: AppBundle\Controller\Configuration\TransportModeController
+      actions: ['view','add','edit','delete']
+      role: '@role_administrator'
+
+    permission_14:
+      object: AppBundle\Controller\Configuration\CourtEnvironmentalStatusController
       actions: ['view','add','edit','delete']
       role: '@role_administrator'

@@ -86,6 +86,31 @@ class UserRepository extends EntityRepository
     }
 
 
+    /**
+     * @param $token
+     * @return String
+     */
+    public function getUserIdByToken($token)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        
+        $result = $queryBuilder->select('user_id AS "userId"')
+            ->from('app_users', 'u')
+            ->where('token=:token')
+            ->setParameter('token',$token)
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+        
+        return $result['userId'];
+    }
+
+    
+    
+
 
 
 }

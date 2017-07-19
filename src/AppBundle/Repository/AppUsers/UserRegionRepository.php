@@ -39,7 +39,12 @@ class UserRegionRepository extends EntityRepository
                 ->setParameter('region_id',$options['regionId']);
         }
 
-
+        if(!empty($options['userId']))
+        {
+            $queryBuilder->andWhere('ur.user_id = :userId')
+                ->setParameter('userId',$options['userId']);
+        }
+        
         return $queryBuilder;
     }
 

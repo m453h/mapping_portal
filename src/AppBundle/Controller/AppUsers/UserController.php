@@ -394,7 +394,7 @@ class UserController extends Controller
     public function loginAction(Request $request)
     {
         $content =  $request->getContent();
-$content = '{"username":"0654061261","password":"123456"}';
+
         $data = json_decode($content,true);
         
         $em = $this->getDoctrine()->getManager();
@@ -507,13 +507,11 @@ $content = '{"username":"0654061261","password":"123456"}';
 
         $data['status'] = 'PASS';
 
-
         $courtBuildingOwnershipStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
             ->findAllCourtBuildingOwnerShipStatus(['sortBy'=>'description','sortType'=>'ASC'])
             ->execute()
             ->fetchAll();
-
-
+        
         $courtBuildingStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
             ->findAllCourtBuildingOwnerStatus(['sortBy'=>'description','sortType'=>'ASC'])
             ->execute()
@@ -551,8 +549,6 @@ $content = '{"username":"0654061261","password":"123456"}';
 
         
         $data['message'] = 'downloadAction';
-        //$data['districts'] = $districts;
-        //$data['wards'] = $wards;
         $data['courtCategories'] = $courtCategories;
         $data['courtBuildingOwnershipStatus'] = $courtBuildingOwnershipStatus;
         $data['courtBuildingStatus'] = $courtBuildingStatus;
