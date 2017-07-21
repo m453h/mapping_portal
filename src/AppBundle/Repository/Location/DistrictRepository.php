@@ -32,7 +32,7 @@ class DistrictRepository extends EntityRepository
     {
         if (!empty($options['name']))
         {
-            return $queryBuilder->andWhere('lower(r.district_name) LIKE lower(:name)')
+            return $queryBuilder->andWhere('lower(d.district_name) LIKE lower(:name)')
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 

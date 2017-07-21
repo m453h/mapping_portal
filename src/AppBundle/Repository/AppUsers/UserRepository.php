@@ -35,6 +35,13 @@ class UserRepository extends EntityRepository
                 ->setParameter('username', '%' . $options['username'] . '%');
         }
 
+        if (!empty($options['fullName']))
+        {
+            return $queryBuilder->andWhere('lower(u.first_name) LIKE lower(:firstName) OR lower(u.surname) LIKE lower(:lastName) ')
+                ->setParameter('firstName', '%' . $options['fullName'] . '%')
+                ->setParameter('lastName', '%' . $options['fullName'] . '%');
+        }
+
         return $queryBuilder;
     }
 

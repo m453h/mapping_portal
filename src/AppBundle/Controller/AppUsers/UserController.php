@@ -38,6 +38,7 @@ class UserController extends Controller
         $options['sortBy'] = $request->query->get('sortBy');
         $options['sortType'] = $request->query->get('sortType');
         $options['username'] = $request->query->get('username');
+        $options['fullName'] = $request->query->get('fullName');
 
         $maxPerPage = $this->getParameter('grid_per_page_limit');
 
@@ -59,7 +60,7 @@ class UserController extends Controller
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
         $grid->addGridHeader('Username','username','text',true);
-        $grid->addGridHeader('Full name',null,'text',false);
+        $grid->addGridHeader('Full name','fullName','text',true);
         $grid->addGridHeader('Mobile','startDate','text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
