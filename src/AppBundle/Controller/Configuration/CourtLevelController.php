@@ -119,7 +119,7 @@ class CourtLevelController extends Controller
 
 
     /**
-     * @Route("/court-category/edit/{categoryId}", name="court_level_edit")
+     * @Route("/court-level/edit/{levelId}", name="court_level_edit")
      * @param Request $request
      * @param CourtLevel $level
      * @return Response
