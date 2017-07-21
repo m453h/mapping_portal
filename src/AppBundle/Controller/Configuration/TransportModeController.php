@@ -113,7 +113,7 @@ class TransportModeController extends Controller
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.category',
+                'formTemplate'=>'configuration/transport.mode',
                 'form'=>$form->createView(),
                 'title'=>'Transport Mode Details',
             )
@@ -153,7 +153,7 @@ class TransportModeController extends Controller
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.category',
+                'formTemplate'=>'configuration/transport.mode',
                 'form'=>$form->createView(),
                 'title'=>'Transport Mode Details',
             )
