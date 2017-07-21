@@ -15,7 +15,7 @@ class CourtLandUse
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer",options={"default"="nextval('tbl_court_land_uses_record_no_seq')"})
+     * @ORM\Column(type="integer")
      */
     private $recordNo;
 

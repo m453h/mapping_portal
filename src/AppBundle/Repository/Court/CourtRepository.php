@@ -178,7 +178,6 @@ class CourtRepository extends EntityRepository
 
         return $courtId;
     }
-
     
     public function recordCourtTransportModeDetails($modeId,$courtId)
     {
@@ -228,12 +227,12 @@ class CourtRepository extends EntityRepository
     }
 
 
-
     /**
      * @param $data
+     * @param $courtId
      * @return string
      */
-    public function updateCourtDetails($data)
+    public function updateCourtDetails($data,$courtId)
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -250,9 +249,10 @@ class CourtRepository extends EntityRepository
             ->setParameter('second',$data['second'])
             ->setParameter('third',$data['third'])
             ->setParameter('fourth',$data['fourth'])
-            ->setParameter('courtId',$data['courtId'])
+            ->setParameter('courtId',$courtId)
             ->execute();
         
     }
 
+    
 }

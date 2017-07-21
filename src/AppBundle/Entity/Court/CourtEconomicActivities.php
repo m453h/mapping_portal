@@ -15,7 +15,7 @@ class CourtEconomicActivities
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer",options={"default"="nextval('tbl_court_transport_modes_record_no_seq')"})
+     * @ORM\Column(type="integer")
      */
     private $recordNo;
 

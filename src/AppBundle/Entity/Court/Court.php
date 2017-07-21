@@ -15,7 +15,7 @@ class Court
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer",options={"default"="nextval('tbl_court_details_court_id_seq')"})
+     * @ORM\Column(type="integer")
      */
     private $courtId;
 

@@ -3,6 +3,11 @@
 namespace AppBundle\Controller\Court;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\EconomicActivity;
+use AppBundle\Entity\Court\Court;
+use AppBundle\Entity\Court\CourtEconomicActivities;
+use AppBundle\Entity\Court\CourtLandUse;
+use AppBundle\Entity\Court\CourtTransportModes;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -81,7 +86,7 @@ class CourtController extends Controller
         $content =  $request->getContent();
         
         $data = json_decode($content,true);
-
+        
         $coordinates = explode(',',$data['DECCourtCoordinates']);
         $data['DECCourtLatitude'] = $coordinates[0];
         $data['DECCourtLongitude'] = $coordinates[1];
@@ -90,14 +95,125 @@ class CourtController extends Controller
         $data['DECConnectivityLatitude'] = $coordinates[0];
         $data['DECConnectivityLongitude'] = $coordinates[1];
 
-
         $em = $this->getDoctrine()->getManager();
 
-        $data['userId'] = $em->getRepository('AppBundle:AppUsers\User')
-            ->getUserIdByToken($data['authToken']);
+        $user = $em->getRepository('AppBundle:AppUsers\User')
+            ->findOneBy(['token'=>$data['authToken']]);
 
-        $courtId = $em->getRepository('AppBundle:Court\Court')
-            ->recordCourtDetails($data);
+        $court = new Court();
+
+        $level = $em->getRepository('AppBundle:Configuration\CourtLevel')
+            ->findOneBy(['levelId'=>$data['courtLevelId']]);
+
+        $ward = $em->getRepository('AppBundle:Location\Ward')
+            ->findOneBy(['wardId'=>$data['wardId']]);
+
+        $landOwnershipStatus = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
+            ->findOneBy(['statusId'=>$data['landOwnershipStatusId']]);
+
+        $buildingOwnershipStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
+            ->findOneBy(['statusId'=>$data['buildingOwnershipStatusId']]);
+
+        $buildingStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
+            ->findOneBy(['statusId'=>$data['buildingStatusId']]);
+
+        $environmentalStatus = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')
+            ->findOneBy(['statusId'=>$data['environmentalStatusId']]);
+
+        ($data['landSurveyStatus']=='1') ? $surveyStatus=true : $surveyStatus=false;
+
+        ($data['titleDeedStatus']=='1') ? $titleDeedStatus=true : $titleDeedStatus=false;
+
+        ($data['extensionPossibility']=='1') ? $extensionPossibility=true : $extensionPossibility=false;
+
+        ($data['functionality']=='1') ? $functionality=true : $functionality=false;
+
+        ($data['lastMileConnectivity']=='1') ? $lastMileConnectivity=true : $lastMileConnectivity=false;
+
+        ($data['internetAvailability']=='1') ? $internetAvailability=true : $internetAvailability=false;
+
+        $court->setCourtLevel($level);
+        $court->setWard($ward);
+        $court->setLandOwnershipStatus($landOwnershipStatus);
+        $court->setIsLandSurveyed($surveyStatus);
+        $court->setHasTitleDeed($titleDeedStatus);
+        $court->setTitleDeed($data['titleDeedNo']);
+        $court->setPlotNumber($data['plotNo']);
+        $court->setBuildingOwnershipStatus($buildingOwnershipStatus);
+        $court->setBuildingStatus($buildingStatus);
+        $court->setHasExtensionPossibility($extensionPossibility);
+        $court->setYearConstructed($data['yearConstructed']);
+        $court->setMeetsFunctionality($data['functionality']);
+        $court->setHasLastMileConnectivity($lastMileConnectivity);
+        $court->setNumberOfComputers($data['numberOfComputers']);
+        $court->setInternetAvailability($data['internetAvailability']);
+        $court->setBandwidth($data['bandwidth']);
+        $court->setAvailableSystems($data['availableSystems']);
+        $court->setCasesPerYear($data['casesPerYear']);
+        $court->setPopulationServed($data['populationServed']);
+        $court->setNumberOfJustices($data['numberOfJustices']);
+        $court->setNumberOfJudges($data['judges']);
+        $court->setNumberOfResidentMagistrates($data['residentMagistrates']);
+        $court->setNumberOfDistrictMagistrates($data['districtMagistrates']);
+        $court->setNumberOfMagistrates($data['magistrates']);
+        $court->setNumberOfCourtClerks($data['courtClerks']);
+        $court->setNumberOfNonJudiciaryStaff($data['nonJudiciary']);
+        $court->setEnvironmentalStatus($environmentalStatus);
+        $court->setCourtCoordinatesDMS($data['DMSCourtCoordinates']);
+        $court->setCourtLatitude($data['DECCourtLatitude']);
+        $court->setCourtLongitude($data['DECCourtLongitude']);
+        $court->setLastMileConnectivityDMS($data['DMSConnectivityCoordinates']);
+        $court->setLastMileConnectivityLatitude($data['DECConnectivityLatitude']);
+        $court->setLastMileConnectivityLongitude($data['DECConnectivityLongitude']);
+        $court->setFibreDistance($data['fibreDistance']);
+        $court->setAreasEntitled($data['areasEntitled']);
+        $court->setUniqueCourtId($data['uniqueCourtId']);
+        $court->setCreatedBy($user);
+
+        $em->persist($court);
+        $em->flush();
+
+        $courtId = $court->getCourtId();
+
+        $transportModes = explode(',',$data['transportModes']);
+        $economicActivities = explode(',',$data['economicActivities']);
+        $landUses = explode(',',$data['landUses']);
+
+        foreach ($transportModes as $modeId)
+        {
+            $transportMode = $em->getRepository('AppBundle:Configuration\TransportMode')
+                ->findOneBy(['modeId'=>$modeId]);
+
+            $courtTransportMode = new CourtTransportModes();
+            $courtTransportMode->setCourt($court);
+            $courtTransportMode->setTransportMode($transportMode);
+            $em->persist($courtTransportMode);
+            $em->flush();
+        }
+
+        foreach ($economicActivities as $activityId)
+        {
+            $activity = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+                ->findOneBy(['activityId'=>$activityId]);
+
+            $economicActivity = new CourtEconomicActivities();
+            $economicActivity->setCourt($court);
+            $economicActivity->setEconomicActivity($activity);
+            $em->persist($economicActivity);
+            $em->flush();
+        }
+
+        foreach ($landUses as $activityId)
+        {
+            $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
+                ->findOneBy(['activityId'=>$activityId]);
+
+            $courtLandUse = new CourtLandUse();
+            $courtLandUse->setCourt($court);
+            $courtLandUse->setLandUse($landUse);
+            $em->persist($courtLandUse);
+            $em->flush();
+        }
 
         $decoder = $this->get('app.helper.base_64_decoder');
        
@@ -105,8 +221,7 @@ class CourtController extends Controller
 
         $decoder->setUploadPath($uploadPath);
 
-
-        $record = ['first'=>null,'second'=>null,'third'=>null,'courtId'=>$courtId];
+        $record = ['first'=>null,'second'=>null,'third'=>null,'fourth'=>null,'courtId'=>$courtId];
 
         if(!empty($data['courtBmpOne']))
         {
@@ -131,8 +246,8 @@ class CourtController extends Controller
         $data['status'] = "PASS";
         
         $em->getRepository('AppBundle:Court\Court')
-            ->updateCourtDetails($record);
-        
+            ->updateCourtDetails($record,$courtId);
+
         //Encode Password
         return new JsonResponse($data);
     }
