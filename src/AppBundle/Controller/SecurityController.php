@@ -59,6 +59,23 @@ class SecurityController extends  Controller
 
     }
 
+
+    /**
+     * @Route("/api/privacy-policy", name="oru")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function privacyPolicyAction(Request $request)
+    {
+        
+        return $this->render(
+            'main/privacy.policy.html.twig',
+            array(
+            )
+        );
+
+    }
+
     /**
      * @Route("/login_check", name="login_check")
      */

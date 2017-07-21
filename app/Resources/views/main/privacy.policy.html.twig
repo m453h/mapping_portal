@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+        <div class="login-register">
+            <div class='last' id='image-background'>
+
+            </div>
+            <div class='white-background' id="login-container">
+                <div class="container">
+                    <a href='#'>
+                        <img class="app-logo" src="{{ asset('images/logo/title_logo.png') }}">
+                    </a>
+                    <div class="col12 space-20"></div>
+                    <h2>What Is TZ Court Mapper and Who is it intended for ?</h2>
+                    <br/>
+                    <div class="align-left">
+                        <p>TZ Court Mapper is intended for registered users for recording Tanzania Court Details.
+                            These details include spatial,and non-spatial data as well as images.</p>
+                    </div>
+
+                    <div class="col12 space-20"></div>
+
+                    <h2>What Sensitive Permissions do we need from your device ?</h2>
+                    <br/>
+                    <div class="align-left">
+                        <p>TZ Court Mapper needs access of camera from your device as well as Highly accurate
+                            GPS Coordinates.</p>
+                    </div>
+                    <div class="col12 space-20"></div>
+
+
+                    <h2>How do we use the information from your device ?</h2>
+                    <br/>
+                    <div class="align-left">
+                        <p>This information is used to populate the remote Court Mapping database,
+                            by downloading and installing this application you agree to to the stated privacy policy
+                        and that this information may be openly shared to other third parties. </p>
+                    </div>
+
+
+
+                    <div class="col12 last">
+                        <div class="space-10"></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="space-20"></div>
+                    <p>Copyright &copy; {{ 'now'|date('Y') }}</p>
+                </div>
+            </div>
+
+        </div>
+{% endblock %}
