@@ -1,9 +1,9 @@
 #Land Ownership Status
 AppBundle\Entity\Configuration\LandOwnerShipStatus:
-    ownership_status_0:
+    land_ownership_status_0:
       description: Judiciary Owned
 
-    ownership_status_1:
+    land_ownership_status_1:
       description: Rented
 
 

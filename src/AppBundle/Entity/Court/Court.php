@@ -56,6 +56,12 @@ class Court
     private $titleDeed;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $plotNumber;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus")
      * @ORM\JoinColumn(name="building_ownership_status_id", referencedColumnName="status_id",nullable=false)
      */
@@ -70,23 +76,6 @@ class Court
 
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $functionality;
-
-
-    /**
-     * @ORM\Column(type="string", nullable=true,name="it_provision")
-     */
-    private $ITProvision;
-
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $yearConstructed;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $hasExtensionPossibility;
@@ -95,7 +84,50 @@ class Court
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $yearConstructed;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $meetsFunctionality;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hasLastMileConnectivity;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfComputers;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $internetAvailability;
+
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $bandwidth;
+
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $availableSystems;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $casesPerYear;
+
 
 
     /**
@@ -109,29 +141,99 @@ class Court
      */
     private $numberOfJustices;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nonJudiciary;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $totalStaff;
+    private $numberOfJudges;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfResidentMagistrates;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfDistrictMagistrates;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfMagistrates;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfCourtClerks;
+
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $numberOfNonJudiciaryStaff;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Configuration\CourtEnvironmentalStatus")
+     * @ORM\JoinColumn(name="environmental_status", referencedColumnName="status_id",nullable=false)
+     */
+    private $environmentalStatus;
+
 
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $latitude;
+    private $courtLatitude;
 
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $longitude;
+    private $courtLongitude;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $courtCoordinatesDMS;
 
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $lastMileConnectivityLatitude;
+
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $lastMileConnectivityLongitude;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lastMileConnectivityDMS;
+
+
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $fibreDistance;
+
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $areasEntitled;
+
+    
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AppUsers\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id",nullable=true)
@@ -162,6 +264,12 @@ class Court
      * @ORM\Column(type="string", nullable=true)
      */
     private $thirdCourtView;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $fourthCourtView;
 
 
     /**
@@ -305,33 +413,33 @@ class Court
     /**
      * @return mixed
      */
-    public function getFunctionality()
+    public function getMeetsFunctionality()
     {
-        return $this->functionality;
+        return $this->meetsFunctionality;
     }
 
     /**
-     * @param mixed $functionality
+     * @param mixed $meetsFunctionality
      */
-    public function setFunctionality($functionality)
+    public function setMeetsFunctionality($meetsFunctionality)
     {
-        $this->functionality = $functionality;
+        $this->meetsFunctionality = $meetsFunctionality;
     }
 
     /**
      * @return mixed
      */
-    public function getITProvision()
+    public function getNumberOfJudges()
     {
-        return $this->ITProvision;
+        return $this->numberOfJudges;
     }
 
     /**
-     * @param mixed $ITProvision
+     * @param mixed $numberOfJudges
      */
-    public function setITProvision($ITProvision)
+    public function setNumberOfJudges($numberOfJudges)
     {
-        $this->ITProvision = $ITProvision;
+        $this->numberOfJudges = $numberOfJudges;
     }
 
     /**
@@ -417,65 +525,65 @@ class Court
     /**
      * @return mixed
      */
-    public function getNonJudiciary()
+    public function getNumberOfNonJudiciaryStaff()
     {
-        return $this->nonJudiciary;
+        return $this->numberOfNonJudiciaryStaff;
     }
 
     /**
-     * @param mixed $nonJudiciary
+     * @param mixed $numberOfNonJudiciaryStaff
      */
-    public function setNonJudiciary($nonJudiciary)
+    public function setNumberOfNonJudiciaryStaff($numberOfNonJudiciaryStaff)
     {
-        $this->nonJudiciary = $nonJudiciary;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTotalStaff()
-    {
-        return $this->totalStaff;
-    }
-
-    /**
-     * @param mixed $totalStaff
-     */
-    public function setTotalStaff($totalStaff)
-    {
-        $this->totalStaff = $totalStaff;
+        $this->numberOfNonJudiciaryStaff = $numberOfNonJudiciaryStaff;
     }
 
     /**
      * @return mixed
      */
-    public function getLatitude()
+    public function getNumberOfCourtClerks()
     {
-        return $this->latitude;
+        return $this->numberOfCourtClerks;
     }
 
     /**
-     * @param mixed $latitude
+     * @param mixed $numberOfCourtClerks
      */
-    public function setLatitude($latitude)
+    public function setNumberOfCourtClerks($numberOfCourtClerks)
     {
-        $this->latitude = $latitude;
+        $this->numberOfCourtClerks = $numberOfCourtClerks;
     }
 
     /**
      * @return mixed
      */
-    public function getLongitude()
+    public function getCourtLatitude()
     {
-        return $this->longitude;
+        return $this->courtLatitude;
     }
 
     /**
-     * @param mixed $longitude
+     * @param mixed $courtLatitude
      */
-    public function setLongitude($longitude)
+    public function setCourtLatitude($courtLatitude)
     {
-        $this->longitude = $longitude;
+        $this->courtLatitude = $courtLatitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtLongitude()
+    {
+        return $this->courtLongitude;
+    }
+
+    /**
+     * @param mixed $courtLongitude
+     */
+    public function setCourtLongitude($courtLongitude)
+    {
+        $this->courtLongitude = $courtLongitude;
     }
 
     /**
@@ -590,5 +698,276 @@ class Court
         $this->uniqueCourtId = $uniqueCourtId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPlotNumber()
+    {
+        return $this->plotNumber;
+    }
 
+    /**
+     * @param mixed $plotNumber
+     */
+    public function setPlotNumber($plotNumber)
+    {
+        $this->plotNumber = $plotNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasLastMileConnectivity()
+    {
+        return $this->hasLastMileConnectivity;
+    }
+
+    /**
+     * @param mixed $hasLastMileConnectivity
+     */
+    public function setHasLastMileConnectivity($hasLastMileConnectivity)
+    {
+        $this->hasLastMileConnectivity = $hasLastMileConnectivity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberOfComputers()
+    {
+        return $this->numberOfComputers;
+    }
+
+    /**
+     * @param mixed $numberOfComputers
+     */
+    public function setNumberOfComputers($numberOfComputers)
+    {
+        $this->numberOfComputers = $numberOfComputers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInternetAvailability()
+    {
+        return $this->internetAvailability;
+    }
+
+    /**
+     * @param mixed $internetAvailability
+     */
+    public function setInternetAvailability($internetAvailability)
+    {
+        $this->internetAvailability = $internetAvailability;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBandwidth()
+    {
+        return $this->bandwidth;
+    }
+
+    /**
+     * @param mixed $bandwidth
+     */
+    public function setBandwidth($bandwidth)
+    {
+        $this->bandwidth = $bandwidth;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvailableSystems()
+    {
+        return $this->availableSystems;
+    }
+
+    /**
+     * @param mixed $availableSystems
+     */
+    public function setAvailableSystems($availableSystems)
+    {
+        $this->availableSystems = $availableSystems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberOfResidentMagistrates()
+    {
+        return $this->numberOfResidentMagistrates;
+    }
+
+    /**
+     * @param mixed $numberOfResidentMagistrates
+     */
+    public function setNumberOfResidentMagistrates($numberOfResidentMagistrates)
+    {
+        $this->numberOfResidentMagistrates = $numberOfResidentMagistrates;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberOfDistrictMagistrates()
+    {
+        return $this->numberOfDistrictMagistrates;
+    }
+
+    /**
+     * @param mixed $numberOfDistrictMagistrates
+     */
+    public function setNumberOfDistrictMagistrates($numberOfDistrictMagistrates)
+    {
+        $this->numberOfDistrictMagistrates = $numberOfDistrictMagistrates;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberOfMagistrates()
+    {
+        return $this->numberOfMagistrates;
+    }
+
+    /**
+     * @param mixed $numberOfMagistrates
+     */
+    public function setNumberOfMagistrates($numberOfMagistrates)
+    {
+        $this->numberOfMagistrates = $numberOfMagistrates;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnvironmentalStatus()
+    {
+        return $this->environmentalStatus;
+    }
+
+    /**
+     * @param mixed $environmentalStatus
+     */
+    public function setEnvironmentalStatus($environmentalStatus)
+    {
+        $this->environmentalStatus = $environmentalStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtCoordinatesDMS()
+    {
+        return $this->courtCoordinatesDMS;
+    }
+
+    /**
+     * @param mixed $courtCoordinatesDMS
+     */
+    public function setCourtCoordinatesDMS($courtCoordinatesDMS)
+    {
+        $this->courtCoordinatesDMS = $courtCoordinatesDMS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastMileConnectivityLatitude()
+    {
+        return $this->lastMileConnectivityLatitude;
+    }
+
+    /**
+     * @param mixed $lastMileConnectivityLatitude
+     */
+    public function setLastMileConnectivityLatitude($lastMileConnectivityLatitude)
+    {
+        $this->lastMileConnectivityLatitude = $lastMileConnectivityLatitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastMileConnectivityLongitude()
+    {
+        return $this->lastMileConnectivityLongitude;
+    }
+
+    /**
+     * @param mixed $lastMileConnectivityLongitude
+     */
+    public function setLastMileConnectivityLongitude($lastMileConnectivityLongitude)
+    {
+        $this->lastMileConnectivityLongitude = $lastMileConnectivityLongitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFibreDistance()
+    {
+        return $this->fibreDistance;
+    }
+
+    /**
+     * @param mixed $fibreDistance
+     */
+    public function setFibreDistance($fibreDistance)
+    {
+        $this->fibreDistance = $fibreDistance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAreasEntitled()
+    {
+        return $this->areasEntitled;
+    }
+
+    /**
+     * @param mixed $areasEntitled
+     */
+    public function setAreasEntitled($areasEntitled)
+    {
+        $this->areasEntitled = $areasEntitled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFourthCourtView()
+    {
+        return $this->fourthCourtView;
+    }
+
+    /**
+     * @param mixed $fourthCourtView
+     */
+    public function setFourthCourtView($fourthCourtView)
+    {
+        $this->fourthCourtView = $fourthCourtView;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastMileConnectivityDMS()
+    {
+        return $this->lastMileConnectivityDMS;
+    }
+
+    /**
+     * @param mixed $lastMileConnectivityDMS
+     */
+    public function setLastMileConnectivityDMS($lastMileConnectivityDMS)
+    {
+        $this->lastMileConnectivityDMS = $lastMileConnectivityDMS;
+    }
+    
 }

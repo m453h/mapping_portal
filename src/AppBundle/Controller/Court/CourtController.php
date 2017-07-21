@@ -82,9 +82,14 @@ class CourtController extends Controller
         
         $data = json_decode($content,true);
 
-        $coordinates = explode(',',$data['coordinates']);
-        $data['latitude'] = $coordinates[0];
-        $data['longitude'] = $coordinates[1];
+        $coordinates = explode(',',$data['DECCourtCoordinates']);
+        $data['DECCourtLatitude'] = $coordinates[0];
+        $data['DECCourtLongitude'] = $coordinates[1];
+
+        $coordinates = explode(',',$data['DECConnectivityCoordinates']);
+        $data['DECConnectivityLatitude'] = $coordinates[0];
+        $data['DECConnectivityLongitude'] = $coordinates[1];
+
 
         $em = $this->getDoctrine()->getManager();
 
@@ -116,6 +121,11 @@ class CourtController extends Controller
         if(!empty($data['courtBmpThree']))
         {
             $record['third'] = $decoder->decodeBase64($data['courtBmpThree']);
+        }
+
+        if(!empty($data['courtBmpFour']))
+        {
+            $record['fourth'] = $decoder->decodeBase64($data['courtBmpFour']);
         }
 
         $data['status'] = "PASS";

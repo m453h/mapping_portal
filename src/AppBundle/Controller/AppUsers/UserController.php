@@ -554,7 +554,7 @@ class UserController extends Controller
 
 
         $data['message'] = 'downloadAction';
-        $data['levels'] = $levels;
+        $data['courtLevels'] = $levels;
         $data['courtBuildingOwnershipStatus'] = $courtBuildingOwnershipStatus;
         $data['courtBuildingStatus'] = $courtBuildingStatus;
         $data['landOwnershipStatus'] = $landOwnershipStatus;
