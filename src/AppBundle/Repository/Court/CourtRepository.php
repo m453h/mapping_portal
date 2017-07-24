@@ -276,8 +276,9 @@ class CourtRepository extends EntityRepository
         region_name AS "regionName",
         district_name AS "districtName",
         ward_name AS "wardName",
-        CONCAT_WS(" ",first_name,surname) AS "fullName",
-        
+        first_name AS "firstName",
+        surname AS "surname",
+        land_o
         ')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')

@@ -43,9 +43,11 @@
                      {{ include("info/#{ infoTemplate }.info.html.twig") }}
                  </div>
                  <div class="col6 last">
+                     {% for data in image %}
                          <div class="image-frame">
-                             <img src="{{ asset(image) }}" alt="Image" />
+                             <img src="{{ asset(data) }}" alt="Image" />
                          </div>
+                     {% endfor %}
                  </div>
                  {% else %}
                      <div class="col12">

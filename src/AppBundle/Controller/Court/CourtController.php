@@ -96,10 +96,18 @@ class CourtController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $data = $em->getRepository('AppBundle:Court\Court')
-            ->findCourtDetails($courtId);
+            ->find($courtId);
 
-        dump($data);
-        
+        $data->getIsLandSurveyed() === true ? $surveyStatus = "YES": $surveyStatus = "NO" ;
+
+        $data->getHasTitleDeed() === true ? $hasTitleDeed = "YES": $hasTitleDeed = "NO" ;
+
+        $data->getHasExtensionPossibility() === true ? $extensionPossibility = "YES": $extensionPossibility = "NO" ;
+
+        $data->getMeetsFunctionality() === true ? $functionality = "YES": $functionality = "NO" ;
+
+        $data->getHasLastMileConnectivity() === true ? $lastMileConnectivity = "YES": $lastMileConnectivity = "NO" ;
+
         if(!$data)
         {
             throw new NotFoundHttpException('Court Not Found');
@@ -111,17 +119,49 @@ class CourtController extends Controller
         $info->addTextElement('Region',$data->getWard()->getDistrict()->getRegion()->getRegionName());
         $info->addTextElement('District',$data->getWard()->getDistrict()->getDistrictName());
         $info->addTextElement('Ward',$data->getWard()->getWardName());
+        $info->addTextElement('Court Coordinates',$data->getCourtCoordinatesDMS());
+        $info->addTextElement('Land Survey Status',$surveyStatus);
+        $info->addTextElement('Has title deed',$hasTitleDeed);
+        $info->addTextElement('Plot Number',$data->getPlotNumber());
+        $info->addTextElement('Title Deed Number',$data->getTitleDeed());
+        $info->addTextElement('Building Ownership Status',$data->getBuildingOwnershipStatus()->getDescription());
         $info->addTextElement('Land Ownership Status',$data->getLandOwnershipStatus()->getDescription());
-        $info->addTextElement('Land Survey Status',$data->getIsLandSurveyed());
-        $info->addTextElement('Has title deed',$data->getHasTitleDeed());
-
+        $info->addTextElement('Extension Possibility',$extensionPossibility);
+        $info->addTextElement('Year Constructed',$data->getYearConstructed());
+        $info->addTextElement('Does building meet functionality',$functionality);
+        $info->addTextElement('Last Mile Connectivity',$lastMileConnectivity);
 
         $info->setPath('court_info');
+
+        $images = [];
+
+        if($data->getFirstCourtView()!=null)
+        {
+            array_push($images, '/file_uploads/court_images/'.$data->getFirstCourtView());
+        }
+
+        if($data->getSecondCourtView()!=null)
+        {
+            array_push($images, '/file_uploads/court_images/'.$data->getSecondCourtView());
+        }
+
+        if($data->getThirdCourtView()!=null)
+        {
+            array_push($images, '/file_uploads/court_images/'.$data->getThirdCourtView());
+        }
+
+        if($data->getFourthCourtView()!=null)
+        {
+            array_push($images, '/file_uploads/court_images/'.$data->getFourthCourtView());
+        }
+
+
 
         //Render the output
         return $this->render(
             'main/app.info.html.twig',array(
             'info'=>$info,
+            'image'=>$images,
             'title'=>'Court Details',
             'infoTemplate'=>'base'
         ));
