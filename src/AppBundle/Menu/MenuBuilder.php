@@ -98,15 +98,17 @@ class MenuBuilder
             ->getParent()
             ->getParent();
 
+        $menu->addChild('Documents', array('uri' => '#', 'extras' => array('icon' => 'book')))
+            ->addChild('Manage Submitted Forms', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))->getParent()
+            ->getParent();
+
 
         $menu->addChild('Portal Users', array('uri' => '#', 'extras' => array('icon' => 'users')))
             //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->getParent();
 
         
-        $menu->addChild('Documents', array('uri' => '#', 'extras' => array('icon' => 'book')))
-            //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
-            ->getParent();
+
 
         $menu->addChild('Reports', array('uri' => '#', 'extras' => array('icon' => 'area-chart')))
             //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()

@@ -18,8 +18,13 @@ class CourtRepository extends EntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('status_id,description')
-            ->from('cfg_court_building_ownership_status', 's');
+        $queryBuilder->select('court_id,time_created,description,region_name,district_name,ward_name,first_name,surname')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','d.region_id=r.region_id')
+            ->join('c','cfg_court_levels','l','l.level_id=c.level_id')
+            ->leftJoin('c','app_users','u','u.user_id=c.user_id');
         $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
         $queryBuilder = $this->setSortOptions($options, $queryBuilder);
 
@@ -47,15 +52,15 @@ class CourtRepository extends EntityRepository
              return $queryBuilder->addOrderBy('description', $sortType);
          }
 
-        return $queryBuilder->addOrderBy('status_id', 'desc');
+        return $queryBuilder->addOrderBy('court_id', 'desc');
 
     }
 
     public function countAllCourts(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT status_id) AS total_results')
-                ->groupBy('status_id')
+            $queryBuilder->select('COUNT(DISTINCT court_id) AS total_results')
+                ->groupBy('court_id')
                 ->resetQueryPart('orderBy')
                 ->resetQueryPart('groupBy')
                 ->setMaxResults(1);
@@ -254,5 +259,38 @@ class CourtRepository extends EntityRepository
         
     }
 
-    
+
+    /**
+     * @param $courtId
+     * @return QueryBuilder
+     */
+    public function findCourtDetails($courtId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $data = $queryBuilder->select('court_id,
+        time_created AS "timeCreated",
+        description AS "courtLevel",
+        region_name AS "regionName",
+        district_name AS "districtName",
+        ward_name AS "wardName",
+        CONCAT_WS(" ",first_name,surname) AS "fullName",
+        
+        ')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','d.region_id=r.region_id')
+            ->join('c','cfg_court_levels','l','l.level_id=c.level_id')
+            ->leftJoin('c','app_users','u','u.user_id=c.user_id')
+            ->execute()
+            ->fetch();
+
+        return $data;
+    }
+
+
+
 }

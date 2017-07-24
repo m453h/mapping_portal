@@ -15,13 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class CourtController extends Controller
 {
 
     /**
-     * @Route("/court-building-ownership-status", name="court_list")
+     * @Route("/court-form", name="court_form_list")
      * @param Request $request
      * @return Response
      *
@@ -29,7 +30,7 @@ class CourtController extends Controller
     public function listAction(Request $request)
     {
         $class = get_class($this);
-        
+
         $this->denyAccessUnlessGranted('view',$class);
 
         $page = $request->query->get('page',1);
@@ -41,37 +42,91 @@ class CourtController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
-            ->findAllCourtBuildingOwnerShipStatus($options);
+        $qb1 = $em->getRepository('AppBundle:Court\Court')
+            ->findAllCourts($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
-            ->countAllLandOwnerShipStatus($qb1);
+        $qb2 = $em->getRepository('AppBundle:Court\Court')
+            ->countAllCourts($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
         $dataGrid->setMaxPerPage($maxPerPage);
         $dataGrid->setCurrentPage($page);
         $dataGrid->getCurrentPageResults();
-        
+
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Description','name','text',true);
+        $grid->addGridHeader('Date',null,'text',false);
+        $grid->addGridHeader('Recorded by',null,'text',false);
+        $grid->addGridHeader('Court Level',null,'text',false);
+        $grid->addGridHeader('Region',null,'text',false);
+        $grid->addGridHeader('District',null,'text',false);
+        $grid->addGridHeader('Ward',null,'text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('court_building_ownership_status_list');
+        $grid->setPath('court_form_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
-        
+
         //Render the output
         return $this->render(
             'main/app.list.html.twig',array(
-                'records'=>$dataGrid,
-                'grid'=>$grid,
-                'title'=>'Existing Court Building Ownership Status',
-                'gridTemplate'=>'lists/base.list.html.twig'
+            'records'=>$dataGrid,
+            'grid'=>$grid,
+            'title'=>'Existing Court Details',
+            'gridTemplate'=>'lists/court/court.list.html.twig'
         ));
     }
+
+
+
+    /**
+     * @Route("/court-form/info/{courtId}", name="court_info",defaults={"courtId":0})
+     * @param $courtId
+     * @return Response
+     * @throws NotFoundHttpException
+     */
+    public function detailsAction($courtId)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('view',$class);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository('AppBundle:Court\Court')
+            ->findCourtDetails($courtId);
+
+        dump($data);
+        
+        if(!$data)
+        {
+            throw new NotFoundHttpException('Court Not Found');
+        }
+
+        $info = $this->get('app.helper.info_builder');
+
+        $info->addTextElement('Court Level',$data->getCourtLevel()->getDescription());
+        $info->addTextElement('Region',$data->getWard()->getDistrict()->getRegion()->getRegionName());
+        $info->addTextElement('District',$data->getWard()->getDistrict()->getDistrictName());
+        $info->addTextElement('Ward',$data->getWard()->getWardName());
+        $info->addTextElement('Land Ownership Status',$data->getLandOwnershipStatus()->getDescription());
+        $info->addTextElement('Land Survey Status',$data->getIsLandSurveyed());
+        $info->addTextElement('Has title deed',$data->getHasTitleDeed());
+
+
+        $info->setPath('court_info');
+
+        //Render the output
+        return $this->render(
+            'main/app.info.html.twig',array(
+            'info'=>$info,
+            'title'=>'Court Details',
+            'infoTemplate'=>'base'
+        ));
+    }
+
 
 
 
@@ -91,9 +146,18 @@ class CourtController extends Controller
         $data['DECCourtLatitude'] = $coordinates[0];
         $data['DECCourtLongitude'] = $coordinates[1];
 
-        $coordinates = explode(',',$data['DECConnectivityCoordinates']);
-        $data['DECConnectivityLatitude'] = $coordinates[0];
-        $data['DECConnectivityLongitude'] = $coordinates[1];
+        if(!empty($data['DECConnectivityCoordinates'])) 
+        {
+            $coordinates = explode(',', $data['DECConnectivityCoordinates']);
+            $data['DECConnectivityLatitude'] = $coordinates[0];
+            $data['DECConnectivityLongitude'] = $coordinates[1];
+        }
+        else
+        {
+            $data['DECConnectivityLatitude'] = null;
+            $data['DECConnectivityLongitude'] = null;
+        }
+        
 
         $em = $this->getDoctrine()->getManager();
 
