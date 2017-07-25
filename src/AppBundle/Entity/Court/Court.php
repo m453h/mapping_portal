@@ -233,6 +233,23 @@ class Court
      */
     private $areasEntitled;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $landUseDescription;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $economicActivitiesDescription;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $transportModesDescription;
+
     
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AppUsers\User")
@@ -969,5 +986,54 @@ class Court
     {
         $this->lastMileConnectivityDMS = $lastMileConnectivityDMS;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLandUseDescription()
+    {
+        return $this->landUseDescription;
+    }
+
+    /**
+     * @param mixed $landUseDescription
+     */
+    public function setLandUseDescription($landUseDescription)
+    {
+        $this->landUseDescription = $landUseDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEconomicActivitiesDescription()
+    {
+        return $this->economicActivitiesDescription;
+    }
+
+    /**
+     * @param mixed $economicActivitiesDescription
+     */
+    public function setEconomicActivitiesDescription($economicActivitiesDescription)
+    {
+        $this->economicActivitiesDescription = $economicActivitiesDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransportModesDescription()
+    {
+        return $this->transportModesDescription;
+    }
+
+    /**
+     * @param mixed $transportModesDescription
+     */
+    public function setTransportModesDescription($transportModesDescription)
+    {
+        $this->transportModesDescription = $transportModesDescription;
+    }
+    
     
 }

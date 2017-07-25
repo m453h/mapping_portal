@@ -179,12 +179,31 @@ class CourtController extends Controller
     public function courtFormAPIAction(Request $request)
     {
         $content =  $request->getContent();
-        
+
+        /*$content = '{
+                      "courtLevelId": "43",
+                      "wardId": "3649",
+                      "landOwnershipStatusId": "8",
+                      "buildingOwnershipStatusId": "22",
+                      "buildingStatusId": "56",
+                      "environmentalStatusId": "23",
+                      "authToken": "sdlse"
+                    }';*/
+
         $data = json_decode($content,true);
-        
-        $coordinates = explode(',',$data['DECCourtCoordinates']);
-        $data['DECCourtLatitude'] = $coordinates[0];
-        $data['DECCourtLongitude'] = $coordinates[1];
+
+        if(!empty($data['DECCourtCoordinates']))
+        {
+            $coordinates = explode(',', $data['DECCourtCoordinates']);
+            $data['DECCourtLatitude'] = $coordinates[0];
+            $data['DECCourtLongitude'] = $coordinates[1];
+        }
+        else
+        {
+            $data['DECCourtCoordinates'] = null;
+            $data['DECCourtCoordinates'] = null;
+        }
+
 
         if(!empty($data['DECConnectivityCoordinates'])) 
         {
@@ -213,65 +232,70 @@ class CourtController extends Controller
             ->findOneBy(['wardId'=>$data['wardId']]);
 
         $landOwnershipStatus = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
-            ->findOneBy(['statusId'=>$data['landOwnershipStatusId']]);
+            ->findOneBy(['statusId'=>$this->getAPIParameter($data,'landOwnershipStatusId')]);
 
         $buildingOwnershipStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
-            ->findOneBy(['statusId'=>$data['buildingOwnershipStatusId']]);
+            ->findOneBy(['statusId'=>$this->getAPIParameter($data,'buildingOwnershipStatusId')]);
 
         $buildingStatus = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
-            ->findOneBy(['statusId'=>$data['buildingStatusId']]);
+            ->findOneBy(['statusId'=>$this->getAPIParameter($data,'buildingStatusId')]);
 
         $environmentalStatus = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')
-            ->findOneBy(['statusId'=>$data['environmentalStatusId']]);
+            ->findOneBy(['statusId'=>$this->getAPIParameter($data,'environmentalStatusId')]);
 
-        ($data['landSurveyStatus']=='1') ? $surveyStatus=true : $surveyStatus=false;
+        ($this->getAPIParameter($data,'landSurveyStatus')=='1') ? $surveyStatus=true : $surveyStatus=false;
 
-        ($data['titleDeedStatus']=='1') ? $titleDeedStatus=true : $titleDeedStatus=false;
+        ($this->getAPIParameter($data,'titleDeedStatus')=='1') ? $titleDeedStatus=true : $titleDeedStatus=false;
 
-        ($data['extensionPossibility']=='1') ? $extensionPossibility=true : $extensionPossibility=false;
+        ($this->getAPIParameter($data,'extensionPossibility')=='1') ? $extensionPossibility=true : $extensionPossibility=false;
 
-        ($data['functionality']=='1') ? $functionality=true : $functionality=false;
+        ($this->getAPIParameter($data,'functionality')=='1') ? $functionality=true : $functionality=false;
 
-        ($data['lastMileConnectivity']=='1') ? $lastMileConnectivity=true : $lastMileConnectivity=false;
+        ($this->getAPIParameter($data,'lastMileConnectivity')=='1') ? $lastMileConnectivity=true : $lastMileConnectivity=false;
 
-        ($data['internetAvailability']=='1') ? $internetAvailability=true : $internetAvailability=false;
+        ($this->getAPIParameter($data,'internetAvailability')=='1') ? $internetAvailability=true : $internetAvailability=false;
 
         $court->setCourtLevel($level);
         $court->setWard($ward);
         $court->setLandOwnershipStatus($landOwnershipStatus);
         $court->setIsLandSurveyed($surveyStatus);
         $court->setHasTitleDeed($titleDeedStatus);
-        $court->setTitleDeed($data['titleDeedNo']);
-        $court->setPlotNumber($data['plotNo']);
+        $court->setTitleDeed($this->getAPIParameter($data,'titleDeedNo'));
+        $court->setPlotNumber($this->getAPIParameter($data,'plotNo'));
         $court->setBuildingOwnershipStatus($buildingOwnershipStatus);
         $court->setBuildingStatus($buildingStatus);
         $court->setHasExtensionPossibility($extensionPossibility);
-        $court->setYearConstructed($data['yearConstructed']);
-        $court->setMeetsFunctionality($data['functionality']);
+        $court->setYearConstructed($this->getAPIParameter($data,'yearConstructed'));
+        $court->setMeetsFunctionality($this->getAPIParameter($data,'functionality'));
         $court->setHasLastMileConnectivity($lastMileConnectivity);
-        $court->setNumberOfComputers($data['numberOfComputers']);
-        $court->setInternetAvailability($data['internetAvailability']);
-        $court->setBandwidth($data['bandwidth']);
-        $court->setAvailableSystems($data['availableSystems']);
-        $court->setCasesPerYear($data['casesPerYear']);
-        $court->setPopulationServed($data['populationServed']);
-        $court->setNumberOfJustices($data['numberOfJustices']);
-        $court->setNumberOfJudges($data['judges']);
-        $court->setNumberOfResidentMagistrates($data['residentMagistrates']);
-        $court->setNumberOfDistrictMagistrates($data['districtMagistrates']);
-        $court->setNumberOfMagistrates($data['magistrates']);
-        $court->setNumberOfCourtClerks($data['courtClerks']);
-        $court->setNumberOfNonJudiciaryStaff($data['nonJudiciary']);
+        $court->setNumberOfComputers($this->getAPIParameter($data,'numberOfComputers'));
+        $court->setInternetAvailability($this->getAPIParameter($data,'internetAvailability'));
+        $court->setBandwidth($this->getAPIParameter($data,'bandwidth'));
+        $court->setAvailableSystems($this->getAPIParameter($data,'availableSystems'));
+        $court->setCasesPerYear($this->getAPIParameter($data,'casesPerYear'));
+        $court->setPopulationServed($this->getAPIParameter($data,'populationServed'));
+        $court->setNumberOfJustices($this->getAPIParameter($data,'numberOfJustices'));
+        $court->setNumberOfJudges($this->getAPIParameter($data,'judges'));
+        $court->setNumberOfResidentMagistrates($this->getAPIParameter($data,'residentMagistrates'));
+        $court->setNumberOfDistrictMagistrates($this->getAPIParameter($data,'districtMagistrates'));
+        $court->setNumberOfMagistrates($this->getAPIParameter($data,'magistrates'));
+        $court->setNumberOfCourtClerks($this->getAPIParameter($data,'courtClerks'));
+        $court->setNumberOfNonJudiciaryStaff($this->getAPIParameter($data,'nonJudiciary'));
         $court->setEnvironmentalStatus($environmentalStatus);
-        $court->setCourtCoordinatesDMS($data['DMSCourtCoordinates']);
-        $court->setCourtLatitude($data['DECCourtLatitude']);
-        $court->setCourtLongitude($data['DECCourtLongitude']);
-        $court->setLastMileConnectivityDMS($data['DMSConnectivityCoordinates']);
-        $court->setLastMileConnectivityLatitude($data['DECConnectivityLatitude']);
-        $court->setLastMileConnectivityLongitude($data['DECConnectivityLongitude']);
-        $court->setFibreDistance($data['fibreDistance']);
-        $court->setAreasEntitled($data['areasEntitled']);
-        $court->setUniqueCourtId($data['uniqueCourtId']);
+        $court->setCourtCoordinatesDMS($this->getAPIParameter($data,'DMSCourtCoordinates'));
+        $court->setCourtLatitude($this->getAPIParameter($data,'DECCourtLatitude'));
+        $court->setCourtLongitude($this->getAPIParameter($data,'DECCourtLongitude'));
+        $court->setLastMileConnectivityDMS($this->getAPIParameter($data,'DMSConnectivityCoordinates'));
+        $court->setLastMileConnectivityLatitude($this->getAPIParameter($data,'DECConnectivityLatitude'));
+        $court->setLastMileConnectivityLongitude($this->getAPIParameter($data,'DECConnectivityLongitude'));
+        $court->setFibreDistance($this->getAPIParameter($data,'fibreDistance'));
+        $court->setAreasEntitled($this->getAPIParameter($data,'areasEntitled'));
+
+        $court->setLandUseDescription($this->getAPIParameter($data,'landUseDescription'));
+        $court->setEconomicActivitiesDescription($this->getAPIParameter($data,'economicActivitiesDescription'));
+        $court->setTransportModesDescription($this->getAPIParameter($data,'transportModesDescription'));
+
+        $court->setUniqueCourtId($this->getAPIParameter($data,'uniqueCourtId'));
         $court->setCreatedBy($user);
 
         $em->persist($court);
@@ -279,44 +303,54 @@ class CourtController extends Controller
 
         $courtId = $court->getCourtId();
 
-        $transportModes = explode(',',$data['transportModes']);
-        $economicActivities = explode(',',$data['economicActivities']);
-        $landUses = explode(',',$data['landUses']);
+        $transportModes = explode(',',$this->getAPIParameter($data,'transportModes'));
+        $economicActivities = explode(',',$this->getAPIParameter($data,'economicActivities'));
+        $landUses = explode(',',$this->getAPIParameter($data,'landUses'));
 
         foreach ($transportModes as $modeId)
         {
-            $transportMode = $em->getRepository('AppBundle:Configuration\TransportMode')
-                ->findOneBy(['modeId'=>$modeId]);
+            if(!empty($modeId))
+            {
+                $transportMode = $em->getRepository('AppBundle:Configuration\TransportMode')
+                    ->findOneBy(['modeId' => $modeId]);
 
-            $courtTransportMode = new CourtTransportModes();
-            $courtTransportMode->setCourt($court);
-            $courtTransportMode->setTransportMode($transportMode);
-            $em->persist($courtTransportMode);
-            $em->flush();
+                $courtTransportMode = new CourtTransportModes();
+                $courtTransportMode->setCourt($court);
+                $courtTransportMode->setTransportMode($transportMode);
+                $em->persist($courtTransportMode);
+                $em->flush();
+            }
         }
 
         foreach ($economicActivities as $activityId)
         {
-            $activity = $em->getRepository('AppBundle:Configuration\EconomicActivity')
-                ->findOneBy(['activityId'=>$activityId]);
 
-            $economicActivity = new CourtEconomicActivities();
-            $economicActivity->setCourt($court);
-            $economicActivity->setEconomicActivity($activity);
-            $em->persist($economicActivity);
-            $em->flush();
+            if(!empty($activityId))
+            {
+                $activity = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+                    ->findOneBy(['activityId' => $activityId]);
+
+                $economicActivity = new CourtEconomicActivities();
+                $economicActivity->setCourt($court);
+                $economicActivity->setEconomicActivity($activity);
+                $em->persist($economicActivity);
+                $em->flush();
+            }
         }
 
         foreach ($landUses as $activityId)
         {
-            $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
-                ->findOneBy(['activityId'=>$activityId]);
+            if(!empty($activityId))
+            {
+                $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
+                    ->findOneBy(['activityId' => $activityId]);
 
-            $courtLandUse = new CourtLandUse();
-            $courtLandUse->setCourt($court);
-            $courtLandUse->setLandUse($landUse);
-            $em->persist($courtLandUse);
-            $em->flush();
+                $courtLandUse = new CourtLandUse();
+                $courtLandUse->setCourt($court);
+                $courtLandUse->setLandUse($landUse);
+                $em->persist($courtLandUse);
+                $em->flush();
+            }
         }
 
         $decoder = $this->get('app.helper.base_64_decoder');
@@ -356,15 +390,15 @@ class CourtController extends Controller
         return new JsonResponse($data);
     }
 
+    public function getAPIParameter($data, $name)
+    {
+        if(isset($data[$name]) && !empty($data[$name]))
+        {
+            return $data[$name];
+        }
 
-
-
-
-
-
-
-
-
+        return null;
+    }
 
 
 }
