@@ -295,6 +295,25 @@ class Court
     private $uniqueCourtId;
 
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $courtName;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $courtStatus;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $courtRecordStatus;
+
+
+
 
 
 
@@ -1034,6 +1053,54 @@ class Court
     {
         $this->transportModesDescription = $transportModesDescription;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtName()
+    {
+        return $this->courtName;
+    }
+
+    /**
+     * @param mixed $courtName
+     */
+    public function setCourtName($courtName)
+    {
+        $this->courtName = $courtName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtStatus()
+    {
+        return $this->courtStatus;
+    }
+
+    /**
+     * @param mixed $courtStatus
+     */
+    public function setCourtStatus($courtStatus)
+    {
+        $this->courtStatus = $courtStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtRecordStatus()
+    {
+        return $this->courtRecordStatus;
+    }
+
+    /**
+     * @param mixed $courtRecordStatus
+     */
+    public function setCourtRecordStatus($courtRecordStatus)
+    {
+        $this->courtRecordStatus = $courtRecordStatus;
+    }
     
-    
+
 }

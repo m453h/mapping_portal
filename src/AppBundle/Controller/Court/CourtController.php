@@ -182,15 +182,16 @@ class CourtController extends Controller
         $content =  $request->getContent();
 
         try {
-            /*$content = '{
+           /* $content = '{
+                          "courtName": "Mahakama ya Kisutu",
                           "courtLevelId": "43",
                           "wardId": "3649",
                           "landOwnershipStatusId": "8",
                           "buildingOwnershipStatusId": "22",
                           "buildingStatusId": "56",
                           "environmentalStatusId": "23",
-                          "authToken": "JlzZfy+wE8DOKCWjsQuTsXDufsNITQM6huYot7VWKcF3EFzROo9HtY+wckwl0OsbewTcM4+041yxOm5a5N3Aiw==",
-                          "uniqueCourtId": "1500871084431"
+                          "authToken": "0JlzZfy+wE8DOKCWjsQuTsXDufsNITQM6huYot7VWKcF3EFzROo9HtY+wckwl0OsbewTcM4+041yxOm5a5N3Aiw==",
+                          "uniqueCourtId": "1510871084431"
                         }';*/
 
             $data = json_decode($content, true);
@@ -263,6 +264,7 @@ class CourtController extends Controller
             $court->setBuildingStatus($buildingStatus);
             $court->setHasExtensionPossibility($extensionPossibility);
             $court->setYearConstructed($this->getAPIParameter($data, 'yearConstructed'));
+            $court->setCourtName($this->getAPIParameter($data, 'courtName'));
             $court->setMeetsFunctionality($this->getAPIParameter($data, 'functionality'));
             $court->setHasLastMileConnectivity($lastMileConnectivity);
             $court->setNumberOfComputers($this->getAPIParameter($data, 'numberOfComputers'));
@@ -293,6 +295,7 @@ class CourtController extends Controller
             $court->setTransportModesDescription($this->getAPIParameter($data, 'transportModesDescription'));
 
             $court->setUniqueCourtId($this->getAPIParameter($data, 'uniqueCourtId'));
+            $court->setTimeCreated(new \Datetime());
             $court->setCreatedBy($user);
 
             $em->persist($court);
