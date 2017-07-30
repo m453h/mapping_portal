@@ -366,5 +366,65 @@ class CourtRepository extends EntityRepository
         return $result['total'];
     }
 
+
+    public function findEconomicActivitiesByCourtId($courtId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description')
+            ->from('tbl_court_economic_activities', 'ce')
+            ->join('ce','cfg_economic_activities','ea','ea.activity_id=ce.activity_id')
+            ->andWhere('court_id=:courtId')
+            ->setParameter('courtId',$courtId)
+            ->execute()
+            ->fetch();
+
+        
+        return $result['description'];
+    }
+
+
+    public function findLandUseByCourtId($courtId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description')
+            ->from('tbl_court_land_uses', 'ce')
+            ->join('ce','cfg_land_uses','ea','ea.activity_id=ce.activity_id')
+            ->andWhere('court_id=:courtId')
+            ->setParameter('courtId',$courtId)
+            ->execute()
+            ->fetch();
+
+
+        return $result['description'];
+    }
+
+
+    public function findTransportModesByCourtId($courtId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('string_agg(tm.description,\',\') AS description')
+            ->from('tbl_court_transport_modes', 'ct')
+            ->join('ct','cfg_transport_modes','tm','ct.mode_id=tm.mode_id')
+            ->andWhere('court_id=:courtId')
+            ->setParameter('courtId',$courtId)
+            ->execute()
+            ->fetch();
+
+
+        return $result['description'];
+    }
+
     
 }

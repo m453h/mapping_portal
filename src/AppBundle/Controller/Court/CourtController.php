@@ -107,6 +107,8 @@ class CourtController extends Controller
 
         $data->getHasLastMileConnectivity() === true ? $lastMileConnectivity = "YES": $lastMileConnectivity = "NO" ;
 
+        $data->getInternetAvailability() === true ? $internetAvailability = "YES": $internetAvailability = "NO" ;
+
         if(!$data)
         {
             throw new NotFoundHttpException('Court Not Found');
@@ -114,21 +116,58 @@ class CourtController extends Controller
 
         $info = $this->get('app.helper.info_builder');
 
+        $info->addTextElement('Court Name',$data->getCourtName());
         $info->addTextElement('Court Level',$data->getCourtLevel()->getDescription());
         $info->addTextElement('Region',$data->getWard()->getDistrict()->getRegion()->getRegionName());
         $info->addTextElement('District',$data->getWard()->getDistrict()->getDistrictName());
         $info->addTextElement('Ward',$data->getWard()->getWardName());
         $info->addTextElement('Court Coordinates',$data->getCourtCoordinatesDMS());
+        $info->addTextElement('Land Ownership Status',$data->getLandOwnershipStatus()->getDescription());
         $info->addTextElement('Land Survey Status',$surveyStatus);
         $info->addTextElement('Has title deed',$hasTitleDeed);
         $info->addTextElement('Plot Number',$data->getPlotNumber());
         $info->addTextElement('Title Deed Number',$data->getTitleDeed());
         $info->addTextElement('Building Ownership Status',$data->getBuildingOwnershipStatus()->getDescription());
-        $info->addTextElement('Land Ownership Status',$data->getLandOwnershipStatus()->getDescription());
         $info->addTextElement('Extension Possibility',$extensionPossibility);
         $info->addTextElement('Year Constructed',$data->getYearConstructed());
+        $info->addTextElement('Building Status',$data->getBuildingStatus()->getDescription());
         $info->addTextElement('Does building meet functionality',$functionality);
         $info->addTextElement('Last Mile Connectivity',$lastMileConnectivity);
+        $info->addTextElement('Number of computers',$data->getNumberOfComputers());
+        $info->addTextElement('Internet Availability',$internetAvailability);
+        $info->addTextElement('Available Systems',$data->getAvailableSystems());
+        $info->addTextElement('Cases Per Year',$data->getCasesPerYear());
+        $info->addTextElement('Population Served',$data->getPopulationServed());
+        $info->addTextElement('Staff Number',sprintf('Justices: %s, Judges: %s, Resident Magistrates: %s, District Magistrates: %s, Magistrates: %s, Court Clerks: %s, Non Judiciary Staff: %s.',
+            $info->parseNumber($data->getNumberOfJustices()),
+            $info->parseNumber($data->getNumberOfJudges()),
+            $info->parseNumber($data->getNumberOfResidentMagistrates()),
+            $info->parseNumber($data->getNumberOfDistrictMagistrates()),
+            $info->parseNumber($data->getNumberOfMagistrates()),
+            $info->parseNumber($data->getNumberOfCourtClerks()),
+            $info->parseNumber($data->getNumberOfNonJudiciaryStaff())
+        ));
+
+
+        $economicActivities = $em->getRepository('AppBundle:Court\Court')
+            ->findEconomicActivitiesByCourtId($courtId);
+
+        $landUses = $em->getRepository('AppBundle:Court\Court')
+            ->findLandUseByCourtId($courtId);
+
+        $transportModes = $em->getRepository('AppBundle:Court\Court')
+            ->findTransportModesByCourtId($courtId);
+
+        $info->addTextElement('Economic Activities',$economicActivities);
+        $info->addTextElement('More Details on Economic Activities',$data->getEconomicActivitiesDescription());
+        $info->addTextElement('Transport Mode',$transportModes);
+        $info->addTextElement('More Details on Transport Modes',$data->getTransportModesDescription());
+        $info->addTextElement('Current Land Use',$landUses);
+        $info->addTextElement('More Details on Land Use',$data->getLandUseDescription());
+        $info->addTextElement('Environmental Status',$data->getEnvironmentalStatus()->getDescription());
+        $info->addTextElement('Fibre Optic Termination Point Distance from Court',$data->getFibreDistance());
+        $info->addTextElement('Areas entitled accessibility of justice',$data->getAreasEntitled());
+
 
         $coordinates['latitude'] = $data->getCourtLatitude();
         $coordinates['longitude'] = $data->getCourtLongitude();

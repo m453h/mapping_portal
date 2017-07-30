@@ -151,5 +151,13 @@ class InfoBuilder
 	}
 
 	
+	public function parseNumber($number)
+	{
+		if(empty($number))
+			$number = 0;
+		
+		return $number;
+	}
+	
 
 }
