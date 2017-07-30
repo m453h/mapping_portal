@@ -88,5 +88,22 @@ class WardRepository extends EntityRepository
 
         return $queryBuilder->execute()->fetchAll();
     }
+
+
+    public function findTotalWards()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('COUNT(ward_id) AS total')
+            ->from('cfg_wards', 'c')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+
+        return $result['total'];
+    }
     
 }

@@ -303,43 +303,68 @@ class CourtRepository extends EntityRepository
 
 
 
-    public function findCourtTotalsByWard()
+    public function findCourtTotalsByRegion()
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $results = $queryBuilder->select('region_name AS ward,COUNT(court_id) AS total')
+        $results = $queryBuilder->select('region_name AS name,COUNT(court_id) AS total')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
             ->join('w','cfg_districts','d','d.district_id=w.district_id')
             ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
             ->groupBy('r.region_id')
             ->orderBy('total','DESC')
             ->setMaxResults(10)
+            ->setParameter('status',true)
             ->execute()
             ->fetchAll();
 
-        $wardNames=[];
-        $wardTotals=[];
+        $names=[];
+        $totals=[];
 
         $i = 0;
 
         foreach ($results as $result)
         {
-            $wardNames[$i] = '"'.$result['ward'].'"';
-            $wardTotals[$i] = $result['total'];
+            $names[$i] = '"'.$result['name'].'"';
+            $totals[$i] = $result['total'];
             $i++;
         }
 
         $results = [];
 
-        $results['wardNames'] =  $wardNames;
-        $results['wardTotals'] =  $wardTotals;
+        $results['names'] =  $names;
+        $results['totals'] =  $totals;
 
         return $results;
     }
 
+    public function findCourtTotalByStatus($status)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $queryBuilder->select('COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->setMaxResults(1);
+
+        if($status==true)
+            $queryBuilder->andWhere('c.court_record_status=:status');
+        else
+            $queryBuilder->andWhere('c.court_record_status<>:status');
 
 
+       $result = $queryBuilder->setParameter('status',true)
+                ->execute()
+                ->fetch();
+        
+        return $result['total'];
+    }
+
+    
 }

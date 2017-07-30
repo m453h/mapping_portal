@@ -115,8 +115,25 @@ class UserRepository extends EntityRepository
         return $result['userId'];
     }
 
-    
-    
+
+    public function findTotalAppUsers()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('COUNT(user_id) AS total')
+            ->from('app_users', 'c')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+
+        return $result['total'];
+    }
+
+
+
 
 
 

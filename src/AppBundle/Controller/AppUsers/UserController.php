@@ -66,7 +66,7 @@ class UserController extends Controller
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('app_users_list');
         $grid->setSecondaryPath('app_user_region_list');
-        $grid->setIgnoredButtons(["more"]);
+        $grid->setIgnoredButtons(["more","approve","decline"]);
         $grid->setCurrentObject($class);
         $grid->setButtons();
 

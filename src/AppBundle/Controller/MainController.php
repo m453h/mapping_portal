@@ -17,22 +17,28 @@ class MainController extends Controller
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
         $template = 'dashboard/admin.dashboard.html.twig';
 
         $em = $this->getDoctrine()->getManager();
 
-        $courtTotals = $em->getRepository('AppBundle:Court\Court')->findCourtTotalsByWard();
+        $courtTotals = $em->getRepository('AppBundle:Court\Court')->findCourtTotalsByRegion();
+
+        $validDataCount = $em->getRepository('AppBundle:Court\Court')->findCourtTotalByStatus(true);
+
+        $testDataCount = $em->getRepository('AppBundle:Court\Court')->findCourtTotalByStatus(false);
+
+        $userCount = $em->getRepository('AppBundle:AppUsers\User')->findTotalAppUsers();
+
+        $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
+
 
         $data = array(
-            'moduleName'=>'Dashboard',
-            /*'studentsTotal'=>$totalStudents,
-            'staffTotal'=>$totalStaff,
-            'departmentsTotal'=>$totalDepartments,
-            'coursesTotal'=>$totalCourses,*/
-            'courseCodes'=>implode(',',$courtTotals['wardNames']),
-            'courseTotals'=>implode(',',$courtTotals['wardTotals'])
+            'validDataCount'=>$validDataCount,
+            'testDataCount'=>$testDataCount,
+            'userCount'=>$userCount,
+            'wardCount'=>$wardCount,
+            'names'=>implode(',',$courtTotals['names']),
+            'totals'=>implode(',',$courtTotals['totals'])
         );
 
         return $this->render(

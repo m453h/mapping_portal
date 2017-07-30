@@ -99,12 +99,14 @@
              <div class="space-20"></div>
 
          </div>
-         {% if coordinates.longitude!=null and coordinates.latitude!=null %}
-             <div id="dialog-message" title="Map Visualization">
-                 <div id="mapid" style="width: 600px; height: 400px;"></div>
+         {% if coordinates is defined %}
+             {% if coordinates.longitude!=null and coordinates.latitude!=null %}
+                 <div id="dialog-message" title="Map Visualization">
+                     <div id="mapid" style="width: 600px; height: 400px;"></div>
 
 
-             </div>
+                 </div>
+             {% endif %}
          {% endif %}
      </div>
 
@@ -117,6 +119,8 @@
      {{ parent() }}
 
     <script src="{{ asset('js/ajax.js') }}"></script>
+{% if coordinates is defined %}
+
     {% if coordinates.longitude!=null and coordinates.latitude!=null %}
         <script src="{{ asset('vendor/leaflet/leaflet.js') }}"></script>
         <script type="text/javascript">
@@ -137,5 +141,6 @@
             });
         </script>
     {% endif %}
+{% endif %}
 {% endblock %}
 

@@ -8,8 +8,8 @@
         <i class="fa fa-balance-scale"></i>
     </div>
     <div class="details">
-        <h2 class="data-counter">1349</h2>
-        <p class="desc">Actual Data </p>
+        <h2 class="data-counter">{{ validDataCount }}</h2>
+        <p class="desc">Valid Data </p>
     </div>
 </div>
 
@@ -18,7 +18,7 @@
         <i class="fa fa-balance-scale"></i>
     </div>
     <div class="details">
-        <h2 class="data-counter">50</h2>
+        <h2 class="data-counter">{{ testDataCount }}</h2>
         <p class="desc">Test Data </p>
     </div>
 </div>
@@ -28,7 +28,7 @@
         <i class="fa fa-users"></i>
     </div>
     <div class="details">
-        <h2 class="data-counter">3</h2>
+        <h2 class="data-counter">{{ userCount }}</h2>
         <p class="desc">Data Collectors </p>
     </div>
 </div>
@@ -38,7 +38,7 @@
         <i class="fa fa-map"></i>
     </div>
     <div class="details">
-        <h2 class="data-counter">12</h2>
+        <h2 class="data-counter">{{ wardCount }}</h2>
         <p class="desc">Wards </p>
     </div>
 </div>
@@ -69,10 +69,10 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: [{{ courseCodes|raw }}],
+                labels: [{{ names|raw }}],
                 datasets: [{
                     label: '# Courts',
-                    data: [{{ courseTotals }}],
+                    data: [{{ totals }}],
                     backgroundColor: [
                         'rgba(26, 188, 156,1.0)',
                         'rgba(241, 196, 15,1.0)',
