@@ -101,13 +101,13 @@
                                            <a href="{{ path }}/edit/{{ record|first }}" class="btn btn-yellow" title="Click to edit record"><i class="fa fa-pencil"></i></a>
                                         {% endif %}
 
-                                        {% if 'approve' in buttons and 'info' not in buttons and 'approve' not in ignoredButtons %}
+                                        {% if 'approve' in buttons and 'approve' not in ignoredButtons %}
                                             {% if record.status == 0 %}
                                                 <a href="{{ path }}/activate/{{ record|first }}" class="btn btn-green" title="Click to activate"><i class="fa fa-check"></i></a>
                                             {% endif %}
                                         {% endif %}
 
-                                        {% if 'decline' in buttons and 'info' not in buttons and 'decline' not in ignoredButtons %}
+                                        {% if 'decline' in buttons and 'decline' not in ignoredButtons %}
                                             {% if record.status == 1 %}
                                                 <a href="{{ path }}/deactivate/{{ record|first }}" class="btn btn-dark" title="Click to deactivate"><i class="fa fa-ban"></i></a>
                                             {% endif %}

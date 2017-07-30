@@ -59,11 +59,10 @@ class CourtController extends Controller
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
         $grid->addGridHeader('Date',null,'text',false);
-        $grid->addGridHeader('Recorded by',null,'text',false);
+        $grid->addGridHeader('Recorded by','name','text',true);
         $grid->addGridHeader('Court Level',null,'text',false);
-        $grid->addGridHeader('Region',null,'text',false);
-        $grid->addGridHeader('District',null,'text',false);
-        $grid->addGridHeader('Ward',null,'text',false);
+        $grid->addGridHeader('Location',null,'text',false);
+        $grid->addGridHeader('Status',null,'text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('court_form_list');
@@ -81,9 +80,8 @@ class CourtController extends Controller
     }
 
 
-
     /**
-     * @Route("/court-form/info/{courtId}", name="court_info",defaults={"courtId":0})
+     * @Route("/court-form/info/{courtId}", name="court_form_info",defaults={"courtId":0})
      * @param $courtId
      * @return Response
      * @throws NotFoundHttpException
@@ -132,7 +130,10 @@ class CourtController extends Controller
         $info->addTextElement('Does building meet functionality',$functionality);
         $info->addTextElement('Last Mile Connectivity',$lastMileConnectivity);
 
-        $info->setPath('court_info');
+        $coordinates['latitude'] = $data->getCourtLatitude();
+        $coordinates['longitude'] = $data->getCourtLongitude();
+        
+        $info->setPath('court_form_info');
 
         $images = [];
 
@@ -164,9 +165,59 @@ class CourtController extends Controller
             'info'=>$info,
             'image'=>$images,
             'title'=>'Court Details',
+            'coordinates'=>$coordinates,
             'infoTemplate'=>'base'
         ));
     }
+
+    /**
+     * @Route("/court-form/{action}/{courtId}", name="court_status_change")
+     * @param Court $court
+     * @param $action
+     * @return Response
+     * @internal param Request $request
+     */
+    public function activateLinkAction(Court $court,$action)
+    {
+
+        $class = get_class($this);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($action=='activate')
+        {
+            $this->denyAccessUnlessGranted('approve',$class);
+
+            $action = 'marked as valid data';
+            $status = true;
+        }
+        else
+        {
+            $this->denyAccessUnlessGranted('decline',$class);
+
+            $action = 'marked as test data';
+            $status = false;
+        }
+
+        if($court instanceof Court)
+        {
+            $court->setCourtRecordStatus($status);
+
+            $em->flush();
+
+            $this->addFlash('success', sprintf('Court record status successfully %s !',$action));
+        }
+        else
+        {
+            $this->addFlash('error', 'Court not found !');
+        }
+
+        return $this->redirectToRoute('court_form_list');
+    }
+
+
+
+
 
 
 

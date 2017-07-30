@@ -1,7 +1,11 @@
 <ul class="list-styled">
     {% for record in info.getTextElements() %}
         {% for key,value in record %}
-            <li class="fade"><span class="title">{{ key }}:</span>{{ value }}</li>
+            {% if key=='Court Coordinates' and value!='N/A' %}
+                <li class="fade"><span class="title">{{ key }}:</span>{{ value }} <a href="#"><img src="{{ asset('images/icons/map.png') }}" class="open-map" title="Click to view coordinates on map"></a></li>
+            {% else %}
+                <li class="fade"><span class="title">{{ key }}:</span>{{ value }}</li>
+            {% endif %}
         {% endfor %}
     {% endfor %}
 </ul>

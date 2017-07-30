@@ -149,6 +149,26 @@ $(document).ready(function() {
 			cropper.zoomOut();
 		})
 	}
+
+	$('.image-slider').slick({
+		dots: true,
+		infinite: true,
+        autoplay:true,
+        autoplaySpeed:1500,
+		speed: 300,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+        prevArrow: false,
+        nextArrow: false
+	});
+
+$('.open-map').on('click', function () {
+    $("#dialog-message").dialog({
+        modal: true,
+        minWidth: 620
+
+    });
+});
 	
 });
 

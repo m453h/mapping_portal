@@ -19,44 +19,21 @@ class MainController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $roleName =$user->getRoles();
+        $template = 'dashboard/admin.dashboard.html.twig';
 
-        $template = 'main/app.dashboard.html.twig';
+        $em = $this->getDoctrine()->getManager();
 
-        $data = array ();
+        $courtTotals = $em->getRepository('AppBundle:Court\Court')->findCourtTotalsByWard();
 
-        if(in_array('ROLE_STUDENT',$roleName))
-        {
-            $template = 'dashboard/student.dashboard.html.twig';
-
-            $em = $this->getDoctrine()->getManager();
-
-            $admission = $em->getRepository('AppBundle:Registration\Student\StudentAdmission')
-                ->getCurrentAdmission($user->getUsername());
-
-            $admissionId = $admission->getAdmissionId();
-            
-            $curriculumId = $admission->getCurriculum()->getCurriculumId();
-
-            $totalModules = $em->getRepository('AppBundle:Configuration\CurriculumModule')
-                ->findCurriculumTotalModules(null,$curriculumId);
-
-            $passedModules = $em->getRepository('AppBundle:Registration\Student\EnrolledModule')
-                ->countModuleResultsByStatus($admissionId,'PASS');
-
-            $failedModules = $em->getRepository('AppBundle:Registration\Student\EnrolledModule')
-                ->countModuleResultsByStatus($admissionId,'FAILED');
-
-            $remainingModules = $totalModules -  ($passedModules+$failedModules);
-            $data = array(
-                'moduleName'=>'Dashboard',
-                'totalModules'=>$totalModules,
-                'passedModules'=>$passedModules,
-                'failedModules'=>$failedModules,
-                'remainingModules'=>$remainingModules,
-                'admission'=>$admission
-            );
-        }
+        $data = array(
+            'moduleName'=>'Dashboard',
+            /*'studentsTotal'=>$totalStudents,
+            'staffTotal'=>$totalStaff,
+            'departmentsTotal'=>$totalDepartments,
+            'coursesTotal'=>$totalCourses,*/
+            'courseCodes'=>implode(',',$courtTotals['wardNames']),
+            'courseTotals'=>implode(',',$courtTotals['wardTotals'])
+        );
 
         return $this->render(
             $template,

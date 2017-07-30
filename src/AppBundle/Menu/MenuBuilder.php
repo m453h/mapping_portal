@@ -99,10 +99,13 @@ class MenuBuilder
             ->getParent();
 
         $menu->addChild('Documents', array('uri' => '#', 'extras' => array('icon' => 'book')))
-            ->addChild('Manage Submitted Forms', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))->getParent()
+            ->addChild('Manage Submitted Forms', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))
+            ->addChild('View Court Details', array('route' => 'court_form_info'))->setDisplay(false)
+            ->getParent()
+            ->getParent()
             ->getParent();
 
-
+        
         $menu->addChild('Portal Users', array('uri' => '#', 'extras' => array('icon' => 'users')))
             //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->getParent();
@@ -129,7 +132,6 @@ class MenuBuilder
        return [
             'routes' => [
                         ['route' => $name.'_add'],
-                        ['route' => $name.'_info'],
                         ['route' => $name.'_edit']
             ]
         ];

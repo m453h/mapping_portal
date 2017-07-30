@@ -39,10 +39,10 @@
 
 
              {% if image is defined %}
-                 <div class="col6">
+                 <div class="col5">
                      {{ include("info/#{ infoTemplate }.info.html.twig") }}
                  </div>
-                 <div class="col6 last">
+                 <div class="image-slider col7 last">
                      {% for data in image %}
                          <div class="image-frame">
                              <img src="{{ asset(data) }}" alt="Image" />
@@ -99,8 +99,13 @@
              <div class="space-20"></div>
 
          </div>
+         {% if coordinates.longitude!=null and coordinates.latitude!=null %}
+             <div id="dialog-message" title="Map Visualization">
+                 <div id="mapid" style="width: 600px; height: 400px;"></div>
 
 
+             </div>
+         {% endif %}
      </div>
 
 
@@ -110,6 +115,27 @@
 
 {% block javascripts %}
      {{ parent() }}
-     <script src="{{ asset('js/ajax.js') }}"></script>
+
+    <script src="{{ asset('js/ajax.js') }}"></script>
+    {% if coordinates.longitude!=null and coordinates.latitude!=null %}
+        <script src="{{ asset('vendor/leaflet/leaflet.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var map = L.map('mapid').setView([{{ coordinates.latitude }}, {{ coordinates.longitude }}], 15);
+
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                    maxZoom: 18,
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    id: 'mapbox.streets'
+                }).addTo(map);
+
+                L.marker([{{ coordinates.latitude }}, {{ coordinates.longitude }}]).addTo(map);
+
+                $('#dialog-message').hide();
+            });
+        </script>
+    {% endif %}
 {% endblock %}
 

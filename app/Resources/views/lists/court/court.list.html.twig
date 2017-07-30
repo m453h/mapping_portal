@@ -1,7 +1,6 @@
 <td>{{ counter }}</td>
-<td>{{ record.time_created|date("m/d/Y") }}</td>
-<td>{{ record.first_name }} {{ record.surname }}</td>
+<td>{% if record.time_created!=null %}{{ record.time_created|date("m/d/Y") }}{% else %}-{% endif %}</td>
+<td>{{ record.first_name|upper }} {{ record.surname|upper }}</td>
 <td>{{ record.description }}</td>
-<td>{{ record.region_name }}</td>
-<td>{{ record.district_name }}</td>
-<td>{{ record.ward_name }}</td>
+<td>{{ record.region_name }} - {{ record.district_name }} - {{ record.ward_name }}</td>
+<td>{% if record.status == "1" %}<span class="label green">Valid Data</span>{% elseif record.status == "0"%}<span class="label red">Test Data</span>{% endif %}</td>

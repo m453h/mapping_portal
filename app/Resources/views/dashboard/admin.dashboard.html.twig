@@ -1,0 +1,103 @@
+{% extends 'main/app.dashboard.html.twig' %}
+
+{% block dashboard %}
+<div class="space-10"></div>
+
+<div class="col3 dashboard-stat dash-blue">
+    <div class="visual">
+        <i class="fa fa-balance-scale"></i>
+    </div>
+    <div class="details">
+        <h2 class="data-counter">1349</h2>
+        <p class="desc">Actual Data </p>
+    </div>
+</div>
+
+<div class="col3 dashboard-stat dash-red">
+    <div class="visual">
+        <i class="fa fa-balance-scale"></i>
+    </div>
+    <div class="details">
+        <h2 class="data-counter">50</h2>
+        <p class="desc">Test Data </p>
+    </div>
+</div>
+
+<div class="col3 dashboard-stat dash-green">
+    <div class="visual">
+        <i class="fa fa-users"></i>
+    </div>
+    <div class="details">
+        <h2 class="data-counter">3</h2>
+        <p class="desc">Data Collectors </p>
+    </div>
+</div>
+
+<div class="col3 dashboard-stat last dash-purple">
+    <div class="visual">
+        <i class="fa fa-map"></i>
+    </div>
+    <div class="details">
+        <h2 class="data-counter">12</h2>
+        <p class="desc">Wards </p>
+    </div>
+</div>
+
+
+    <div class="col12 space-30"></div>
+
+
+    <div class="col12 panel white-space">
+        <div class="panel-title col12">
+            <div class="container"><h1>TOP TEN REGIONS WITH COURTS</h1></div>
+        </div>
+        <div class="panel-body">
+            <div class='col12 space'></div>
+            <div class='ct-chart col12'></div>
+            <div class='col12'>
+                <div class='container'>
+                    <canvas id='canvas' height='90'></canvas>
+                    <!--	<p class='horizontal-text'>Date Recorded</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('vendor/chartjs/Chart.min.js') }}"></script>
+    <script>
+        var ctx = document.getElementById("canvas");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{{ courseCodes|raw }}],
+                datasets: [{
+                    label: '# Courts',
+                    data: [{{ courseTotals }}],
+                    backgroundColor: [
+                        'rgba(26, 188, 156,1.0)',
+                        'rgba(241, 196, 15,1.0)',
+                        'rgba(52, 73, 94,1.0)',
+                        'rgba(155, 89, 182,1.0)',
+                        'rgba(230, 126, 34,1.0)',
+                        'rgba(231, 76, 60,1.0)',
+                        'rgba(243, 156, 18,1.0)',
+                        'rgba(52, 152, 219,1.0)',
+                        'rgba(22, 160, 133,1.0)',
+                        'rgba(241, 196, 15,1.0)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

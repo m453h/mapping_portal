@@ -18,7 +18,16 @@ class CourtRepository extends EntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('court_id,time_created,description,region_name,district_name,ward_name,first_name,surname')
+        $queryBuilder->select('
+        court_id,
+        time_created,
+        description,
+        region_name,
+        district_name,
+        ward_name,
+        first_name,
+        surname,
+        court_record_status AS status')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
             ->join('w','cfg_districts','d','d.district_id=w.district_id')
@@ -35,7 +44,7 @@ class CourtRepository extends EntityRepository
     {
         if (!empty($options['name']))
         {
-            return $queryBuilder->andWhere('lower(description) LIKE lower(:name)')
+            return $queryBuilder->andWhere('lower(first_name) LIKE lower(:name) OR lower(surname) LIKE lower(:name) ')
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 
@@ -290,6 +299,45 @@ class CourtRepository extends EntityRepository
             ->fetch();
 
         return $data;
+    }
+
+
+
+    public function findCourtTotalsByWard()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $results = $queryBuilder->select('region_name AS ward,COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->groupBy('r.region_id')
+            ->orderBy('total','DESC')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll();
+
+        $wardNames=[];
+        $wardTotals=[];
+
+        $i = 0;
+
+        foreach ($results as $result)
+        {
+            $wardNames[$i] = '"'.$result['ward'].'"';
+            $wardTotals[$i] = $result['total'];
+            $i++;
+        }
+
+        $results = [];
+
+        $results['wardNames'] =  $wardNames;
+        $results['wardTotals'] =  $wardTotals;
+
+        return $results;
     }
 
 
