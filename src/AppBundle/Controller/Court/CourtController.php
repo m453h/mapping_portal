@@ -272,15 +272,15 @@ class CourtController extends Controller
         $content =  $request->getContent();
 
         try {
-           /* $content = '{
+           /*$content = '{
                           "courtName": "Mahakama ya Kisutu",
-                          "courtLevelId": "43",
+                          "courtLevelId": "1",
                           "wardId": "3649",
-                          "landOwnershipStatusId": "8",
-                          "buildingOwnershipStatusId": "22",
-                          "buildingStatusId": "56",
-                          "environmentalStatusId": "23",
-                          "authToken": "0JlzZfy+wE8DOKCWjsQuTsXDufsNITQM6huYot7VWKcF3EFzROo9HtY+wckwl0OsbewTcM4+041yxOm5a5N3Aiw==",
+                          "landOwnershipStatusId": "1",
+                          "buildingOwnershipStatusId": "1",
+                          "buildingStatusId": "3",
+                          "environmentalStatusId": "1",
+                          "authToken": "NDFyFENQG5INqGRWkjGKf2CdoKPTZTh4f0GPM5NBnGaZ5r9a7UnVduXeQLs9xnEUEBWiAdoHk1Bvkro6r3rlhQ==",
                           "uniqueCourtId": "1510871084431"
                         }';*/
 
@@ -465,10 +465,48 @@ class CourtController extends Controller
 
             $em->getRepository('AppBundle:Court\Court')
                 ->updateCourtDetails($record, $courtId);
+
         }
         catch(UniqueConstraintViolationException $e)
         {
             $data['status']="PASS";
+
+            $em = $this->getDoctrine()->getManager();
+
+            $decoder = $this->get('app.helper.base_64_decoder');
+
+            $uploadPath = $this->getParameter('court_images');
+
+            $decoder->setUploadPath($uploadPath);
+
+            $court = $em->getRepository('AppBundle:Court\Court')
+                ->findOneBy(['uniqueCourtId' => $this->getAPIParameter($data, 'uniqueCourtId')]);
+
+            $courtId = $court->getCourtId();
+
+            $record = ['first' => null, 'second' => null, 'third' => null, 'fourth' => null, 'courtId' => $courtId];
+
+            if (!empty($data['courtBmpOne'])) {
+                $record['first'] = $decoder->decodeBase64($data['courtBmpOne']);
+            }
+
+            if (!empty($data['courtBmpTwo'])) {
+                $record['second'] = $decoder->decodeBase64($data['courtBmpTwo']);
+            }
+
+            if (!empty($data['courtBmpThree'])) {
+                $record['third'] = $decoder->decodeBase64($data['courtBmpThree']);
+            }
+
+            if (!empty($data['courtBmpFour'])) {
+                $record['fourth'] = $decoder->decodeBase64($data['courtBmpFour']);
+            }
+
+            $data['status'] = "PASS";
+
+            $em->getRepository('AppBundle:Court\Court')
+                ->updateCourtDetails($record, $courtId);
+
         }
 
         //Encode Password
