@@ -524,4 +524,85 @@ class CourtController extends Controller
     }
 
 
+
+    /**
+     * @Route("/api/getIncompleteCourts", name="api_incomplete_court_list")
+     * @param Request $request
+     * @return Response
+     *
+     */
+    public function getIncompleteCourtsAction(Request $request)
+    {
+
+        $content = $request->getContent();
+
+        $data = json_decode($content, true);
+
+        $data = $data[0];
+
+        $em = $this->getDoctrine()->getManager();
+
+        $records = $em->getRepository('AppBundle:Court\Court')
+            ->findAllIncompleteCourts($data['authToken']);
+
+        return new JsonResponse($records);
+    }
+
+
+    /**
+     * @Route("/api/submitCourtImages", name="api_court_image_form")
+     * @param Request $request
+     * @return Response
+     *
+     */
+    public function courtFormImageAPIAction(Request $request)
+    {
+
+        $content =  $request->getContent();
+        
+        $data = json_decode($content, true);
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $decoder = $this->get('app.helper.base_64_decoder');
+
+        $uploadPath = $this->getParameter('court_images');
+
+        $decoder->setUploadPath($uploadPath);
+        
+        $courtId = $data['courtId'];
+
+        $record = ['first' => null, 'second' => null, 'third' => null, 'fourth' => null, 'courtId' => $courtId];
+
+        if (!empty($data['imageOne']))
+        {
+            $record['first'] = $decoder->decodeBase64($data['imageOne']);
+        }
+
+        if (!empty($data['imageTwo'])) 
+        {
+            $record['second'] = $decoder->decodeBase64($data['imageTwo']);
+        }
+
+        if (!empty($data['imageThree'])) 
+        {
+            $record['third'] = $decoder->decodeBase64($data['imageThree']);
+        }
+
+        if (!empty($data['imageFour'])) 
+        {
+            $record['fourth'] = $decoder->decodeBase64($data['imageFour']);
+        }
+        
+        $em->getRepository('AppBundle:Court\Court')
+            ->updateCourtDetails($record, $courtId);
+
+        $data['status']="PASS";
+
+        
+        //Encode Password
+        return new JsonResponse($data);
+    }
+
+
 }

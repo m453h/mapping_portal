@@ -426,5 +426,37 @@ class CourtRepository extends EntityRepository
         return $result['description'];
     }
 
+
+    /**
+     * @param $token
+     * @return array
+     */
+    public function findAllIncompleteCourts($token)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        return $queryBuilder->select('
+        DISTINCT
+        court_id AS "courtId",
+        court_name AS "courtName",
+        ward_name AS "wardName",
+        l.description AS "courtLevel"
+        ')
+            ->from('tbl_court_details', 'c')
+            ->leftJoin('c','app_users','u','c.user_id=u.user_id')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('c','cfg_court_levels','l','c.level_id=l.level_id')
+            ->andWhere('token=:token')
+            ->andWhere('court_record_status IS NULL')
+            ->andWhere('first_court_view IS NULL AND second_court_view IS NULL AND third_court_view IS NULL AND fourth_court_view IS NULL')
+            ->setParameter('token',$token)
+            ->addOrderBy('court_id','DESC')
+            ->execute()
+            ->fetchAll();
+    }
+
     
 }
