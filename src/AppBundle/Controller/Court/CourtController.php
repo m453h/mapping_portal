@@ -8,6 +8,7 @@ use AppBundle\Entity\Court\Court;
 use AppBundle\Entity\Court\CourtEconomicActivities;
 use AppBundle\Entity\Court\CourtLandUse;
 use AppBundle\Entity\Court\CourtTransportModes;
+use Doctrine\DBAL\Exception\DriverException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -397,43 +398,69 @@ class CourtController extends Controller
             $economicActivities = explode(',', $this->getAPIParameter($data, 'economicActivities'));
             $landUses = explode(',', $this->getAPIParameter($data, 'landUses'));
 
-            foreach ($transportModes as $modeId) {
-                if (!empty($modeId)) {
-                    $transportMode = $em->getRepository('AppBundle:Configuration\TransportMode')
-                        ->findOneBy(['modeId' => $modeId]);
+            foreach ($transportModes as $modeId) 
+            {
+                if (!empty($modeId)) 
+                {
+                    try 
+                    {
+                        $transportMode = $em->getRepository('AppBundle:Configuration\TransportMode')
+                            ->findOneBy(['modeId' => $modeId]);
 
-                    $courtTransportMode = new CourtTransportModes();
-                    $courtTransportMode->setCourt($court);
-                    $courtTransportMode->setTransportMode($transportMode);
-                    $em->persist($courtTransportMode);
-                    $em->flush();
+                        $courtTransportMode = new CourtTransportModes();
+                        $courtTransportMode->setCourt($court);
+                        $courtTransportMode->setTransportMode($transportMode);
+                        $em->persist($courtTransportMode);
+                        $em->flush();
+                    }
+                    catch (DriverException $ex)
+                    {
+
+                    }
                 }
             }
 
             foreach ($economicActivities as $activityId) {
 
-                if (!empty($activityId)) {
-                    $activity = $em->getRepository('AppBundle:Configuration\EconomicActivity')
-                        ->findOneBy(['activityId' => $activityId]);
+                if (!empty($activityId)) 
+                {
+                    try 
+                    {
+                        $activity = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+                            ->findOneBy(['activityId' => $activityId]);
 
-                    $economicActivity = new CourtEconomicActivities();
-                    $economicActivity->setCourt($court);
-                    $economicActivity->setEconomicActivity($activity);
-                    $em->persist($economicActivity);
-                    $em->flush();
+                        $economicActivity = new CourtEconomicActivities();
+                        $economicActivity->setCourt($court);
+                        $economicActivity->setEconomicActivity($activity);
+                        $em->persist($economicActivity);
+                        $em->flush();
+                    }
+                    catch (DriverException $ex)
+                    {
+                        
+                    }
                 }
             }
 
-            foreach ($landUses as $activityId) {
-                if (!empty($activityId)) {
-                    $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
-                        ->findOneBy(['activityId' => $activityId]);
+            foreach ($landUses as $activityId) 
+            {
+                if (!empty($activityId)) 
+                {
+                    try 
+                    {
+                        $landUse = $em->getRepository('AppBundle:Configuration\LandUse')
+                            ->findOneBy(['activityId' => $activityId]);
 
-                    $courtLandUse = new CourtLandUse();
-                    $courtLandUse->setCourt($court);
-                    $courtLandUse->setLandUse($landUse);
-                    $em->persist($courtLandUse);
-                    $em->flush();
+                        $courtLandUse = new CourtLandUse();
+                        $courtLandUse->setCourt($court);
+                        $courtLandUse->setLandUse($landUse);
+                        $em->persist($courtLandUse);
+                        $em->flush();
+                    }
+                    catch (DriverException $ex)
+                    {
+
+                    }
                 }
             }
 
