@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository\Court;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
@@ -458,5 +459,77 @@ class CourtRepository extends EntityRepository
             ->fetchAll();
     }
 
+
+
+    public function findCourtTotalPerCategory()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        return $queryBuilder->select('description,COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_court_levels','l','l.level_id=c.level_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('l.description')
+            ->orderBy('total','DESC')
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+    }
+
+
+    public function findCourtTotalPerRegionPerWard()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        return $queryBuilder->select('region_name,ward_name,COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('region_name,ward_name')
+            ->orderBy('region_name','ASC')
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+    }
+
+
+    public function findCourtTotalPerRegion()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results =  $queryBuilder->select('region_name,COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('region_name')
+            ->orderBy('region_name','ASC')
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+        
+        $data = new ArrayCollection();
+        
+        foreach ($results as $result)
+        {
+            $data->set($result['region_name'],$result['total']);
+        }
+        
+        return $data;
+    }
     
 }

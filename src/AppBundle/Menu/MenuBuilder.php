@@ -115,7 +115,7 @@ class MenuBuilder
 
 
         $menu->addChild('Reports', array('uri' => '#', 'extras' => array('icon' => 'area-chart')))
-            //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
+            ->addChild('Pre-defined reports', array('route' => 'pre_defined_report_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->getParent();
 
         return $menu;

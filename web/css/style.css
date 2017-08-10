@@ -530,6 +530,27 @@ select,.form-wizard select,.form-wizard select.ui-state-default {
 .btn-full{
 	width:100%;
 }
+.form-buttons .btn{
+	display:inline-block;
+	float:left;
+}
+
+.form-buttons .btn:before{
+	font-family: FontAwesome;
+	padding-right:10px;
+}
+
+.form-buttons .btn-preview:before{
+	content: "\f06e ";
+}
+
+.form-buttons .btn-excel:before{
+	content: "\f1c3 ";
+}
+
+.form-buttons .btn-pdf:before{
+	content: "\f1c1 ";
+}
 label.required.control-label:after {
 	content: "*";
 	font-style: italic;
