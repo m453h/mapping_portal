@@ -25,12 +25,12 @@ class PredefinedReportController extends Controller
 
         // only handles data on POST
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid())
         {
             $report = $form['report']->getData();
 
-            $fileName = '_COURT_MAPPING_UPENDO_REPORT';
+            $fileName = '_COURT_MAPPING_REPORT';
 
             $em = $this->getDoctrine()->getManager();
 
@@ -50,23 +50,28 @@ class PredefinedReportController extends Controller
 
                 $mainTemplate = 'main/app.report.list.html.twig';
 
-                $keys = null;
-                
+                $regionTotals = null;
+
+                $districtTotals = null;
             }
             else
             {
 
-                $title = ' REPORT ON COURTS PER REGION PER WARD';
+                $title = ' REPORT ON COURTS PER REGION PER DISTRICT AND WARD';
 
                 $data = $em->getRepository('AppBundle:Court\Court')
                     ->findCourtTotalPerRegionPerWard();
 
-                $keys = $em->getRepository('AppBundle:Court\Court')
+                $regionTotals = $em->getRepository('AppBundle:Court\Court')
                     ->findCourtTotalPerRegion();
-                
+
+                $districtTotals = $em->getRepository('AppBundle:Court\Court')
+                    ->findCourtTotalDistricts();
+                dump($districtTotals);
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
                 $grid->addGridHeader('Region',null,null,false);
+                $grid->addGridHeader('District',null,null,false);
                 $grid->addGridHeader('Ward',null,null,false);
                 $grid->addGridHeader('Total',null,null,false);
 
@@ -86,7 +91,8 @@ class PredefinedReportController extends Controller
                 'grid'=>$grid,
                 'summary'=>$summary,
                 'gridTemplate'=>$gridTemplate,
-                'keys'=>$keys
+                'regionTotals'=>$regionTotals,
+                'districtTotals'=>$districtTotals
             );
 
 

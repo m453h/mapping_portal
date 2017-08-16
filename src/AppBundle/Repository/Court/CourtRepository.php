@@ -488,14 +488,16 @@ class CourtRepository extends EntityRepository
 
         $queryBuilder = new QueryBuilder($conn);
 
-        return $queryBuilder->select('region_name,ward_name,COUNT(court_id) AS total')
+        return $queryBuilder->select('region_name,district_name,ward_name,COUNT(court_id) AS total')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
             ->join('w','cfg_districts','d','d.district_id=w.district_id')
             ->join('d','cfg_regions','r','r.region_id=d.region_id')
             ->andWhere('c.court_record_status=:status')
-            ->groupBy('region_name,ward_name')
-            ->orderBy('region_name','ASC')
+            ->groupBy('region_name,district_name,ward_name')
+            ->addOrderBy('region_name','ASC')
+            ->addOrderBy('district_name','ASC')
+            ->addOrderBy('ward_name','ASC')
             ->setParameter('status',true)
             ->execute()
             ->fetchAll();
@@ -510,7 +512,7 @@ class CourtRepository extends EntityRepository
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $results =  $queryBuilder->select('region_name,COUNT(court_id) AS total')
+        $results =  $queryBuilder->select('region_name,COUNT(DISTINCT(w.ward_id)) AS total')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
             ->join('w','cfg_districts','d','d.district_id=w.district_id')
@@ -522,13 +524,43 @@ class CourtRepository extends EntityRepository
             ->execute()
             ->fetchAll();
         
-        $data = new ArrayCollection();
+        $data = [];
         
         foreach ($results as $result)
         {
-            $data->set($result['region_name'],$result['total']);
+            $data[$result['region_name']] = $result['total'];
         }
         
+        return $data;
+    }
+
+
+    public function findCourtTotalDistricts()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results =  $queryBuilder->select('district_name,COUNT(DISTINCT(c.ward_id)) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('d.district_id')
+            ->orderBy('district_name','ASC')
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+        $data = [];
+
+        foreach ($results as $result)
+        {
+            $data[$result['district_name']] = $result['total'];
+        }
+
         return $data;
     }
     
