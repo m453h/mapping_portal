@@ -498,7 +498,7 @@ class CourtRepository extends EntityRepository
             ->addOrderBy('region_name','ASC')
             ->addOrderBy('district_name','ASC')
             ->addOrderBy('ward_name','ASC')
-            ->setParameter('status',true)
+            ->setParameter('status','1')
             ->execute()
             ->fetchAll();
 
