@@ -67,7 +67,7 @@ class PredefinedReportController extends Controller
 
                 $districtTotals = $em->getRepository('AppBundle:Court\Court')
                     ->findCourtTotalDistricts();
-                dump($districtTotals);
+              
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
                 $grid->addGridHeader('Region',null,null,false);
