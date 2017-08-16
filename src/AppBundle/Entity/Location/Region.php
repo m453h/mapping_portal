@@ -25,6 +25,12 @@ class Region
      */
     private $regionName;
 
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $regionStatus;
+    
     
     /**
      * @return mixed
@@ -58,6 +64,21 @@ class Region
         $this->regionId = $regionId;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getRegionStatus()
+    {
+        return $this->regionStatus;
+    }
 
+    /**
+     * @param mixed $regionStatus
+     */
+    public function setRegionStatus($regionStatus)
+    {
+        $this->regionStatus = $regionStatus;
+    }
+
+    
 }

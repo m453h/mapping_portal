@@ -481,49 +481,90 @@ class CourtRepository extends EntityRepository
     }
 
 
-    public function findCourtTotalPerRegionPerWard()
+    public function findCourtTotalPerRegionPerWard($fullyCovered)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        return $queryBuilder->select('region_name,district_name,ward_name,COUNT(court_id) AS total')
-            ->from('tbl_court_details', 'c')
-            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
-            ->join('w','cfg_districts','d','d.district_id=w.district_id')
-            ->join('d','cfg_regions','r','r.region_id=d.region_id')
-            ->andWhere('c.court_record_status=:status')
-            ->groupBy('region_name,district_name,ward_name')
-            ->addOrderBy('region_name','ASC')
-            ->addOrderBy('district_name','ASC')
-            ->addOrderBy('ward_name','ASC')
-            ->setParameter('status','1')
-            ->execute()
-            ->fetchAll();
+        if($fullyCovered==false)
+        {
+            return $queryBuilder->select('region_name,district_name,ward_name,COUNT(court_id) AS total')
+                ->from('tbl_court_details', 'c')
+                ->join('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
+                ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
+                ->join('d', 'cfg_regions', 'r', 'r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status')
+                ->groupBy('region_name,district_name,ward_name')
+                ->addOrderBy('region_name', 'ASC')
+                ->addOrderBy('district_name', 'ASC')
+                ->addOrderBy('ward_name', 'ASC')
+                ->setParameter('status', '1')
+                ->execute()
+                ->fetchAll();
+        }
+        else
+        {
+
+            return $queryBuilder->select('region_name,district_name,ward_name,COUNT(court_id) AS total')
+                ->from('tbl_court_details', 'c')
+                ->rightJoin('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
+                ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
+                ->join('d', 'cfg_regions', 'r', 'r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status OR c.court_record_status IS NULL')
+                ->andWhere('r.region_status=:regionStatus')
+                ->groupBy('region_name,district_name,ward_name')
+                ->addOrderBy('region_name', 'ASC')
+                ->addOrderBy('district_name', 'ASC')
+                ->addOrderBy('ward_name', 'ASC')
+                ->setParameter('status', '1')
+                ->setParameter('regionStatus', '1')
+                ->execute()
+                ->fetchAll();
+        }
 
     }
 
 
-    public function findCourtTotalPerRegion()
+    public function findCourtTotalPerRegion($fullyCovered)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $results =  $queryBuilder->select('region_name,COUNT(DISTINCT(w.ward_id)) AS total')
-            ->from('tbl_court_details', 'c')
-            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
-            ->join('w','cfg_districts','d','d.district_id=w.district_id')
-            ->join('d','cfg_regions','r','r.region_id=d.region_id')
-            ->andWhere('c.court_record_status=:status')
-            ->groupBy('region_name')
-            ->orderBy('region_name','ASC')
-            ->setParameter('status',true)
-            ->execute()
-            ->fetchAll();
-        
+        if($fullyCovered==false)
+        {
+
+            $results = $queryBuilder->select('region_name,COUNT(DISTINCT(w.ward_id)) AS total')
+                ->from('tbl_court_details', 'c')
+                ->join('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
+                ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
+                ->join('d', 'cfg_regions', 'r', 'r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status')
+                ->groupBy('region_name')
+                ->orderBy('region_name', 'ASC')
+                ->setParameter('status', true)
+                ->execute()
+                ->fetchAll();
+        }
+        else
+        {
+            $results = $queryBuilder->select('region_name,COUNT(DISTINCT(w.ward_id)) AS total')
+                ->from('tbl_court_details', 'c')
+                ->rightJoin('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
+                ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
+                ->join('d', 'cfg_regions', 'r', 'r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status OR c.court_record_status IS NULL')
+                ->andWhere('r.region_status=:regionStatus')
+                ->groupBy('region_name')
+                ->orderBy('region_name', 'ASC')
+                ->setParameter('status', true)
+                ->setParameter('regionStatus', true)
+                ->execute()
+                ->fetchAll();
+        }
         $data = [];
         
         foreach ($results as $result)
@@ -535,24 +576,44 @@ class CourtRepository extends EntityRepository
     }
 
 
-    public function findCourtTotalDistricts()
+    public function findCourtTotalDistricts($fullyCovered)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $results =  $queryBuilder->select('district_name,COUNT(DISTINCT(c.ward_id)) AS total')
-            ->from('tbl_court_details', 'c')
-            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
-            ->join('w','cfg_districts','d','d.district_id=w.district_id')
-            ->join('d','cfg_regions','r','r.region_id=d.region_id')
-            ->andWhere('c.court_record_status=:status')
-            ->groupBy('d.district_id')
-            ->orderBy('district_name','ASC')
-            ->setParameter('status',true)
-            ->execute()
-            ->fetchAll();
+        if($fullyCovered==false)
+        {
+
+            $results = $queryBuilder->select('district_name,COUNT(DISTINCT(c.ward_id)) AS total')
+                ->from('tbl_court_details', 'c')
+                ->join('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
+                ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
+                ->join('d', 'cfg_regions', 'r', 'r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status')
+                ->groupBy('d.district_id')
+                ->orderBy('district_name', 'ASC')
+                ->setParameter('status', true)
+                ->execute()
+                ->fetchAll();
+        }
+        else
+        {
+            $results =  $queryBuilder->select('district_name,COUNT(DISTINCT(w.ward_id)) AS total')
+                ->from('tbl_court_details', 'c')
+                ->rightJoin('c','cfg_wards','w','w.ward_id=c.ward_id')
+                ->join('w','cfg_districts','d','d.district_id=w.district_id')
+                ->join('d','cfg_regions','r','r.region_id=d.region_id')
+                ->andWhere('c.court_record_status=:status OR c.court_record_status IS NULL')
+                ->andWhere('r.region_status=:regionStatus')
+                ->groupBy('d.district_id')
+                ->orderBy('district_name','ASC')
+                ->setParameter('status',true)
+                ->setParameter('regionStatus', true)
+                ->execute()
+                ->fetchAll();
+        }
 
         $data = [];
 

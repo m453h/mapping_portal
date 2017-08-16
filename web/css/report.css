@@ -86,3 +86,7 @@ tr.grey{
     background:#FFF;
     text-align:center;
 }
+
+tr {
+    page-break-inside: avoid;
+}

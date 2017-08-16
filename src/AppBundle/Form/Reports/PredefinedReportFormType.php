@@ -18,6 +18,7 @@ class PredefinedReportFormType extends  AbstractType
                 'choices'  => array(
                     'REPORT 001 - COURTS PER CATEGORY' => 1,
                     'REPORT 002 - COURT PER REGION PER WARD' => 2,
+                    'REPORT 003 - REGIONS FULLY COVERED' => 3,
                 ),
                 'placeholder'=>'Select report template',
                 'expanded'=>false,

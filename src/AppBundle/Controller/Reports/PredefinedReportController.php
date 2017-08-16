@@ -54,20 +54,46 @@ class PredefinedReportController extends Controller
 
                 $districtTotals = null;
             }
-            else
+            else if($report=='2')
             {
 
                 $title = ' REPORT ON COURTS PER REGION PER DISTRICT AND WARD';
 
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegionPerWard();
+                    ->findCourtTotalPerRegionPerWard(false);
 
                 $regionTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegion();
+                    ->findCourtTotalPerRegion(false);
 
                 $districtTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalDistricts();
+                    ->findCourtTotalDistricts(false);
               
+                $grid = $this->get('app.helper.grid_builder');
+                $grid->addGridHeader('S/N',null,'index');
+                $grid->addGridHeader('Region',null,null,false);
+                $grid->addGridHeader('District',null,null,false);
+                $grid->addGridHeader('Ward',null,null,false);
+                $grid->addGridHeader('Total',null,null,false);
+
+                $gridTemplate = null;
+
+                $mainTemplate = 'lists/reports/app.court.per.ward.list.html.twig';
+
+            }
+            else if($report=='3')
+            {
+
+                $title = ' REPORT ON REGIONS FULLY COVERED';
+
+                $data = $em->getRepository('AppBundle:Court\Court')
+                    ->findCourtTotalPerRegionPerWard(true);
+
+                $regionTotals = $em->getRepository('AppBundle:Court\Court')
+                    ->findCourtTotalPerRegion(true);
+                
+                $districtTotals = $em->getRepository('AppBundle:Court\Court')
+                    ->findCourtTotalDistricts(true);
+
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
                 $grid->addGridHeader('Region',null,null,false);
