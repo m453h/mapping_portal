@@ -4,3 +4,4 @@
 <td>{{ record.description }}</td>
 <td>{{ record.region_name }} - {{ record.district_name }} - {{ record.ward_name }}</td>
 <td>{% if record.status == "1" %}<span class="label green">Valid Data</span>{% elseif record.status == "0"%}<span class="label red">Test Data</span>{% endif %}</td>
+<td class="align-center verification-status">{% if record.is_verified == "1" %}<i class="fa fa-check-circle fa-green" title="Data is verified" aria-hidden="true"></i>{% elseif record.status == "0"%}<i class="fa fa-times-circle fa-red" aria-hidden="true" title="Data is marked as invalid"></i>{% else %}<i class="fa fa-question-circle fa-blue" aria-hidden="true" title="Data is not verified"></i>{% endif %}</td>

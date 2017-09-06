@@ -28,6 +28,7 @@ class CourtRepository extends EntityRepository
         ward_name,
         first_name,
         surname,
+        court_verification_status AS is_verified,
         court_record_status AS status')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
@@ -47,6 +48,12 @@ class CourtRepository extends EntityRepository
         {
             return $queryBuilder->andWhere('lower(first_name) LIKE lower(:name) OR lower(surname) LIKE lower(:name) ')
                 ->setParameter('name', '%' . $options['name'] . '%');
+        }
+
+        if (!empty($options['location']))
+        {
+            return $queryBuilder->andWhere('lower(region_name) LIKE lower(:location) OR lower(district_name) LIKE lower(:location) OR lower(ward_name) LIKE lower(:location) ')
+                ->setParameter('location', '%' . $options['location'] . '%');
         }
 
         return $queryBuilder;

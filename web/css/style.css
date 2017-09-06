@@ -1622,3 +1622,19 @@ img.open-map:focus,img.open-map:active{
 
 
 }
+
+td.verification-status .fa{
+	font-size:1.5em;
+}
+
+.fa-green{
+	color:#449d44;
+}
+
+.fa-red {
+	color: #d9534f;
+}
+
+.fa-blue{
+	color:#1678c2;
+}
