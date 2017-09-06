@@ -8,6 +8,7 @@ use AppBundle\Entity\Court\Court;
 use AppBundle\Entity\Court\CourtEconomicActivities;
 use AppBundle\Entity\Court\CourtLandUse;
 use AppBundle\Entity\Court\CourtTransportModes;
+use AppBundle\Form\Court\CourtFormType;
 use Doctrine\DBAL\Exception\DriverException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
@@ -208,6 +209,47 @@ class CourtController extends Controller
             'coordinates'=>$coordinates,
             'infoTemplate'=>'base'
         ));
+    }
+
+
+    /**
+     * @Route("/court-form/edit/{courtId}", name="court_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function editAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court successfully updated');
+
+            return $this->redirectToRoute('court_form_list');
+        }
+
+        return $this->render(
+            'main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court',
+                'form'=>$form->createView(),
+                'title'=>'Court Details',
+            )
+
+        );
     }
 
     /**

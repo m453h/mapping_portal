@@ -45,6 +45,12 @@ class WardRepository extends EntityRepository
                 ->setParameter('userId', $options['userId']);
         }
 
+        if (!empty($options['districtId']))
+        {
+            $queryBuilder->andWhere('w.district_id=:districtId')
+                ->setParameter('districtId', $options['districtId']);
+        }
+
         return $queryBuilder;
     }
 

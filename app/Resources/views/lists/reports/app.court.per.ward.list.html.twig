@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                 {% set counter = 0 %}
-                {% set isFirstRegion = true %}
+
                 {% set regionName = "start" %}
                 {% set districtName = "start" %}
                 {% for record in records %}
@@ -52,7 +52,6 @@
                             {% set districtName = record.district_name %}
                             <td rowspan="{{ districtTotals[record.district_name] }}">{{ record.district_name }}</td>
                         {% endif %}
-
                         <td>{{ record.ward_name }}</td>
                         <td>{{ record.total }}</td>
                     </tr>

@@ -1,0 +1,67 @@
+<div class="form-wizard">
+    {{ form_start(form) }}
+    <div id="first-page" class="step">
+        {{ form_row(form.courtName) }}
+        {{ form_row(form.courtLevel) }}
+        {{ form_row(form.landOwnershipStatus) }}
+        {{ form_row(form.isLandSurveyed) }}
+        {{ form_row(form.hasTitleDeed) }}
+    </div>
+    <div id="location-page" class="step">
+        {{ form_row(form.titleDeed) }}
+        {{ form_row(form.plotNumber) }}
+        {{ form_row(form.region,{'id':'regionId'}) }}
+        {{ form_row(form.district,{'id':'districtId'}) }}
+        {{ form_row(form.ward,{'id':'wardId'}) }}
+    </div>
+    <div id="second-page" class="step">
+        {{ form_row(form.buildingOwnershipStatus) }}
+        {{ form_row(form.buildingStatus) }}
+        {{ form_row(form.hasExtensionPossibility) }}
+        {{ form_row(form.yearConstructed) }}
+        {{ form_row(form.meetsFunctionality) }}
+        {{ form_row(form.hasLastMileConnectivity) }}
+
+    </div>
+    <div id="third-page" class="step">
+        {{ form_row(form.numberOfComputers) }}
+        {{ form_row(form.internetAvailability) }}
+        {{ form_row(form.bandwidth) }}
+        {{ form_row(form.availableSystems) }}
+        {{ form_row(form.casesPerYear) }}
+        {{ form_row(form.populationServed) }}
+    </div>
+    <div id="fourth-page" class="step">
+        {{ form_row(form.numberOfJustices) }}
+        {{ form_row(form.numberOfJudges) }}
+        {{ form_row(form.numberOfResidentMagistrates) }}
+        {{ form_row(form.numberOfDistrictMagistrates) }}
+        {{ form_row(form.numberOfMagistrates) }}
+        {{ form_row(form.numberOfCourtClerks) }}
+        {{ form_row(form.numberOfNonJudiciaryStaff) }}
+
+    </div>
+    <div id="fifth-page" class="step">
+        {{ form_row(form.environmentalStatus) }}
+        {{ form_row(form.courtLatitude) }}
+        {{ form_row(form.courtLongitude) }}
+        {{ form_row(form.courtCoordinatesDMS) }}
+        {{ form_row(form.lastMileConnectivityLatitude) }}
+        {{ form_row(form.lastMileConnectivityLongitude) }}
+        {{ form_row(form.lastMileConnectivityDMS) }}
+        {{ form_row(form.fibreDistance) }}
+        {{ form_row(form.areasEntitled) }}
+
+    </div>
+    <div id="sixth-page" class="step">
+        {{ form_row(form.landUseDescription) }}
+        {{ form_row(form.economicActivitiesDescription) }}
+        {{ form_row(form.transportModesDescription) }}
+        {{ form_row(form.courtStatus) }}
+    </div>
+    <div id="wizard-navigation">
+        <input class="btn btn-white" id="back-btn" value="Back" type="reset" />
+        <input class="btn btn-primary" id="next-btn" value="Next" type="submit">
+    </div>
+    {{ form_end(form) }}
+</div>

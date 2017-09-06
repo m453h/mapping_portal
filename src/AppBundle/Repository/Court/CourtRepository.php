@@ -507,7 +507,7 @@ class CourtRepository extends EntityRepository
         else
         {
 
-            return $queryBuilder->select('region_name,district_name,ward_name,COUNT(court_id) AS total')
+            return $queryBuilder->select('r.region_name AS "name",region_name,district_name,ward_name,COUNT(court_id) AS total')
                 ->from('tbl_court_details', 'c')
                 ->rightJoin('c', 'cfg_wards', 'w', 'w.ward_id=c.ward_id')
                 ->join('w', 'cfg_districts', 'd', 'd.district_id=w.district_id')
@@ -607,8 +607,8 @@ class CourtRepository extends EntityRepository
                 ->join('d','cfg_regions','r','r.region_id=d.region_id')
                 ->andWhere('c.court_record_status=:status OR c.court_record_status IS NULL')
                 ->andWhere('r.region_status=:regionStatus')
-                ->groupBy('d.district_id')
-                ->orderBy('district_name','ASC')
+                ->groupBy('d.district_id,region_name')
+                ->orderBy('region_name','ASC')
                 ->setParameter('status',true)
                 ->setParameter('regionStatus', true)
                 ->execute()

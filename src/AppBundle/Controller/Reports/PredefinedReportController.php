@@ -90,7 +90,7 @@ class PredefinedReportController extends Controller
 
                 $regionTotals = $em->getRepository('AppBundle:Court\Court')
                     ->findCourtTotalPerRegion(true);
-                
+
                 $districtTotals = $em->getRepository('AppBundle:Court\Court')
                     ->findCourtTotalDistricts(true);
 
@@ -103,7 +103,8 @@ class PredefinedReportController extends Controller
 
                 $gridTemplate = null;
 
-                $mainTemplate = 'lists/reports/app.court.per.ward.list.html.twig';
+                $mainTemplate = 'main/app.report.list.html.twig';
+                $gridTemplate = 'lists/base.list.html.twig';
 
             }
 

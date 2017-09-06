@@ -89,3 +89,10 @@ services:
                     autowire: true
                     tags:
                         - { name: form.type }
+
+
+    app.form.type.app_court_data_form:
+                    class: AppBundle\Form\Court\CourtFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }

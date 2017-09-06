@@ -489,6 +489,7 @@ select,.form-wizard select,.form-wizard select.ui-state-default {
 }
 .btn-blue,#next-btn{
     background:#2185D0;
+	color:#FFF;
 }
 .btn-blue:active {
     background-color: #1a69a4;
