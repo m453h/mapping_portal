@@ -313,10 +313,73 @@ class Court
     private $courtRecordStatus;
 
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true,options={"default" : false})
+     */
+    private $courtVerificationStatus;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true,options={"default" : false})
+     */
+    private $isPlotOnly;
 
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $remarks;
 
+    /**
+     * @return mixed
+     */
+    public function getIsPlotOnly()
+    {
+        return $this->isPlotOnly;
+    }
 
+    /**
+     * @param mixed $isPlotOnly
+     */
+    public function setIsPlotOnly($isPlotOnly)
+    {
+        $this->isPlotOnly = $isPlotOnly;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getRemarks()
+    {
+        return $this->remarks;
+    }
+
+    /**
+     * @param mixed $remarks
+     */
+    public function setRemarks($remarks)
+    {
+        $this->remarks = $remarks;
+    }
+
+    
+
+    /**
+     * @return mixed
+     */
+    public function getCourtVerificationStatus()
+    {
+        return $this->courtVerificationStatus;
+    }
+
+    /**
+     * @param mixed $courtVerificationStatus
+     */
+    public function setCourtVerificationStatus($courtVerificationStatus)
+    {
+        $this->courtVerificationStatus = $courtVerificationStatus;
+    }
+
+    
     /**
      * @return mixed
      */

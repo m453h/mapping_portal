@@ -129,6 +129,8 @@ class CourtFormType extends  AbstractType
             ->add('economicActivitiesDescription',null,['required'=>false])
             ->add('transportModesDescription',null,['required'=>false])
             ->add('courtName',null,['required'=>false])
+            ->add('isPlotOnly',null,['required'=>false,'label'=>'This is a record of a plot only'])
+            ->add('remarks',null,['required'=>false])
             ->add('courtStatus',null,['required'=>false,'label'=>'The court is operational'])
             ->addEventSubscriber(new AddSelectedDataCourtForm($this->em));
 

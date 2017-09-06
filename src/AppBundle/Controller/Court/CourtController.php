@@ -232,6 +232,7 @@ class CourtController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $court = $form->getData();
+            $court->setCourtVerificationStatus(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($court);
             $em->flush();
