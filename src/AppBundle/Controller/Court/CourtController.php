@@ -236,6 +236,12 @@ class CourtController extends Controller
             $court = $form->getData();
             $court->setCourtVerificationStatus(true);
             $em = $this->getDoctrine()->getManager();
+
+            $wardId = $form['ward']->getData();
+            $ward = $em->getRepository('AppBundle:Location\Ward')
+                ->find($wardId);
+
+            $court->setWard($ward);
             $em->persist($court);
             $em->flush();
 
