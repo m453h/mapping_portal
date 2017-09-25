@@ -60,7 +60,7 @@ class VisualReportController extends Controller
             {
                 $data = $em->getRepository('AppBundle:Court\Court')
                     ->findRegionCourtCasesReport();
-dump($data);
+
                 $chartType='Line';
 
                 $title = ' REPORT ON COURTS DISTRIBUTION PER CATEGORY';
