@@ -53,7 +53,7 @@ class VisualReportController extends Controller
 
                 $chartType='Pie';
 
-                $title = ' REPORT ON COURTS DISTRIBUTION PER CATEGORY';
+                $title = 'COURTS DISTRIBUTION PER CATEGORY';
 
             }
             else if($report=='2')
@@ -63,12 +63,36 @@ class VisualReportController extends Controller
 
                 $chartType='Line';
 
-                $title = ' REPORT ON COURTS DISTRIBUTION PER CATEGORY';
+                $title = 'REGIONS VS NO. CASES (MOST CASES)';
 
                 $xAxisLabel = 'Regions';
-                $yAxisLabel = 'Average Cases';
+                $yAxisLabel = 'Average No. Cases';
 
+            }
+            else if($report=='3')
+            {
+                $data = $em->getRepository('AppBundle:Court\Court')
+                    ->findRegionLeastCasesReport();
 
+                $chartType='Line';
+
+                $title = 'REGIONS VS NO. CASES (LEAST CASES)';
+
+                $xAxisLabel = 'Regions';
+                $yAxisLabel = 'Average No. Cases';
+
+            }
+            else if($report=='4')
+            {
+                $data = $em->getRepository('AppBundle:Court\Court')
+                    ->findEconomicActivityMostCasesReport();
+
+                $chartType='Line';
+
+                $title = 'ECONOMIC ACTIVITIES VS NO. CASES';
+
+                $xAxisLabel = 'Activity';
+                $yAxisLabel = 'Average No. Cases';
             }
            
 

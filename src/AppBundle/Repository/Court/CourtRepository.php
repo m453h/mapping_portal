@@ -539,6 +539,56 @@ class CourtRepository extends EntityRepository
     }
 
 
+    public function findRegionLeastCasesReport()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results = $queryBuilder->select('region_name AS description,SUM(cases_per_year) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('r.region_id')
+            ->orderBy('total','ASC')
+            ->setMaxResults(10)
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+        return $results;
+
+    }
+
+
+    public function findEconomicActivityMostCasesReport()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results = $queryBuilder->select('description AS description,SUM(cases_per_year) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','tbl_court_economic_activities','a','a.court_id=c.court_id')
+            ->join('a','cfg_economic_activities','e','e.activity_id=a.activity_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('description')
+            ->orderBy('total','DESC')
+            ->setMaxResults(10)
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+        return $results;
+
+    }
+
+
+
     public function findCourtTotalPerRegionPerWard($fullyCovered)
     {
 
