@@ -172,7 +172,7 @@ class ChartBuilder
 							// Initial Configuration Javascript Folder
 							require.config({
 												paths: {
-													echarts: \'/web/vendor/echarts\'
+													echarts: \'/vendor/echarts\'
 												}
 											});
 							
@@ -302,7 +302,7 @@ class ChartBuilder
 							// Initial Configuration Javascript Folder
 							require.config({
 											paths: {
-													echarts: \'/web/vendor/echarts\'
+													echarts: \'/vendor/echarts\'
 											}
 							});
 				
@@ -360,7 +360,7 @@ class ChartBuilder
 													calculable : true,
 													series : [
 																{
-																	name:\'Market Share\',
+																	name:\'Percentage\',
 																	type:\'pie\',
 																	radius : \'55%\',
 																	 itemStyle : {

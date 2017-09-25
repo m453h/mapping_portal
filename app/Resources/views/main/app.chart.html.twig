@@ -2,28 +2,51 @@
 
  {% block stylesheets %}
      {{ parent() }}
- {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/ajax.js') }}"></script>
-    <script src="{{ asset('vendor/googlemaps/markerclusterer.js') }}"></script>
-    <script src="{{ asset('vendor/echarts/echarts.js') }}"></script>
-{% endblock %}
 
+     <script src="{{ asset('vendor/jquery/jquery-1.9.1.min.js') }}"></script>
+     <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+     <script src="{{ asset('vendor/dropit-js/dropit.js') }}"></script>
+
+     <script>
+         $(document).ready(function() {
+
+             $('.main-content').show();
+             $('#loader').hide();
+
+             $(function() {
+
+                 var index = $('li.current_ancestor').index();
+
+                 index<0 ? index=false : index;
+
+                 $( '#sidebar-menu' ).accordion({
+                     heightStyle: 'content',
+                     icons: false,
+                     collapsible: true,
+                     active: index
+                 });
+             });
+
+         });
+
+
+     </script>
+
+     <script src="{{ asset('vendor/echarts/echarts.js') }}"></script>
+
+ {% endblock %}
 
 {% block content %}
      {{ parent() }}
 
 <div class="panel">
-    <div class="panel-title col12">
-        <div class="container"><h1>{{ title }}</h1></div>
-    </div>
 
      <div class="white-space panel-body">
          <div class="container">
              <div class="clear space-20"></div>
              {{ chart|raw }}
         </div>
+         <div class="clear"></div>
     </div>
 
 </div>
@@ -31,4 +54,8 @@
 
 {% endblock %}
 
+
+{% block javascripts %}
+
+{% endblock %}
 

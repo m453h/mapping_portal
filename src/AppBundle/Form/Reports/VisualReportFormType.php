@@ -17,7 +17,7 @@ class VisualReportFormType extends  AbstractType
             ->add('report', ChoiceType::class, array(
                 'choices'  => array(
                     'REPORT 001 - COURTS PER CATEGORY DISTRIBUTION' => 1,
-                    'REPORT 002 - TOP REGIONS WITH AVERAGE CASES PER YEAR' => 2,
+                    'REPORT 002 - TOP (10) REGIONS WITH AVERAGE CASES PER YEAR' => 2,
                     'REPORT 003 - ECONOMIC ACTIVITIES RELATION WITH REGIONS' => 3,
                 ),
                 'placeholder'=>'Select visual report template',

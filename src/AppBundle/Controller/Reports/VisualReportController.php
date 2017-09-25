@@ -41,6 +41,9 @@ class VisualReportController extends Controller
 
             $content = '';
 
+            $yAxisLabel = '';
+            $xAxisLabel = '';
+
             $myChart = $this->get('app.helper.chart_builder');
 
             if($report=='1')
@@ -50,69 +53,24 @@ class VisualReportController extends Controller
 
                 $chartType='Pie';
 
-                $title = ' REPORT ON COURTS PER CATEGORY';
+                $title = ' REPORT ON COURTS DISTRIBUTION PER CATEGORY';
 
-                $gridTemplate = '';
-
-                $mainTemplate = 'main/app.report.list.html.twig';
-
-                $regionTotals = null;
-
-                $districtTotals = null;
             }
             else if($report=='2')
             {
-
-                $title = ' REPORT ON COURTS PER REGION PER DISTRICT AND WARD';
-
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegionPerWard(false);
+                    ->findRegionCourtCasesReport();
+dump($data);
+                $chartType='Line';
 
-                $regionTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegion(false);
+                $title = ' REPORT ON COURTS DISTRIBUTION PER CATEGORY';
 
-                $districtTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalDistricts(false);
-              
-                $grid = $this->get('app.helper.grid_builder');
-                $grid->addGridHeader('S/N',null,'index');
-                $grid->addGridHeader('Region',null,null,false);
-                $grid->addGridHeader('District',null,null,false);
-                $grid->addGridHeader('Ward',null,null,false);
-                $grid->addGridHeader('Total',null,null,false);
+                $xAxisLabel = 'Regions';
+                $yAxisLabel = 'Average Cases';
 
-                $gridTemplate = null;
-
-                $mainTemplate = 'lists/reports/app.court.per.ward.list.html.twig';
 
             }
-            else if($report=='3')
-            {
-
-                $title = ' REPORT ON REGIONS FULLY COVERED';
-
-                $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegionPerWard(true);
-
-                $regionTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegion(true);
-
-                $districtTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalDistricts(true);
-
-                $grid = $this->get('app.helper.grid_builder');
-                $grid->addGridHeader('S/N',null,'index');
-                $grid->addGridHeader('Region',null,null,false);
-                $grid->addGridHeader('District',null,null,false);
-                $grid->addGridHeader('Ward',null,null,false);
-                $grid->addGridHeader('Total',null,null,false);
-
-                $gridTemplate = null;
-
-                $mainTemplate = 'main/app.report.list.html.twig';
-                $gridTemplate = 'lists/base.list.html.twig';
-
-            }
+           
 
 
             if($chartType=='Pie')
@@ -144,25 +102,23 @@ class VisualReportController extends Controller
 
                 $yData = [];
 
-                foreach ($results as $result)
+                foreach ($data as $result)
                 {
 
-                    array_push($xData,"'$result[0]'");
-                    array_push($yData,$result[1]);
+                    array_push($xData,"'$result[description]'");
+                    array_push($yData,$result['total']);
                 }
 
                 $xValue = implode(',',$xData);
                 $yValue = implode(',',$yData);
 
-                $myChart->setDataSeries($yValue, 'Outdoor Count', 'line');
+                $myChart->setDataSeries($yValue, $yAxisLabel, 'line');
 
                 $myChart->setXData($xValue);
 
-                $myChart->setChartTitle('Outdoor Distribution');
+                $myChart->setXAxisLabel($xAxisLabel);
 
-                $myChart->setXAxisLabel('Company');
-
-                $myChart->setYAxisLabel('Count');
+                $myChart->setYAxisLabel($yAxisLabel);
 
                 $myChart->renderBasicEchart();
 

@@ -513,6 +513,32 @@ class CourtRepository extends EntityRepository
     }
 
 
+
+    public function findRegionCourtCasesReport()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results = $queryBuilder->select('region_name AS description,SUM(cases_per_year) AS total')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','r.region_id=d.region_id')
+            ->andWhere('c.court_record_status=:status')
+            ->groupBy('r.region_id')
+            ->orderBy('total','DESC')
+            ->setMaxResults(10)
+            ->setParameter('status',true)
+            ->execute()
+            ->fetchAll();
+
+        return $results;
+
+    }
+
+
     public function findCourtTotalPerRegionPerWard($fullyCovered)
     {
 
