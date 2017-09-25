@@ -87,6 +87,6 @@ tr.grey{
     text-align:center;
 }
 
-tr {
-    page-break-inside: avoid;
+table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
 }

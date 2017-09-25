@@ -375,6 +375,31 @@ class CourtRepository extends EntityRepository
     }
 
 
+    public function findCourtTotalByVerificationStatus($status)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $queryBuilder->select('COUNT(court_id) AS total')
+            ->from('tbl_court_details', 'c')
+            ->setMaxResults(1);
+
+        if($status==true)
+            $queryBuilder->andWhere('c.court_verification_status=:status');
+        else
+            $queryBuilder->andWhere('c.court_verification_status<>:status');
+
+
+        $result = $queryBuilder->setParameter('status',true)
+            ->execute()
+            ->fetch();
+
+        return $result['total'];
+    }
+
+
     public function findEconomicActivitiesByCourtId($courtId)
     {
 
@@ -631,5 +656,65 @@ class CourtRepository extends EntityRepository
 
         return $data;
     }
-    
+
+
+
+    public function getAllCourts($options = [])
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $queryBuilder->select('
+        court_id,
+        court_name,
+        description AS court_level,
+        region_name,
+        district_name,
+        ward_name,
+        court_latitude,
+        court_longitude
+        ')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','d.region_id=r.region_id')
+            ->join('c','cfg_court_levels','l','l.level_id=c.level_id')
+            ->leftJoin('c','app_users','u','u.user_id=c.user_id')
+            ->andWhere('court_record_status=:status')
+            ->andWhere('court_latitude IS NOT NULL AND court_longitude IS NOT NULL')
+            ->setParameter('status',true);
+
+        if($options['level']!=null)
+        {
+            $queryBuilder->andWhere('c.level_id=:level')
+                ->setParameter('level',$options['level']->getLevelId());
+        }
+
+
+
+        if($options['ward']!=null)
+        {
+            $queryBuilder->andWhere('w.ward_id=:ward')
+                ->setParameter('ward',$options['ward']);
+        }
+
+        if($options['district']!=null)
+        {
+            $queryBuilder->andWhere('d.district_id=:district')
+                ->setParameter('district',$options['district']);
+        }
+
+        if($options['region']!=null)
+        {
+            $queryBuilder->andWhere('r.region_id=:region')
+                ->setParameter('region',$options['region']);
+        }
+
+        return $queryBuilder
+            ->execute()
+            ->fetchAll();
+    }
+
+
 }

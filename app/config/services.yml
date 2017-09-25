@@ -50,6 +50,10 @@ services:
         class: AppBundle\Helpers\GridBuilder
         autowire: true
 
+    app.helper.chart_builder:
+        class: AppBundle\Helpers\ChartBuilder
+        autowire: true
+
     app.helper.info_builder:
             class: AppBundle\Helpers\InfoBuilder
             autowire: true

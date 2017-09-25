@@ -27,6 +27,8 @@ class MainController extends Controller
 
         $testDataCount = $em->getRepository('AppBundle:Court\Court')->findCourtTotalByStatus(false);
 
+        $verificationDataCount = $em->getRepository('AppBundle:Court\Court')->findCourtTotalByVerificationStatus(true);
+
         $userCount = $em->getRepository('AppBundle:AppUsers\User')->findTotalAppUsers();
 
         $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
@@ -35,7 +37,7 @@ class MainController extends Controller
         $data = array(
             'validDataCount'=>$validDataCount,
             'testDataCount'=>$testDataCount,
-            'userCount'=>$userCount,
+            'verificationDataCount'=>$verificationDataCount,
             'wardCount'=>$wardCount,
             'names'=>implode(',',$courtTotals['names']),
             'totals'=>implode(',',$courtTotals['totals'])

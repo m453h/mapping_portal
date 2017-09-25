@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="{{ asset('vendor/slick-carousel/slick/slick.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/slick-carousel/slick/slick-theme.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/leaflet/leaflet.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/leaflet/MarkerCluster.Default.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/leaflet/MarkerCluster.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -64,6 +66,7 @@
     <script src="{{ asset('vendor/select2-4.0.3/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/slick-carousel/slick/slick.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ asset('vendor/leaflet/leaflet.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 {% endblock %}
