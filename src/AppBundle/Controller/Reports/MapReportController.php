@@ -50,11 +50,15 @@ class MapReportController extends Controller
                 else
                     $name = $item['court_name'];
 
-                $points[$count]=sprintf('[%s, %s , "%s (%s)"]',
+                $points[$count]=sprintf('[%s, %s , "%s", "%s","%s","%s","%s",%s]',
                     $item['court_latitude'],
                     $item['court_longitude'],
                     $item['court_level'],
-                    $name
+                    $name,
+                    $item['region_name'],
+                    $item['district_name'],
+                    $item['ward_name'],
+                    $item['court_id']
                     );
 
                 $count++;
