@@ -24,6 +24,15 @@ class PredefinedReportFormType extends  AbstractType
                 'expanded'=>false,
                 'label'=>'Report Template'
             ))
+            ->add('status', ChoiceType::class, array(
+                'choices'  => array(
+                    'Verified data only' => 1,
+                    'All data' => 2,
+                ),
+                'placeholder'=>'Select data to be included',
+                'expanded'=>false,
+                'label'=>'Data selection'
+            ))
             ->add('preview', SubmitType::class, array(
                 'label' => 'Preview form',
                 'attr' =>['class'=>'btn-blue btn-preview']

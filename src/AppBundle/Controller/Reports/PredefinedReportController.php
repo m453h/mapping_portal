@@ -34,12 +34,19 @@ class PredefinedReportController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+            $verificationStatus = $form['status']->getData();
+            
             if($report=='1')
             {
                 $title = ' REPORT ON COURTS PER CATEGORY';
 
+                if($verificationStatus=='1')
+                {
+                    $title = $title.' (VERIFIED DATA)';
+                }
+                
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerCategory();
+                    ->findCourtTotalPerCategory($verificationStatus);
 
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
@@ -59,14 +66,19 @@ class PredefinedReportController extends Controller
 
                 $title = ' REPORT ON COURTS PER REGION PER DISTRICT AND WARD';
 
+                if($verificationStatus=='1')
+                {
+                    $title = $title.' (VERIFIED DATA)';
+                }
+                
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegionPerWard(false);
+                    ->findCourtTotalPerRegionPerWard(false,$verificationStatus);
 
                 $regionTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegion(false);
+                    ->findCourtTotalPerRegion(false,$verificationStatus);
 
                 $districtTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalDistricts(false);
+                    ->findCourtTotalDistricts(false,$verificationStatus);
               
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
@@ -85,14 +97,19 @@ class PredefinedReportController extends Controller
 
                 $title = ' REPORT ON REGIONS FULLY COVERED';
 
+                if($verificationStatus=='1')
+                {
+                    $title = $title.' (VERIFIED DATA)';
+                }
+
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegionPerWard(true);
+                    ->findCourtTotalPerRegionPerWard(true,$verificationStatus);
 
                 $regionTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerRegion(true);
+                    ->findCourtTotalPerRegion(true,$verificationStatus);
 
                 $districtTotals = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalDistricts(true);
+                    ->findCourtTotalDistricts(true,$verificationStatus);
 
                 $grid = $this->get('app.helper.grid_builder');
                 $grid->addGridHeader('S/N',null,'index');
