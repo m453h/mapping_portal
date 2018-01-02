@@ -11,7 +11,7 @@ class MainController extends Controller
 {
 
     /**
-     * @Route("/home", name="app_home_page")
+     * @Route("/administration/home", name="app_home_page")
      */
     public function homepageAction()
     {

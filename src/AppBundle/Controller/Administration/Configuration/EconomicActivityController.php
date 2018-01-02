@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Configuration;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
 use AppBundle\Entity\Configuration\CourtBuildingStatus;
@@ -8,7 +8,6 @@ use AppBundle\Entity\Configuration\CourtCategory;
 use AppBundle\Entity\Configuration\CourtLevel;
 use AppBundle\Entity\Configuration\EconomicActivity;
 use AppBundle\Entity\Configuration\LandOwnerShipStatus;
-use AppBundle\Entity\Configuration\LandUse;
 use AppBundle\Entity\Configuration\Zone;
 use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
 use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
@@ -16,7 +15,6 @@ use AppBundle\Form\Configuration\CourtCategoryFormType;
 use AppBundle\Form\Configuration\CourtLevelFormType;
 use AppBundle\Form\Configuration\EconomicActivityFormType;
 use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
-use AppBundle\Form\Configuration\LandUseFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
@@ -26,11 +24,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class LandUseController extends Controller
+class EconomicActivityController extends Controller
 {
 
     /**
-     * @Route("/land-use", name="land_use_list")
+     * @Route("/administration/economic-activity", name="economic_activity_list")
      * @param Request $request
      * @return Response
      *
@@ -50,11 +48,11 @@ class LandUseController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\LandUse')
-            ->findAllLandUses($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+            ->findAllEconomicActivities($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\LandUse')
-            ->countAllLandUses($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\EconomicActivity')
+            ->countAllEconomicActivities($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -68,7 +66,7 @@ class LandUseController extends Controller
         $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('land_use_list');
+        $grid->setPath('economic_activity_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -77,13 +75,13 @@ class LandUseController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Land Uses',
+                'title'=>'Existing Economic Activities',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/land-use/add", name="land_use_add")
+     * @Route("/administration/economic-activity/add", name="economic_activity_add")
      * @param Request $request
      * @return Response
      */
@@ -93,7 +91,7 @@ class LandUseController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(LandUseFormType::class);
+        $form = $this->createForm(EconomicActivityFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -105,17 +103,17 @@ class LandUseController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Land use successfully created');
+            $this->addFlash('success','Economic activity successfully created');
 
-            return $this->redirectToRoute('land_ownership_status_list');
+            return $this->redirectToRoute('economic_activity_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.use',
+                'formTemplate'=>'configuration/court.category',
                 'form'=>$form->createView(),
-                'title'=>'Land Use Details',
+                'title'=>'Economic Activity Details',
             )
 
         );
@@ -123,18 +121,18 @@ class LandUseController extends Controller
 
 
     /**
-     * @Route("/land-use/edit/{activityId}", name="land_use_edit")
+     * @Route("/administration/economic-activity/edit/{activityId}", name="economic_activity_edit")
      * @param Request $request
-     * @param LandUse $activity
+     * @param EconomicActivity $activity
      * @return Response
      */
-    public function editAction(Request $request,LandUse $activity)
+    public function editAction(Request $request,EconomicActivity $activity)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(LandUseFormType::class,$activity);
+        $form = $this->createForm(EconomicActivityFormType::class,$activity);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -145,24 +143,24 @@ class LandUseController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'Land use successfully updated!');
+            $this->addFlash('success', 'Economic activity successfully updated!');
 
-            return $this->redirectToRoute('land_use_list');
+            return $this->redirectToRoute('economic_activity_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.use',
+                'formTemplate'=>'configuration/court.category',
                 'form'=>$form->createView(),
-                'title'=>'Land Use Details',
+                'title'=>'Economic Activity Details',
             )
 
         );
     }
 
     /**
-     * @Route("/land-use/delete/{Id}", name="land_use_delete")
+     * @Route("/administration/economic-activity/delete/{Id}", name="economic_activity_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -175,21 +173,21 @@ class LandUseController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\LandUse')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\EconomicActivity')->find($Id);
 
-        if($data instanceof LandUse)
+        if($data instanceof EconomicActivity)
         {
             $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'Land use successfully removed !');
+            $this->addFlash('success', 'Economic activity successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Land use not found !');
+            $this->addFlash('error', 'Economic activity not found !');
         }
 
         
-        return $this->redirectToRoute('land_use_list');
+        return $this->redirectToRoute('economic_activity_list');
 
     }
     

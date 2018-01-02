@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Reports;
+namespace AppBundle\Controller\Administration\Reports;
 
 use AppBundle\Form\Reports\PredefinedReportFormType;
 use AppBundle\Form\Reports\VisualReportFormType;
@@ -15,7 +15,7 @@ class VisualReportController extends Controller
 
 
     /**
-     * @Route("/visual-report-builder", name="visual_report_builder")
+     * @Route("/administration/visual-report-builder", name="visual_report_builder")
      * @param Request $request
      * @return Response
      */

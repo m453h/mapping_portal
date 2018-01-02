@@ -1,34 +1,26 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Location;
 
-use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
-use AppBundle\Entity\Configuration\CourtBuildingStatus;
-use AppBundle\Entity\Configuration\CourtCategory;
-use AppBundle\Entity\Configuration\CourtLevel;
-use AppBundle\Entity\Configuration\EconomicActivity;
-use AppBundle\Entity\Configuration\LandOwnerShipStatus;
-use AppBundle\Entity\Configuration\Zone;
-use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
-use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
-use AppBundle\Form\Configuration\CourtCategoryFormType;
-use AppBundle\Form\Configuration\CourtLevelFormType;
-use AppBundle\Form\Configuration\EconomicActivityFormType;
-use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
-use AppBundle\Form\Configuration\ZoneFormType;
+use AppBundle\Entity\AppUsers\User;
+use AppBundle\Entity\Location\Region;
+use AppBundle\Entity\Location\Ward;
+use AppBundle\Form\Location\RegionFormType;
+use AppBundle\Form\Location\WardFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class EconomicActivityController extends Controller
+class WardController extends Controller
 {
 
     /**
-     * @Route("/economic-activity", name="economic_activity_list")
+     * @Route("/administration/wards", name="ward_list")
      * @param Request $request
      * @return Response
      *
@@ -48,11 +40,11 @@ class EconomicActivityController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\EconomicActivity')
-            ->findAllEconomicActivities($options);
+        $qb1 = $em->getRepository('AppBundle:Location\Ward')
+            ->findAllWards($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\EconomicActivity')
-            ->countAllEconomicActivities($qb1);
+        $qb2 = $em->getRepository('AppBundle:Location\Ward')
+            ->countAllWards($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -63,10 +55,12 @@ class EconomicActivityController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Description','name','text',true);
+        $grid->addGridHeader('Name','name','text',true);
+        $grid->addGridHeader('District',null,'text',false);
+        $grid->addGridHeader('Region',null,'text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('economic_activity_list');
+        $grid->setPath('ward_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -75,13 +69,13 @@ class EconomicActivityController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Economic Activities',
+                'title'=>'Existing Wards',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/economic-activity/add", name="economic_activity_add")
+     * @Route("/administration/wards/add", name="ward_add")
      * @param Request $request
      * @return Response
      */
@@ -91,29 +85,29 @@ class EconomicActivityController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(EconomicActivityFormType::class);
+        $form = $this->createForm(WardFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $data = $form->getData();
+            $ward = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
+            $em->persist($ward);
             $em->flush();
 
-            $this->addFlash('success','Economic activity successfully created');
+            $this->addFlash('success','Ward successfully created');
 
-            return $this->redirectToRoute('economic_activity_list');
+            return $this->redirectToRoute('ward_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.category',
+                'formTemplate'=>'location/ward',
                 'form'=>$form->createView(),
-                'title'=>'Economic Activity Details',
+                'title'=>'Ward Details',
             )
 
         );
@@ -121,46 +115,46 @@ class EconomicActivityController extends Controller
 
 
     /**
-     * @Route("/economic-activity/edit/{activityId}", name="economic_activity_edit")
+     * @Route("/administration/wards/edit/{wardId}", name="ward_edit")
      * @param Request $request
-     * @param EconomicActivity $activity
+     * @param Ward $ward
      * @return Response
      */
-    public function editAction(Request $request,EconomicActivity $activity)
+    public function editAction(Request $request,Ward $ward)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(EconomicActivityFormType::class,$activity);
+        $form = $this->createForm(WardFormType::class,$ward);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
+            $ward = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
+            $em->persist($ward);
             $em->flush();
 
-            $this->addFlash('success', 'Economic activity successfully updated!');
+            $this->addFlash('success', 'Ward successfully updated!');
 
-            return $this->redirectToRoute('economic_activity_list');
+            return $this->redirectToRoute('ward_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.category',
+                'formTemplate'=>'location/ward',
                 'form'=>$form->createView(),
-                'title'=>'Economic Activity Details',
+                'title'=>'Ward Details',
             )
 
         );
     }
 
     /**
-     * @Route("/economic-activity/delete/{Id}", name="economic_activity_delete")
+     * @Route("/administration/wards/delete/{Id}", name="ward_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -173,22 +167,39 @@ class EconomicActivityController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\EconomicActivity')->find($Id);
+        $ward = $em->getRepository('AppBundle:Location\Ward')->find($Id);
 
-        if($data instanceof EconomicActivity)
+        if($ward instanceof Ward)
         {
-            $em->remove($data);
+            $em->remove($ward);
             $em->flush();
-            $this->addFlash('success', 'Economic activity successfully removed !');
+            $this->addFlash('success', 'Ward successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Economic activity not found !');
+            $this->addFlash('error', 'Ward not found !');
         }
 
         
-        return $this->redirectToRoute('economic_activity_list');
+        return $this->redirectToRoute('ward_list');
 
+    }
+
+
+
+    /**
+     * @Route("/administration/api/getWards",options={"expose"=true}, name="api_get_wards")
+     */
+    public function getModulesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $value = $this->get('request_stack')->getCurrentRequest()->get('value');
+
+        $data = $em->getRepository('AppBundle:Location\Ward')
+            ->findWardsByDistrict($value);
+
+        return new JsonResponse($data);
     }
     
 }

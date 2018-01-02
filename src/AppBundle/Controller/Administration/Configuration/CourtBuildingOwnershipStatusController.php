@@ -1,26 +1,26 @@
 <?php
 
-namespace AppBundle\Controller\Location;
+namespace AppBundle\Controller\Administration\Configuration;
 
-use AppBundle\Entity\AppUsers\User;
-use AppBundle\Entity\Location\District;
-use AppBundle\Entity\Location\Region;
-use AppBundle\Form\Location\DistrictFormType;
-use AppBundle\Form\Location\RegionFormType;
+use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\LandOwnerShipStatus;
+use AppBundle\Entity\Configuration\Zone;
+use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
+use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
+use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class DistrictController extends Controller
+class CourtBuildingOwnershipStatusController extends Controller
 {
 
     /**
-     * @Route("/districts", name="district_list")
+     * @Route("/administration/court-building-ownership-status", name="court_building_ownership_status_list")
      * @param Request $request
      * @return Response
      *
@@ -40,11 +40,11 @@ class DistrictController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Location\District')
-            ->findAllDistricts($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
+            ->findAllCourtBuildingOwnerShipStatus($options);
 
-        $qb2 = $em->getRepository('AppBundle:Location\District')
-            ->countAllDistricts($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')
+            ->countAllLandOwnerShipStatus($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -55,11 +55,10 @@ class DistrictController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Name','name','text',true);
-        $grid->addGridHeader('Region',null,'text',false);
+        $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('district_list');
+        $grid->setPath('court_building_ownership_status_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -68,13 +67,13 @@ class DistrictController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Districts',
+                'title'=>'Existing Court Building Ownership Status',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/districts/add", name="district_add")
+     * @Route("/administration/court-building-ownership-status/add", name="court_building_ownership_status_add")
      * @param Request $request
      * @return Response
      */
@@ -84,29 +83,29 @@ class DistrictController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(DistrictFormType::class);
+        $form = $this->createForm(CourtBuildingOwnershipStatusFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $district = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($district);
+            $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','District successfully created');
+            $this->addFlash('success','Status successfully created');
 
-            return $this->redirectToRoute('district_list');
+            return $this->redirectToRoute('court_building_ownership_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'location/district',
+                'formTemplate'=>'configuration/court.building.ownership.status',
                 'form'=>$form->createView(),
-                'title'=>'District Details',
+                'title'=>'Court Building Ownership Status Details',
             )
 
         );
@@ -114,50 +113,51 @@ class DistrictController extends Controller
 
 
     /**
-     * @Route("/districts/edit/{districtId}", name="district_edit")
+     * @Route("/administration/court-building-ownership-status/edit/{statusId}", name="court_building_ownership_status_edit")
      * @param Request $request
+     * @param CourtBuildingOwnershipStatus $status
      * @return Response
      */
-    public function editAction(Request $request,District $district)
+    public function editAction(Request $request,CourtBuildingOwnershipStatus $status)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(DistrictFormType::class,$district);
+        $form = $this->createForm(CourtBuildingOwnershipStatusFormType::class,$status);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $district = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($district);
+            $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'District successfully updated!');
+            $this->addFlash('success', 'Status successfully updated!');
 
-            return $this->redirectToRoute('district_list');
+            return $this->redirectToRoute('court_building_ownership_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'location/district',
+                'formTemplate'=>'configuration/court.building.ownership.status',
                 'form'=>$form->createView(),
-                'title'=>'District Details',
+                'title'=>'Court Building Ownership Status Details',
             )
 
         );
     }
 
     /**
-     * @Route("/districts/delete/{districtId}", name="district_delete")
-     * @param $districtId
+     * @Route("/administration/court-building-ownership-status/delete/{Id}", name="court_building_ownership_status_delete")
+     * @param $Id
      * @return Response
      * @internal param Request $request
      */
-    public function deleteAction($districtId)
+    public function deleteAction($Id)
     {
         $class = get_class($this);
         
@@ -165,38 +165,22 @@ class DistrictController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $district = $em->getRepository('AppBundle:Location\District')->find($districtId);
+        $data = $em->getRepository('AppBundle:Configuration\CourtBuildingOwnershipStatus')->find($Id);
 
-        if($district instanceof District)
+        if($data instanceof CourtBuildingOwnershipStatus)
         {
-            $em->remove($district);
+            $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'District successfully removed !');
+            $this->addFlash('success', 'Status successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'District not found !');
+            $this->addFlash('error', 'Status not found !');
         }
 
         
-        return $this->redirectToRoute('district_list');
+        return $this->redirectToRoute('court_building_ownership_status_list');
 
-    }
-
-
-    /**
-     * @Route("/api/getDistricts",options={"expose"=true}, name="api_get_districts")
-     */
-    public function getModulesAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $value = $this->get('request_stack')->getCurrentRequest()->get('value');
-
-        $data = $em->getRepository('AppBundle:Location\District')
-            ->findDistrictsByRegion($value);
-
-        return new JsonResponse($data);
     }
     
 }

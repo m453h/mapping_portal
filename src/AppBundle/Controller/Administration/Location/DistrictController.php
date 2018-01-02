@@ -1,24 +1,26 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Location;
 
-use AppBundle\Entity\Configuration\LandOwnerShipStatus;
-use AppBundle\Entity\Configuration\Zone;
-use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
-use AppBundle\Form\Configuration\ZoneFormType;
+use AppBundle\Entity\AppUsers\User;
+use AppBundle\Entity\Location\District;
+use AppBundle\Entity\Location\Region;
+use AppBundle\Form\Location\DistrictFormType;
+use AppBundle\Form\Location\RegionFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class LandOwnershipStatusController extends Controller
+class DistrictController extends Controller
 {
 
     /**
-     * @Route("/land-ownership-status", name="land_ownership_status_list")
+     * @Route("/administration/districts", name="district_list")
      * @param Request $request
      * @return Response
      *
@@ -38,11 +40,11 @@ class LandOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
-            ->findAllLandOwnerShipStatus($options);
+        $qb1 = $em->getRepository('AppBundle:Location\District')
+            ->findAllDistricts($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')
-            ->countAllLandOwnerShipStatus($qb1);
+        $qb2 = $em->getRepository('AppBundle:Location\District')
+            ->countAllDistricts($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -53,10 +55,11 @@ class LandOwnershipStatusController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Description','name','text',true);
+        $grid->addGridHeader('Name','name','text',true);
+        $grid->addGridHeader('Region',null,'text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('land_ownership_status_list');
+        $grid->setPath('district_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -65,13 +68,13 @@ class LandOwnershipStatusController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Land Ownership Status',
+                'title'=>'Existing Districts',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/land-ownership-status/add", name="land_ownership_status_add")
+     * @Route("/administration/districts/add", name="district_add")
      * @param Request $request
      * @return Response
      */
@@ -81,29 +84,29 @@ class LandOwnershipStatusController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(LandOwnerShipStatusFormType::class);
+        $form = $this->createForm(DistrictFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $data = $form->getData();
+            $district = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
+            $em->persist($district);
             $em->flush();
 
-            $this->addFlash('success','Status successfully created');
+            $this->addFlash('success','District successfully created');
 
-            return $this->redirectToRoute('land_ownership_status_list');
+            return $this->redirectToRoute('district_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.ownership.status',
+                'formTemplate'=>'location/district',
                 'form'=>$form->createView(),
-                'title'=>'Land Ownership Status Details',
+                'title'=>'District Details',
             )
 
         );
@@ -111,51 +114,50 @@ class LandOwnershipStatusController extends Controller
 
 
     /**
-     * @Route("/land-ownership-status/edit/{statusId}", name="land_ownership_status_edit")
+     * @Route("/administration/districts/edit/{districtId}", name="district_edit")
      * @param Request $request
-     * @param LandOwnerShipStatus $status
      * @return Response
      */
-    public function editAction(Request $request,LandOwnerShipStatus $status)
+    public function editAction(Request $request,District $district)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(LandOwnerShipStatusFormType::class,$status);
+        $form = $this->createForm(DistrictFormType::class,$district);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
+            $district = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
+            $em->persist($district);
             $em->flush();
 
-            $this->addFlash('success', 'Status successfully updated!');
+            $this->addFlash('success', 'District successfully updated!');
 
-            return $this->redirectToRoute('land_ownership_status_list');
+            return $this->redirectToRoute('district_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/land.ownership.status',
+                'formTemplate'=>'location/district',
                 'form'=>$form->createView(),
-                'title'=>'Land Ownership Status Details',
+                'title'=>'District Details',
             )
 
         );
     }
 
     /**
-     * @Route("/land-ownership-status/delete/{Id}", name="land_ownership_status_delete")
-     * @param $Id
+     * @Route("/administration/districts/delete/{districtId}", name="district_delete")
+     * @param $districtId
      * @return Response
      * @internal param Request $request
      */
-    public function deleteAction($Id)
+    public function deleteAction($districtId)
     {
         $class = get_class($this);
         
@@ -163,22 +165,38 @@ class LandOwnershipStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\LandOwnerShipStatus')->find($Id);
+        $district = $em->getRepository('AppBundle:Location\District')->find($districtId);
 
-        if($data instanceof LandOwnerShipStatus)
+        if($district instanceof District)
         {
-            $em->remove($data);
+            $em->remove($district);
             $em->flush();
-            $this->addFlash('success', 'Status successfully removed !');
+            $this->addFlash('success', 'District successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Status not found !');
+            $this->addFlash('error', 'District not found !');
         }
 
         
-        return $this->redirectToRoute('land_ownership_status_list');
+        return $this->redirectToRoute('district_list');
 
+    }
+
+
+    /**
+     * @Route("/administration/api/getDistricts",options={"expose"=true}, name="api_get_districts")
+     */
+    public function getModulesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $value = $this->get('request_stack')->getCurrentRequest()->get('value');
+
+        $data = $em->getRepository('AppBundle:Location\District')
+            ->findDistrictsByRegion($value);
+
+        return new JsonResponse($data);
     }
     
 }

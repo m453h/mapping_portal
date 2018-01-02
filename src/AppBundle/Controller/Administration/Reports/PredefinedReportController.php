@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Reports;
+namespace AppBundle\Controller\Administration\Reports;
 
 use AppBundle\Form\Reports\PredefinedReportFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,7 +14,7 @@ class PredefinedReportController extends Controller
 
 
     /**
-     * @Route("/pre-defined-report", name="pre_defined_report_builder")
+     * @Route("/administration/pre-defined-report", name="pre_defined_report_builder")
      * @param Request $request
      * @return Response
      */

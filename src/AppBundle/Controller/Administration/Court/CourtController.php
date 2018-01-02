@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Court;
+namespace AppBundle\Controller\Administration\Court;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
 use AppBundle\Entity\Configuration\EconomicActivity;
@@ -25,7 +25,7 @@ class CourtController extends Controller
 {
 
     /**
-     * @Route("/court-form", name="court_form_list")
+     * @Route("/administration/court-form", name="court_form_list")
      * @param Request $request
      * @return Response
      *
@@ -85,7 +85,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/court-form/info/{courtId}", name="court_form_info",defaults={"courtId":0})
+     * @Route("/administration/court-form/info/{courtId}", name="court_form_info",defaults={"courtId":0})
      * @param $courtId
      * @return Response
      * @throws NotFoundHttpException
@@ -215,7 +215,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/court-form/edit/{courtId}", name="court_form_edit")
+     * @Route("/administration/court-form/edit/{courtId}", name="court_form_edit")
      * @param Request $request
      * @param Court $court
      * @return Response
@@ -262,7 +262,7 @@ class CourtController extends Controller
     }
 
     /**
-     * @Route("/court-form/{action}/{courtId}", name="court_status_change")
+     * @Route("/administration/court-form/{action}/{courtId}", name="court_status_change")
      * @param Court $court
      * @param $action
      * @return Response
@@ -314,7 +314,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/api/submitCourtForm", name="api_court_form")
+     * @Route("/administration/api/submitCourtForm", name="api_court_form")
      * @param Request $request
      * @return Response
      *
@@ -604,7 +604,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/api/getIncompleteCourts", name="api_incomplete_court_list")
+     * @Route("/administration/api/getIncompleteCourts", name="api_incomplete_court_list")
      * @param Request $request
      * @return Response
      *
@@ -628,7 +628,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/api/submitCourtImages", name="api_court_image_form")
+     * @Route("/administration/api/submitCourtImages", name="api_court_image_form")
      * @param Request $request
      * @return Response
      *

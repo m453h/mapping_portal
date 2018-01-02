@@ -1,13 +1,15 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Configuration;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
 use AppBundle\Entity\Configuration\CourtBuildingStatus;
+use AppBundle\Entity\Configuration\CourtEnvironmentalStatus;
 use AppBundle\Entity\Configuration\LandOwnerShipStatus;
 use AppBundle\Entity\Configuration\Zone;
 use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
 use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
+use AppBundle\Form\Configuration\CourtEnvironmentalStatusFormType;
 use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
@@ -18,11 +20,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CourtBuildingStatusController extends Controller
+class CourtEnvironmentalStatusController extends Controller
 {
 
     /**
-     * @Route("/court-building-status", name="court_building_status_list")
+     * @Route("/administration/court-environmental-status", name="court_environmental_status_list")
      * @param Request $request
      * @return Response
      *
@@ -42,11 +44,11 @@ class CourtBuildingStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
-            ->findAllCourtBuildingOwnerStatus($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')
+            ->findAllCourtEnvironmentalStatus($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')
-            ->countAllCourtBuildingStatus($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')
+            ->countAllCourtEnvironmentalStatus($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -60,7 +62,7 @@ class CourtBuildingStatusController extends Controller
         $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('court_building_status_list');
+        $grid->setPath('court_environmental_status_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -69,13 +71,13 @@ class CourtBuildingStatusController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Court Building Status',
+                'title'=>'Existing Court Environmental Status',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/court-building-status/add", name="court_building_status_add")
+     * @Route("/administration/court-environmental-status/add", name="court_environmental_status_add")
      * @param Request $request
      * @return Response
      */
@@ -105,9 +107,9 @@ class CourtBuildingStatusController extends Controller
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.building.status',
+                'formTemplate'=>'configuration/court.environmental.status',
                 'form'=>$form->createView(),
-                'title'=>'Court Building Status Details',
+                'title'=>'Court Environmental Status Details',
             )
 
         );
@@ -115,18 +117,18 @@ class CourtBuildingStatusController extends Controller
 
 
     /**
-     * @Route("/court-building-status/edit/{statusId}", name="court_building_status_edit")
+     * @Route("/administration/court-environmental-status/edit/{statusId}", name="court_environmental_status_edit")
      * @param Request $request
-     * @param CourtBuildingStatus $status
+     * @param CourtEnvironmentalStatus $status
      * @return Response
      */
-    public function editAction(Request $request,CourtBuildingStatus $status)
+    public function editAction(Request $request,CourtEnvironmentalStatus $status)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(CourtBuildingStatusFormType::class,$status);
+        $form = $this->createForm(CourtEnvironmentalStatusFormType::class,$status);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -139,22 +141,22 @@ class CourtBuildingStatusController extends Controller
 
             $this->addFlash('success', 'Status successfully updated!');
 
-            return $this->redirectToRoute('court_building_status_list');
+            return $this->redirectToRoute('court_environmental_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/court.building.status',
+                'formTemplate'=>'configuration/court.environmental.status',
                 'form'=>$form->createView(),
-                'title'=>'Court Building Status Details',
+                'title'=>'Court Environmental Status Details',
             )
 
         );
     }
 
     /**
-     * @Route("/court-building-status/delete/{Id}", name="court_building_status_delete")
+     * @Route("/administration/court-environmental-status/delete/{Id}", name="court_environmental_status_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -167,9 +169,9 @@ class CourtBuildingStatusController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\CourtBuildingStatus')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\CourtEnvironmentalStatus')->find($Id);
 
-        if($data instanceof CourtBuildingStatus)
+        if($data instanceof CourtEnvironmentalStatus)
         {
             $em->remove($data);
             $em->flush();
@@ -181,7 +183,7 @@ class CourtBuildingStatusController extends Controller
         }
 
         
-        return $this->redirectToRoute('court_building_status_list');
+        return $this->redirectToRoute('court_environmental_status_list');
 
     }
     

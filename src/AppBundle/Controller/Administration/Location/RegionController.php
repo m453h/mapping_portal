@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Location;
+namespace AppBundle\Controller\Administration\Location;
 
 use AppBundle\Entity\AppUsers\User;
 use AppBundle\Entity\Location\Region;
@@ -18,7 +18,7 @@ class RegionController extends Controller
 {
 
     /**
-     * @Route("/regions", name="region_list")
+     * @Route("/administration/regions", name="region_list")
      * @param Request $request
      * @return Response
      *
@@ -71,7 +71,7 @@ class RegionController extends Controller
     }
 
     /**
-     * @Route("/regions/add", name="region_add")
+     * @Route("/administration/regions/add", name="region_add")
      * @param Request $request
      * @return Response
      */
@@ -111,7 +111,7 @@ class RegionController extends Controller
 
 
     /**
-     * @Route("/regions/edit/{regionId}", name="region_edit")
+     * @Route("/administration/regions/edit/{regionId}", name="region_edit")
      * @param Request $request
      * @param Region $region
      * @return Response
@@ -150,7 +150,7 @@ class RegionController extends Controller
     }
 
     /**
-     * @Route("/regions/delete/{Id}", name="region_delete")
+     * @Route("/administration/regions/delete/{Id}", name="region_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request

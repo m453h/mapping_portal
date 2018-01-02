@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\AppUsers;
+namespace AppBundle\Controller\Administration\AppUsers;
 
 
 use AppBundle\Entity\AppUsers\User;
@@ -18,7 +18,7 @@ class AppUserRegionController extends Controller
 {
 
     /**
-     * @Route("/app-user-regions/{userId}", defaults={"userId" = null}, name="app_user_region_list")
+     * @Route("/administration/app-user-regions/{userId}", defaults={"userId" = null}, name="app_user_region_list")
      * @param Request $request
      * @param $userId
      * @return Response
@@ -84,7 +84,7 @@ class AppUserRegionController extends Controller
 
 
     /**
-     * @Route("/app-user-regions/{userId}/add", name="app_user_region_add")
+     * @Route("/administration/app-user-regions/{userId}/add", name="app_user_region_add")
      * @param Request $request
      * @param $userId
      * @return Response
@@ -153,7 +153,7 @@ class AppUserRegionController extends Controller
 
 
     /**
-     * @Route("/app-user-regions/{userId}/delete/{userNo}", name="app_user_region_delete")
+     * @Route("/administration/app-user-regions/{userId}/delete/{userNo}", name="app_user_region_delete")
      * @param $userId
      * @param $userNo
      * @return Response

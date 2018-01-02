@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Configuration;
 
 use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
 use AppBundle\Entity\Configuration\CourtBuildingStatus;
@@ -26,7 +26,7 @@ class CourtLevelController extends Controller
 {
 
     /**
-     * @Route("/court-level", name="court_level_list")
+     * @Route("/administration/court-level", name="court_level_list")
      * @param Request $request
      * @return Response
      *
@@ -79,7 +79,7 @@ class CourtLevelController extends Controller
     }
 
     /**
-     * @Route("/court-level/add", name="court_level_add")
+     * @Route("/administration/court-level/add", name="court_level_add")
      * @param Request $request
      * @return Response
      */
@@ -119,7 +119,7 @@ class CourtLevelController extends Controller
 
 
     /**
-     * @Route("/court-level/edit/{levelId}", name="court_level_edit")
+     * @Route("/administration/court-level/edit/{levelId}", name="court_level_edit")
      * @param Request $request
      * @param CourtLevel $level
      * @return Response
@@ -158,7 +158,7 @@ class CourtLevelController extends Controller
     }
 
     /**
-     * @Route("/court-level/delete/{Id}", name="court_level_delete")
+     * @Route("/administration/court-level/delete/{Id}", name="court_level_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request

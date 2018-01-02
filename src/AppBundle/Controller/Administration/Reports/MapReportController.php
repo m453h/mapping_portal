@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Reports;
+namespace AppBundle\Controller\Administration\Reports;
 
 use AppBundle\Form\Reports\MapReportFormType;
 use AppBundle\Form\Reports\PredefinedReportFormType;
@@ -15,7 +15,7 @@ class MapReportController extends Controller
 
 
     /**
-     * @Route("/map-report-builder", name="map_report_builder")
+     * @Route("/administration/map-report-builder", name="map_report_builder")
      * @param Request $request
      * @return Response
      */

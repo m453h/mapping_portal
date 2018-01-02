@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\AppUsers;
+namespace AppBundle\Controller\Administration\AppUsers;
 
 
 use AppBundle\Entity\AppUsers\User;
@@ -23,7 +23,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-users", name="app_users_list")
+     * @Route("/administration/app-users", name="app_users_list")
      * @param Request $request
      * @return Response
      *
@@ -83,7 +83,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-users/add", name="app_user_add")
+     * @Route("/administration/app-users/add", name="app_user_add")
      * @param Request $request
      * @return Response
      */
@@ -127,7 +127,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-users/edit/{userId}", name="app_user_edit")
+     * @Route("/administration/app-users/edit/{userId}", name="app_user_edit")
      * @param Request $request
      * @param User $user
      * @return Response
@@ -168,7 +168,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-users/delete/{Id}", name="app_users_delete")
+     * @Route("/administration/app-users/delete/{Id}", name="app_users_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -203,7 +203,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/update-app-user-status/block/{Id}", name="app_user_block",defaults={"Id":0})
+     * @Route("/administration/update-app-user-status/block/{Id}", name="app_user_block",defaults={"Id":0})
      * @param $Id
      * @internal param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -244,7 +244,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/update-app-user-status/un-block/{Id}", name="app_user_unblock",defaults={"Id":0})
+     * @Route("/administration/update-app-user-status/un-block/{Id}", name="app_user_unblock",defaults={"Id":0})
      * @param $Id
      * @internal param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -287,7 +287,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-user/reset-password/{id}", name="app_user_password_reset",defaults={"id":0})
+     * @Route("/administration/app-user/reset-password/{id}", name="app_user_password_reset",defaults={"id":0})
      * @param Request $request
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
@@ -328,7 +328,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/app-users/info/{Id}", name="app_user_info",defaults={"Id":0})
+     * @Route("/administration/app-users/info/{Id}", name="app_user_info",defaults={"Id":0})
      * @param $Id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -387,7 +387,7 @@ class UserController extends Controller
 
     
     /**
-     * @Route("/api/login", name="api_login")
+     * @Route("/administration/api/login", name="api_login")
      * @param Request $request
      * @return Response
      *
@@ -468,7 +468,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/api/verifyToken", name="api_verify_token")
+     * @Route("/administration/api/verifyToken", name="api_verify_token")
      * @param Request $request
      * @return Response
      *
@@ -498,7 +498,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/api/getInitialDataLoad", name="api_initial_data_load")
+     * @Route("/administration/api/getInitialDataLoad", name="api_initial_data_load")
      * @return Response
      *
      */
@@ -571,7 +571,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/api/verifyDownloadVersion", name="api_download_version")
+     * @Route("/administration/api/verifyDownloadVersion", name="api_download_version")
      * @return Response
      *
      */

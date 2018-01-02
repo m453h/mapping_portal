@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Location;
+namespace AppBundle\Controller\Administration\Location;
 
 use AppBundle\Entity\AppUsers\User;
 use AppBundle\Entity\Location\Region;
@@ -22,7 +22,7 @@ class VillageStreetController extends Controller
 {
 
     /**
-     * @Route("/village-street", name="village_street_list")
+     * @Route("/administration/village-street", name="village_street_list")
      * @param Request $request
      * @return Response
      *
@@ -78,7 +78,7 @@ class VillageStreetController extends Controller
     }
 
     /**
-     * @Route("/village-street/add", name="village_street_add")
+     * @Route("/administration/village-street/add", name="village_street_add")
      * @param Request $request
      * @return Response
      */
@@ -118,7 +118,7 @@ class VillageStreetController extends Controller
 
 
     /**
-     * @Route("/village-street/edit/{areaId}", name="village_street_edit")
+     * @Route("/administration/village-street/edit/{areaId}", name="village_street_edit")
      * @param Request $request
      * @param VillageStreet $villageStreet
      * @return Response
@@ -157,7 +157,7 @@ class VillageStreetController extends Controller
     }
 
     /**
-     * @Route("/village-street/delete/{Id}", name="village_street_delete")
+     * @Route("/administration/village-street/delete/{Id}", name="village_street_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request

@@ -1,26 +1,36 @@
 <?php
 
-namespace AppBundle\Controller\Location;
+namespace AppBundle\Controller\Administration\Configuration;
 
-use AppBundle\Entity\AppUsers\User;
-use AppBundle\Entity\Location\Region;
-use AppBundle\Entity\Location\Ward;
-use AppBundle\Form\Location\RegionFormType;
-use AppBundle\Form\Location\WardFormType;
+use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\CourtBuildingStatus;
+use AppBundle\Entity\Configuration\CourtCategory;
+use AppBundle\Entity\Configuration\CourtLevel;
+use AppBundle\Entity\Configuration\EconomicActivity;
+use AppBundle\Entity\Configuration\LandOwnerShipStatus;
+use AppBundle\Entity\Configuration\TransportMode;
+use AppBundle\Entity\Configuration\Zone;
+use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
+use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
+use AppBundle\Form\Configuration\CourtCategoryFormType;
+use AppBundle\Form\Configuration\CourtLevelFormType;
+use AppBundle\Form\Configuration\EconomicActivityFormType;
+use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
+use AppBundle\Form\Configuration\TransportModeFormType;
+use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class WardController extends Controller
+class TransportModeController extends Controller
 {
 
     /**
-     * @Route("/wards", name="ward_list")
+     * @Route("/administration/transport-mode", name="transport_mode_list")
      * @param Request $request
      * @return Response
      *
@@ -40,11 +50,11 @@ class WardController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Location\Ward')
-            ->findAllWards($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\TransportMode')
+            ->findAllTransportModes($options);
 
-        $qb2 = $em->getRepository('AppBundle:Location\Ward')
-            ->countAllWards($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\TransportMode')
+            ->countAllTransportModes($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -55,12 +65,10 @@ class WardController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Name','name','text',true);
-        $grid->addGridHeader('District',null,'text',false);
-        $grid->addGridHeader('Region',null,'text',false);
+        $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('ward_list');
+        $grid->setPath('transport_mode_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -69,13 +77,13 @@ class WardController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Wards',
+                'title'=>'Existing Transport Mode',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/wards/add", name="ward_add")
+     * @Route("/administration/transport-mode/add", name="transport_mode_add")
      * @param Request $request
      * @return Response
      */
@@ -85,29 +93,29 @@ class WardController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(WardFormType::class);
+        $form = $this->createForm(TransportModeFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $ward = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ward);
+            $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Ward successfully created');
+            $this->addFlash('success','Transport mode successfully created');
 
-            return $this->redirectToRoute('ward_list');
+            return $this->redirectToRoute('transport_mode_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'location/ward',
+                'formTemplate'=>'configuration/transport.mode',
                 'form'=>$form->createView(),
-                'title'=>'Ward Details',
+                'title'=>'Transport Mode Details',
             )
 
         );
@@ -115,46 +123,46 @@ class WardController extends Controller
 
 
     /**
-     * @Route("/wards/edit/{wardId}", name="ward_edit")
+     * @Route("/administration/transport-mode/edit/{modeId}", name="transport_mode_edit")
      * @param Request $request
-     * @param Ward $ward
+     * @param TransportMode $mode
      * @return Response
      */
-    public function editAction(Request $request,Ward $ward)
+    public function editAction(Request $request,TransportMode $mode)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(WardFormType::class,$ward);
+        $form = $this->createForm(TransportModeFormType::class,$mode);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $ward = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ward);
+            $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'Ward successfully updated!');
+            $this->addFlash('success', 'Transport mode successfully updated!');
 
-            return $this->redirectToRoute('ward_list');
+            return $this->redirectToRoute('transport_mode_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'location/ward',
+                'formTemplate'=>'configuration/transport.mode',
                 'form'=>$form->createView(),
-                'title'=>'Ward Details',
+                'title'=>'Transport Mode Details',
             )
 
         );
     }
 
     /**
-     * @Route("/wards/delete/{Id}", name="ward_delete")
+     * @Route("/administration/transport-mode/delete/{Id}", name="transport_mode_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -167,39 +175,22 @@ class WardController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $ward = $em->getRepository('AppBundle:Location\Ward')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\TransportMode')->find($Id);
 
-        if($ward instanceof Ward)
+        if($data instanceof TransportMode)
         {
-            $em->remove($ward);
+            $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'Ward successfully removed !');
+            $this->addFlash('success', 'Transport mode successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Ward not found !');
+            $this->addFlash('error', 'Transport mode not found !');
         }
 
         
-        return $this->redirectToRoute('ward_list');
+        return $this->redirectToRoute('transport_mode_list');
 
-    }
-
-
-
-    /**
-     * @Route("/api/getWards",options={"expose"=true}, name="api_get_wards")
-     */
-    public function getModulesAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $value = $this->get('request_stack')->getCurrentRequest()->get('value');
-
-        $data = $em->getRepository('AppBundle:Location\Ward')
-            ->findWardsByDistrict($value);
-
-        return new JsonResponse($data);
     }
     
 }

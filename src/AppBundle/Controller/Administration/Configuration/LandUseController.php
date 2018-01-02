@@ -1,8 +1,22 @@
 <?php
 
-namespace AppBundle\Controller\Configuration;
+namespace AppBundle\Controller\Administration\Configuration;
 
+use AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus;
+use AppBundle\Entity\Configuration\CourtBuildingStatus;
+use AppBundle\Entity\Configuration\CourtCategory;
+use AppBundle\Entity\Configuration\CourtLevel;
+use AppBundle\Entity\Configuration\EconomicActivity;
+use AppBundle\Entity\Configuration\LandOwnerShipStatus;
+use AppBundle\Entity\Configuration\LandUse;
 use AppBundle\Entity\Configuration\Zone;
+use AppBundle\Form\Configuration\CourtBuildingOwnershipStatusFormType;
+use AppBundle\Form\Configuration\CourtBuildingStatusFormType;
+use AppBundle\Form\Configuration\CourtCategoryFormType;
+use AppBundle\Form\Configuration\CourtLevelFormType;
+use AppBundle\Form\Configuration\EconomicActivityFormType;
+use AppBundle\Form\Configuration\LandOwnerShipStatusFormType;
+use AppBundle\Form\Configuration\LandUseFormType;
 use AppBundle\Form\Configuration\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,11 +26,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class ZoneController extends Controller
+class LandUseController extends Controller
 {
 
     /**
-     * @Route("/zones", name="zone_list")
+     * @Route("/administration/land-use", name="land_use_list")
      * @param Request $request
      * @return Response
      *
@@ -36,11 +50,11 @@ class ZoneController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\Zone')
-            ->findAllZones($options);
+        $qb1 = $em->getRepository('AppBundle:Configuration\LandUse')
+            ->findAllLandUses($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\Zone')
-            ->countAllZones($qb1);
+        $qb2 = $em->getRepository('AppBundle:Configuration\LandUse')
+            ->countAllLandUses($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -54,7 +68,7 @@ class ZoneController extends Controller
         $grid->addGridHeader('Description','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('zone_list');
+        $grid->setPath('land_use_list');
         $grid->setCurrentObject($class);
         $grid->setButtons();
         
@@ -63,13 +77,13 @@ class ZoneController extends Controller
             'main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
-                'title'=>'Existing Zones',
+                'title'=>'Existing Land Uses',
                 'gridTemplate'=>'lists/base.list.html.twig'
         ));
     }
 
     /**
-     * @Route("/zones/add", name="zone_add")
+     * @Route("/administration/land-use/add", name="land_use_add")
      * @param Request $request
      * @return Response
      */
@@ -79,7 +93,7 @@ class ZoneController extends Controller
         
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(ZoneFormType::class);
+        $form = $this->createForm(LandUseFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -91,17 +105,17 @@ class ZoneController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Zone successfully created');
+            $this->addFlash('success','Land use successfully created');
 
-            return $this->redirectToRoute('zone_list');
+            return $this->redirectToRoute('land_ownership_status_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/zone',
+                'formTemplate'=>'configuration/land.use',
                 'form'=>$form->createView(),
-                'title'=>'Zone Details',
+                'title'=>'Land Use Details',
             )
 
         );
@@ -109,18 +123,18 @@ class ZoneController extends Controller
 
 
     /**
-     * @Route("/zones/edit/{zoneId}", name="zone_edit")
+     * @Route("/administration/land-use/edit/{activityId}", name="land_use_edit")
      * @param Request $request
-     * @param Zone $zone
+     * @param LandUse $activity
      * @return Response
      */
-    public function editAction(Request $request,Zone $zone)
+    public function editAction(Request $request,LandUse $activity)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(ZoneFormType::class,$zone);
+        $form = $this->createForm(LandUseFormType::class,$activity);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -131,24 +145,24 @@ class ZoneController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', 'Zone successfully updated!');
+            $this->addFlash('success', 'Land use successfully updated!');
 
-            return $this->redirectToRoute('zone_list');
+            return $this->redirectToRoute('land_use_list');
         }
 
         return $this->render(
             'main/app.form.html.twig',
             array(
-                'formTemplate'=>'configuration/zone',
+                'formTemplate'=>'configuration/land.use',
                 'form'=>$form->createView(),
-                'title'=>'Zone Details',
+                'title'=>'Land Use Details',
             )
 
         );
     }
 
     /**
-     * @Route("/zones/delete/{Id}", name="zone_delete")
+     * @Route("/administration/land-use/delete/{Id}", name="land_use_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -161,21 +175,21 @@ class ZoneController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\Zone')->find($Id);
+        $data = $em->getRepository('AppBundle:Configuration\LandUse')->find($Id);
 
-        if($data instanceof Zone)
+        if($data instanceof LandUse)
         {
             $em->remove($data);
             $em->flush();
-            $this->addFlash('success', 'Zone successfully removed !');
+            $this->addFlash('success', 'Land use successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Zone not found !');
+            $this->addFlash('error', 'Land use not found !');
         }
 
         
-        return $this->redirectToRoute('zone_list');
+        return $this->redirectToRoute('land_use_list');
 
     }
     
