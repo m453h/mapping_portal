@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Administration;
 
 
 use AppBundle\Entity\UserAccounts\SMSCounter;
@@ -16,11 +16,10 @@ class SecurityController extends  Controller
 {
 
     /**
-     * @Route("/", name="security_login")
-     * @param Request $request
+     * @Route("/administration", name="admin_security_login")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
 
         $key = '_security.main.target_path'; # where "main" is your firewall name
@@ -41,7 +40,7 @@ class SecurityController extends  Controller
         $form = $this->createForm(LoginForm::class,[
             '_username'=>$lastUsername //if you fail to login pre-populate username
         ], [
-            'action' => $this->generateUrl('login_check')
+            'action' => $this->generateUrl('admin_login_check')
         ]
 
         );
@@ -61,11 +60,10 @@ class SecurityController extends  Controller
 
 
     /**
-     * @Route("/api/privacy-policy", name="oru")
-     * @param Request $request
+     * @Route("/api/privacy-policy", name="app_privacy_policy")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function privacyPolicyAction(Request $request)
+    public function privacyPolicyAction()
     {
         
         return $this->render(
@@ -77,13 +75,12 @@ class SecurityController extends  Controller
     }
 
     /**
-     * @Route("/login_check", name="login_check")
+     * @Route("/administration_login_check", name="admin_login_check")
      */
     public function loginCheckAction()
     {
-       return $this->redirectToRoute('security_login');
+        return $this->redirectToRoute('admin_security_login');
     }
-
 
     /**
      * @Route("/token-authentication/reset-password", name="security_password_reset")

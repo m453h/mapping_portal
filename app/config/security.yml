@@ -24,6 +24,7 @@ security:
 
             logout:
               path: /logout
+              target: /administration
 
             switch_user: ~
 
@@ -38,6 +39,6 @@ security:
 
     access_control:
             - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/administration_login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/api.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/.*, roles: IS_AUTHENTICATED_FULLY }
+            - { path: ^/administration/.*, roles: IS_AUTHENTICATED_FULLY }

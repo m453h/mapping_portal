@@ -1,0 +1,69 @@
+{% extends 'public/base.html.twig' %}
+
+{% block content %}
+    <div class='col12 intro'>
+        <div class='section-inner'>
+            <div class='intro-caption col12'>
+                <div class='container'>
+                    <h2>DISCOVER COURTS IN TANZANIA</h2>
+                    <h1>COURT DATABASE</h1>
+
+                    <form class='search-form user-form'>
+                        <input type='text' name='search' value='' placeholder='Search datasets... '/>
+                        <div class='space-20 col12'></div>
+                        <div class='col3'>
+                            <input type='submit' name='search' class="btn btn-primary" value='Search' class='button transition' />
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col12 white-space align-center">
+        <div class="col12 space"></div>
+        <div class="section-inner">
+            <h1 class="styled-header">Available Datasets</h1>
+            <div class="col2 data-element">
+                <div class="frame">
+                    <i class="fa fa-hacker-news" aria-hidden="true"></i>
+                    <a href="#">Social Activities</a>
+                </div>
+            </div>
+            <div class="col2 data-element">
+                <div class="frame">
+                    <i class="fa fa-tree" aria-hidden="true"></i>
+                    <a href="#">Environmental Conditions</a>
+                </div>
+            </div>
+            <div class="col2 data-element">
+                <div class="frame">
+                    <i class="fa fa-map" aria-hidden="true"></i>
+                    <a href="#">Land Ownership</a>
+                </div>
+            </div>
+            <div class="col2 data-element">
+                <div class="frame">
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                    <a href="#">Number of cases</a>
+                </div>
+            </div>
+            <div class="col2 data-element">
+                <div class="frame">
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <a href="#">Building Conditions</a>
+                </div>
+            </div>
+            <div class="col2 data-element last">
+                <div class="frame">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <a href="#">Number of staff</a>
+                </div>
+            </div>
+        </div>
+        <div class="col12 space"></div>
+    </div>
+
+
+{% endblock %}

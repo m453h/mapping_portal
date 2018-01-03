@@ -4,7 +4,7 @@ app:
 homepage:
     path: /
     defaults:
-        _controller: AppBundle:Security:login
+        _controller: AppBundle\Consumer:Main:homepage
 
 # app/config/routing.yml
 fos_js_routing:
