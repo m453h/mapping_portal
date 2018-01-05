@@ -55,7 +55,7 @@ body {
 	margin: 0;
 	font-size:0.8em;
 	color:#34495e;
-	background:#E9ECF3;
+	background:#FFFFFF;
 }
 
 div#loader{
@@ -129,7 +129,19 @@ font-style:italic;
 }
 span.big{
 font-size:30px;
-color:#3adb76;
+color:#4ba185;
+}
+div.divider {
+    width: 50px;
+    height: 3px;
+    margin: 15px auto;
+    background: #4ba185;
+}
+span.green{
+    color:#16a085;
+}
+span.lighter{
+    font-weight:lighter;
 }
 
 /* Space */
@@ -143,7 +155,7 @@ div.space-20{
 	height:24px;
 }
 div.space-10{
-	height:15px;
+	height:10px;
 }
 
 div.clear{
@@ -163,14 +175,16 @@ div.container{
 
 div.top-bar{
 	height:35px;
-	background:#2980b9;
+	background:#F2F2F2;
 }
 
 div.top-bar p, div.top-bar a {
 	padding-top:8px;
 	display: inline-block;
-	color:#FFF;
+    color:#34495E;
 	text-decoration: none;
+    font-weight:bolder;
+    font-size:0.8em;
 }
 
 div.top-bar a:hover{
@@ -296,11 +310,11 @@ ul.dropdown li a{
 }
 
 #menu ul li a:hover,#menu ul li.selected a:hover{
-	color:#2980b9;
+	color:#16a085;
 }
 
 #menu ul li.selected a{
-	color:#2980b9;
+	color:#16a085;
 }
 
 #menu ul li a span{
@@ -347,26 +361,18 @@ ul.dropdown li a{
 /* end of styling menu */
 
 
-
-
-
-
-
-
 /* Styling intro area */
 div.intro{
 	height:300px;
 	text-align:center;
-	background:url("../images/backgrounds/mount-kilimanjaro.jpg");
-	background-attachment: fixed;
-	background-size: cover;
-	background-position: 100% 20%;
-	background-repeat: no-repeat;
+    background:url('../images/backgrounds/20170719_190732.jpg') 100% 70%;
+    background-size: cover;
+    border-bottom: #fff;
 }
 
 div.intro-caption{
-	color:#36373E;
-	padding:2% 0 2% 0;
+    color:#FFF;
+    padding:2% 0 2% 0;
 	margin-top:30px;
 }
 
@@ -387,7 +393,7 @@ div.intro-caption{
 }
 
 .intro .button{
-	background:#2980b9;
+	background:#16a085;
 	border:none;
 	color:#FFF;
 	padding: 15px 0 15px 0;
@@ -397,12 +403,11 @@ div.intro-caption{
 
 .intro .button:hover{
 	background:#FFFFFF;
-	color:#2980b9;
+	color:#16a085;
 }
 
 
 h1.styled-header{
-	padding-bottom:30px;
 	text-transform: uppercase;
 }
 
@@ -411,7 +416,6 @@ h2.styled-header{
 	color:#666;
 	font-size:1.3em;
 	font-weight:normal;
-	padding-bottom:20px;
 }
 
 h3.styled-header{
@@ -434,7 +438,7 @@ div.data-element{
 div.data-element .fa{
 	font-size:3em;
     display:block;
-    color:#2980b9;
+    color:#34495e;
     margin-bottom:20px;
 }
 
@@ -442,13 +446,57 @@ div.data-element .fa{
     color:#34495e;
     font-weight:bolder;
 }
+.data-element a:hover,div.data-element .fa:hover{
+    color:#16a085;
+}
 
 
 
 div.frame{
 	height:100px !important;
-	background:red;
 }
+
+
+
+
+
+
+div.statistics{
+    background:#00A885;
+}
+
+div.statistic-element p.value{
+    font-size:3em;
+    font-weight:bolder;
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+div.statistic-element p.label{
+    font-size:1.4em;
+    color: #ffffff;
+}
+
+
+
+
+/** DATA SET PAGE **/
+div.page-title{
+    background: url('../images/backgrounds/20170719_190732.jpg') 100% 83%;
+    font-weight:normal;
+    height:230px;
+    color: #ffffff;
+}
+
+div.page-title h1{
+    font-weight:normal;
+    padding-top:170px;
+}
+
+
+
+
+
 
 
 
@@ -458,23 +506,19 @@ div.frame{
 
 
 div.footer{
-	background:#2E3A43;
-	color:#B4B6B7;
+	background:#fff;
 	font-weight:bolder;
 	height:150px;
 }
 
 div.lo-footer{
-	background:#2980b9;
-	color:#FFFFFF;
+	background:#ffffff;
+    border-top:1px solid #EEE;
 }
 
 .lo-footer p{
 	padding-top:10px;
 }
-
-
-
 
 
 /* Responsive Columns */
