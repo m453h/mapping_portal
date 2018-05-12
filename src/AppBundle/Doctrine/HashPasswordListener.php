@@ -6,6 +6,7 @@ use AppBundle\Entity\UserAccounts\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class HashPasswordListener implements  EventSubscriber
@@ -17,10 +18,10 @@ class HashPasswordListener implements  EventSubscriber
      */
     private $request;
 
-    public function __construct(UserPasswordEncoder $passwordEncoder,Request $request)
+    public function __construct(UserPasswordEncoder $passwordEncoder,RequestStack $request)
     {
         $this->passwordEncoder = $passwordEncoder;
-        $this->request = $request;
+        $this->request = $request->getCurrentRequest();
     }
 
 

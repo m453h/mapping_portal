@@ -163,8 +163,8 @@ div.container{
 
 /* Styling Login Area */
 img.app-logo{
-	height:40px;
-	padding-top:8px;
+	height: 85px;
+	padding-top: 4px;
 }
 
 div.app-name h2{
@@ -187,21 +187,34 @@ span.blue-highlight{
 
 /* Header styling */
 div.header {
-	height:50px;
+	height:90px;
 	position:fixed;
 	top:0;
 	left:0;
 	background:#FFFFFF;
 	color:#7F96AC;
-	padding-bottom:10px;
 	z-index: 50;
 }
 
+.header:after {
+	background: linear-gradient(to right, #00C73A 25%,#FBDE00 25%, #FBDE00 50%, #0098DF 50%, #0098DF 75%, #000000 75%);
+	position: absolute;
+	content: '';
+	height: 4px;
+	right: 0;
+	left: 0;
+	top: 90px;
+}
+
 div.header .logo{
-	width: 240px;
-	height: 60px;
+	width: 80%;
+	height: 90px;
 	float: left;
-	background: #373C47;
+}
+
+div.top-bar{
+	height:28px;
+	background:red;
 }
 
 div.header .logo img{
@@ -329,6 +342,21 @@ label{
 
 span.required{
 	color:#ED1C24;
+}
+
+.ui-accordion-content div.checkbox{
+	display: inline-block;
+	padding-right: 20px;
+}
+.ui-accordion-content .form-group{
+	display: inline-block;
+	margin-right:1.6%;
+}
+.ui-accordion-content .control-label{
+	font-weight: bolder;
+}
+div#accordion{
+	width:99%;
 }
 
 textarea, input[type="text"], input[type="search"], input[type="password"], select, input[type="number"], .form-wizard select,
@@ -731,11 +759,11 @@ div#loader{
 /* -- User Menu Start-- */
 div.menu{
 	position: fixed;
-	top: 60px;
+	top: 94px;
 	left: 0;
 	bottom: 0;
 	width: 240px;
-	background: #2D323E;
+	background: #282828;
 	/*border-right: 5px solid #F6F6F6;*/
 	z-index: 10;
 	-webkit-transition: All 0.3s ease;
@@ -748,7 +776,7 @@ div#content{
 	float:none;
 	width:auto;
 	margin-left:240px;
-	margin-top:60px;
+	margin-top:95px;
 	z-index:1;
 	height:300px;
 }
@@ -786,8 +814,8 @@ ul#sidebar-menu li{
 ul#sidebar-menu li a,a.app-sidebar-link{
 	display:block;
 	padding:15px 0px 15px 30px;
-	color: #c0c2c5;
-	background:#2D323E;
+	color: #FFFFFF;
+	background:#282828;
 	text-decoration:none;
 	border:none;
 	font-size:1em;
@@ -804,12 +832,13 @@ a.app-sidebar-link{
 
 
 ul#sidebar-menu li a:hover,a.app-sidebar-link:hover{
-	background:#292d38;
+	background:#484848;
+	color:#FFFFFF;
 }
 
 ul#sidebar-menu li a.ui-accordion-header-active, ul.sidebar-menu li.current {
-	background-color: #36c6d3;
-	color: #FFF;
+	background-color: #CA0000;
+	color: #FFFFFF;
 }
 
 ul#sidebar-menu li.current_ancestor a{
@@ -825,8 +854,8 @@ ul#sidebar-menu li.current_ancestor a{
 }
 
 #sidebar-menu ul li a{
-	color: #c0c2c5;
-	background: #282c37;
+	color: #ffffff;
+	background: #333333;
 	padding-left:40px;
 	height:20px;
 	padding-top:8px;
@@ -837,8 +866,7 @@ ul#sidebar-menu li.current_ancestor a{
 }
 
 #sidebar-menu ul.menu_level_1 li.current a{
-	border-left:2px solid #36c6d3;
-	background:#373c47;
+	border-left:2px solid #CA0000;
 }
 
 #sidebar-menu ul.menu_level_2 li a{
@@ -847,7 +875,7 @@ ul#sidebar-menu li.current_ancestor a{
 
 
 #sidebar-menu ul li a:hover,.sidebar-menu ul.menu_level_1 li.current a:hover{
-	background:#3b3f4a;
+	background:#484848;
 }
 
 
@@ -879,9 +907,9 @@ img.circular{
 
 ul.top-menu{
 	margin:0;
-	padding:0 0 0 0;
+	padding:15px 0 0 0;
 	float:right;
-	height:60px;
+	height: 75px;
 }
 
 ul.top-menu:hover{

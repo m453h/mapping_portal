@@ -53,9 +53,9 @@ class PredefinedReportController extends Controller
                 $grid->addGridHeader('Court Level',null,null,false);
                 $grid->addGridHeader('Total',null,null,false);
 
-                $gridTemplate = 'lists/reports/court.category.list.html.twig';
+                $gridTemplate = 'administration/lists/reports/court.category.list.html.twig';
 
-                $mainTemplate = 'main/app.report.list.html.twig';
+                $mainTemplate = 'administration/main/app.report.list.html.twig';
 
                 $regionTotals = null;
 
@@ -89,7 +89,7 @@ class PredefinedReportController extends Controller
 
                 $gridTemplate = null;
 
-                $mainTemplate = 'lists/reports/app.court.per.ward.list.html.twig';
+                $mainTemplate = 'administration/lists/reports/app.court.per.ward.list.html.twig';
 
             }
             else if($report=='3')
@@ -120,8 +120,8 @@ class PredefinedReportController extends Controller
 
                 $gridTemplate = null;
 
-                $mainTemplate = 'main/app.report.list.html.twig';
-                $gridTemplate = 'lists/base.list.html.twig';
+                $mainTemplate = 'administration/main/app.report.list.html.twig';
+                $gridTemplate = 'administration/lists/base.list.html.twig';
 
             }
 
@@ -161,7 +161,7 @@ class PredefinedReportController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'reports/predefined.report',
                 'form'=>$form->createView(),

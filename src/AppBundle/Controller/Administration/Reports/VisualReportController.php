@@ -165,12 +165,12 @@ class VisualReportController extends Controller
                 'title'=>$title
             );
 
-            return $this->render('main/app.chart.html.twig',$data);
+            return $this->render('administration/main/app.chart.html.twig',$data);
 
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'reports/visual.report',
                 'form'=>$form->createView(),

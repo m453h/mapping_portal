@@ -70,11 +70,11 @@ class CourtLevelController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Court Levels',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
@@ -107,7 +107,7 @@ class CourtLevelController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/court.level',
                 'form'=>$form->createView(),
@@ -147,7 +147,7 @@ class CourtLevelController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/court.level',
                 'form'=>$form->createView(),

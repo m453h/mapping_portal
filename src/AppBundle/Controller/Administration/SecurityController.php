@@ -46,7 +46,7 @@ class SecurityController extends  Controller
         );
 
         return $this->render(
-            'main/homepage.html.twig',
+            'administration/main/homepage.html.twig',
             array(
                 // last username entered by the user
                 'form' => $form->createView(),

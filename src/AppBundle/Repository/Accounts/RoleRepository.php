@@ -31,6 +31,8 @@ class RoleRepository extends EntityRepository
     {
         return function ($queryBuilder) {
             $queryBuilder->select('COUNT(DISTINCT role_id) AS total_results')
+                ->resetQueryPart('orderBy')
+                ->resetQueryPart('groupBy')
                 ->setMaxResults(1);
         };
     }

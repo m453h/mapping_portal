@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>{% block title %}Court Mapping | App Management Portal{% endblock %}</title>
+    <title>{% block title %}The Judiciary of Tanzania | Court Mapping Administration Portal{% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
@@ -26,10 +26,10 @@
 <div id="loader"><img src="{{ asset('images/loaders/ie_loader.gif') }}" alt="Loading"></div>
 <div class="main-content" style="display:none;">
     {% block body %}
-        <div class="col12 header white-space drop-shadow">
 
+        <div class="col12 header white-space drop-shadow">
                 <div class="logo">
-                    <a href='#'><img class="app-logo" src="{{ asset('images/logo/main-logo.png') }}"></a>
+                    <a href='#'><img class="app-logo" src="{{ asset('images/logo/portal-logo.png') }}"></a>
                 </div>
 
                 {%  if not section is defined %}

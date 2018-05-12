@@ -60,11 +60,11 @@ class ZoneController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Zones',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
@@ -97,7 +97,7 @@ class ZoneController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/zone',
                 'form'=>$form->createView(),
@@ -137,7 +137,7 @@ class ZoneController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/zone',
                 'form'=>$form->createView(),

@@ -68,11 +68,11 @@ class CourtEnvironmentalStatusController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Court Environmental Status',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
@@ -105,7 +105,7 @@ class CourtEnvironmentalStatusController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/court.environmental.status',
                 'form'=>$form->createView(),
@@ -145,7 +145,7 @@ class CourtEnvironmentalStatusController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/court.environmental.status',
                 'form'=>$form->createView(),

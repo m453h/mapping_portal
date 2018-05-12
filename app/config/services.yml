@@ -34,6 +34,12 @@ services:
       tags:
       - {name: kernel.event_subscriber}
 
+    jsor_doctrine_postgis_doctrine_orm_schema_subscriber:
+          class: 'Jsor\Doctrine\PostGIS\Event\ORMSchemaEventSubscriber'
+          public: false
+          tags:
+              - { name: doctrine.event_subscriber, connection: default }
+
     security.user_checker:
         class: AppBundle\Security\UserChecker
         arguments: [ "app.security.login_form_authenticator:", "" ]
@@ -65,6 +71,11 @@ services:
     app.helper.base_64_decoder:
                 class: AppBundle\Helpers\Base64Decoder
                 autowire: true
+
+
+    app.helper.file_loader:
+            class: AppBundle\Helpers\FileLoader
+            autowire: true
 
     app.acl_voter:
             class: AppBundle\Security\ACLVoter
@@ -100,3 +111,13 @@ services:
                     autowire: true
                     tags:
                         - { name: form.type }
+
+    app.form.type.role_form:
+                class: AppBundle\Form\Accounts\RolePermissionFormType
+                arguments:
+                    - '@doctrine.orm.entity_manager'
+                    - '@app.helper.file_loader'
+                    - '%permissions_file%'
+                    - '@request_stack'
+                tags:
+                    - { name: form.type }

@@ -62,11 +62,11 @@ class LandOwnershipStatusController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Land Ownership Status',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
@@ -99,7 +99,7 @@ class LandOwnershipStatusController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/land.ownership.status',
                 'form'=>$form->createView(),
@@ -139,7 +139,7 @@ class LandOwnershipStatusController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'configuration/land.ownership.status',
                 'form'=>$form->createView(),

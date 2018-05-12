@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\Location;
+namespace AppBundle\Entity\Spatial;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\Location;
+namespace AppBundle\Entity\Spatial;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -53,6 +53,7 @@ class WardFormType extends  AbstractType
                 'required' => true
             ))
             ->add('wardName',null,['required'=>true])
+            ->add('wardCode',null,['required'=>true])
             ->addEventSubscriber(new AddSelectedDataWardForm($this->em));
 
 

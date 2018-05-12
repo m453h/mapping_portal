@@ -33,7 +33,7 @@ class WardRepository extends EntityRepository
     {
         if (!empty($options['name']))
         {
-            return $queryBuilder->andWhere('lower(r.ward_name) LIKE lower(:name)')
+            return $queryBuilder->andWhere('lower(w.ward_name) LIKE lower(:name)')
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 

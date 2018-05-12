@@ -65,11 +65,11 @@ class DistrictController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Districts',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
@@ -102,7 +102,7 @@ class DistrictController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'location/district',
                 'form'=>$form->createView(),
@@ -141,7 +141,7 @@ class DistrictController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'location/district',
                 'form'=>$form->createView(),

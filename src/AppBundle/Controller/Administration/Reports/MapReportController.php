@@ -73,12 +73,12 @@ class MapReportController extends Controller
                 'title'=>$title
             );
 
-            return $this->render('main/app.map.html.twig',$data);
+            return $this->render('administration/main/app.map.html.twig',$data);
 
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'reports/map.report',
                 'form'=>$form->createView(),

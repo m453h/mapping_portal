@@ -1,4 +1,4 @@
-{% extends 'main/app.base.html.twig' %}
+{% extends 'administration/main/app.base.html.twig' %}
 
  {% block stylesheets %}
      {{ parent() }}
@@ -16,7 +16,7 @@
          <div class="container">
              <div class="clear space-20"></div>
              <div class="{% if isFullWidth is defined %}col12 {% else %}col6{% endif %} user-form">
-                 {{ include("forms/#{ formTemplate }.form.html.twig") }}
+                 {{ include("administration/forms/#{ formTemplate }.form.html.twig") }}
              </div>
              <div class='clear space-20'></div>
          </div>

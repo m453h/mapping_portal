@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 		dialog('Action not allowed',"Action is <a href='#'>not</a> allowed for this record !",getCommonActions('confirm'));
 
-	})
+	});
 
 	$('.date').datepicker({
 			dateFormat: 'yy-mm-dd'

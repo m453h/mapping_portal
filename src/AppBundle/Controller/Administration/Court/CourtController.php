@@ -75,11 +75,11 @@ class CourtController extends Controller
 
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
             'records'=>$dataGrid,
             'grid'=>$grid,
             'title'=>'Existing Court Details',
-            'gridTemplate'=>'lists/court/court.list.html.twig'
+            'gridTemplate'=>'administration/lists/court/court.list.html.twig'
         ));
     }
 
@@ -204,7 +204,7 @@ class CourtController extends Controller
 
         //Render the output
         return $this->render(
-            'main/app.info.html.twig',array(
+            'administration/main/app.info.html.twig',array(
             'info'=>$info,
             'image'=>$images,
             'title'=>'Court Details',
@@ -251,7 +251,7 @@ class CourtController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'court/court',
                 'form'=>$form->createView(),

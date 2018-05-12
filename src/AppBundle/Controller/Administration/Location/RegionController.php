@@ -62,11 +62,11 @@ class RegionController extends Controller
         
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Regions',
-                'gridTemplate'=>'lists/location/region.list.html.twig'
+                'gridTemplate'=>'administration/lists/location/region.list.html.twig'
         ));
     }
 
@@ -99,7 +99,7 @@ class RegionController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'location/region',
                 'form'=>$form->createView(),
@@ -139,7 +139,7 @@ class RegionController extends Controller
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
                 'formTemplate'=>'location/region',
                 'form'=>$form->createView(),

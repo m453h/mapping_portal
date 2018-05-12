@@ -69,7 +69,6 @@ class MenuBuilder
     public function createAdminMenu(ItemInterface $menu)
     {
 
-
         $menu->addChild('Configuration', array('uri' => '#', 'extras' => array('icon' => 'cogs')))
             ->addChild('Court Level', array('route' => 'court_level_list', 'extras' => $this->getCrudLinks('court_level')))->getParent()
             ->addChild('Court Building Status', array('route' => 'court_building_status_list', 'extras' => $this->getCrudLinks('court_building_status')))->getParent()
@@ -90,28 +89,12 @@ class MenuBuilder
             ->addChild('Manage Village/Streets', array('route' => 'village_street_list', 'extras' => $this->getCrudLinks('village_street')))->getParent()
             ->getParent();
 
-
-
-        $menu->addChild('App Users', array('uri' => '#', 'extras' => array('icon' => 'mobile')))
-            ->addChild('Manage Users', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))
-            ->addChild('View user details', array('route' => 'app_user_info'))->setDisplay(false)->getParent()
-            ->addChild('Manage Regions Assigned', array('route' => 'app_user_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
-            ->getParent()
-            ->getParent();
-
-        $menu->addChild('Documents', array('uri' => '#', 'extras' => array('icon' => 'book')))
+        $menu->addChild('Court Data', array('uri' => '#', 'extras' => array('icon' => 'book')))
             ->addChild('Manage Submitted Forms', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))
             ->addChild('View Court Details', array('route' => 'court_form_info'))->setDisplay(false)
             ->getParent()
             ->getParent()
             ->getParent();
-
-        
-        $menu->addChild('Portal Users', array('uri' => '#', 'extras' => array('icon' => 'users')))
-            //->addChild('Manage Regions', array('route' => 'region_list', 'extras' => $this->getCrudLinks('region')))->getParent()
-            ->getParent();
-
-        
 
 
         $menu->addChild('Reports', array('uri' => '#', 'extras' => array('icon' => 'area-chart')))
@@ -119,6 +102,23 @@ class MenuBuilder
             ->addChild('Visual reports', array('route' => 'visual_report_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->addChild('Map reports', array('route' => 'map_report_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->getParent();
+
+        $menu->addChild('User Accounts', array('uri' => '#', 'extras' => array('icon' => 'users')))
+            ->addChild('Manage Data Collectors', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))
+            ->addChild('View user details', array('route' => 'app_user_info'))->setDisplay(false)->getParent()
+            ->addChild('Manage Regions Assigned', array('route' => 'app_user_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
+            ->getParent()
+            ->getParent()
+            ->addChild('Manage Portal Users', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))->getParent()
+            ->addChild('Manage Portal User Roles', array('route' => 'defined_roles_list', 'extras' => $this->getCrudLinks('app_user')))
+            ->getParent();
+
+
+
+        $menu->addChild('My Account', array('uri' => '#', 'extras' => array('icon' => 'wrench')))
+            ->addChild('Change Password', array('route' => 'pre_defined_report_builder'))->getParent()
+            ->getParent();
+
 
         return $menu;
     }
