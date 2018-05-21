@@ -4,6 +4,7 @@
 namespace AppBundle\Security;
 
 
+use AppBundle\Entity\UserAccounts\User;
 use AppBundle\Form\Accounts\LoginForm;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -17,13 +18,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
-class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
+class PublicLoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
 
     private $formFactory;
     private $em;
     private $router;
     private $passwordEncoder;
+
     /**
      * @var RequestStack
      */
@@ -41,15 +43,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
-        $isLoginSubmit = $request->getPathInfo() == '/administration_login_check' && $request->isMethod('POST');
-
-
-        //$isLoginSubmit = true;
+        $isLoginSubmit = (($request->getPathInfo() == '/login_check')) && $request->isMethod('POST');
 
         if(!$isLoginSubmit){
             return null; //Return nothing if null brings issues
         }
-dump($request->getPathInfo());
+
         $form = $this->formFactory->create(LoginForm::class);
 
         $form->handleRequest($request);
@@ -76,35 +75,32 @@ dump($request->getPathInfo());
     {
         $username = $credentials['_username'];
 
-        return $this->em->getRepository('AppBundle:UserAccounts\User')
-            ->findOneBy(['username'=>$username]);
+        $user = $this->em->getRepository('AppBundle:UserAccounts\User')
+            ->findOneBy(['username' => $username, 'isCustomer' => true]);
+
+        return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $password = $credentials['_password'];
+       $password = $credentials['_password'];
 
         if ($this->passwordEncoder->isPasswordValid($user, $password)) {
-            return true;
+            return true; 
         }
 
         return false;
     }
-
+    
     protected function getLoginUrl()
     {
-        $currentPath = $this->request->getCurrentRequest()->getPathInfo();
-
-        if($currentPath=='/administration_login_check')
-            return $this->router->generate('admin_security_login');
-        else
-            return
-                $this->router->generate('admin_security_login');
+        return $this->router->generate('consumer_login');
     }
 
     protected function getDefaultSuccessRedirectUrl()
     {
-        return $this->router->generate('app_home_page');
+
+       return $this->router->generate('homepage');
     }
 
 }

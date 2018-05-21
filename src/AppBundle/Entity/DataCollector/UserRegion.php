@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\AppUsers;
+namespace AppBundle\Entity\DataCollector;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,7 +22,7 @@ class UserRegion
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AppUsers\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DataCollector\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id",nullable=false)
      */
     private $user;

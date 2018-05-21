@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Administration\Location;
 
-use AppBundle\Entity\AppUsers\User;
+use AppBundle\Entity\DataCollector\User;
 use AppBundle\Entity\Location\Region;
 use AppBundle\Form\Location\RegionFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;

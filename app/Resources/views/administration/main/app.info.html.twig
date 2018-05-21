@@ -14,7 +14,7 @@
      <div class="white-background panel-body">
          <div class="container">
              <div class="clear space-10"></div>
-             {{ include("main/app.flash.message.html.twig") }}
+             {{ include("administration/main/app.flash.message.html.twig") }}
              <div class="clear space-10"></div>
              {% set id = info.getId() %}
              {% set extraId = "" %}
@@ -40,7 +40,7 @@
 
              {% if image is defined %}
                  <div class="col5">
-                     {{ include("info/#{ infoTemplate }.info.html.twig") }}
+                     {{ include("administration/info/#{ infoTemplate }.info.html.twig") }}
                  </div>
                  <div class="image-slider col7 last">
                      {% for data in image %}
@@ -51,7 +51,7 @@
                  </div>
                  {% else %}
                      <div class="col12">
-                         {{ include("info/#{ infoTemplate }.info.html.twig") }}
+                         {{ include("administration/info/#{ infoTemplate }.info.html.twig") }}
                      </div>
              {% endif %}
 

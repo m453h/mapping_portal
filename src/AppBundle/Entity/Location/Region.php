@@ -35,8 +35,16 @@ class Region
      * @ORM\Column(type="string", nullable=true)
      */
     private $regionCode;
-    
-    
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location\Zone")
+     * @ORM\JoinColumn(name="zone_id", referencedColumnName="zone_id",nullable=true)
+     */
+    private $zone;
+
+
+
     /**
      * @return mixed
      */
@@ -101,6 +109,21 @@ class Region
         $this->regionCode = $regionCode;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param mixed $zone
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+    }
 
 
 }

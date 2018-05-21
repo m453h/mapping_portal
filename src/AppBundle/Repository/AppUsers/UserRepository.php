@@ -12,7 +12,7 @@ class UserRepository extends EntityRepository
      * @param array $options
      * @return QueryBuilder
      */
-    public function findAllAppUsers($options = [])
+    public function findAllUsers($options = [])
     {
 
         $conn = $this->getEntityManager()->getConnection();
@@ -60,7 +60,7 @@ class UserRepository extends EntityRepository
     }
 
 
-    public function countAllAppUsers(QueryBuilder $queryBuilder)
+    public function countAllUsers(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
             $queryBuilder->select('COUNT(DISTINCT user_id) AS total_results')

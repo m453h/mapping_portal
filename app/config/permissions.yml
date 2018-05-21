@@ -38,3 +38,52 @@ Configuration:
       roleClass: AppBundle\Controller\Administration\Configuration\LandUseController
       actions: ["view","add","edit","delete"]
       key: land-use
+
+Location:
+    Zone:
+      roleClass: AppBundle\Controller\Administration\Location\ZoneController
+      actions: ["view","add","edit","delete"]
+      key: zone
+
+    Region:
+      roleClass: AppBundle\Controller\Administration\Location\RegionController
+      actions: ["view","add","edit","delete"]
+      key: region
+
+    District:
+      roleClass: AppBundle\Controller\Administration\Location\DistrictController
+      actions: ["view","add","edit","delete"]
+      key: district
+
+    Ward:
+      roleClass: AppBundle\Controller\Administration\Location\WardController
+      actions: ["view","add","edit","delete"]
+      key: ward
+
+    VillageStreet:
+      roleClass: AppBundle\Controller\Administration\Location\VillageStreetController
+      actions: ["view","add","edit","delete"]
+      key: village-street
+
+Courts:
+    Court:
+      roleClass: AppBundle\Controller\Administration\Court\CourtController
+      actions: ["view","add","edit","delete","info"]
+      key: court
+
+Data-Collectors:
+    Data-Collectors:
+      roleClass: AppBundle\Controller\Administration\DataCollector\DataCollectorController
+      actions: ["view","add","edit","delete","more","info","approve","decline"]
+      key: data-collectors
+
+    Data-Collectors-Regions:
+      roleClass: AppBundle\Controller\Administration\DataCollector\DataCollectorRegionController
+      actions: ["view","add","edit","delete"]
+      key: data-collectors-regions
+
+Portal-Users:
+    User-Defined-Roles:
+      roleClass: AppBundle\Controller\Administration\PortalUsers\RoleController
+      actions: ["view","add","edit","delete","info"]
+      key: user-defined-roles

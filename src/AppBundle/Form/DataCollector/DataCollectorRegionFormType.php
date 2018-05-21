@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Form\AppUsers;
+namespace AppBundle\Form\DataCollector;
 
-use AppBundle\Entity\AppUsers\UserRegion;
+use AppBundle\Entity\DataCollector\UserRegion;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AppUserRegionFormType extends  AbstractType
+class DataCollectorRegionFormType extends  AbstractType
 {
 
     /**
@@ -40,10 +40,10 @@ class AppUserRegionFormType extends  AbstractType
 
             $userId = $this->requestStack->getCurrentRequest()->get('userId');
 
-            $selectedRegions = $this->entityManager->getRepository('AppBundle:AppUsers\UserRegion')
+            $selectedRegions = $this->entityManager->getRepository('AppBundle:DataCollector\UserRegion')
                 ->getAssignedRegionsToUser($userId);
 
-            $availableRegions = $this->entityManager->getRepository('AppBundle:AppUsers\UserRegion')
+            $availableRegions = $this->entityManager->getRepository('AppBundle:DataCollector\UserRegion')
                 ->getAvailableRegions();
 
             $form->add('region', ChoiceType::class, array(

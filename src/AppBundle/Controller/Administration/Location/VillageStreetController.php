@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Administration\Location;
 
-use AppBundle\Entity\AppUsers\User;
+use AppBundle\Entity\DataCollector\User;
 use AppBundle\Entity\Location\Region;
 use AppBundle\Entity\Location\VillageStreet;
 use AppBundle\Entity\Location\Ward;

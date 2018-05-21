@@ -132,7 +132,7 @@ class SecurityController extends  Controller
 
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route("/administration/logout", name="admin_logout")
      */
     public function logoutAction()
     {

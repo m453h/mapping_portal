@@ -90,7 +90,7 @@ class MenuBuilder
             ->getParent();
 
         $menu->addChild('Court Data', array('uri' => '#', 'extras' => array('icon' => 'book')))
-            ->addChild('Manage Submitted Forms', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))
+            ->addChild('Manage Existing Courts', array('route' => 'court_form_list', 'extras' => $this->getCrudLinks('court_form')))
             ->addChild('View Court Details', array('route' => 'court_form_info'))->setDisplay(false)
             ->getParent()
             ->getParent()
@@ -104,12 +104,12 @@ class MenuBuilder
             ->getParent();
 
         $menu->addChild('User Accounts', array('uri' => '#', 'extras' => array('icon' => 'users')))
-            ->addChild('Manage Data Collectors', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))
-            ->addChild('View user details', array('route' => 'app_user_info'))->setDisplay(false)->getParent()
-            ->addChild('Manage Regions Assigned', array('route' => 'app_user_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
+            ->addChild('Manage Data Collectors', array('route' => 'data_collectors_list', 'extras' => $this->getCrudLinks('data_collectors')))
+            ->addChild('View user details', array('route' => 'data_collectors_info'))->setDisplay(false)->getParent()
+            ->addChild('Manage Regions Assigned', array('route' => 'data_collector_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
             ->getParent()
             ->getParent()
-            ->addChild('Manage Portal Users', array('route' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))->getParent()
+            ->addChild('Manage Portal Users', array('uri' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))->getParent()
             ->addChild('Manage Portal User Roles', array('route' => 'defined_roles_list', 'extras' => $this->getCrudLinks('app_user')))
             ->getParent();
 

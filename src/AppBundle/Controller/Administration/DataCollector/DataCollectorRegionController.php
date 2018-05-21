@@ -1,12 +1,13 @@
 <?php
 
-namespace AppBundle\Controller\Administration\AppUsers;
+namespace AppBundle\Controller\Administration\DataCollector;
 
 
-use AppBundle\Entity\AppUsers\User;
-use AppBundle\Entity\AppUsers\UserRegion;
+use AppBundle\Entity\DataCollector\User;
+use AppBundle\Entity\DataCollector\UserRegion;
 use AppBundle\Entity\Location\Region;
-use AppBundle\Form\AppUsers\AppUserRegionFormType;
+use AppBundle\Form\DataCollector\AppUserRegionFormType;
+use AppBundle\Form\DataCollector\DataCollectorRegionFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,16 +15,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AppUserRegionController extends Controller
+class DataCollectorRegionController extends Controller
 {
 
     /**
-     * @Route("/administration/app-user-regions/{userId}", defaults={"userId" = null}, name="app_user_region_list")
+     * @Route("/administration/data-collector-regions/{userId}", defaults={"userId" = null}, name="data_collector_region_list")
      * @param Request $request
      * @param $userId
      * @return Response
      */
-    public function eventGroupListAction(Request $request,$userId)
+    public function dataColectorRegionListAction(Request $request,$userId)
     {
         $class = get_class($this);
         
@@ -33,7 +34,7 @@ class AppUserRegionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $appUser = $em->getRepository('AppBundle:AppUsers\User')
+        $appUser = $em->getRepository('AppBundle:DataCollector\User')
             ->find($userId);
 
         if ($appUser == null)
@@ -48,10 +49,10 @@ class AppUserRegionController extends Controller
 
         $maxPerPage = $this->getParameter('grid_per_page_limit');
 
-        $qb1 = $em->getRepository('AppBundle:AppUsers\UserRegion')
+        $qb1 = $em->getRepository('AppBundle:DataCollector\UserRegion')
             ->findAllUserRegions($options);
 
-        $qb2 = $em->getRepository('AppBundle:AppUsers\UserRegion')
+        $qb2 = $em->getRepository('AppBundle:DataCollector\UserRegion')
             ->countAllUserRegions($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
@@ -66,7 +67,7 @@ class AppUserRegionController extends Controller
         $grid->addGridHeader('Region Name','name','text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('app_user_region_list');
+        $grid->setPath('data_collector_region_list');
         $grid->setParentValue($userId);
         $grid->setCurrentObject($class);
         $grid->setIgnoredButtons(["more"]);
@@ -74,17 +75,17 @@ class AppUserRegionController extends Controller
    
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
             'records'=>$dataGrid,
             'grid'=>$grid,
             'title'=>'List of Regions Assigned to User',
-            'gridTemplate'=>'lists/base.list.html.twig'
+            'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
 
     /**
-     * @Route("/administration/app-user-regions/{userId}/add", name="app_user_region_add")
+     * @Route("/administration/data-collector-regions/{userId}/add", name="data_collector_region_add")
      * @param Request $request
      * @param $userId
      * @return Response
@@ -96,7 +97,7 @@ class AppUserRegionController extends Controller
 
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(AppUserRegionFormType::class);
+        $form = $this->createForm(DataCollectorRegionFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -107,20 +108,20 @@ class AppUserRegionController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('AppBundle:AppUsers\User')
+            $user = $em->getRepository('AppBundle:DataCollector\User')
                 ->find($userId);
 
             if(!($user instanceof User)) {
 
                 $this->addFlash('error', 'You are trying to add a region to a user that does not exist');
 
-                return $this->redirectToRoute('app_users_list');
+                return $this->redirectToRoute('data_collectors_list');
             }
 
             $regions = $userRegion->getRegion();
 
             //Delete all programs under this given department before adding new departments
-            $em->getRepository('AppBundle:AppUsers\UserRegion')
+            $em->getRepository('AppBundle:DataCollector\UserRegion')
                 ->deleteUserRegions($userId);
 
             foreach ($regions as $regionId)
@@ -137,15 +138,15 @@ class AppUserRegionController extends Controller
 
             $this->addFlash('success', 'Region(s) successfully linked to user');
 
-            return $this->redirectToRoute('app_user_region_list',['userId'=>$userId]);
+            return $this->redirectToRoute('data_collector_region_list',['userId'=>$userId]);
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'app.users/user.region',
+                'formTemplate'=>'data.collector/user.region',
                 'form'=>$form->createView(),
-                'title'=>'User Regions Details'
+                'title'=>'Data Collector Regions Details'
             )
 
         );
@@ -153,7 +154,7 @@ class AppUserRegionController extends Controller
 
 
     /**
-     * @Route("/administration/app-user-regions/{userId}/delete/{userNo}", name="app_user_region_delete")
+     * @Route("/administration/data-collector-regions/{userId}/delete/{userNo}", name="data_collector_region_delete")
      * @param $userId
      * @param $userNo
      * @return Response
@@ -167,7 +168,7 @@ class AppUserRegionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $userRegion = $em->getRepository('AppBundle:AppUsers\UserRegion')->find($userNo);
+        $userRegion = $em->getRepository('AppBundle:DataCollector\UserRegion')->find($userNo);
 
         if($userRegion instanceof UserRegion)
         {
@@ -180,7 +181,7 @@ class AppUserRegionController extends Controller
             $this->addFlash('error', 'Region link not found !');
         }
 
-        return $this->redirectToRoute('app_user_region_list',['userId'=>$userId]);
+        return $this->redirectToRoute('data_collector_region_list',['userId'=>$userId]);
     }
 
     

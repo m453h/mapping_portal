@@ -1,13 +1,11 @@
 <?php
 
-namespace AppBundle\Controller\Administration\AppUsers;
+namespace AppBundle\Controller\Administration\DataCollector;
 
 
-use AppBundle\Entity\AppUsers\User;
-use AppBundle\Form\AppUsers\AppUserFormType;
-use AppBundle\Form\AppUsers\ResetPasswordForm;
-use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use AppBundle\Entity\DataCollector\User;
+use AppBundle\Form\DataCollector\DataCollectorFormType;
+use AppBundle\Form\DataCollector\ResetPasswordForm;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,12 +16,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-class UserController extends Controller
+class DataCollectorController extends Controller
 {
 
 
     /**
-     * @Route("/administration/app-users", name="app_users_list")
+     * @Route("/administration/data-collectors", name="data_collectors_list")
      * @param Request $request
      * @return Response
      *
@@ -44,11 +42,11 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:AppUsers\User')
-            ->findAllAppUsers($options);
+        $qb1 = $em->getRepository('AppBundle:DataCollector\User')
+            ->findAllUsers($options);
 
-        $qb2 = $em->getRepository('AppBundle:AppUsers\User')
-            ->countAllAppUsers($qb1);
+        $qb2 = $em->getRepository('AppBundle:DataCollector\User')
+            ->countAllUsers($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
         $dataGrid = new Pagerfanta($adapter);
@@ -64,7 +62,7 @@ class UserController extends Controller
         $grid->addGridHeader('Mobile','startDate','text',false);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
-        $grid->setPath('app_users_list');
+        $grid->setPath('data_collectors_list');
         $grid->setSecondaryPath('app_user_region_list');
         $grid->setIgnoredButtons(["more","approve","decline"]);
         $grid->setCurrentObject($class);
@@ -72,18 +70,18 @@ class UserController extends Controller
 
         //Render the output
         return $this->render(
-            'main/app.list.html.twig',array(
+            'administration/main/app.list.html.twig',array(
             'records'=>$dataGrid,
             'grid'=>$grid,
-            'title'=>'Existing Application Users',
-            'gridTemplate'=>'lists/app.users/app.users.list.html.twig'
+            'title'=>'Existing Data Collectors',
+            'gridTemplate'=>'administration/lists/data.collector/data.collectors.list.html.twig'
         ));
     }
 
 
 
     /**
-     * @Route("/administration/app-users/add", name="app_user_add")
+     * @Route("/administration/data-collectors/add", name="data_collectors_add")
      * @param Request $request
      * @return Response
      */
@@ -93,7 +91,7 @@ class UserController extends Controller
 
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(AppUserFormType::class);
+        $form = $this->createForm(DataCollectorFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -109,17 +107,17 @@ class UserController extends Controller
             $em->persist($appUser);
             $em->flush();
 
-            $this->addFlash('success','Application user successfully created');
+            $this->addFlash('success','Data collector successfully created');
 
-            return $this->redirectToRoute('app_users_list');
+            return $this->redirectToRoute('data_collectors_list');
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'app.users/user',
+                'formTemplate'=>'data.collector/user',
                 'form'=>$form->createView(),
-                'title'=>'Application User Details',
+                'title'=>'Data Collector Details',
             )
 
         );
@@ -127,7 +125,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/administration/app-users/edit/{userId}", name="app_user_edit")
+     * @Route("/administration/data-collectors/edit/{userId}", name="data_collectors_edit")
      * @param Request $request
      * @param User $user
      * @return Response
@@ -138,7 +136,7 @@ class UserController extends Controller
 
         $this->denyAccessUnlessGranted('add',$class);
 
-        $form = $this->createForm(AppUserFormType::class,$user);
+        $form = $this->createForm(DataCollectorFormType::class,$user);
 
         // only handles data on POST
         $form->handleRequest($request);
@@ -150,17 +148,17 @@ class UserController extends Controller
             $em->persist($appUser);
             $em->flush();
 
-            $this->addFlash('success','Application user successfully updated');
+            $this->addFlash('success','Data collector successfully updated');
 
-            return $this->redirectToRoute('app_users_list');
+            return $this->redirectToRoute('data_collectors_list');
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'app.users/user.edit',
+                'formTemplate'=>'data.collector/user.edit',
                 'form'=>$form->createView(),
-                'title'=>'Application User Details',
+                'title'=>'Data Collector Details',
             )
 
         );
@@ -168,7 +166,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/administration/app-users/delete/{Id}", name="app_users_delete")
+     * @Route("/administration/data-collectors/delete/{Id}", name="data_collectors_delete")
      * @param $Id
      * @return Response
      * @internal param Request $request
@@ -181,21 +179,21 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('AppBundle:AppUsers\User')->find($Id);
+        $user = $em->getRepository('AppBundle:DataCollector\User')->find($Id);
 
         if($user instanceof User)
         {
             $em->remove($user);
             $em->flush();
-            $this->addFlash('success', 'Application user successfully removed !');
+            $this->addFlash('success', 'Data collector successfully removed !');
         }
         else
         {
-            $this->addFlash('error', 'Application user  not found !');
+            $this->addFlash('error', 'Data collector  not found !');
         }
 
 
-        return $this->redirectToRoute('app_users_list');
+        return $this->redirectToRoute('data_collectors_list');
 
     }
 
@@ -203,7 +201,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/administration/update-app-user-status/block/{Id}", name="app_user_block",defaults={"Id":0})
+     * @Route("/administration/update-app-user-status/block/{Id}", name="data_collector_block",defaults={"Id":0})
      * @param $Id
      * @internal param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -214,7 +212,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('AppBundle:AppUsers\User')->find($Id);
+        $user = $em->getRepository('AppBundle:DataCollector\User')->find($Id);
 
         $this->denyAccessUnlessGranted('decline',$class);
         $action = 'blocked';
@@ -228,23 +226,23 @@ class UserController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', sprintf('Application user account successfully %s !',$action));
+            $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
         }
         else if($accountStatus == 'I')
         {
-            $this->addFlash('warning', 'Inactive application user account status can not be modified !');
+            $this->addFlash('warning', 'Inactive Data collector account status can not be modified !');
         }
         else
         {
-            $this->addFlash('error', 'Application user account not found !');
+            $this->addFlash('error', 'Data collector account not found !');
         }
 
-        return $this->redirectToRoute('app_user_info',['Id'=>$Id]);
+        return $this->redirectToRoute('data_collectors_info',['Id'=>$Id]);
     }
 
 
     /**
-     * @Route("/administration/update-app-user-status/un-block/{Id}", name="app_user_unblock",defaults={"Id":0})
+     * @Route("/administration/update-app-user-status/un-block/{Id}", name="data_collector_unblock",defaults={"Id":0})
      * @param $Id
      * @internal param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -255,7 +253,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('AppBundle:AppUsers\User')->find($Id);
+        $user = $em->getRepository('AppBundle:DataCollector\User')->find($Id);
 
         $this->denyAccessUnlessGranted('approve',$class);
 
@@ -270,24 +268,24 @@ class UserController extends Controller
 
             $em->flush();
 
-            $this->addFlash('success', sprintf('Application user account successfully %s !',$action));
+            $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
         }
         else if($accountStatus == 'I')
         {
-            $this->addFlash('warning', 'Active application user account status can not be modified !');
+            $this->addFlash('warning', 'Active Data collector account status can not be modified !');
         }
         else
         {
-            $this->addFlash('error', 'Application user account not found !');
+            $this->addFlash('error', 'Data collector account not found !');
         }
 
-        return $this->redirectToRoute('app_user_info',['Id'=>$Id]);
+        return $this->redirectToRoute('data_collectors_info',['Id'=>$Id]);
     }
 
 
 
     /**
-     * @Route("/administration/app-user/reset-password/{id}", name="app_user_password_reset",defaults={"id":0})
+     * @Route("/administration/app-user/reset-password/{id}", name="data_collector_password_reset",defaults={"id":0})
      * @param Request $request
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
@@ -310,17 +308,17 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Application user password successfully updated!');
+            $this->addFlash('success', 'Data collector password successfully updated!');
 
-            return $this->redirectToRoute('app_users_list');
+            return $this->redirectToRoute('data_collectors_list');
         }
 
         return $this->render(
-            'main/app.form.html.twig',
+            'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'app.users/reset.password',
+                'formTemplate'=>'data.collector/reset.password',
                 'form'=>$form->createView(),
-                'title'=>'Application user account password reset'
+                'title'=>'Data collector account password reset'
             )
 
         );
@@ -328,7 +326,7 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/administration/app-users/info/{Id}", name="app_user_info",defaults={"Id":0})
+     * @Route("/administration/data-collectors/info/{Id}", name="data_collectors_info",defaults={"Id":0})
      * @param $Id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -338,12 +336,12 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:AppUsers\User')
+        $data = $em->getRepository('AppBundle:DataCollector\User')
             ->findOneBy(['userId'=>$Id]);
 
         if(!$data)
         {
-            throw new NotFoundHttpException('Application User Account Not Found');
+            throw new NotFoundHttpException('Data collector Account Not Found');
         }
         else
         {
@@ -366,18 +364,18 @@ class UserController extends Controller
             $info->addTextElement('Account Status',$status);
             $info->addTextElement('Login Tries',$data->getLoginTries());
 
-            $info->setLink('Activate Account','app_user_unblock','activate-user',$Id);
-            $info->setLink('Block Account','app_user_block','block-user',$Id);
-            $info->setLink('Reset Password','app_user_password_reset','password',$Id);
-            $info->setLink('Assign Regions','app_user_region_list','module',$Id);
+            $info->setLink('Activate Account','data_collector_unblock','activate-user',$Id);
+            $info->setLink('Block Account','data_collector_block','block-user',$Id);
+            $info->setLink('Reset Password','data_collector_password_reset','password',$Id);
+            $info->setLink('Assign Regions','data_collector_region_list','module',$Id);
 
-            $info->setPath('app_user_info');
+            $info->setPath('data_collectors_info');
 
             //Render the output
             return $this->render(
-                'main/app.info.html.twig',array(
+                'administration/main/app.info.html.twig',array(
                 'info'=>$info,
-                'title'=>'Application User Account Details',
+                'title'=>'Data Collector Account Details',
                 'infoTemplate'=>'base'
             ));
         }
@@ -409,7 +407,7 @@ class UserController extends Controller
             $username = $data['username'];
         }
 
-        $appUser = $em->getRepository('AppBundle:AppUsers\User')->findOneBy(['username'=>$username]);
+        $appUser = $em->getRepository('AppBundle:DataCollector\User')->findOneBy(['username'=>$username]);
 
         if($appUser instanceof User)
         {
@@ -483,7 +481,7 @@ class UserController extends Controller
 
         $data['status'] = 'FAIL';
 
-        $appUser = $em->getRepository('AppBundle:AppUsers\User')->findOneBy(['token'=>$data['token']]);
+        $appUser = $em->getRepository('AppBundle:DataCollector\User')->findOneBy(['token'=>$data['token']]);
 
         if($appUser instanceof User)
         {
@@ -580,7 +578,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $results = $em->getRepository('AppBundle:AppUsers\DataVersion')
+        $results = $em->getRepository('AppBundle:DataCollector\DataVersion')
             ->findLatestDownloadVersion();
         
         $results['message'] = 'downloadVerification';

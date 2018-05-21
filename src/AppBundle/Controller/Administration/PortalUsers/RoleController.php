@@ -21,7 +21,7 @@ class RoleController extends Controller
 {
 
     /**
-     * @Route("/user-defined-roles", name="defined_roles_list")
+     * @Route("/administration/user-defined-roles", name="defined_roles_list")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -76,7 +76,7 @@ class RoleController extends Controller
     }
 
     /**
-     * @Route("/user-defined-roles/add", name="defined_roles_add")
+     * @Route("/administration/user-defined-roles/add", name="defined_roles_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -146,7 +146,7 @@ class RoleController extends Controller
     
 
     /**
-     * @Route("/user-defined-roles/edit/{roleId}", name="defined_roles_edit")
+     * @Route("/administration/user-defined-roles/edit/{roleId}", name="defined_roles_edit")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

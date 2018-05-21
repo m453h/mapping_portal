@@ -2,6 +2,7 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
@@ -43,7 +44,7 @@ class AuthenticationFailureListener implements EventSubscriberInterface
 
             $user = $this->entityManager->getRepository('AppBundle:UserAccounts\User')->findOneBy(['username'=>$username]);
 
-            $loginTries = $user->getLoginTries()+1;
+            $loginTries =$user->getLoginTries()+1;
    
             if($loginTries>3)
             {

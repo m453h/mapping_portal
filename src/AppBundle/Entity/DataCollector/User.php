@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\AppUsers;
+namespace AppBundle\Entity\DataCollector;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;

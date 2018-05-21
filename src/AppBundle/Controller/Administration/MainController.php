@@ -28,7 +28,7 @@ class MainController extends Controller
 
         $verificationDataCount = $em->getRepository('AppBundle:Court\Court')->findCourtTotalByVerificationStatus(true);
 
-        $userCount = $em->getRepository('AppBundle:AppUsers\User')->findTotalAppUsers();
+        $userCount = $em->getRepository('AppBundle:DataCollector\User')->findTotalAppUsers();
 
         $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
 

@@ -1,35 +1,69 @@
 {% extends 'administration/base.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
 
-        <div class="login-register">
+<div class="login-area">
+    <div class="section-inner">
+        <div class="col12 space-30 no-mobile"></div>
 
-            <div class='last' id='image-background'>
-
+        <div class="col7 no-mobile align-justify">
+            <div class="app-name">
+                <h2>Welcome to The Tanzania Judiciary <br/><span class="blue-highlight">Court Mapping</span> Data Management Portal</h2>
+                <div class="app-underline"></div>
             </div>
-
-            <div class='white-background' id="login-container">
-                <div class="container">
-                    <a href='#'>
-                        <img class="app-logo" src="{{ asset('images/logo/title_logo.png') }}">
-                    </a>
-                    <div class="col12 space-20"></div>
-                    <div class="col12 last">
-                        {% if error %}
-                            <p class="alert-small alert-failure">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-                        {% endif %}
-                        {{ form_start(form) }}
-                        {{ form_row(form._username) }}
-                        {{ form_row(form._password) }}
-                        <div class="space-10"></div>
-                        <button type="submit" class="btn btn-primary btn-full fade" formnovalidate>Login <span class="fa fa-lock"></span></button>
-                        {{ form_end(form) }}
-                    </div>
-                    <div class="clear"></div>
-                    <div class="space-20"></div>
-                    <p>&copy; {{ 'now'|date('Y') }} The Judiciary of Tanzania.All Rights Reserved.</p>
-                </div>
-            </div>
-
+            <p class="align-justify">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
         </div>
+
+        <div class="col1">
+            <div class='space-30'></div>
+        </div>
+
+        <div class="col4 last">
+            {% set hasFlashBag = false %}
+
+            {% for msg in app.session.flashBag.get('error') %}
+                {% set hasFlashBag = true %}
+                <p class="alert-small alert-failure"> {{ msg }}</p>
+            {% endfor %}
+
+            {% for msg in app.session.flashBag.get('info') %}
+                {% set hasFlashBag = true %}
+                <p class="alert-small alert-info"> {{ msg }}</p>
+            {% endfor %}
+
+            {% if error %}
+                <p class="alert-small alert-failure">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            {%  else %}
+                {% if hasFlashBag==false %}
+                    <p class="alert-small alert-info"> Provide your credentials to login the system</p>
+                {% endif %}
+            {% endif %}
+            {{ form_start(form) }}
+            {{ form_row(form._username) }}
+            {{ form_row(form._password) }}
+            <div class="space-10"></div>
+            <button type="submit" class="btn btn-primary btn-full fade" formnovalidate>Login <span class="fa fa-lock"></span></button>
+            {{ form_end(form) }}
+        </div>
+        <div class="clear"></div>
+        <div class="space-30"></div>
+
+    </div>
+
+
+
+
+<div class='col12 align-center login-footer'>
+    <div class="space-10"></div>
+    <div class='section-inner'>
+        <p>Copyright &copy; {{ 'now'|date('Y') }} <b>Tanzania Judiciary</b> All Rights Reserved.</p>
+    </div>
+</div>
 {% endblock %}
