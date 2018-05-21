@@ -101,17 +101,17 @@ class CourtController extends Controller
         $data = $em->getRepository('AppBundle:Court\Court')
             ->find($courtId);
 
-        $data->getIsLandSurveyed() === true ? $surveyStatus = "YES": $surveyStatus = "NO" ;
+        $data->getIsLandSurveyed() === true ? $data->setIsLandSurveyed("YES"): $data->setIsLandSurveyed("NO") ;
 
-        $data->getHasTitleDeed() === true ? $hasTitleDeed = "YES": $hasTitleDeed = "NO" ;
+        $data->getHasTitleDeed() === true ?  $data->setHasTitleDeed("YES"): $data->setHasTitleDeed("NO") ;
 
-        $data->getHasExtensionPossibility() === true ? $extensionPossibility = "YES": $extensionPossibility = "NO" ;
+        $data->getHasExtensionPossibility() === true ? $data->setHasExtensionPossibility("YES") : $data->setHasExtensionPossibility("NO");
 
-        $data->getMeetsFunctionality() === true ? $functionality = "YES": $functionality = "NO" ;
+        $data->getMeetsFunctionality() === true ? $data->setMeetsFunctionality("YES"): $data->setMeetsFunctionality("NO");
 
-        $data->getHasLastMileConnectivity() === true ? $lastMileConnectivity = "YES": $lastMileConnectivity = "NO" ;
+        $data->getHasLastMileConnectivity() === true ? $data->setHasLastMileConnectivity("YES"): $data->setHasLastMileConnectivity("NO");
 
-        $data->getInternetAvailability() === true ? $internetAvailability = "YES": $internetAvailability = "NO" ;
+        $data->getInternetAvailability() === true ? $data->setInternetAvailability("YES") : $data->setInternetAvailability("NO") ;
 
         if(!$data)
         {
@@ -120,28 +120,14 @@ class CourtController extends Controller
 
         $info = $this->get('app.helper.info_builder');
 
-        $info->addTextElement('Court Name',$data->getCourtName());
-        $info->addTextElement('Court Level',$data->getCourtLevel()->getDescription());
-        $info->addTextElement('Region',$data->getWard()->getDistrict()->getRegion()->getRegionName());
-        $info->addTextElement('District',$data->getWard()->getDistrict()->getDistrictName());
-        $info->addTextElement('Ward',$data->getWard()->getWardName());
-        $info->addTextElement('Court Coordinates',$data->getCourtCoordinatesDMS());
-        $info->addTextElement('Land Ownership Status',$data->getLandOwnershipStatus()->getDescription());
-        $info->addTextElement('Land Survey Status',$surveyStatus);
-        $info->addTextElement('Has title deed',$hasTitleDeed);
-        $info->addTextElement('Plot Number',$data->getPlotNumber());
-        $info->addTextElement('Title Deed Number',$data->getTitleDeed());
-        $info->addTextElement('Building Ownership Status',$data->getBuildingOwnershipStatus()->getDescription());
-        $info->addTextElement('Extension Possibility',$extensionPossibility);
-        $info->addTextElement('Year Constructed',$data->getYearConstructed());
-        $info->addTextElement('Building Status',$data->getBuildingStatus()->getDescription());
-        $info->addTextElement('Does building meet functionality',$functionality);
-        $info->addTextElement('Last Mile Connectivity',$lastMileConnectivity);
-        $info->addTextElement('Number of computers',$data->getNumberOfComputers());
-        $info->addTextElement('Internet Availability',$internetAvailability);
+
+
+        //Work Load
         $info->addTextElement('Available Systems',$data->getAvailableSystems());
         $info->addTextElement('Cases Per Year',$data->getCasesPerYear());
         $info->addTextElement('Population Served',$data->getPopulationServed());
+
+       //Staffing
         $info->addTextElement('Staff Number',sprintf('Justices: %s, Judges: %s, Resident Magistrates: %s, District Magistrates: %s, Magistrates: %s, Court Clerks: %s, Non Judiciary Staff: %s.',
             $info->parseNumber($data->getNumberOfJustices()),
             $info->parseNumber($data->getNumberOfJudges()),
@@ -153,6 +139,7 @@ class CourtController extends Controller
         ));
 
 
+        //Other Details
         $economicActivities = $em->getRepository('AppBundle:Court\Court')
             ->findEconomicActivitiesByCourtId($courtId);
 
@@ -182,32 +169,32 @@ class CourtController extends Controller
 
         if($data->getFirstCourtView()!=null)
         {
-            array_push($images, '/file_uploads/court_images/'.$data->getFirstCourtView());
+            array_push($images, $data->getFirstCourtView());
         }
 
         if($data->getSecondCourtView()!=null)
         {
-            array_push($images, '/file_uploads/court_images/'.$data->getSecondCourtView());
+            array_push($images, $data->getSecondCourtView());
         }
 
         if($data->getThirdCourtView()!=null)
         {
-            array_push($images, '/file_uploads/court_images/'.$data->getThirdCourtView());
+            array_push($images, $data->getThirdCourtView());
         }
 
         if($data->getFourthCourtView()!=null)
         {
-            array_push($images, '/file_uploads/court_images/'.$data->getFourthCourtView());
+            array_push($images, $data->getFourthCourtView());
         }
-
 
 
         //Render the output
         return $this->render(
-            'administration/main/app.info.html.twig',array(
+            'administration/main/app.court.details.html.twig',array(
             'info'=>$info,
-            'image'=>$images,
+            'images'=>$images,
             'title'=>'Court Details',
+            'court'=>$data,
             'coordinates'=>$coordinates,
             'infoTemplate'=>'base'
         ));

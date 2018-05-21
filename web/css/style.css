@@ -199,7 +199,7 @@ div.header {
 	left:0;
 	background:#FFFFFF;
 	color:#7F96AC;
-	z-index: 50;
+	z-index: 9999;
 }
 
 .header:after {
@@ -1138,7 +1138,7 @@ table.data-grid th{
 
 table.data-grid th a,table.data-grid th span{
 	text-decoration: none;
-	color:#777777;
+	color:#3C475F;
 	display: block;
 	padding:15px 10px;
 }
@@ -1404,7 +1404,6 @@ ul.list-styled, ul.file-list,ul.list-minimal-style{
 	padding:0;
 }
 ul.list-styled li{
-	padding-left:20px;
 }
 div.markdown-content{
 	padding:15px 0 0 20px;
@@ -1451,6 +1450,17 @@ img.open-map:focus,img.open-map:active{
 }
 /** -- Style Info Block End-- **/
 
+/** Styling Court Details **/
+h2.lighter{
+	font-weight: lighter;
+}
+
+div.divider {
+	width: 50px;
+	height: 3px;
+	margin: 15px 0;
+	background: #FF0000;
+}
 
 
 /* Responsive Columns */
