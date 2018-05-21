@@ -32,9 +32,6 @@ class MainController extends Controller
 
         $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
 
-        $x = $em->getRepository('AppBundle:Location\Region')
-            ->updateWards();
-
 
         $data = array(
             'validDataCount'=>$validDataCount,

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Entity\Configuration;
+namespace AppBundle\Entity\Location;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Controller\Administration\Configuration;
+namespace AppBundle\Controller\Administration\Location;
 
-use AppBundle\Entity\Configuration\Zone;
-use AppBundle\Form\Configuration\ZoneFormType;
+use AppBundle\Entity\Location\Zone;
+use AppBundle\Form\Location\ZoneFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,10 +36,10 @@ class ZoneController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $qb1 = $em->getRepository('AppBundle:Configuration\Zone')
+        $qb1 = $em->getRepository('AppBundle:Location\Zone')
             ->findAllZones($options);
 
-        $qb2 = $em->getRepository('AppBundle:Configuration\Zone')
+        $qb2 = $em->getRepository('AppBundle:Location\Zone')
             ->countAllZones($qb1);
 
         $adapter =new DoctrineDbalAdapter($qb1,$qb2);
@@ -161,7 +161,7 @@ class ZoneController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository('AppBundle:Configuration\Zone')->find($Id);
+        $data = $em->getRepository('AppBundle:Location\Zone')->find($Id);
 
         if($data instanceof Zone)
         {
