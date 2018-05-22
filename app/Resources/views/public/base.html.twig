@@ -75,14 +75,6 @@
 
 
         {% block footer %}
-            <div class='col12 footer'>
-                <div class='col12 space-30'></div>
-                <div class='section-inner'>
-
-
-                </div>
-
-            </div>
             <div class='col12 lo-footer'>
                 <div class='section-inner'>
                     <p>&copy; {{ 'now'|date('Y') }} The Judiciary of Tanzania.All Rights Reserved.</p>
@@ -107,6 +99,7 @@
     <script src="{{ asset('vendor/dropdown/dropdown.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset('js/portal-main.js') }}"></script>
+    <script src="{{ asset('js/ajax.js') }}"></script>
 {% endblock %}
 </body>
 </html>

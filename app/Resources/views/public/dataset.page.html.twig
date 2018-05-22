@@ -4,7 +4,7 @@
 
     <div class="page-title">
             <div class="section-inner">
-                <h1>Datasets \ {{ pageTitle }}</h1>
+                <h1>Datasets \ {{ dataset.name }}</h1>
             </div>
     </div>
 
@@ -12,9 +12,10 @@
         <div class="space-20 col12"></div>
         <div class="section-inner">
             <div class="description">
-                <h1><span class="green">Dataset:</span> <span class="lighter">{{ pageTitle }}</span></h1>
+                <h1><span class="green">Dataset:</span> <span class="lighter">{{ dataset.name }}</span></h1>
                 <div class="space-10"></div>
-                <p>{{ description }}</p>
+                <p>{{ dataset.description }}</p>
+                <div class="space-10"></div>
             </div>
             <div class="form">
                 {{ form_start(form) }}
@@ -22,9 +23,14 @@
                 <div class="col3">{{ form_row(form.district,{'id':'districtId'}) }}</div>
                 <div class="col3">{{ form_row(form.ward,{'id':'wardId'}) }}</div>
                 <div class="col3 last">{{ form_row(form.courtLevel) }}</div>
+                <div class="col3">{{ form_row(form.reportType) }}</div>
+                <div class="clear"></div>
                 <div class="col3"><button type="submit" class="btn btn-primary" formnovalidate>Visualize Data</button></div>
                 {{ form_end(form) }}
             </div>
         </div>
+
+        <div class="space col12"></div>
+
     </div>
 {% endblock %}

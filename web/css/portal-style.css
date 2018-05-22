@@ -129,16 +129,16 @@ font-style:italic;
 }
 span.big{
 font-size:30px;
-color:#4ba185;
+color:#CA0000;
 }
 div.divider {
     width: 50px;
     height: 3px;
     margin: 15px auto;
-    background: #4ba185;
+    background: #CA0000;
 }
 span.green{
-    color:#16a085;
+    color:#FF0000;
 }
 span.lighter{
     font-weight:lighter;
@@ -310,11 +310,11 @@ ul.dropdown li a{
 }
 
 #menu ul li a:hover,#menu ul li.selected a:hover{
-	color:#16a085;
+	color:#FF0000;
 }
 
 #menu ul li.selected a{
-	color:#16a085;
+	color:#FF0000;
 }
 
 #menu ul li a span{
@@ -363,17 +363,17 @@ ul.dropdown li a{
 
 /* Styling intro area */
 div.intro{
-	height:300px;
+	height:350px;
 	text-align:center;
-    background:url('../images/backgrounds/20170719_190732.jpg') 100% 70%;
-    background-size: cover;
+	background: url('../images/backgrounds/bg.png') 100% 52%;
+	background-size: cover;
     border-bottom: #fff;
 }
 
 div.intro-caption{
     color:#FFF;
     padding:2% 0 2% 0;
-	margin-top:30px;
+	margin-top:55px;
 }
 
 .intro-caption h1{
@@ -393,7 +393,7 @@ div.intro-caption{
 }
 
 .intro .button{
-	background:#16a085;
+	background:#FF0000;
 	border:none;
 	color:#FFF;
 	padding: 15px 0 15px 0;
@@ -403,7 +403,14 @@ div.intro-caption{
 
 .intro .button:hover{
 	background:#FFFFFF;
-	color:#16a085;
+	color:#FF0000;
+}
+
+.intro input[type="text"]:focus {
+	outline: none;
+	border-color: #ffffff;
+	outline: 0;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 
@@ -447,7 +454,7 @@ div.data-element .fa{
     font-weight:bolder;
 }
 .data-element a:hover,div.data-element .fa:hover{
-    color:#16a085;
+    color:#FF0000;
 }
 
 

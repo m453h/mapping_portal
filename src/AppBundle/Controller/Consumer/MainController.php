@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Consumer;
 use AppBundle\Form\Consumer\DataLevelReportFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -18,24 +18,10 @@ class MainController extends Controller
     public function homepageAction()
     {
 
-        $datasets[0]=['name'=>'Average Number of Cases','icon'=>'bar-chart','path'=>'average-number-of-cases'];
-        $datasets[1]=['name'=>'Number of Staff','icon'=>'users','path'=>'number-of-staff'];
-        $datasets[2]=['name'=>'Building Conditions','icon'=>'building','path'=>'building-conditions'];
-        $datasets[3]=['name'=>'Land Ownership','icon'=>'map','path'=>'land-ownership'];
-        $datasets[4]=['name'=>'Environmental Conditions','icon'=>'tree','path'=>'environmental-conditions'];
-        $datasets[5]=['name'=>'Social Activities','icon'=>'map-pointer','path'=>'social-activities'];
+        $em = $this->getDoctrine()->getManager();
 
-
-        $statistics[0] = ['label'=>'Court Levels','value'=>'5'];
-        $statistics[1] = ['label'=>'Courts','value'=>'1340'];
-        $statistics[2] = ['label'=>'Wards','value'=>'1400'];
-        $statistics[3] = ['label'=>'Districts','value'=>'200'];
-        $statistics[4] = ['label'=>'Zones','value'=>'10'];
-        $statistics[5] = ['label'=>'Regions','value'=>'20'];
-
-        $data['datasets'] = $datasets;
-        $data['statistics'] = $statistics;
-
+        $data['datasets'] = $em->getRepository('AppBundle:Consumer\DataSet')
+            ->findAll();
 
         return $this->render(
             'public/homepage.html.twig',
@@ -46,20 +32,27 @@ class MainController extends Controller
 
     /**
      * @Route("/dataset/{datasetName}", name="public_dataset_page")
+     * @param Request $request
      * @param $datasetName
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function socialActivitiesDatasetAction($datasetName)
+    public function datasetPageAction(Request $request,$datasetName)
     {
+        $em = $this->getDoctrine()->getManager();
 
         switch($datasetName)
         {
+            case 'courts':$data=$this->getCourtDataset($request);break;
             case 'social-activities':$data=$this->getSocialActivitiesDataset();break;
             case 'environmental-conditions':$data=$this->getEnvironmentalConditionsDataset();break;
             case 'average-number-of-cases':$data=$this->getAverageNumberOfCasesDataset();break;
             default: throw new NotFoundHttpException("Page Not Found");
         }
 
+        $dataset = $em->getRepository('AppBundle:Consumer\DataSet')
+            ->findOneBy(['path'=>$datasetName]);
+
+        $data['dataset'] = $dataset;
 
         return $this->render(
             'public/dataset.page.html.twig',
@@ -67,6 +60,25 @@ class MainController extends Controller
         );
     }
 
+    public function getCourtDataset($request){
+
+        $form = $this->createForm(DataLevelReportFormType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $courtLevel = $form['courtLevel']->getData();
+            $region = $form['region']->getData();
+            $ward = $form['ward']->getData();
+            $district = $form['district']->getData();
+        }
+
+
+        $data['form'] = $form->createView();
+
+        return $data;
+    }
 
     public function getSocialActivitiesDataset(){
         $data['pageTitle'] = 'Social Activities';

@@ -14,11 +14,14 @@ class DataLevelReportFormType extends  AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        //$courtLevel = $builder['courtLevel']->getData();
+
         $builder
             ->add('courtLevel', EntityType::class, [
                 'placeholder' => 'Choose court level',
                 'choice_label' => 'description',
-                'mapped'=>false,
+                'mapped'=>true,
                 'required'=>false,
                 'class' => 'AppBundle\Entity\Configuration\CourtLevel',
                 'query_builder' => function(EntityRepository  $er) {
@@ -48,6 +51,16 @@ class DataLevelReportFormType extends  AbstractType
                 'choices' => [],
                 'mapped' => false,
                 'required' => false
+            ))
+            ->add('reportType', ChoiceType::class, array(
+                'choices'  => array(
+                    'View Tabular Data' => 'table',
+                    'View Graph' => 'graph',
+                    'View Map' => 'map',
+                ),
+                'placeholder'=>'Select report template',
+                'expanded'=>false,
+                'label'=>'Report Template'
             ));
 
         $builder->get('region')->resetViewTransformers();

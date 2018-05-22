@@ -49,7 +49,7 @@ class VisualReportController extends Controller
             if($report=='1')
             {
                 $data = $em->getRepository('AppBundle:Court\Court')
-                    ->findCourtTotalPerCategory();
+                    ->findCourtTotalPerCategory(true);
 
                 $chartType='Pie';
 

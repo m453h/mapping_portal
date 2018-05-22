@@ -58,7 +58,7 @@
                              '<b>Region:</b>'+a[4]+'<br/>'+
                              '<b>District Name:</b>'+a[5]+'<br/>'+
                              '<b>Ward:</b>'+a[6]+'<br/>'+
-                             '<a href="/court-form/info/'+a[7]+'" title="Click to view more court details">More Details</a>';
+                             '<a href="/administration/court-form/info/'+a[7]+'" title="Click to view more court details">More Details</a>';
 
                      var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
                      marker.bindPopup(customPopup);

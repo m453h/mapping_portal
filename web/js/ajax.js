@@ -12,6 +12,7 @@ $(document).ready(function() {
 
 function handleSelectBox(sourceId,targetId,link)
 {
+
 	$('#'+sourceId).change(function(){
 
 		$('#loader').show();

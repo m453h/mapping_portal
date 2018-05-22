@@ -81,8 +81,6 @@ $(document).ready(function() {
 		var simplemde = new SimpleMDE({element: $(".markdown")[0]});
 	}
 
-	$(':file').filer({limit:1});
-
 	$(".form-wizard").formwizard({
 			formPluginEnabled: false,
 			validationEnabled: false,
