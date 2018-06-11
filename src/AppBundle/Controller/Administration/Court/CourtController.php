@@ -669,5 +669,35 @@ class CourtController extends Controller
         return new JsonResponse($data);
     }
 
+    /**
+     * @Route("/administration/api/getCourts",options={"expose"=true}, name="api_get_courts")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getModulesAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $value = $request->get('searchTerm');
+
+        $page = $request->get('page');
+
+        $qb1 =  $em->getRepository('AppBundle:Court\Court')
+            ->getCourtsByFilter($value);
+
+        $qb2 = $em->getRepository('AppBundle:Court\Court')
+            ->countAllCourts($qb1);
+
+        $adapter =new DoctrineDbalAdapter($qb1,$qb2);
+        $dataGrid = new Pagerfanta($adapter);
+        $dataGrid->setMaxPerPage(100);
+        $dataGrid->setCurrentPage($page);
+
+        $data['results'] = $dataGrid->getCurrentPageResults();
+        $data['pagination'] = ['more'=>$dataGrid->hasNextPage()];
+
+        return new JsonResponse($data);
+    }
+
 
 }

@@ -1455,6 +1455,11 @@ h2.lighter{
 	font-weight: lighter;
 }
 
+h3.normal{
+	font-weight: normal;
+	height:30px;
+}
+
 div.divider {
 	width: 50px;
 	height: 3px;
@@ -1462,6 +1467,17 @@ div.divider {
 	background: #FF0000;
 }
 
+#map-routing .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{
+	display: none;
+}
+
+div.hidden{
+    display: none;
+}
+
+p.large{
+    font-size:1.3em;
+}
 
 /* Responsive Columns */
 /* Basic Column definitions */

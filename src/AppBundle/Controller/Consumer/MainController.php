@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Consumer;
 
+use AppBundle\Entity\Configuration\CourtLevel;
 use AppBundle\Form\Consumer\DataLevelReportFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -68,10 +69,35 @@ class MainController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $em = $this->getDoctrine()->getManager();
+
             $courtLevel = $form['courtLevel']->getData();
             $region = $form['region']->getData();
             $ward = $form['ward']->getData();
             $district = $form['district']->getData();
+
+            $options['sortBy'] = $request->query->get('sortBy');
+            $options['sortType'] = $request->query->get('sortType');
+
+            if($region!=null)
+                $options['regionId'] = $region;
+
+            if($district!=null)
+                $options['districtId'] = $district;
+
+            if($ward!=null)
+                $options['wardId'] = $ward;
+
+            if($courtLevel instanceof CourtLevel)
+                $options['courtLevelId'] = $courtLevel->getLevelId();
+
+
+            $courtData = $em->getRepository('AppBundle:Court\Court')
+                ->findAllCourts($options)
+                ->execute()
+                ->fetchAll();
+
+            $data['listData'] = $courtData;
         }
 
 

@@ -61,7 +61,6 @@ class RegionRepository extends EntityRepository
 
     }
 
-
     public function countAllRegions(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
@@ -73,142 +72,22 @@ class RegionRepository extends EntityRepository
         };
     }
 
-    public function updateRegions()
+    public function getRegionGeometry($options = [])
     {
-
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $results = $queryBuilder->select('r.region_id,r.region_name')
-            ->from('cfg_regions', 'r')
+
+        $queryBuilder->select('region_name,
+                               region_code,
+                               \'region\' AS level,
+                               region_code AS results,
+                               ST_AsGeoJSON(ST_Transform(region_geometry,4326))
+                               ')
+            ->from('spd_regions', 'p');
+
+        return $queryBuilder
             ->execute()
             ->fetchAll();
-
-        $datas = $queryBuilder->select('region_nam,gid as region_c')
-            ->from('regions', 'd')
-            ->execute()
-            ->fetchAll();
-
-        $keys = new ArrayCollection();
-
-        foreach ($datas as $data)
-        {
-            $keys->set($data['region_nam'],$data['region_c']);
-        }
-
-        foreach ($results as $result)
-        {
-
-            //dump($result);
-            $queryBuilder = new QueryBuilder($conn);
-
-            $code = $keys->get($result['region_name']);
-
-            $queryBuilder->update('cfg_regions')
-                ->set('region_code',':region_code')
-                ->andWhere('region_name=:region_name')
-                ->setParameter('region_code',$code)
-                ->setParameter('region_name',$result['region_name'])
-                ->execute();
-        }
-
-
-        // dump($keys);
-
-        return $results;
     }
-
-    public function updateDistricts()
-    {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $queryBuilder = new QueryBuilder($conn);
-        $results = $queryBuilder->select('d.district_id,d.district_name')
-            ->from('cfg_districts', 'd')
-            ->execute()
-            ->fetchAll();
-
-        $datas = $queryBuilder->select('district_n,gid as district_c')
-            ->from('districts', 'd')
-            ->execute()
-            ->fetchAll();
-
-        $keys = new ArrayCollection();
-
-        foreach ($datas as $data)
-        {
-           $keys->set($data['district_n'],$data['district_c']);
-        }
-
-        foreach ($results as $result)
-        {
-
-            //dump($result);
-            $queryBuilder = new QueryBuilder($conn);
-
-            $code = $keys->get($result['district_name']);
-
-            $queryBuilder->update('cfg_districts')
-                ->set('district_code',':district_code')
-                ->andWhere('district_name=:district_name')
-                ->setParameter('district_code',$code)
-                ->setParameter('district_name',$result['district_name'])
-                ->execute();
-        }
-
-
-       // dump($keys);
-
-        return $results;
-    }
-
-    public function updateWards()
-    {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $queryBuilder = new QueryBuilder($conn);
-        $results = $queryBuilder->select('w.ward_id,w.ward_name,d.district_name')
-            ->from('cfg_wards', 'w')
-            ->join('w','cfg_districts','d','d.district_id=w.district_id')
-            ->execute()
-            ->fetchAll();
-
-        $queryBuilder = new QueryBuilder($conn);
-
-        $datas = $queryBuilder->select('ward_name,gid as ward_c,district_n')
-            ->from('tzwards', 'w')
-            ->execute()
-            ->fetchAll();
-
-        $keys = new ArrayCollection();
-
-        foreach ($datas as $data)
-        {
-            $keys->set($data['ward_name'].'|'.$data['district_n'],$data['ward_c']);
-        }
-
-        foreach ($results as $result)
-        {
-
-            //dump($result);
-            $queryBuilder = new QueryBuilder($conn);
-
-            $code = $keys->get($result['ward_name'].'|'.$result['district_name']);
-
-            $queryBuilder->update('cfg_wards')
-                ->set('ward_code',':ward_code')
-                ->andWhere('ward_name=:ward_name')
-                ->setParameter('ward_code',$code)
-                ->setParameter('ward_name',$result['ward_name'])
-                ->execute();
-        }
-
-
-        // dump($keys);
-
-        return $results;
-    }
-
 }

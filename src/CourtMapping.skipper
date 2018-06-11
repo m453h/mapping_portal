@@ -1,0 +1,767 @@
+<?xml version="1.0"?>
+<skipper version="3.2.12.1400" mvc="Symfony" orm="Doctrine2" name="CourtMapping" uuid="b2bf03ce-c2f9-4ad8-9100-9f4daeb3f681">
+  <module name="\AppBundle/Entity/Configuration" local-name="AppBundle/Entity/Configuration" namespace="\AppBundle\Entity\Configuration" local-namespace="\AppBundle\Entity\Configuration" export-format="Doctrine2Php" export-path="AppBundle/Entity/Configuration" uuid="b7be538a-3dc4-440c-b4e8-0c74acff7fe6">
+    <entity name="\AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus" local-name="CourtBuildingOwnershipStatus" namespace="\AppBundle\Entity\Configuration" uuid="da0e3ffa-da4d-45bd-8baf-8a8fbb014f20">
+      <field name="statusId" type="integer" required="true" primary="true" uuid="4fb3b7db-4353-4671-a2a8-868613b95113">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="8886e4a3-de48-413b-8144-3cbe2b8fd9c3"/>
+      <field name="status_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="f5951262-5fb9-40cc-82ef-d270fe78caa0"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\CourtBuildingOwnerShipStatusRepository</attribute>
+        <attribute name="table">cfg_court_building_ownership_status</attribute>
+        <attribute name="export-file-name">CourtBuildingOwnershipStatus.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\CourtBuildingStatus" local-name="CourtBuildingStatus" namespace="\AppBundle\Entity\Configuration" uuid="db3559fc-6bc1-4ad5-a5b6-8859b33de1ec">
+      <field name="statusId" type="integer" required="true" primary="true" uuid="8c9c99c1-93ba-4063-b646-f44189ed7085">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="80e38924-e628-4798-8507-6b8d5300743e"/>
+      <field name="status_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="783fb7c1-01a0-4554-af78-8ae0ef5b5756"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\CourtBuildingStatusRepository</attribute>
+        <attribute name="table">cfg_court_building_status</attribute>
+        <attribute name="export-file-name">CourtBuildingStatus.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\CourtEnvironmentalStatus" local-name="CourtEnvironmentalStatus" namespace="\AppBundle\Entity\Configuration" uuid="08489788-70df-48eb-99f3-ceb8d47ad4f9">
+      <field name="statusId" type="integer" required="true" primary="true" uuid="933aba62-6c53-47c8-b4b3-9cb6ee2c40b2">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="33645cfa-c117-439c-a286-7ebe154f7db0"/>
+      <field name="status_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="00575013-afb3-44e7-9679-b83a8705344b"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\CourtEnvironmentalStatusRepository</attribute>
+        <attribute name="table">cfg_court_environmental_status</attribute>
+        <attribute name="export-file-name">CourtEnvironmentalStatus.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\CourtLevel" local-name="CourtLevel" namespace="\AppBundle\Entity\Configuration" uuid="7576e9cd-2702-48ec-8996-d4a4d35ff1da">
+      <field name="levelId" type="integer" required="true" primary="true" uuid="63a05671-aab5-4d7c-a061-779372f6234c">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="584d03a7-eafd-47f2-b8e7-8973f3234a2a"/>
+      <field name="level_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="32a07ae3-2ee7-4f13-8194-c67942206d65"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\CourtLevelRepository</attribute>
+        <attribute name="table">cfg_court_levels</attribute>
+        <attribute name="export-file-name">CourtLevel.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\EconomicActivity" local-name="EconomicActivity" namespace="\AppBundle\Entity\Configuration" uuid="f6cff0f1-43d4-4737-9934-ac7c08a75a20">
+      <field name="activityId" type="integer" required="true" primary="true" uuid="6c3df038-f870-48c5-a03a-300f74a2b6fb">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="12b9abd3-936f-40ec-9c59-2bf5b96531f1"/>
+      <field name="activity_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="083049b4-1fc4-44d5-86b2-78f252d6ed83"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\EconomicActivityRepository</attribute>
+        <attribute name="table">cfg_economic_activities</attribute>
+        <attribute name="export-file-name">EconomicActivity.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\LandOwnerShipStatus" local-name="LandOwnerShipStatus" namespace="\AppBundle\Entity\Configuration" uuid="a2f0d69d-3f46-40c7-afb1-27305a6f9706">
+      <field name="statusId" type="integer" required="true" primary="true" uuid="3efed4ba-9d95-4ebb-9016-7c386a6d3f17">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="63e6db8d-2e8a-4e14-a792-16e46c439849"/>
+      <field name="status_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="e358916d-efab-4916-9177-6e8187e3e348"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\LandOwnerShipStatusRepository</attribute>
+        <attribute name="table">cfg_land_ownership_status</attribute>
+        <attribute name="export-file-name">LandOwnerShipStatus.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\LandUse" local-name="LandUse" namespace="\AppBundle\Entity\Configuration" uuid="2bae915f-5765-4c3d-9cb1-c0fab83e213d">
+      <field name="activityId" type="integer" required="true" primary="true" uuid="a769d911-2148-4d43-bfb2-d55c4ce1ce12">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="60d39266-7476-4eb1-b622-c99174b438bb"/>
+      <field name="activity_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="5ceaec5e-a670-4573-a441-e21468edbcff"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\LandUseRepository</attribute>
+        <attribute name="table">cfg_land_uses</attribute>
+        <attribute name="export-file-name">LandUse.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\Configuration\TransportMode" local-name="TransportMode" namespace="\AppBundle\Entity\Configuration" uuid="4c4f3f54-6bf4-4353-9a92-7bc0520f73de">
+      <field name="modeId" type="integer" required="true" primary="true" uuid="ab19d0dc-6aaa-496c-a5d8-d2843426621b">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="description" type="string" uuid="eaf7fa26-b99f-49e9-b66c-cda357d6be11"/>
+      <field name="mode_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="8a730cb4-c4f8-47d7-9919-d4018402cc65"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\TransportModeRepository</attribute>
+        <attribute name="table">cfg_transport_modes</attribute>
+        <attribute name="export-file-name">TransportMode.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <module name="\AppBundle/Entity/Consumer" local-name="AppBundle/Entity/Consumer" namespace="\AppBundle\Entity\Consumer" local-namespace="\AppBundle\Entity\Consumer" export-format="Doctrine2Php" export-path="AppBundle/Entity/Consumer" uuid="6ab6155e-ca47-4f31-a0a7-2926e4acb343">
+    <entity name="\AppBundle\Entity\Consumer\DataSet" local-name="DataSet" namespace="\AppBundle\Entity\Consumer" uuid="887cf25d-30ff-42a1-b4a0-fb3a997838ba">
+      <field name="datasetId" type="integer" required="true" primary="true" uuid="6307c6ec-0656-4469-8540-f7621565e66a">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" uuid="3fc35b3c-5e7d-436d-a45b-738ad86213af"/>
+      <field name="icon" type="string" uuid="114b5568-3fc3-4a2f-bfcc-07c9bb61979c"/>
+      <field name="description" type="text" uuid="3968bd99-2936-43fa-9c66-e4bf6a6c9f90"/>
+      <field name="path" type="text" uuid="3f3fccd3-e1ca-4b0f-b60a-b23f5ff83e01"/>
+      <orm-attributes>
+        <attribute name="table">cfg_public_datasets</attribute>
+        <attribute name="export-file-name">DataSet.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <module name="\AppBundle/Entity/Court" local-name="AppBundle/Entity/Court" namespace="\AppBundle\Entity\Court" local-namespace="\AppBundle\Entity\Court" export-format="Doctrine2Php" export-path="AppBundle/Entity/Court" uuid="c4be9354-6389-4cae-b0bd-62fa6bfe152a">
+    <entity name="\AppBundle\Entity\Court\Court" local-name="Court" namespace="\AppBundle\Entity\Court" uuid="6b5bc85d-3ec5-4602-bdc4-63c371783434">
+      <field name="courtId" type="integer" required="true" primary="true" uuid="3c5bee7d-2c29-4e99-88b7-dcc4ac20196c">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="isLandSurveyed" type="boolean" uuid="94df08f1-9967-4d3e-94cc-998d9e012893"/>
+      <field name="hasTitleDeed" type="boolean" uuid="d91851c4-46d2-448d-b8d5-a256352f9be2"/>
+      <field name="titleDeed" type="string" uuid="e3960737-3663-4fbb-af10-11e656d76c2f"/>
+      <field name="plotNumber" type="string" uuid="3964b025-22ec-44f4-80fa-e18bc146f713"/>
+      <field name="hasExtensionPossibility" type="boolean" uuid="d79162b3-e4e3-422c-b5c1-6ad5b7e5ccd2"/>
+      <field name="yearConstructed" type="integer" uuid="7af15f9c-9b0b-45cf-aaf6-73bc9e551d53"/>
+      <field name="meetsFunctionality" type="boolean" uuid="14380b9d-972e-4831-aa03-c61158e2d329"/>
+      <field name="hasLastMileConnectivity" type="boolean" uuid="1ca18eb2-5158-476a-8968-b706f52949b7"/>
+      <field name="numberOfComputers" type="integer" uuid="77c3004c-5b1b-4c8b-b794-068a22d3cad6"/>
+      <field name="internetAvailability" type="boolean" uuid="e61a8dc3-125c-43b3-ae58-758689695309"/>
+      <field name="bandwidth" type="float" uuid="7e68da48-f971-467b-b52f-9fe2b4dccb92"/>
+      <field name="availableSystems" type="string" uuid="3518523b-0a11-4fb6-880b-9fa816f377f6"/>
+      <field name="casesPerYear" type="integer" uuid="c55c706f-0cb0-486e-9999-c60ac4bec856"/>
+      <field name="populationServed" type="integer" uuid="2d12f3c3-abfe-4eeb-9e35-8bf61c92015e"/>
+      <field name="numberOfJustices" type="integer" uuid="7a204950-9ea4-4f93-a42e-cae6c6b218e3"/>
+      <field name="numberOfJudges" type="integer" uuid="6890efbb-867a-48d3-ba14-8135136894ca"/>
+      <field name="numberOfResidentMagistrates" type="integer" uuid="a92e32ef-1435-4781-82b4-db073e64989d"/>
+      <field name="numberOfDistrictMagistrates" type="integer" uuid="a49d1d23-c776-46a8-813e-14fb0194f3d2"/>
+      <field name="numberOfMagistrates" type="integer" uuid="77743c44-577b-4d0f-9859-c72828c9bdd6"/>
+      <field name="numberOfCourtClerks" type="integer" uuid="0b103a8f-808e-4c9a-b86a-99485775d5ff"/>
+      <field name="numberOfNonJudiciaryStaff" type="integer" uuid="719986b3-c280-4bbc-99ad-0e444ac92068"/>
+      <field name="courtLatitude" type="float" uuid="47c30eda-1956-4604-97f6-416ffb6d5825"/>
+      <field name="courtLongitude" type="float" uuid="bb270f66-8350-4377-b76e-36202df83b25"/>
+      <field name="courtCoordinatesDMS" type="string" uuid="dc5302ba-e284-43d8-97e5-6fb9332c3f56"/>
+      <field name="lastMileConnectivityLatitude" type="float" uuid="ba9006db-4c17-4283-a749-2e6d4b401537"/>
+      <field name="lastMileConnectivityLongitude" type="float" uuid="756c60be-da0e-40cb-a65f-efebda61cd64"/>
+      <field name="lastMileConnectivityDMS" type="string" uuid="d3e5ea52-9dd1-4c88-b63f-6b4a5939bc84"/>
+      <field name="fibreDistance" type="float" uuid="54198b3a-a873-43d8-b66e-a0210a396fd9"/>
+      <field name="areasEntitled" type="string" uuid="84df1184-203e-4eee-b451-185d1605feb2"/>
+      <field name="landUseDescription" type="string" uuid="5d733110-1b07-4b91-9e37-6bbcf8af2c36"/>
+      <field name="economicActivitiesDescription" type="string" uuid="1a733573-6d79-4e52-8ba4-b6467009e347"/>
+      <field name="transportModesDescription" type="string" uuid="62a853f8-93ea-486c-a7ad-278236123863"/>
+      <field name="timeCreated" type="datetime" uuid="a1bad694-5ed3-49fd-8ed8-aaa3045df22c"/>
+      <field name="firstCourtView" type="string" uuid="4ba98f7b-4501-469c-8faa-063f5a4ec28b"/>
+      <field name="secondCourtView" type="string" uuid="c8de7bbc-74f3-492d-8d94-7f7f67bd6063"/>
+      <field name="thirdCourtView" type="string" uuid="4019944b-e7e5-42af-9854-e4af33811e2a"/>
+      <field name="fourthCourtView" type="string" uuid="71c1c860-c276-406b-9ad4-74b8a20bcb4b"/>
+      <field name="uniqueCourtId" type="string" uuid="3053c886-e599-466c-b037-dfa42a3d25d8"/>
+      <field name="courtName" type="string" uuid="cc4133ae-5436-408b-81a9-a580de8b422d"/>
+      <field name="courtStatus" type="boolean" uuid="826128d2-2357-4d51-930f-e4696dca0454"/>
+      <field name="courtRecordStatus" type="boolean" default="true" uuid="d22e0585-e00c-4b5b-85d1-481f3eb929c3">
+        <orm-attributes>
+          <attribute name="options"/>
+        </orm-attributes>
+      </field>
+      <field name="courtVerificationStatus" type="boolean" default="false" uuid="d8b002ae-a88b-4e8b-b7d1-aa8af99ef83e">
+        <orm-attributes>
+          <attribute name="options"/>
+        </orm-attributes>
+      </field>
+      <field name="isPlotOnly" type="boolean" default="false" uuid="ff813bb8-baed-45ef-ba54-4f899b4cfa4b">
+        <orm-attributes>
+          <attribute name="options"/>
+        </orm-attributes>
+      </field>
+      <field name="remarks" type="text" uuid="e5d3f2b8-142e-41ca-ba7b-08c0c486f122"/>
+      <field name="level_id" required="true" uuid="c87c9297-c4b0-4e67-b425-ebcd23af4607"/>
+      <field name="ward_id" required="true" uuid="a3c16271-27b0-4d43-b8a5-33521b460409"/>
+      <field name="land_ownership_status_id" required="true" uuid="cadf82ff-7695-4393-b1dd-12c92746febd"/>
+      <field name="building_ownership_status_id" required="true" uuid="5f08722d-0b88-4e95-a755-f8a5b59409a5"/>
+      <field name="court_building_status_id" required="true" uuid="b685c44c-ca99-4f70-819c-d57fc670f823"/>
+      <field name="environmental_status" required="true" uuid="cade2e3e-9d63-4da5-875d-6c92c8e0977c"/>
+      <field name="user_id" uuid="c67ae989-cd3d-4806-ad58-1b2c799b85ae"/>
+      <field name="unique_court_id" uuid="2297144d-32fb-4af2-8150-25b4ff71e243"/>
+      <field name="court_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="1561bef4-ad3e-4f45-980a-9d2bc58d5dd5"/>
+      <index name="court_details" unique="true">
+        <index-field name="unique_court_id"/>
+        <index-field name="user_id"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Court\CourtRepository</attribute>
+        <attribute name="table">tbl_court_details</attribute>
+        <attribute name="export-file-name">Court.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Configuration\CourtLevel" owner-alias="" inverse-alias="courtLevel" many-owner="true" many-inverse="false" parent-required="true" uuid="28fe0daf-ebc2-4f0d-9a59-647928ba0617">
+      <association-field from="level_id" to="level_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Location\Ward" owner-alias="" inverse-alias="ward" many-owner="true" many-inverse="false" parent-required="true" uuid="4785ef8d-a99b-4ee2-9bf6-cd31a2e76314">
+      <association-field from="ward_id" to="ward_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Configuration\LandOwnerShipStatus" owner-alias="" inverse-alias="landOwnershipStatus" many-owner="true" many-inverse="false" parent-required="true" uuid="8c58b1bb-a29d-4c5e-9202-e1a08d1907df">
+      <association-field from="land_ownership_status_id" to="status_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Configuration\CourtBuildingOwnershipStatus" owner-alias="" inverse-alias="buildingOwnershipStatus" many-owner="true" many-inverse="false" parent-required="true" uuid="8621428e-e511-40b0-8085-4cae251f6498">
+      <association-field from="building_ownership_status_id" to="status_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Configuration\CourtBuildingStatus" owner-alias="" inverse-alias="buildingStatus" many-owner="true" many-inverse="false" parent-required="true" uuid="6d3699df-2f74-45c9-8f50-31dbe6aea5ca">
+      <association-field from="court_building_status_id" to="status_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\Configuration\CourtEnvironmentalStatus" owner-alias="" inverse-alias="environmentalStatus" many-owner="true" many-inverse="false" parent-required="true" uuid="70e0e313-d488-418f-a02d-c62d466b9098">
+      <association-field from="environmental_status" to="status_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\Court" to="\AppBundle\Entity\DataCollector\User" owner-alias="" inverse-alias="createdBy" many-owner="true" many-inverse="false" uuid="e4cc0aaf-81ec-418b-99e2-b0d82efd2d71">
+      <association-field from="user_id" to="user_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Court\CourtEconomicActivities" local-name="CourtEconomicActivities" namespace="\AppBundle\Entity\Court" uuid="c7969c25-5a6b-4e1f-a786-928564656432">
+      <field name="recordNo" type="integer" required="true" primary="true" uuid="fffcffb8-dcd3-45fd-9561-5193fc571192">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="court_id" required="true" uuid="b08876fc-ab6b-4c8a-b208-0b244f7dfdbd"/>
+      <field name="activity_id" required="true" uuid="7a07c964-74e2-43d9-8015-f9ad502b5a40"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Court\CourtRepository</attribute>
+        <attribute name="table">tbl_court_economic_activities</attribute>
+        <attribute name="export-file-name">CourtEconomicActivities.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Court\CourtEconomicActivities" to="\AppBundle\Entity\Court\Court" owner-alias="" inverse-alias="court" many-owner="true" many-inverse="false" parent-required="true" uuid="d41e19dd-7e51-4a7d-8257-43472adfb096">
+      <association-field from="court_id" to="court_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\CourtEconomicActivities" to="\AppBundle\Entity\Configuration\EconomicActivity" owner-alias="" inverse-alias="economicActivity" many-owner="true" many-inverse="false" parent-required="true" uuid="1b9a3f9d-4f51-457e-93b4-053fe0a126e2">
+      <association-field from="activity_id" to="activity_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Court\CourtLandUse" local-name="CourtLandUse" namespace="\AppBundle\Entity\Court" uuid="fc35ce43-14cc-40c2-aa68-36ba1342776e">
+      <field name="recordNo" type="integer" required="true" primary="true" uuid="8dc39899-fd04-44cf-ae28-9f28d94c22c2">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="court_id" required="true" uuid="d92e34d8-43ac-489a-96fa-ba75fbf0a5a2"/>
+      <field name="activity_id" required="true" uuid="36b04db2-5594-409e-89af-e81ba20c5a48"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Court\CourtRepository</attribute>
+        <attribute name="table">tbl_court_land_uses</attribute>
+        <attribute name="export-file-name">CourtLandUse.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Court\CourtLandUse" to="\AppBundle\Entity\Court\Court" owner-alias="" inverse-alias="court" many-owner="true" many-inverse="false" parent-required="true" uuid="17d9daf6-cfd4-41f9-b2c7-32b6826c1d61">
+      <association-field from="court_id" to="court_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\CourtLandUse" to="\AppBundle\Entity\Configuration\LandUse" owner-alias="" inverse-alias="landUse" many-owner="true" many-inverse="false" parent-required="true" uuid="5892339b-c50a-4336-a755-0378e9376acb">
+      <association-field from="activity_id" to="activity_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Court\CourtTransportModes" local-name="CourtTransportModes" namespace="\AppBundle\Entity\Court" uuid="7b91157f-e25e-45d6-aaaa-5f29e720ef36">
+      <field name="recordNo" type="integer" required="true" primary="true" uuid="1b7f8d0a-ca4b-408b-ad22-d58dfa72afe7">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="court_id" required="true" uuid="f2199f39-6c60-47db-876e-d585a97e8b35"/>
+      <field name="mode_id" required="true" uuid="6c81c521-6696-4c8d-9645-b789e6424d1f"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Court\CourtRepository</attribute>
+        <attribute name="table">tbl_court_transport_modes</attribute>
+        <attribute name="export-file-name">CourtTransportModes.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Court\CourtTransportModes" to="\AppBundle\Entity\Court\Court" owner-alias="" inverse-alias="court" many-owner="true" many-inverse="false" parent-required="true" uuid="5f8db3d2-123b-44ea-bab8-7070c9f476bc">
+      <association-field from="court_id" to="court_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\Court\CourtTransportModes" to="\AppBundle\Entity\Configuration\TransportMode" owner-alias="" inverse-alias="transportMode" many-owner="true" many-inverse="false" parent-required="true" uuid="df13d5b1-79fe-44a5-affa-f6dec3e30f4e">
+      <association-field from="mode_id" to="mode_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+  </module>
+  <module name="\AppBundle/Entity/DataCollector" local-name="AppBundle/Entity/DataCollector" namespace="\AppBundle\Entity\DataCollector" local-namespace="\AppBundle\Entity\DataCollector" export-format="Doctrine2Php" export-path="AppBundle/Entity/DataCollector" uuid="984f6b73-9d38-4843-9021-3b34738115bf">
+    <entity name="\AppBundle\Entity\DataCollector\DataVersion" local-name="DataVersion" namespace="\AppBundle\Entity\DataCollector" uuid="6242ddc1-10b7-4183-b70d-779d0df64c3c">
+      <field name="versionId" type="integer" required="true" primary="true" uuid="f031e1b8-472d-42d7-9d5f-29ce37d0e4d2">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="updateTime" type="datetime" uuid="3c1aa86b-a49a-46d5-be96-c6ad7d315b07"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\AppUsers\UserRepository</attribute>
+        <attribute name="table">app_data_versions</attribute>
+        <attribute name="export-file-name">DataVersion.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\DataCollector\User" local-name="User" namespace="\AppBundle\Entity\DataCollector" uuid="6b0970c8-4056-4a1c-be69-af1b5a394436">
+      <field name="userId" type="integer" required="true" primary="true" uuid="cf687cb6-b02f-4eef-85ff-cefa7b267c48">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="firstName" type="string" uuid="aeadce7d-355e-4b47-97a8-996c96174b4a"/>
+      <field name="surname" type="string" uuid="ae7ce183-cade-4942-9135-ded38eea3781"/>
+      <field name="mobile" type="string" uuid="a8dc99ed-5e06-427c-8263-c0fd74d97a18"/>
+      <field name="username" type="string" uuid="0d24763e-ceff-4424-bb24-249735565203"/>
+      <field name="password" type="string" uuid="1de0fd81-4a02-4438-8cd0-4321229fff66"/>
+      <field name="loginTries" type="integer" uuid="354555fd-5636-4fdc-b9e3-0d008dc0e1fc"/>
+      <field name="dateCreated" type="datetime" uuid="67f17f18-3591-4b16-81ef-56eff2cbfff5"/>
+      <field name="lastActivity" type="datetime" uuid="e1bd6305-34d4-4a34-a37f-af51234d2a16"/>
+      <field name="passwordValidity" type="integer" default="6" uuid="8cbb5b47-c439-4ae3-901d-f0b0af001c01">
+        <orm-attributes>
+          <attribute name="options"/>
+        </orm-attributes>
+      </field>
+      <field name="lastPasswordUpdateDate" type="datetime" uuid="f261863d-a54e-46f1-a416-7039f5a4de67"/>
+      <field name="accountStatus" type="string" size="1" uuid="67d19a72-0629-49b3-b53c-5840c70a4c4f">
+        <orm-attributes>
+          <attribute name="options">
+            <attribute name="fixed">true</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="token" type="string" uuid="2bb20d6d-cab8-407d-bf50-1b18c2d5e498"/>
+      <field name="user_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="394311bb-e8f2-44e6-b827-b0608e8e336a"/>
+      <index name="unique_app_users" unique="true">
+        <index-field name="mobile"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\AppUsers\UserRepository</attribute>
+        <attribute name="table">app_users</attribute>
+        <attribute name="export-file-name">User.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\DataCollector\UserRegion" local-name="UserRegion" namespace="\AppBundle\Entity\DataCollector" uuid="1d4b61be-f29b-46b2-bfc8-70e079a58c77">
+      <field name="userNo" type="integer" required="true" primary="true" uuid="244db6fa-8980-4ea6-96a2-4108bafd57f2">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="user_id" required="true" uuid="a6484fde-3224-4aa1-9214-1ec23554537b"/>
+      <field name="region_id" uuid="d47a2310-2e3f-4aa3-8d20-48cb855f7c70"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\AppUsers\UserRegionRepository</attribute>
+        <attribute name="table">app_users_regions</attribute>
+        <attribute name="export-file-name">UserRegion.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\DataCollector\UserRegion" to="\AppBundle\Entity\DataCollector\User" owner-alias="" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="40c87e2a-c86d-45c9-a52b-21e9ec0caad3">
+      <association-field from="user_id" to="user_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\DataCollector\UserRegion" to="\AppBundle\Entity\Location\Region" owner-alias="" inverse-alias="region" many-owner="true" many-inverse="false" uuid="df87392d-8eab-4fe9-ad54-d0e0de841d53">
+      <association-field from="region_id" to="region_id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="fetch">EAGER</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+  </module>
+  <module name="\AppBundle/Entity/Location" local-name="AppBundle/Entity/Location" namespace="\AppBundle\Entity\Location" local-namespace="\AppBundle\Entity\Location" export-format="Doctrine2Php" export-path="AppBundle/Entity/Location" uuid="eb7994ee-20ed-4d40-b49a-ddb136aedb4e">
+    <entity name="\AppBundle\Entity\Location\District" local-name="District" namespace="\AppBundle\Entity\Location" uuid="34c28df6-85eb-4990-be7c-be2cf7c3e316">
+      <field name="districtId" type="integer" required="true" primary="true" uuid="683e4ad5-40b8-4c90-849d-76e73fde0911">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="districtName" type="string" uuid="601e5ab6-359c-4764-9710-3f62906651cb"/>
+      <field name="districtCode" type="string" uuid="71d92c89-cda7-43f2-9c5f-03c88b6d786d"/>
+      <field name="region_id" required="true" uuid="bb3cd86b-9999-4206-ae9f-be6036a63130"/>
+      <field name="district_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="bb67736b-f89f-43a5-8f14-e51f09ea08d1"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Location\DistrictRepository</attribute>
+        <attribute name="table">cfg_districts</attribute>
+        <attribute name="export-file-name">District.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Location\District" to="\AppBundle\Entity\Location\Region" owner-alias="" inverse-alias="region" many-owner="true" many-inverse="false" parent-required="true" uuid="5f59d344-cdbc-476a-99dc-f64ef329366e">
+      <association-field from="region_id" to="region_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Location\Region" local-name="Region" namespace="\AppBundle\Entity\Location" uuid="9f443360-ca39-49a4-a278-2af9fcdb68db">
+      <field name="regionId" type="integer" required="true" primary="true" uuid="c25c7424-c5b0-45b5-9ac1-992952b5b650">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="regionName" type="string" uuid="5be84322-a648-403e-a299-faca6fc631a4"/>
+      <field name="regionStatus" type="boolean" uuid="50afbd1f-f6f7-4b0d-a191-dfa106c0a46f"/>
+      <field name="regionCode" type="string" uuid="5bc5a46d-7c69-44f7-bb17-f9572da3c904"/>
+      <field name="zone_id" uuid="cc890212-efca-4172-a3d6-e70b988f1d52"/>
+      <field name="region_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="d43a32d5-5d68-4019-b753-feb83f7a914c"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Location\RegionRepository</attribute>
+        <attribute name="table">cfg_regions</attribute>
+        <attribute name="export-file-name">Region.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Location\Region" to="\AppBundle\Entity\Location\Zone" owner-alias="" inverse-alias="zone" many-owner="true" many-inverse="false" uuid="e1e7785f-fcea-4580-b75f-619b97260b55">
+      <association-field from="zone_id" to="zone_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Location\VillageStreet" local-name="VillageStreet" namespace="\AppBundle\Entity\Location" uuid="83c6f0ba-e5ab-4639-bf33-75926e101ee7">
+      <field name="areaId" type="integer" required="true" primary="true" uuid="3fa12d18-13f4-4407-80f2-d6576cd452ef">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="areaName" type="string" uuid="6cece180-458c-445f-aa33-9d5dc9b3176d"/>
+      <field name="isVillage" type="boolean" uuid="7b06650c-0c04-411a-924f-5a9a6541e974"/>
+      <field name="ward_id" required="true" uuid="c0b621f2-7bce-4130-9427-6e04bfec16c5"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Location\StreetVillageRepository</attribute>
+        <attribute name="table">cfg_villages_streets</attribute>
+        <attribute name="export-file-name">VillageStreet.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Location\VillageStreet" to="\AppBundle\Entity\Location\Ward" owner-alias="" inverse-alias="ward" many-owner="true" many-inverse="false" parent-required="true" uuid="cff225c5-a106-42f4-a064-c25d6c9a139d">
+      <association-field from="ward_id" to="ward_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Location\Ward" local-name="Ward" namespace="\AppBundle\Entity\Location" uuid="3f8ae99b-8b16-45ce-b8bc-1887915b455f">
+      <field name="wardId" type="integer" required="true" primary="true" uuid="271231be-55fa-4225-8014-50306af86ec6">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="wardName" type="string" uuid="276f5c2b-1f2b-428a-9c19-7c46476488cf"/>
+      <field name="wardCode" type="string" uuid="decfc5f6-6e73-4185-828a-b734e77226bc"/>
+      <field name="district_id" required="true" uuid="26d96f0d-b2ac-4e51-a18f-578378f88644"/>
+      <field name="ward_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="a838d9e7-b8e5-4b88-a915-62cfe101d42f"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Location\WardRepository</attribute>
+        <attribute name="table">cfg_wards</attribute>
+        <attribute name="export-file-name">Ward.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\Location\Ward" to="\AppBundle\Entity\Location\District" owner-alias="" inverse-alias="district" many-owner="true" many-inverse="false" parent-required="true" uuid="8201208b-716a-4240-b65f-1e4be83ec06a">
+      <association-field from="district_id" to="district_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\Location\Zone" local-name="Zone" namespace="\AppBundle\Entity\Location" uuid="2100dd95-2db9-45dc-924f-b2a17dc80820">
+      <field name="zoneId" type="integer" required="true" primary="true" uuid="9fddf0a0-8b24-472a-88f8-687519f44132">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="zoneName" type="string" uuid="94d99295-b4e5-4ef2-829d-d23e96d5bcb1"/>
+      <field name="zone_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="588b4bd6-e14a-4308-ba37-fda7e23cf4f4"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Configuration\ZoneRepository</attribute>
+        <attribute name="table">cfg_zones</attribute>
+        <attribute name="export-file-name">Zone.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <module name="\AppBundle/Entity/Spatial" local-name="AppBundle/Entity/Spatial" namespace="\AppBundle\Entity\Spatial" local-namespace="\AppBundle\Entity\Spatial" export-format="Doctrine2Php" export-path="AppBundle/Entity/Spatial" uuid="a046acc6-62fe-4567-be15-79f3e1cc6138">
+    <entity name="\AppBundle\Entity\Spatial\Region" local-name="Region" namespace="\AppBundle\Entity\Spatial" uuid="a0165db1-ad3b-4867-87bb-b6da05032ed7">
+      <field name="gid" type="integer" required="true" primary="true" uuid="b906c742-331b-433f-8b9b-3e42b5f74be2">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="regionCode" type="string" uuid="e5f7a265-ee67-46a8-98b2-8dbf08c805d8"/>
+      <field name="regionName" type="text" uuid="581cf4a2-3ef5-4a7b-98fd-45bf5a1f6909"/>
+      <field name="regionGeometry" type="geometry" uuid="4741b853-ec24-4851-9974-31db784bc34d"/>
+      <field name="region_code" uuid="238faf9c-8fd8-472c-9638-600044e1a0ab"/>
+      <index name="unique_region_code" unique="true">
+        <index-field name="region_code"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Location\RegionRepository</attribute>
+        <attribute name="table">spd_regions</attribute>
+        <attribute name="export-file-name">Region.php</attribute>
+      </orm-attributes>
+    </entity>
+  </module>
+  <module name="\AppBundle/Entity/UserAccounts" local-name="AppBundle/Entity/UserAccounts" namespace="\AppBundle\Entity\UserAccounts" local-namespace="\AppBundle\Entity\UserAccounts" export-format="Doctrine2Php" export-path="AppBundle/Entity/UserAccounts" uuid="4ec661d5-e9eb-4e07-816b-3c2229d09fb5">
+    <entity name="\AppBundle\Entity\UserAccounts\Permission" local-name="Permission" namespace="\AppBundle\Entity\UserAccounts" uuid="b0f34fd9-83ae-4509-a7e0-3e0504c7e72b">
+      <field name="permissionID" type="integer" required="true" primary="true" uuid="4ae55716-da0d-48e1-99b8-6b6378ea812e">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">IDENTITY</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="object" type="string" uuid="9f92b679-1387-43d0-acae-db84fc7cdc98"/>
+      <field name="actions" type="json_array" uuid="855395aa-7921-455d-8de8-ee33bbda728e"/>
+      <field name="role_id" required="true" uuid="f369a6d3-955a-4604-ba10-711c3876abc4"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Security\PermissionRepository</attribute>
+        <attribute name="table">user_roles_permissions</attribute>
+        <attribute name="export-file-name">Permission.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\UserAccounts\Permission" to="\AppBundle\Entity\UserAccounts\Role" owner-alias="permissions" inverse-alias="role" many-owner="true" many-inverse="false" parent-required="true" uuid="2cf5b4ae-1342-451c-853b-7c42fd713226">
+      <association-field from="role_id" to="role_id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="\AppBundle\Entity\UserAccounts\Role" local-name="Role" namespace="\AppBundle\Entity\UserAccounts" uuid="2738c9b5-d151-4311-8e46-e8d04666b995">
+      <field name="roleID" type="integer" required="true" primary="true" uuid="f80e0714-094d-4639-a396-4aaacfc37228">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="roleName" type="string" uuid="50c9a88c-f219-4e3e-9cd2-45eea2848897"/>
+      <field name="role_id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="03b07cc6-1d02-46c8-ba96-e0887dfd91ca"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Accounts\RoleRepository</attribute>
+        <attribute name="table">user_defined_roles</attribute>
+        <attribute name="export-file-name">Role.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\UserAccounts\User" local-name="User" namespace="\AppBundle\Entity\UserAccounts" uuid="73dca05e-5cc4-4c09-9bd6-e102dfbd9ce5">
+      <field name="id" type="integer" required="true" primary="true" uuid="5cae36d1-d9bb-4423-a2dd-f07946c1d3ac">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="username" type="string" size="25" unique="true" uuid="922d4c1a-c704-4b44-88a9-52c80211887e"/>
+      <field name="fullName" type="string" uuid="92cea45c-ac32-4276-bb82-1a61b755d22c"/>
+      <field name="accountStatus" type="string" size="1" default="A" uuid="1348e6a1-a8fe-4aa4-a88c-8e5f154ef211">
+        <orm-attributes>
+          <attribute name="options">
+            <attribute name="fixed">true</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="mobilePhone" type="string" uuid="0ebd5411-a300-4f15-8b55-16e9f5b9e27e"/>
+      <field name="email" type="string" uuid="6fe1ce13-ff40-46bb-831e-d545d5f38e53"/>
+      <field name="loginTries" type="integer" uuid="f405c56d-8423-4c14-ad37-7a9b77e43600"/>
+      <field name="password" type="string" uuid="d78746c9-f400-4f4a-89d4-00f92eba5316"/>
+      <field name="dateCreated" type="datetime" uuid="340e87cf-8989-44e6-b8cc-8ca9aec5055d"/>
+      <field name="lastActivity" type="datetime" uuid="caece49e-60df-4642-aa37-6cded9227592"/>
+      <field name="authenticationToken" type="string" uuid="d2784792-c227-4281-8ef0-0a0a53443e85"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Repository\Accounts\UserRepository</attribute>
+        <attribute name="table">user_accounts</attribute>
+        <attribute name="export-file-name">User.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="\AppBundle\Entity\UserAccounts\UserRole" local-name="UserRole" namespace="\AppBundle\Entity\UserAccounts" uuid="141c12d3-c821-482b-94e8-20a28e3dc67a">
+      <field name="roleNo" type="integer" required="true" primary="true" uuid="fbe56113-e9ba-4b07-bed1-c5db52a2ac6b">
+        <orm-attributes>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="user_id" required="true" uuid="04eefd8f-9e57-4244-9886-ee82bb1fa021"/>
+      <field name="role_id" uuid="4ac77fbf-b4b6-4a57-9daf-10ba118dd966"/>
+      <orm-attributes>
+        <attribute name="table">user_roles</attribute>
+        <attribute name="export-file-name">UserRole.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="\AppBundle\Entity\UserAccounts\UserRole" to="\AppBundle\Entity\UserAccounts\User" owner-alias="userRole" inverse-alias="user" many-owner="true" many-inverse="false" parent-required="true" uuid="76e2023f-789a-4fe3-b67a-ab477aab10a2">
+      <association-field from="user_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="\AppBundle\Entity\UserAccounts\UserRole" to="\AppBundle\Entity\UserAccounts\Role" owner-alias="" inverse-alias="role" many-owner="true" many-inverse="false" uuid="69a1ee73-4d4d-47fe-8f36-9735230bf020">
+      <association-field from="role_id" to="role_id"/>
+      <orm-attributes>
+        <attribute name="side-owning">
+          <attribute name="fetch">EAGER</attribute>
+        </attribute>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+  </module>
+  <visual-data>
+    <association uuid="17d9daf6-cfd4-41f9-b2c7-32b6826c1d61" color="#8A54A2"/>
+    <association uuid="1b9a3f9d-4f51-457e-93b4-053fe0a126e2" color="#C774AF"/>
+    <association uuid="28fe0daf-ebc2-4f0d-9a59-647928ba0617" color="#2E63AF"/>
+    <association uuid="2cf5b4ae-1342-451c-853b-7c42fd713226" color="#8A54A2"/>
+    <association uuid="40c87e2a-c86d-45c9-a52b-21e9ec0caad3" color="#0A783D"/>
+    <association uuid="4785ef8d-a99b-4ee2-9bf6-cd31a2e76314" color="#00B4D0"/>
+    <association uuid="5892339b-c50a-4336-a755-0378e9376acb" color="#2E63AF"/>
+    <association uuid="5f59d344-cdbc-476a-99dc-f64ef329366e" color="#CDC32B"/>
+    <association uuid="5f8db3d2-123b-44ea-bab8-7070c9f476bc" color="#00B4D0"/>
+    <association uuid="69a1ee73-4d4d-47fe-8f36-9735230bf020" color="#00B4D0"/>
+    <association uuid="6d3699df-2f74-45c9-8f50-31dbe6aea5ca" color="#61D351"/>
+    <association uuid="70e0e313-d488-418f-a02d-c62d466b9098" color="#CDC32B"/>
+    <association uuid="76e2023f-789a-4fe3-b67a-ab477aab10a2" color="#2E63AF"/>
+    <association uuid="8201208b-716a-4240-b65f-1e4be83ec06a" color="#C774AF"/>
+    <association uuid="8621428e-e511-40b0-8085-4cae251f6498" color="#0A783D"/>
+    <association uuid="8c58b1bb-a29d-4c5e-9202-e1a08d1907df" color="#A8A8A8"/>
+    <association uuid="cff225c5-a106-42f4-a064-c25d6c9a139d" color="#B31F24"/>
+    <association uuid="d41e19dd-7e51-4a7d-8257-43472adfb096" color="#B31F24"/>
+    <association uuid="df13d5b1-79fe-44a5-affa-f6dec3e30f4e" color="#A8A8A8"/>
+    <association uuid="df87392d-8eab-4fe9-ad54-d0e0de841d53" color="#61D351"/>
+    <association uuid="e1e7785f-fcea-4580-b75f-619b97260b55" color="#F4931F"/>
+    <association uuid="e4cc0aaf-81ec-418b-99e2-b0d82efd2d71" color="#F4931F"/>
+    <entity uuid="08489788-70df-48eb-99f3-ceb8d47ad4f9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="30" position-y="139" size-x="0" size-x2="122" size-y="0" size-y2="59"/>
+    <entity uuid="141c12d3-c821-482b-94e8-20a28e3dc67a" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="218" position-y="251" size-x="0" size-x2="86" size-y="0" size-y2="59"/>
+    <entity uuid="1d4b61be-f29b-46b2-bfc8-70e079a58c77" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="59" position-y="293" size-x="0" size-x2="89" size-y="0" size-y2="59"/>
+    <entity uuid="2100dd95-2db9-45dc-924f-b2a17dc80820" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="28" position-y="322" size-x="0" size-x2="98" size-y="0" size-y2="59"/>
+    <entity uuid="2738c9b5-d151-4311-8e46-e8d04666b995" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="214" position-y="40" size-x="0" size-x2="93" size-y="0" size-y2="59"/>
+    <entity uuid="2bae915f-5765-4c3d-9cb1-c0fab83e213d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="41" position-y="337" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
+    <entity uuid="34c28df6-85eb-4990-be7c-be2cf7c3e316" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="25" position-y="40" size-x="0" size-x2="104" size-y="0" size-y2="87"/>
+    <entity uuid="3f8ae99b-8b16-45ce-b8bc-1887915b455f" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="183" position-y="181" size-x="0" size-x2="98" size-y="0" size-y2="87"/>
+    <entity uuid="4c4f3f54-6bf4-4353-9a92-7bc0520f73de" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="224" position-y="337" size-x="0" size-x2="98" size-y="0" size-y2="59"/>
+    <entity uuid="6242ddc1-10b7-4183-b70d-779d0df64c3c" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="47" position-y="40" size-x="0" size-x2="114" size-y="0" size-y2="45"/>
+    <entity uuid="6b0970c8-4056-4a1c-be69-af1b5a394436" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="228" position-y="40" size-x="0" size-x2="168" size-y="0" size-y2="213"/>
+    <entity uuid="6b5bc85d-3ec5-4602-bdc4-63c371783434" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="182" size-y="0" size-y2="773"/>
+    <entity uuid="73dca05e-5cc4-4c09-9bd6-e102dfbd9ce5" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="251" size-x="0" size-x2="134" size-y="0" size-y2="171"/>
+    <entity uuid="7576e9cd-2702-48ec-8996-d4a4d35ff1da" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="224" position-y="139" size-x="0" size-x2="98" size-y="0" size-y2="59"/>
+    <entity uuid="7b91157f-e25e-45d6-aaaa-5f29e720ef36" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="726" position-y="40" size-x="0" size-x2="102" size-y="0" size-y2="59"/>
+    <entity uuid="83c6f0ba-e5ab-4639-bf33-75926e101ee7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="28" position-y="181" size-x="0" size-x2="98" size-y="0" size-y2="73"/>
+    <entity uuid="887cf25d-30ff-42a1-b4a0-fb3a997838ba" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="97" size-y="0" size-y2="87"/>
+    <entity uuid="9f443360-ca39-49a4-a278-2af9fcdb68db" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="175" position-y="40" size-x="0" size-x2="115" size-y="0" size-y2="101"/>
+    <entity uuid="a0165db1-ad3b-4867-87bb-b6da05032ed7" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="134" size-y="0" size-y2="87"/>
+    <entity uuid="a2f0d69d-3f46-40c7-afb1-27305a6f9706" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="221" position-y="238" size-x="0" size-x2="104" size-y="0" size-y2="59"/>
+    <entity uuid="b0f34fd9-83ae-4509-a7e0-3e0504c7e72b" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="31" position-y="40" size-x="0" size-x2="112" size-y="0" size-y2="73"/>
+    <entity uuid="c7969c25-5a6b-4e1f-a786-928564656432" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="275" position-y="40" size-x="0" size-x2="115" size-y="0" size-y2="59"/>
+    <entity uuid="da0e3ffa-da4d-45bd-8baf-8a8fbb014f20" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="20" position-y="40" size-x="0" size-x2="142" size-y="0" size-y2="59"/>
+    <entity uuid="db3559fc-6bc1-4ad5-a5b6-8859b33de1ec" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="224" position-y="40" size-x="0" size-x2="98" size-y="0" size-y2="59"/>
+    <entity uuid="f6cff0f1-43d4-4737-9934-ac7c08a75a20" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="41" position-y="238" size-x="0" size-x2="99" size-y="0" size-y2="59"/>
+    <entity uuid="fc35ce43-14cc-40c2-aa68-36ba1342776e" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="506" position-y="40" size-x="0" size-x2="97" size-y="0" size-y2="59"/>
+    <module uuid="4ec661d5-e9eb-4e07-816b-3c2229d09fb5" bg-color="#E7F5FD" position-x="566" position-y="983" size-x="0" size-x2="348" size-y="0" size-y2="442"/>
+    <module uuid="6ab6155e-ca47-4f31-a0a7-2926e4acb343" bg-color="#E7F3E7" position-x="1312" position-y="593" size-x="0" size-x2="137" size-y="0" size-y2="147"/>
+    <module uuid="984f6b73-9d38-4843-9021-3b34738115bf" bg-color="#FEEFE3" position-x="50" position-y="983" size-x="0" size-x2="416" size-y="0" size-y2="526"/>
+    <module uuid="a046acc6-62fe-4567-be15-79f3e1cc6138" bg-color="#EAE4F1" position-x="1038" position-y="593" size-x="0" size-x2="174" size-y="0" size-y2="147"/>
+    <module uuid="b7be538a-3dc4-440c-b4e8-0c74acff7fe6" bg-color="#E7F5FD" position-x="1014" position-y="983" size-x="0" size-x2="364" size-y="0" size-y2="416"/>
+    <module uuid="c4be9354-6389-4cae-b0bd-62fa6bfe152a" bg-color="#FEFCE8" position-x="50" position-y="50" size-x="0" size-x2="888" size-y="0" size-y2="833"/>
+    <module uuid="eb7994ee-20ed-4d40-b49a-ddb136aedb4e" bg-color="#FDEBEF" position-x="1038" position-y="50" size-x="0" size-x2="310" size-y="0" size-y2="443"/>
+    <project uuid="b2bf03ce-c2f9-4ad8-9100-9f4daeb3f681" size-x="0" size-x2="1499" size-y="0" size-y2="1559"/>
+  </visual-data>
+</skipper>

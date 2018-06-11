@@ -81,6 +81,10 @@ services:
             class: AppBundle\Helpers\FileLoader
             autowire: true
 
+    app.helper.leaflet_data_transformer:
+                class: AppBundle\Helpers\LeafletDataTransformer
+                autowire: true
+
     app.acl_voter:
             class: AppBundle\Security\ACLVoter
             autowire: true
@@ -88,6 +92,12 @@ services:
                 - { name: security.voter }
             # small performance boost
             public: false
+
+    app.form.type.distance_calculator_form:
+                    class: AppBundle\Form\Reports\DistanceCalculatorReportFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }
 
 
     app.form.type.ward_form:

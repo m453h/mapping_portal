@@ -1,0 +1,78 @@
+{% extends 'administration/main/app.base.html.twig' %}
+
+ {% block stylesheets %}
+     {{ parent() }}
+ {% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="panel">
+        <div class="panel-title col12">
+            <div class="container"><h1>{{ title }}</h1></div>
+        </div>
+
+        <div class="white-space panel-body">
+            <div class="container">
+                <div class="clear space-20"></div>
+                    {{ include(template) }}
+                <div class='clear space-20'></div>
+                <div id="map-routing" style="width:100%;height:500px"></div>
+                <div class="clear space-20"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ajax.js') }}"></script>
+
+    {% if data.type=='SPATIAL_DISTANCE' and data.fromCourt!=null and data.toCourt!=null %}
+        <script src="{{ asset('vendor/dist/leaflet-routing-machine.min.js') }}"></script>
+        <script type="text/javascript">
+            $(".from-court").select2().select2("val", '4');
+
+            $(document).ready(function() {
+                var map = L.map('map-routing');
+
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                var control = L.Routing.control({
+                    waypoints: [
+                        L.latLng({{ data.fromCourt.courtLatitude }},{{ data.fromCourt.courtLongitude }}),
+                        L.latLng({{ data.toCourt.courtLatitude }},{{ data.toCourt.courtLongitude }})
+                    ],
+                    router: new L.Routing.OSRMv1({
+                        serviceUrl: 'http://localhost:5000/route/v1'
+                    }),
+                    routeWhileDragging: true
+                });
+
+                control.addTo(map);
+
+                control.on('routesfound', function(e) {
+                    var routes = e.routes;
+                    var distanceInKm = routes[0].summary.totalDistance/1000;
+                    distanceInKm = distanceInKm.toFixed(3);
+                    $('.distance').text(distanceInKm+' Km');
+                   //alert(routes[0].summary.totalDistance);
+                  // alert(routes[0].summary.totalTime);
+
+                });
+
+                /*map.on('routesfound', function(e) {
+                    var routes = e.routes;
+                    alert('a');
+                });*/
+
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+

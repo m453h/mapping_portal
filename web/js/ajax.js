@@ -3,7 +3,32 @@ $(document).ready(function() {
 
 	handleSelectBox('regionId','districtId',Routing.generate('api_get_districts'));
 	handleSelectBox('districtId','wardId',Routing.generate('api_get_wards'));
-	
+
+    $(".court-data-ajax").select2({
+        ajax: {
+            url: Routing.generate('api_get_courts'),
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    searchTerm: params.term, // search term
+                    page: params.page || 1
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.results,
+                    pagination: {
+                        'more': data.pagination.more
+                    }
+                }
+            },
+            cache: true
+        }
+    });
+
+
 
 
 

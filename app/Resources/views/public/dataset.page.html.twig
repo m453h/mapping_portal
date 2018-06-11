@@ -32,5 +32,32 @@
 
         <div class="space col12"></div>
 
+        {% if listData is defined %}
+            <div class="col12">
+                <div class="section-inner">
+                    <h2 class="lighter">Search Results</h2><br/>
+                    <table class="data-grid">
+                        <th class="number"><span>S/N</span></th>
+                        <th><span>Region</span></th>
+                        <th><span>District</span></th>
+                        <th><span>Ward</span></th>
+                        <th><span>Level</span></th>
+                    {% for item in listData %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ item.region_name }}</td>
+                        <td>{{ item.district_name }}</td>
+                        <td>{{ item.ward_name }}</td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+
+
+        {% endif %}
+
     </div>
 {% endblock %}

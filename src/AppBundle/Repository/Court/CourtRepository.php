@@ -29,7 +29,7 @@ class CourtRepository extends EntityRepository
         first_name,
         surname,
         court_verification_status AS is_verified,
-        court_record_status AS status')
+        court_record_status AS status,court_name')
             ->from('tbl_court_details', 'c')
             ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
             ->join('w','cfg_districts','d','d.district_id=w.district_id')
@@ -46,14 +46,26 @@ class CourtRepository extends EntityRepository
     {
         if (!empty($options['name']))
         {
-            return $queryBuilder->andWhere('lower(first_name) LIKE lower(:name) OR lower(surname) LIKE lower(:name) ')
+             $queryBuilder->andWhere('lower(first_name) LIKE lower(:name) OR lower(surname) LIKE lower(:name) ')
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 
         if (!empty($options['location']))
         {
-            return $queryBuilder->andWhere('lower(region_name) LIKE lower(:location) OR lower(district_name) LIKE lower(:location) OR lower(ward_name) LIKE lower(:location) ')
+             $queryBuilder->andWhere('lower(region_name) LIKE lower(:location) OR lower(district_name) LIKE lower(:location) OR lower(ward_name) LIKE lower(:location) ')
                 ->setParameter('location', '%' . $options['location'] . '%');
+        }
+
+        if (!empty($options['regionId']))
+        {
+             $queryBuilder->andWhere('r.region_id=:regionId')
+                ->setParameter('regionId',$options['regionId']);
+        }
+
+        if (!empty($options['courtLevelId']))
+        {
+             $queryBuilder->andWhere('c.level_id=:courtLevel')
+                ->setParameter('courtLevel',$options['courtLevelId']);
         }
 
         return $queryBuilder;
@@ -69,7 +81,7 @@ class CourtRepository extends EntityRepository
              return $queryBuilder->addOrderBy('description', $sortType);
          }
 
-        return $queryBuilder->addOrderBy('court_id', 'desc');
+        return $queryBuilder->addOrderBy('c.court_id', 'desc');
 
     }
 
@@ -232,7 +244,6 @@ class CourtRepository extends EntityRepository
             ->execute();
     }
 
-
     public function recordCourtLandUseDetails($activityId,$courtId)
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -247,7 +258,6 @@ class CourtRepository extends EntityRepository
             ->setParameter('court_id',$courtId)
             ->execute();
     }
-
 
     /**
      * @param $data
@@ -275,7 +285,6 @@ class CourtRepository extends EntityRepository
             ->execute();
         
     }
-
 
     /**
      * @param $courtId
@@ -308,8 +317,6 @@ class CourtRepository extends EntityRepository
 
         return $data;
     }
-
-
 
     public function findCourtTotalsByRegion()
     {
@@ -374,7 +381,6 @@ class CourtRepository extends EntityRepository
         return $result['total'];
     }
 
-
     public function findCourtTotalByVerificationStatus($status)
     {
 
@@ -399,7 +405,6 @@ class CourtRepository extends EntityRepository
         return $result['total'];
     }
 
-
     public function findEconomicActivitiesByCourtId($courtId)
     {
 
@@ -419,7 +424,6 @@ class CourtRepository extends EntityRepository
         return $result['description'];
     }
 
-
     public function findLandUseByCourtId($courtId)
     {
 
@@ -438,7 +442,6 @@ class CourtRepository extends EntityRepository
 
         return $result['description'];
     }
-
 
     public function findTransportModesByCourtId($courtId)
     {
@@ -491,8 +494,6 @@ class CourtRepository extends EntityRepository
             ->fetchAll();
     }
 
-
-
     public function findCourtTotalPerCategory($verificationStatus)
     {
 
@@ -519,8 +520,6 @@ class CourtRepository extends EntityRepository
             ->fetchAll();
     }
 
-
-
     public function findRegionCourtCasesReport()
     {
 
@@ -544,7 +543,6 @@ class CourtRepository extends EntityRepository
         return $results;
 
     }
-
 
     public function findRegionLeastCasesReport()
     {
@@ -570,7 +568,6 @@ class CourtRepository extends EntityRepository
 
     }
 
-
     public function findEconomicActivityMostCasesReport()
     {
 
@@ -593,8 +590,6 @@ class CourtRepository extends EntityRepository
         return $results;
 
     }
-
-
 
     public function findCourtTotalPerRegionPerWard($fullyCovered,$verificationStatus)
     {
@@ -657,7 +652,6 @@ class CourtRepository extends EntityRepository
         }
 
     }
-
 
     public function findCourtTotalPerRegion($fullyCovered,$verificationStatus)
     {
@@ -724,7 +718,6 @@ class CourtRepository extends EntityRepository
         return $data;
     }
 
-
     public function findCourtTotalDistricts($fullyCovered,$verificationStatus)
     {
 
@@ -790,8 +783,6 @@ class CourtRepository extends EntityRepository
         return $data;
     }
 
-
-
     public function getAllCourts($options = [])
     {
 
@@ -849,5 +840,28 @@ class CourtRepository extends EntityRepository
             ->fetchAll();
     }
 
+    /**
+     * @param $name
+     * @return QueryBuilder
+     *
+     */
+    public function getCourtsByFilter($name)
+    {
+        $options = ['sortBy'=>null,'sortType'=>null,'is'];
+
+        return $this->findAllCourts($options)
+            ->select('c.court_id as "id",UPPER(court_name) as "text"')
+            ->addOrderBy('court_name','ASC')
+            ->addOrderBy('ward_name','ASC')
+            ->andWhere('court_record_status=:status')
+            ->andWhere('(lower(region_name) LIKE lower(:name) or lower(district_name) LIKE lower(:name) or lower(ward_name) LIKE lower(:name) or lower(court_name) LIKE lower(:name))')
+            ->setParameter('status',true)
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('court_name','ASC')
+            ->addOrderBy('region_name','ASC')
+            ->addOrderBy('district_name','ASC')
+            ->addOrderBy('ward_name','ASC');
+
+    }
 
 }

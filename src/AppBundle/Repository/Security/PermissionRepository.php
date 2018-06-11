@@ -37,7 +37,7 @@ class PermissionRepository extends EntityRepository
             ->fetch();
 
         $ACLs = json_decode($results['actions']);
-        //$ACLs = ["view","add","edit","delete"];
+        $ACLs = ["view","add","edit","delete","info"];
         return $ACLs;
     }
 

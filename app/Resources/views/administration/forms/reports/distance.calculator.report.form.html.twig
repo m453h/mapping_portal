@@ -1,0 +1,27 @@
+<div class="distance-search-form">
+{{ form_start(form) }}
+<div class="col5">
+    <h3 class="normal">Starting Point</h3>
+    <div class="col12">{{ form_widget(form.fromCourt) }}</div>
+</div>
+<div class="col5">
+    <h3 class="normal">End Point</h3>
+    <div class="col12">{{ form_widget(form.toCourt) }}</div>
+</div>
+<div class="col2 last">
+    <div class="space-30"></div>
+    <button type="submit" class="btn btn-primary" formnovalidate>Calculate Distance</button>
+</div>
+{{ form_end(form) }}
+</div>
+
+{% if data.fromCourt!=null and data.toCourt!=null %}
+<div class="distance-summary col12">
+    <p class="large">Distance from <span class="bold">{{ data.fromCourt.courtName|upper }}</span> in <i>({{ data.fromCourt.ward.wardName }},
+            {{ data.fromCourt.ward.district.districtName }}, {{ data.fromCourt.ward.district.region.regionName }})</i>
+        to  <span class="bold">{{ data.toCourt.courtName }}</span> in <i>({{ data.toCourt.ward.wardName }},
+            {{ data.toCourt.ward.district.districtName }}, {{ data.toCourt.ward.district.region.regionName }})</i>
+        is approximately <span class="distance"></span>
+    </p>
+</div>
+{% endif %}
