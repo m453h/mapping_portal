@@ -68,7 +68,7 @@ Location:
 Courts:
     Court:
       roleClass: AppBundle\Controller\Administration\Court\CourtController
-      actions: ["view","add","edit","delete","info"]
+      actions: ["view","add","edit","delete","info","approve","decline"]
       key: court
 
 Data-Collectors:
