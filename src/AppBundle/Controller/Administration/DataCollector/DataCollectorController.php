@@ -385,7 +385,7 @@ class DataCollectorController extends Controller
 
     
     /**
-     * @Route("/administration/api/login", name="api_login")
+     * @Route("/api/login", name="api_login")
      * @param Request $request
      * @return Response
      *
@@ -466,7 +466,7 @@ class DataCollectorController extends Controller
 
 
     /**
-     * @Route("/administration/api/verifyToken", name="api_verify_token")
+     * @Route("/api/verifyToken", name="api_verify_token")
      * @param Request $request
      * @return Response
      *
@@ -496,7 +496,7 @@ class DataCollectorController extends Controller
 
 
     /**
-     * @Route("/administration/api/getInitialDataLoad", name="api_initial_data_load")
+     * @Route("/api/getInitialDataLoad", name="api_initial_data_load")
      * @return Response
      *
      */
@@ -569,7 +569,7 @@ class DataCollectorController extends Controller
 
 
     /**
-     * @Route("/administration/api/verifyDownloadVersion", name="api_download_version")
+     * @Route("/api/verifyDownloadVersion", name="api_download_version")
      * @return Response
      *
      */
