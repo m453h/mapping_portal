@@ -526,7 +526,7 @@ class DataCollectorController extends Controller
             ->execute()
             ->fetchAll();
 
-        $zones = $em->getRepository('AppBundle:Configuration\Zone')
+        $zones = $em->getRepository('AppBundle:Location\Zone')
             ->findAllZones(['sortBy'=>'zone_name','sortType'=>'ASC'])
             ->execute()
             ->fetchAll();
