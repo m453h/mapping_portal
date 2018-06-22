@@ -347,7 +347,7 @@ class CourtController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('AppBundle:DataCollector\User\User')
+            $user = $em->getRepository('AppBundle:DataCollector\User')
                 ->findOneBy(['token' => $data['authToken']]);
 
             $court = new Court();
