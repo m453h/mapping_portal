@@ -85,5 +85,10 @@ Data-Collectors:
 Portal-Users:
     User-Defined-Roles:
       roleClass: AppBundle\Controller\Administration\PortalUsers\RoleController
-      actions: ["view","add","edit","delete","info"]
+      actions: ["view","add","edit","delete"]
       key: user-defined-roles
+
+    User-Accounts:
+      roleClass: AppBundle\Controller\Administration\PortalUsers\UserController
+      actions: ["view","add","edit","delete","info"]
+      key: user-accounts

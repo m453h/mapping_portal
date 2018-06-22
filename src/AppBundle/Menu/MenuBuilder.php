@@ -111,7 +111,7 @@ class MenuBuilder
             ->addChild('Manage Regions Assigned', array('route' => 'data_collector_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
             ->getParent()
             ->getParent()
-            ->addChild('Manage Portal Users', array('uri' => 'app_users_list', 'extras' => $this->getCrudLinks('app_user')))->getParent()
+            ->addChild('Manage Portal Users', array('route' => 'portal_users_list', 'extras' => $this->getCrudLinks('portal_users')))->getParent()
             ->addChild('Manage Portal User Roles', array('route' => 'defined_roles_list', 'extras' => $this->getCrudLinks('app_user')))
             ->getParent();
 

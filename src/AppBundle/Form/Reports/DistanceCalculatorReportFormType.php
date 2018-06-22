@@ -29,9 +29,6 @@ class DistanceCalculatorReportFormType extends  AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($builder->getData());
-
-
         $builder
             ->add('fromCourt', ChoiceType::class, array(
                 'placeholder' => 'Type a court name, region or district or ward name',

@@ -4,7 +4,11 @@
 namespace AppBundle\Form\Accounts;
 
 
+use AppBundle\Entity\UserAccounts\Role;
 use AppBundle\Entity\UserAccounts\User;
+use AppBundle\Entity\UserAccounts\UserRole;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,27 +17,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserFormType extends  AbstractType
 {
 
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    public function __construct(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
-
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-        ->add('username',null,['required'=>true,'mapped'=>true])
-        ->add('givenNames',null,['required'=>true,'mapped'=>true])
-        ->add('surname',null,['required'=>true,'mapped'=>true])
-        ->add('mobilePhone',null,['required'=>false])
-        ->add('email',null,['required'=>false])
-        ->add('staff',StaffFormType::class);
-        
+            ->add('givenNames',null,['required'=>true,'mapped'=>true])
+            ->add('surname',null,['required'=>true,'mapped'=>true])
+            ->add('mobilePhone',null,['required'=>false])
+            ->add('email',null,['required'=>false]);
+
        
 
     }

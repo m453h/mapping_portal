@@ -12,17 +12,18 @@ class UserRepository extends EntityRepository
      * @param array $options
      * @return QueryBuilder
      */
-    public function findAllStudents($options = [])
+    public function findAllUsers($options = [])
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('u.id,username,full_name,sex,mobile_phone,account_status')
+        $queryBuilder->select("id,username,full_name,mobile_phone,account_status,
+        array_agg(role_name) AS roles")
             ->from('user_accounts', 'u')
-            ->join('u', 'tbl_students', 's', 's.student_id=u.student_id')
-            ->andWhere('u.student_id IS NOT NULL');
-
+            ->leftJoin('u','user_roles','ur','ur.user_id=u.id')
+            ->leftJoin('ur','user_defined_roles','r','ur.role_id=r.role_id')
+            ->groupBy('u.id');
         $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
         $queryBuilder = $this->setSortOptions($options, $queryBuilder);
 
@@ -45,96 +46,98 @@ class UserRepository extends EntityRepository
 
         $options['sortType'] == 'desc' ? $sortType = 'desc' : $sortType = 'asc';
 
-         if ($options['sortBy'] === 'username')
-         {
-             return $queryBuilder->addOrderBy('u.username', $sortType);
-         }
+        if ($options['sortBy'] === 'username')
+        {
+            return $queryBuilder->addOrderBy('u.username', $sortType);
+        }
 
         return $queryBuilder->addOrderBy('u.id', 'desc');
 
     }
 
-
-    public function countAllStudents(QueryBuilder $queryBuilder)
+    public function countAllUsers(QueryBuilder $queryBuilder)
     {
         return function ($queryBuilder) {
             $queryBuilder->select('COUNT(DISTINCT id) AS total_results')
+                ->resetQueryPart('orderBy')
+                ->resetQueryPart('groupBy')
                 ->setMaxResults(1);
         };
     }
 
-    /**
-     * @param $Id
-     * @return QueryBuilder
-     */
-    public function findStudentById($Id)
-    {
 
+    public function getAssignedRolesToUser($userId)
+    {
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $results = $queryBuilder->select('full_name')
-            ->from('amis_portal_users', 'u')
-            ->where('u.id = :Id')
-            ->setParameter('Id', $Id)
-            ->execute()
-            ->fetch();
 
-        return $results['full_name'];
-    }
+        $results = $queryBuilder->select('role_id')
+            ->from('user_roles', 'r')
+            ->andWhere('user_id=:userId')
+            ->setParameter('userId',$userId);
 
-
-    /**
-     * @param $Id
-     * @return QueryBuilder
-     */
-    public function findStaffByDepartment($Id)
-    {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $queryBuilder = new QueryBuilder($conn);
-        return $queryBuilder->select('id as "value",full_name as "name"')
-            ->from('user_accounts', 'u')
-            ->join('u','user_roles','r','u.id=r.user_id')
-            ->join('r','user_defined_roles','dr','dr.role_id=r.role_id')
-            ->where('department_id = :Id')
-            ->andWhere('role_name=:name')
-            ->setParameter('name','Academic Staff')
-            ->setParameter('Id',$Id)
-            ->execute()
+        $results = $results->execute()
             ->fetchAll();
 
+        $myArray = [];
+
+        foreach ($results as $data)
+        {
+            array_push($myArray,$data['role_id']);
+        }
+
+        return $myArray;
     }
 
-
-
-    /**
-     * @param array $options
-     * @return QueryBuilder
-     */
-    public function findAllStaff($options = [])
+    public function getAvailableRoles()
     {
-
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('id,username,full_name,mobile_phone,account_status')
-            ->from('user_accounts', 'u')
-            ->andWhere('u.student_id IS null');
-        $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
-        $queryBuilder = $this->setSortOptions($options, $queryBuilder);
 
-        return $queryBuilder;
+        $queryBuilder->select('r.role_id AS "value", r.role_name AS "name"')
+            ->from('user_defined_roles', 'r');
+
+        $results = $queryBuilder ->execute()
+            ->fetchAll();
+
+        $myArray = [];
+
+        foreach ($results as $data)
+        {
+            $myArray[$data['name']]=$data['value'];
+        }
+
+        return $myArray;
     }
 
-    public function countAllStaff(QueryBuilder $queryBuilder)
+
+    public function deleteUserRole($Id)
     {
-        return function ($queryBuilder) {
-            $queryBuilder->select('COUNT(DISTINCT id) AS total_results')
-                ->setMaxResults(1);
-        };
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $queryBuilder->delete('user_roles')
+            ->andWhere('user_id=?')
+            ->setParameter(0,$Id);
+        $queryBuilder->execute();
     }
-    
+
+    public function recordUserRole($roleId,$userId)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $queryBuilder->insert('user_roles')
+            ->setValue('role_id','?')
+            ->setValue('user_id','?')
+            ->setParameter(0,$roleId)
+            ->setParameter(1,$userId);
+        $queryBuilder->execute();
+    }
+
+
+
 
 }
