@@ -301,7 +301,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/administration/api/submitCourtForm", name="api_court_form")
+     * @Route("/api/submitCourtForm", name="api_court_form")
      * @param Request $request
      * @return Response
      *
