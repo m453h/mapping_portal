@@ -7,6 +7,7 @@ use AppBundle\Entity\Location\District;
 use AppBundle\Entity\Location\Region;
 use AppBundle\Form\Location\DistrictFormType;
 use AppBundle\Form\Location\RegionFormType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -169,9 +170,15 @@ class DistrictController extends Controller
 
         if($district instanceof District)
         {
-            $em->remove($district);
-            $em->flush();
-            $this->addFlash('success', 'District successfully removed !');
+            try {
+                $em->remove($district);
+                $em->flush();
+                $this->addFlash('success', 'District successfully removed !');
+            }
+            catch (ForeignKeyConstraintViolationException $e)
+            {
+                $this->addFlash('error', 'District can not be removed, make sure there are no child data elements that depend on this record !');
+            }
         }
         else
         {
@@ -187,7 +194,7 @@ class DistrictController extends Controller
     /**
      * @Route("/administration/api/getDistricts",options={"expose"=true}, name="api_get_districts")
      */
-    public function getModulesAction()
+    public function getDistrictsAction()
     {
         $em = $this->getDoctrine()->getManager();
 

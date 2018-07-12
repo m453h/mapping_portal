@@ -7,6 +7,7 @@ use AppBundle\Entity\Location\Region;
 use AppBundle\Entity\Location\Ward;
 use AppBundle\Form\Location\RegionFormType;
 use AppBundle\Form\Location\WardFormType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -171,9 +172,15 @@ class WardController extends Controller
 
         if($ward instanceof Ward)
         {
-            $em->remove($ward);
-            $em->flush();
-            $this->addFlash('success', 'Ward successfully removed !');
+            try {
+                $em->remove($ward);
+                $em->flush();
+                $this->addFlash('success', 'Ward successfully removed !');
+            }
+            catch (ForeignKeyConstraintViolationException $e)
+            {
+                $this->addFlash('warning', 'Ward can not be removed, make sure there are no child data elements that depend on this record !');
+            }
         }
         else
         {

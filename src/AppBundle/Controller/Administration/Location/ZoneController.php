@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Administration\Location;
 
 use AppBundle\Entity\Location\Zone;
 use AppBundle\Form\Location\ZoneFormType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -166,9 +167,15 @@ class ZoneController extends Controller
 
         if($data instanceof Zone)
         {
-            $em->remove($data);
-            $em->flush();
-            $this->addFlash('success', 'Zone successfully removed !');
+            try {
+                $em->remove($data);
+                $em->flush();
+                $this->addFlash('success', 'Zone successfully removed !');
+            }
+            catch (ForeignKeyConstraintViolationException $e)
+            {
+                $this->addFlash('error', 'Zone can not be removed, make sure there are no child data elements that depend on this record !');
+            }
         }
         else
         {

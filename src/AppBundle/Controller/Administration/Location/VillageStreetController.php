@@ -9,6 +9,7 @@ use AppBundle\Entity\Location\Ward;
 use AppBundle\Form\Location\RegionFormType;
 use AppBundle\Form\Location\VillageStreetFormType;
 use AppBundle\Form\Location\WardFormType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -174,9 +175,16 @@ class VillageStreetController extends Controller
 
         if($villageStreet instanceof VillageStreet)
         {
-            $em->remove($villageStreet);
-            $em->flush();
-            $this->addFlash('success', 'Village/Street successfully removed !');
+            try
+            {
+                $em->remove($villageStreet);
+                $em->flush();
+                $this->addFlash('success', 'Village/Street successfully removed !');
+            }
+            catch (ForeignKeyConstraintViolationException $e)
+            {
+                $this->addFlash('warning', 'Village/Street can not be removed, make sure there are no child data elements that depend on this record !');
+            }
         }
         else
         {

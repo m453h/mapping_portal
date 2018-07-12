@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Administration\Location;
 use AppBundle\Entity\DataCollector\User;
 use AppBundle\Entity\Location\Region;
 use AppBundle\Form\Location\RegionFormType;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -167,9 +168,15 @@ class RegionController extends Controller
 
         if($region instanceof Region)
         {
-            $em->remove($region);
-            $em->flush();
-            $this->addFlash('success', 'Region successfully removed !');
+            try {
+                $em->remove($region);
+                $em->flush();
+                $this->addFlash('success', 'Region successfully removed !');
+            }
+            catch (ForeignKeyConstraintViolationException $e)
+            {
+                $this->addFlash('error', 'Region can not be removed, make sure there are no child data elements that depend on this record !');
+            }
         }
         else
         {
