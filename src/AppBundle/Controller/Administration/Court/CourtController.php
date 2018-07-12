@@ -296,12 +296,8 @@ class CourtController extends Controller
 
 
 
-
-
-
-
     /**
-     * @Route("/api/submitCourtForm", name="api_court_form")
+     * @Route("/administration/api/submitCourtForm", name="api_court_form")
      * @param Request $request
      * @return Response
      *
@@ -347,7 +343,7 @@ class CourtController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('AppBundle:DataCollector\User')
+            $user = $em->getRepository('AppBundle:AppUsers\User')
                 ->findOneBy(['token' => $data['authToken']]);
 
             $court = new Court();
@@ -674,7 +670,7 @@ class CourtController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function getModulesAction(Request $request)
+    public function getCourtsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 

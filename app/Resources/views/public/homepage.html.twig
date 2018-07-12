@@ -7,11 +7,11 @@
                 <div class='container'>
                     <h2>THE JUDICIARY, UNITED REPUBLIC OF TANZANIA</h2>
                     <h1>OPEN DATA PORTAL</h1>
-                    <form class='search-form user-form'>
-                        <input type='text' name='search' value='' placeholder='Search datasets... '/>
+                    <form class='search-form user-form' action="{{path('public_search_results')}}" method="GET">
+                        <input type='text' name='q' value='' placeholder='Search for a court... '/>
                         <div class='space-20 col12'></div>
                         <div class='col3'>
-                            <input type='submit' name='search' class="btn btn-primary" value='Search'  />
+                            <input type='submit' class="btn btn-primary" value='Search'  />
                         </div>
                     </form>
 

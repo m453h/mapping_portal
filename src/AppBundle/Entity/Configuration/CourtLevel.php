@@ -26,6 +26,11 @@ class CourtLevel
     private $description;
 
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hierarchy;
+
 
     
     /**
@@ -60,5 +65,20 @@ class CourtLevel
         $this->levelId = $levelId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHierarchy()
+    {
+        return $this->hierarchy;
+    }
+
+    /**
+     * @param mixed $hierarchy
+     */
+    public function setHierarchy($hierarchy)
+    {
+        $this->hierarchy = $hierarchy;
+    }
 
 }

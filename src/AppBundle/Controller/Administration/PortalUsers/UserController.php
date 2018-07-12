@@ -184,8 +184,11 @@ class UserController extends Controller
             $info->addTextElement('Account Status',$status);
             $info->addTextElement('Login Tries',$data->getLoginTries());
 
-            $info->setLink('Activate Account','user_account_un_block','activate-user',$Id);
-            $info->setLink('Block Account','user_account_block','block-user',$Id);
+            if($data->getAccountStatus()=='A')
+                $info->setLink('Block Account','user_account_block','block-user',$Id);
+            else
+                $info->setLink('Activate Account','user_account_un_block','activate-user',$Id);
+
             $info->setLink('Assign Roles','user_assign_role','module',$Id);
             $info->setLink('Reset Password','user_password_reset','password',$Id);
 

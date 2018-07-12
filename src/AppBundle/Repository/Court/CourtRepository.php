@@ -22,6 +22,7 @@ class CourtRepository extends EntityRepository
         $queryBuilder->select('
         court_id,
         time_created,
+        court_name,
         description,
         region_name,
         district_name,
@@ -66,6 +67,12 @@ class CourtRepository extends EntityRepository
         {
              $queryBuilder->andWhere('c.level_id=:courtLevel')
                 ->setParameter('courtLevel',$options['courtLevelId']);
+        }
+
+        if (!empty($options['locationWithName']))
+        {
+            $queryBuilder->andWhere('lower(region_name) LIKE lower(:location) OR lower(district_name) LIKE lower(:location) OR lower(ward_name) LIKE lower(:location) OR lower(court_name) LIKE lower(:location) ')
+                ->setParameter('location', '%' . $options['locationWithName'] . '%');
         }
 
         return $queryBuilder;
@@ -854,7 +861,7 @@ class CourtRepository extends EntityRepository
             ->addOrderBy('court_name','ASC')
             ->addOrderBy('ward_name','ASC')
             ->andWhere('court_record_status=:status')
-            ->andWhere('(lower(region_name) LIKE lower(:name) or lower(district_name) LIKE lower(:name) or lower(ward_name) LIKE lower(:name) or lower(court_name) LIKE lower(:name))')
+            ->andWhere('(court_name LIKE lower(:name))')
             ->setParameter('status',true)
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('court_name','ASC')

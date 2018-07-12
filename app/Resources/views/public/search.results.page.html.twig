@@ -1,0 +1,39 @@
+{% extends 'public/base.html.twig' %}
+
+{% block content %}
+
+    <div class="page-title">
+            <div class="section-inner">
+                <h1>Search results</h1>
+            </div>
+    </div>
+
+    <div class="white-space">
+        <div class="space-20 col12"></div>
+
+        <div class="section-inner">
+            <p><i>A total of {{ total }} results were found</i></p>
+            <ul class="search-results">
+                {% if results|length>0 %}
+                    {% for result in results %}
+                    <li>
+                        <h2><a href="{{ path('public_court_details',{'courtId':result.court_id}) }}">{{ result.court_name }}</a></h2>
+                        <p><span class="icon-spacer-right"><i class="fa fa-map-marker" aria-hidden="true"></i></span>This court is located at {{ result.region_name }} region, {{ result.district_name }} district, {{ result.ward_name }} ward </p>
+                        <p><span class="icon-spacer-right"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>Court Level: {{ result.description }}</p>
+                        <p><a href="#">View more details</a></p>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <h2>No results found</h2>
+                    <p>We are unable to find results for your searched court</p>
+                {% endif %}
+            </ul>
+            <div class="pagination-list">
+                {{ pagerfanta(records,'twitter_bootstrap3_translated') }}
+            </div>
+        </div>
+
+        <div class="space col12"></div>
+
+    </div>
+{% endblock %}

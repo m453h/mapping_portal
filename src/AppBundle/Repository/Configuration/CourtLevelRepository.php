@@ -19,7 +19,8 @@ class CourtLevelRepository extends EntityRepository
 
         $queryBuilder = new QueryBuilder($conn);
         $queryBuilder->select('level_id,description')
-            ->from('cfg_court_levels', 's');
+            ->from('cfg_court_levels', 's')
+            ->addOrderBy('hierarchy','ASC');
         $queryBuilder = $this->setFilterOptions($options, $queryBuilder);
         $queryBuilder = $this->setSortOptions($options, $queryBuilder);
 

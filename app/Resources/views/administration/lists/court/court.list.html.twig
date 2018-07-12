@@ -1,6 +1,6 @@
 <td>{{ counter }}</td>
 <td>{% if record.time_created!=null %}{{ record.time_created|date("m/d/Y") }}{% else %}-{% endif %}</td>
-<td>{{ record.first_name|upper }} {{ record.surname|upper }}</td>
+<td>{% if record.first_name is not null and record.surname is not null %}{{ record.first_name|upper }} {{ record.surname|upper }}{% else %}<span class="label red" title="Data has been submitted without a proper user identity">Suspect Data</span>{% endif %}</td>
 <td>{{ record.description }}</td>
 <td>{{ record.region_name }} - {{ record.district_name }} - {{ record.ward_name }}</td>
 <td>{% if record.status == "1" %}<span class="label green">Valid Data</span>{% elseif record.status == "0"%}<span class="label red">Test Data</span>{% endif %}</td>

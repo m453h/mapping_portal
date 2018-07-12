@@ -52,7 +52,7 @@ $(document).ready(function() {
 			}
 		];
 
-		dialog('Action not allowed',"Are you sure you want to <a href='#'>delete</a> this record !",buttons);
+		dialog('Confirm Action',"Are you sure you want to <a href='#'>delete</a> this record !",buttons);
 
 	});
 

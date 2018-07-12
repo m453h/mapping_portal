@@ -199,7 +199,7 @@ div.header {
 	left:0;
 	background:#FFFFFF;
 	color:#7F96AC;
-	z-index: 9999;
+	z-index: 99;
 }
 
 .header:after {
@@ -364,6 +364,10 @@ textarea:focus, input[type="text"]:focus, input[type="search"]:focus, input[type
 .user-form input[type="radio"], .user-form input[type="checkbox"]{
 	width:auto;
 	height:auto;
+}
+
+.ms-container{
+	width:100%;
 }
 
 .icheckbox_square-blue{

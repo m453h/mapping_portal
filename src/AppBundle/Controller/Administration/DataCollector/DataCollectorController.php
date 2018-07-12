@@ -364,8 +364,11 @@ class DataCollectorController extends Controller
             $info->addTextElement('Account Status',$status);
             $info->addTextElement('Login Tries',$data->getLoginTries());
 
-            $info->setLink('Activate Account','data_collector_unblock','activate-user',$Id);
-            $info->setLink('Block Account','data_collector_block','block-user',$Id);
+            if($data->getAccountStatus()=='A')
+                $info->setLink('Block Account','data_collector_block','block-user',$Id);
+            else
+                $info->setLink('Activate Account','data_collector_unblock','activate-user',$Id);
+
             $info->setLink('Reset Password','data_collector_password_reset','password',$Id);
             $info->setLink('Assign Regions','data_collector_region_list','module',$Id);
 
@@ -394,8 +397,10 @@ class DataCollectorController extends Controller
     {
         $content =  $request->getContent();
 
+       // $content = '{"username":"0654061261","password":"password"}';
+
         $data = json_decode($content,true);
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $data['status'] = 'FAIL-A';
@@ -447,13 +452,14 @@ class DataCollectorController extends Controller
                 }
                 else
                 {
-                    $data['status'] = 'FAIL-B';
+                    $data['status'] = 'FAIL-A';
                 }
 
                 $appUser->setToken($data['token']);
                 $em->persist($appUser);
                 $em->flush();
             }
+
         }
 
 

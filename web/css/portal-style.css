@@ -370,11 +370,6 @@ div.intro{
     border-bottom: #fff;
 }
 
-div.background-overlay{
-	background:url('../images/backgrounds/grid-70.png');
-	height:350px;
-	background:red;
-}
 
 div.intro-caption{
     color:#FFF;
@@ -508,15 +503,67 @@ div.page-title h1{
     padding-top:170px;
 }
 
+ul.search-results{
+	list-style: none;
+}
 
 
+.search-results a{
+	color: #176289;
+}
 
+.search-results h2{
+	font-weight: normal;
+	margin-bottom:10px;
+}
 
+.search-results a:hover{
+	text-decoration: underline;
+}
 
+.search-results p{
+	font-size: 1.2em;
+}
 
+ul.search-results li{
+	margin-bottom: 50px;
+}
 
+ul.search-results{
+	padding:0;
+	margin:0;
+}
 
+span.icon-spacer-left{
+	padding-left:5px;
+}
 
+span.icon-spacer-right{
+	padding-right:10px;
+}
+ul.list-styled{
+    margin:0;
+    padding: 0;
+}
+ul.list-styled li{
+    font-size:1.0em;
+    padding:15px 0;
+    cursor:default;
+    list-style: none;
+    color:#666666;
+    border-bottom: 1px solid #F0F4F7;
+}
+
+ul.list-styled li:hover{
+    background:#F6F9FB;
+}
+
+.align-left div.divider{
+    margin:15px 0;
+}
+span.title{
+    font-weight:bolder;
+}
 
 
 
