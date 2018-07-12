@@ -2,12 +2,14 @@
 
 
 namespace AppBundle\Entity\Location;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Form\Validator\Constraints as CourtMappingAssert;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Configuration\ZoneRepository")
- * @ORM\Table(name="cfg_zones")
+ * @ORM\Table(name="cfg_zones",uniqueConstraints={@ORM\UniqueConstraint(name="unique_zone_name", columns={"zone_name"})})
  */
 class Zone
 {
@@ -21,6 +23,8 @@ class Zone
 
 
     /**
+     * @Assert\NotBlank()
+     * @CourtMappingAssert\IsUniqueZone()
      * @ORM\Column(type="string", nullable=true)
      */
     private $zoneName;

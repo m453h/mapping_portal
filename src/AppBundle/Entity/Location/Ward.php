@@ -2,6 +2,8 @@
 
 
 namespace AppBundle\Entity\Location;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Form\Validator\Constraints as CourtMappingAssert;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,12 +24,15 @@ class Ward
 
 
     /**
+     * @CourtMappingAssert\IsUniqueWard()
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $wardName;
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $wardCode;
@@ -35,6 +40,7 @@ class Ward
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location\District")
      * @ORM\JoinColumn(name="district_id", referencedColumnName="district_id",nullable=false)
      */

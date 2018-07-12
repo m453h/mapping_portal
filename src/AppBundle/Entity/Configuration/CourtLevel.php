@@ -5,6 +5,8 @@ namespace AppBundle\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Configuration\CourtLevelRepository")
  * @ORM\Table(name="cfg_court_levels")
@@ -21,12 +23,14 @@ class CourtLevel
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer", nullable=true)
      */
     private $hierarchy;

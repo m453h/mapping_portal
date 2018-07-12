@@ -4,6 +4,7 @@
 namespace AppBundle\Entity\Configuration;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Configuration\EconomicActivityRepository")
@@ -21,6 +22,7 @@ class EconomicActivity
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $description;

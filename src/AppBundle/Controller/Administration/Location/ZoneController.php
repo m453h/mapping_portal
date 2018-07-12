@@ -86,6 +86,7 @@ class ZoneController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
+
             $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($data);

@@ -1,0 +1,43 @@
+<?php
+
+namespace AppBundle\Form\Validator\Constraints;
+
+use AppBundle\Entity\Location\Region;
+use AppBundle\Entity\Location\Zone;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+
+class IsUniqueVillageStreetValidator extends ConstraintValidator
+{
+
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    public function  __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    public function validate($value, Constraint $constraint)
+    {
+        $data = $this->context->getRoot()->getData();
+
+        $areaName = $data->getAreaName();
+
+        if($areaName!=null)
+        {
+            $total = $this->em->getRepository('AppBundle:Location\VillageStreet')
+                ->findTotalByName($areaName);
+
+            if ($total>0) {
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ string }}', 'This village/street already exists')
+                    ->addViolation();
+            }
+        }
+
+    }
+}

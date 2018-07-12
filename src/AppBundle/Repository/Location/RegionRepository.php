@@ -9,6 +9,24 @@ use Doctrine\ORM\EntityRepository;
 class RegionRepository extends EntityRepository
 {
 
+
+    public function findTotalByName($name)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $queryBuilder->select('COUNT(*) AS total')
+            ->from('cfg_regions', 'r')
+            ->andWhere('lower(r.region_name) LIKE lower(:name)')
+            ->setParameter('name', strtolower($name));
+
+        $result = $queryBuilder->execute()
+            ->fetch();
+
+        return $result['total'];
+    }
+
     /**
      * @param array $options
      * @return QueryBuilder

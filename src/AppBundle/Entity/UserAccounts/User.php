@@ -2,12 +2,12 @@
 
 namespace AppBundle\Entity\UserAccounts;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
 
 
 
@@ -26,6 +26,7 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     private $id;
 
     /**
+     *@Assert\NotBlank()
      * @ORM\Column(type="string",length=25,unique=true)
      */
     private $username;
@@ -49,11 +50,16 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     private $accountStatus;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=true)
      */
     private $mobilePhone;
 
     /**
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     *)
      * @ORM\Column(type="string",nullable=true)
      */
     private $email;
@@ -88,9 +94,15 @@ class User implements  UserInterface,EquatableInterface,\Serializable
      * @ORM\Column(type="string", nullable=true)
      */
     private $authenticationToken;
-    
+
+    /**
+     *@Assert\NotBlank()
+     */
     private $givenNames;
-    
+
+    /**
+     * @Assert\NotBlank()
+     */
     private $surname;
 
     public function __construct()

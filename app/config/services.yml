@@ -141,3 +141,34 @@ services:
                 autowire: true
                 tags:
                     - { name: form.type }
+
+
+    app.validator.zone:
+                class: AppBundle\Form\Validator\Constraints\IsUniqueZoneValidator
+                autowire: true
+                tags:
+                    - { name: validator.constraint_validator, alias: app.validator.zone }
+
+    app.validator.region:
+                class: AppBundle\Form\Validator\Constraints\IsUniqueRegionValidator
+                autowire: true
+                tags:
+                    - { name: validator.constraint_validator, alias: app.validator.region }
+
+    app.validator.district:
+                class: AppBundle\Form\Validator\Constraints\IsUniqueDistrictValidator
+                autowire: true
+                tags:
+                    - { name: validator.constraint_validator, alias: app.validator.district }
+
+    app.validator.ward:
+                class: AppBundle\Form\Validator\Constraints\IsUniqueWardValidator
+                autowire: true
+                tags:
+                    - { name: validator.constraint_validator, alias: app.validator.ward }
+
+    app.validator.village.street:
+                class: AppBundle\Form\Validator\Constraints\IsUniqueVillageStreetValidator
+                autowire: true
+                tags:
+                    - { name: validator.constraint_validator, alias: app.validator.village_street }

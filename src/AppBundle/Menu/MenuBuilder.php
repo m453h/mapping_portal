@@ -113,8 +113,8 @@ class MenuBuilder
             ->getParent()
             ->addChild('Manage Portal Users', array('route' => 'portal_users_list', 'extras' => $this->getCrudLinks('portal_users')))
             ->addChild('Portal users details', array('route' => 'portal_users_info'))->setDisplay(false)->getParent()
-            ->addChild('Portal users role assignment', array('route' => 'user_assign_role'))->setDisplay(false)->getParent()
-            ->addChild('Manage Portal User Roles', array('route' => 'defined_roles_list'))->setDisplay(false)->getParent()
+            ->addChild('Portal users role assignment', array('route' => 'user_assign_role'))->setDisplay(false)->getParent()->getParent()
+            ->addChild('Manage Portal User Roles', array('route' => 'defined_roles_list'))->setDisplay(true)->getParent()
             ->addChild('Reset user password', array('route' => 'user_password_reset'))->setDisplay(false)
             ->getParent();
 

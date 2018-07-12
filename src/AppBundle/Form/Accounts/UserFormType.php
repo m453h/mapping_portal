@@ -10,6 +10,7 @@ use AppBundle\Entity\UserAccounts\UserRole;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +25,7 @@ class UserFormType extends  AbstractType
             ->add('givenNames',null,['required'=>true,'mapped'=>true])
             ->add('surname',null,['required'=>true,'mapped'=>true])
             ->add('mobilePhone',null,['required'=>false])
-            ->add('email',null,['required'=>false]);
+            ->add('email',TextType::class,['required'=>false]);
 
        
 

@@ -2,12 +2,15 @@
 
 
 namespace AppBundle\Entity\Location;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Form\Validator\Constraints as CourtMappingAssert;
+
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Location\RegionRepository")
- * @ORM\Table(name="cfg_regions")
+ * @ORM\Table(name="cfg_regions",uniqueConstraints={@ORM\UniqueConstraint(name="unique_region_name", columns={"region_name"})})
  */
 class Region
 {
@@ -21,6 +24,8 @@ class Region
 
 
     /**
+     * @Assert\NotBlank()
+     * @CourtMappingAssert\IsUniqueRegion()
      * @ORM\Column(type="string", nullable=true)
      */
     private $regionName;
@@ -38,6 +43,7 @@ class Region
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location\Zone")
      * @ORM\JoinColumn(name="zone_id", referencedColumnName="zone_id",nullable=true)
      */

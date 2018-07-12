@@ -4,6 +4,9 @@
 namespace AppBundle\Entity\Location;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Form\Validator\Constraints as CourtMappingAssert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,12 +25,15 @@ class District
 
 
     /**
+     * @Assert\NotBlank()
+     * @CourtMappingAssert\IsUniqueDistrict()
      * @ORM\Column(type="string", nullable=true)
      */
     private $districtName;
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $districtCode;
@@ -35,6 +41,7 @@ class District
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location\Region")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="region_id",nullable=false)
      */

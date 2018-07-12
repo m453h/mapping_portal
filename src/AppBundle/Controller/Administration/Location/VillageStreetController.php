@@ -73,7 +73,7 @@ class VillageStreetController extends Controller
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Villages/Streets',
-                'gridTemplate'=>'lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/base.list.html.twig'
         ));
     }
 
