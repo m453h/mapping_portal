@@ -96,12 +96,16 @@ class VillageStreetController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $ward = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ward);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Village street successfully created');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\VILLAGE_STREET','ADD',null,$data);
+
 
             return $this->redirectToRoute('village_street_list');
         }
@@ -135,13 +139,16 @@ class VillageStreetController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $villageStreet = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($villageStreet);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success', 'Village/Street successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\VILLAGE_STREET','EDIT',$villageStreet,$data);
 
             return $this->redirectToRoute('village_street_list');
         }
@@ -180,6 +187,9 @@ class VillageStreetController extends Controller
                 $em->remove($villageStreet);
                 $em->flush();
                 $this->addFlash('success', 'Village/Street successfully removed !');
+
+                $this->get('app.helper.audit_trail_logger')
+                    ->logUserAction('LOCATION\VILLAGE_STREET','DELETE',$villageStreet,null);
             }
             catch (ForeignKeyConstraintViolationException $e)
             {

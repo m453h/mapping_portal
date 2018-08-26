@@ -99,6 +99,9 @@ class DistrictController extends Controller
 
             $this->addFlash('success','District successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\DISTRICT','ADD',null,$district);
+
             return $this->redirectToRoute('district_list');
         }
 
@@ -130,13 +133,16 @@ class DistrictController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $district = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($district);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success', 'District successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\DISTRICT','EDIT',$district,$data);
 
             return $this->redirectToRoute('district_list');
         }
@@ -174,6 +180,9 @@ class DistrictController extends Controller
                 $em->remove($district);
                 $em->flush();
                 $this->addFlash('success', 'District successfully removed !');
+
+                $this->get('app.helper.audit_trail_logger')
+                    ->logUserAction('LOCATION\DISTRICT','DELETE',$district,null);
             }
             catch (ForeignKeyConstraintViolationException $e)
             {

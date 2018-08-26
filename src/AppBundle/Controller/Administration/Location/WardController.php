@@ -100,6 +100,9 @@ class WardController extends Controller
 
             $this->addFlash('success','Ward successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\WARD','ADD',null,$ward);
+
             return $this->redirectToRoute('ward_list');
         }
 
@@ -132,13 +135,17 @@ class WardController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $ward = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($ward);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success', 'Ward successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\WARD','EDIT',$ward,$data);
+
 
             return $this->redirectToRoute('ward_list');
         }
@@ -176,6 +183,9 @@ class WardController extends Controller
                 $em->remove($ward);
                 $em->flush();
                 $this->addFlash('success', 'Ward successfully removed !');
+
+                $this->get('app.helper.audit_trail_logger')
+                    ->logUserAction('LOCATION\WARD','DELETE',$ward,null);
             }
             catch (ForeignKeyConstraintViolationException $e)
             {

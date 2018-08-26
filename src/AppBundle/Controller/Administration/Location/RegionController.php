@@ -96,6 +96,9 @@ class RegionController extends Controller
 
             $this->addFlash('success','Region successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\REGION','EDIT',null,$region);
+
             return $this->redirectToRoute('region_list');
         }
 
@@ -128,13 +131,16 @@ class RegionController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $region = $form->getData();
+            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($region);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success', 'Region successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\REGION','EDIT',$region,$data);
 
             return $this->redirectToRoute('region_list');
         }
@@ -172,6 +178,9 @@ class RegionController extends Controller
                 $em->remove($region);
                 $em->flush();
                 $this->addFlash('success', 'Region successfully removed !');
+
+                $this->get('app.helper.audit_trail_logger')
+                    ->logUserAction('LOCATION\REGION','DELETE',$region,null);
             }
             catch (ForeignKeyConstraintViolationException $e)
             {

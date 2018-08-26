@@ -95,6 +95,9 @@ class ZoneController extends Controller
 
             $this->addFlash('success','Zone successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\ZONE','ADD',null,$data);
+
             return $this->redirectToRoute('zone_list');
         }
 
@@ -135,6 +138,9 @@ class ZoneController extends Controller
 
             $this->addFlash('success', 'Zone successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('LOCATION\ZONE','EDIT',$zone,$data);
+
             return $this->redirectToRoute('zone_list');
         }
 
@@ -167,10 +173,14 @@ class ZoneController extends Controller
 
         if($data instanceof Zone)
         {
-            try {
+            try
+            {
                 $em->remove($data);
                 $em->flush();
                 $this->addFlash('success', 'Zone successfully removed !');
+
+                $this->get('app.helper.audit_trail_logger')
+                    ->logUserAction('LOCATION\ZONE','DELETE',$data,null);
             }
             catch (ForeignKeyConstraintViolationException $e)
             {
