@@ -137,6 +137,21 @@ class UserRepository extends EntityRepository
         $queryBuilder->execute();
     }
 
+    public function findCurrentUserHash($Id)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $results = $queryBuilder->select('password')
+            ->from('user_accounts', 'u')
+            ->where('u.id = :Id')
+            ->setParameter('Id', $Id)
+            ->execute()
+            ->fetch();
+
+        return $results['password'];
+    }
 
 
 

@@ -121,7 +121,7 @@ class MenuBuilder
 
 
         $menu->addChild('My Account', array('uri' => '#', 'extras' => array('icon' => 'wrench')))
-            ->addChild('Change Password', array('route' => 'pre_defined_report_builder'))->getParent()
+            ->addChild('Change Password', array('route' => 'change_account_password'))->getParent()
             ->getParent();
 
 

@@ -54,11 +54,7 @@ class User implements  UserInterface,EquatableInterface,\Serializable
      */
     private $mobilePhone;
 
-    /**
-     * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
-     *)
+    /*
      * @ORM\Column(type="string",nullable=true)
      */
     private $email;
@@ -97,6 +93,11 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     /**
      */
     private $givenNames;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastPasswordUpdateDate;
 
     /**
      */
@@ -390,6 +391,38 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     public function setPlainPasswordConfirm($plainPasswordConfirm)
     {
         $this->plainPasswordConfirm = $plainPasswordConfirm;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRole()
+    {
+        return $this->userRole;
+    }
+
+    /**
+     * @param mixed $userRole
+     */
+    public function setUserRole($userRole)
+    {
+        $this->userRole = $userRole;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastPasswordUpdateDate()
+    {
+        return $this->lastPasswordUpdateDate;
+    }
+
+    /**
+     * @param mixed $lastPasswordUpdateDate
+     */
+    public function setLastPasswordUpdateDate($lastPasswordUpdateDate)
+    {
+        $this->lastPasswordUpdateDate = $lastPasswordUpdateDate;
     }
 
 }

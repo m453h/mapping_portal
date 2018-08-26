@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserFormType extends  AbstractType
@@ -56,6 +57,10 @@ class UserFormType extends  AbstractType
             ->add('email',TextType::class,['required'=>false,
                 'constraints'=>[
                     new NotBlank(['message'=>'This field can not be blank']),
+                    new Email([
+                        'message'=> "The email '{{ value }}' is not a valid email.",
+                        'checkMX'=>true
+                    ])
                 ]]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
