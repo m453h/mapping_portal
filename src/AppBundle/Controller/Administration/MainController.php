@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Administration;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class MainController extends Controller
@@ -12,7 +13,7 @@ class MainController extends Controller
     /**
      * @Route("/administration/home", name="app_home_page")
      */
-    public function homepageAction()
+    public function homepageAction(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -32,6 +33,8 @@ class MainController extends Controller
 
         $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
 
+        $court = $em->getRepository('AppBundle:Court\Court')
+            ->findOneBy(['courtId'=>987]);
 
         $data = array(
             'validDataCount'=>$validDataCount,

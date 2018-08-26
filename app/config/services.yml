@@ -85,6 +85,10 @@ services:
                 class: AppBundle\Helpers\LeafletDataTransformer
                 autowire: true
 
+    app.helper.audit_trail_logger:
+        class: AppBundle\Helpers\AuditTrailLogger
+        autowire: true
+
     app.acl_voter:
             class: AppBundle\Security\ACLVoter
             autowire: true
