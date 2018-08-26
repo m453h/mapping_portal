@@ -86,7 +86,7 @@ class AccountController extends Controller
             array(
                 'formTemplate'=>'my.account/reset.password',
                 'form'=>$form->createView(),
-                'title'=>'Password change form'
+                'title'=>'Change my password'
             )
 
         );

@@ -370,7 +370,7 @@ class DataCollectorController extends Controller
                 $info->setLink('Activate Account','data_collector_unblock','activate-user',$Id);
 
             $info->setLink('Reset Password','data_collector_password_reset','password',$Id);
-            $info->setLink('Assign Regions','data_collector_region_list','module',$Id);
+            $info->setLink('Assign Regions','data_collector_region_add','module',$Id);
 
             $info->setPath('data_collectors_info');
 

@@ -108,7 +108,7 @@ class MenuBuilder
         $menu->addChild('User Accounts', array('uri' => '#', 'extras' => array('icon' => 'users')))
             ->addChild('Manage Data Collectors', array('route' => 'data_collectors_list', 'extras' => $this->getCrudLinks('data_collectors')))
             ->addChild('View user details', array('route' => 'data_collectors_info'))->setDisplay(false)->getParent()
-            ->addChild('Manage Regions Assigned', array('route' => 'data_collector_region_list', 'extras' => $this->getCrudLinks('app_user_region')))->setDisplay(false)
+            ->addChild('Manage Regions Assigned', array('route' => 'data_collector_region_add'))->setDisplay(false)
             ->getParent()
             ->getParent()
             ->addChild('Manage Portal Users', array('route' => 'portal_users_list', 'extras' => $this->getCrudLinks('portal_users')))
