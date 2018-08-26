@@ -107,7 +107,13 @@ class DataCollectorController extends Controller
             $em->persist($appUser);
             $em->flush();
 
+            $appUser->setPassword('*******');
+
             $this->addFlash('success','Data collector successfully created');
+
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',null,$appUser);
 
             return $this->redirectToRoute('data_collectors_list');
         }
@@ -150,6 +156,12 @@ class DataCollectorController extends Controller
 
             $this->addFlash('success','Data collector successfully updated');
 
+            $user->setPassword('*******');
+            $appUser->setPassword('*******');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$user,$appUser);
+
             return $this->redirectToRoute('data_collectors_list');
         }
 
@@ -186,6 +198,12 @@ class DataCollectorController extends Controller
             $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'Data collector successfully removed !');
+
+            $user->setPassword('*******');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$user,null);
+
         }
         else
         {
@@ -227,6 +245,13 @@ class DataCollectorController extends Controller
             $em->flush();
 
             $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
+
+
+            $user->setPassword('*******');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$user,null);
+
         }
         else if($accountStatus == 'I')
         {
@@ -269,6 +294,11 @@ class DataCollectorController extends Controller
             $em->flush();
 
             $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
+
+            $user->setPassword('*******');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$user,null);
         }
         else if($accountStatus == 'I')
         {
@@ -309,6 +339,12 @@ class DataCollectorController extends Controller
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Data collector password successfully updated!');
+
+            $user->setPassword('*******');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','RESET_PASSWORD',$user,null);
+
 
             return $this->redirectToRoute('data_collectors_list');
         }
