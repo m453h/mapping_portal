@@ -22,7 +22,7 @@ class CourtTransportModes
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Court\Court")
-     * @ORM\JoinColumn(name="court_id", referencedColumnName="court_id",nullable=false)
+     * @ORM\JoinColumn(name="court_id", referencedColumnName="court_id",nullable=false,onDelete="CASCADE")
      */
     private $court;
     

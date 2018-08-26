@@ -230,48 +230,19 @@ class CourtController extends Controller
     /**
      * @Route("/administration/court-form/edit/{courtId}", name="court_form_edit")
      * @param Request $request
-     * @param Court $court
+     * @param $courtId
      * @return Response
      */
-    public function editAction(Request $request,Court $court)
+    public function editAction(Request $request,$courtId)
     {
         $class = get_class($this);
 
         $this->denyAccessUnlessGranted('edit',$class);
 
-        $form = $this->createForm(CourtFormType::class,$court);
+        $this->addFlash('info','Select an information criteria you want to edit under this court');
 
-        // only handles data on POST
-        $form->handleRequest($request);
+        return $this->redirectToRoute('court_form_info',['courtId'=>$courtId]);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $court = $form->getData();
-            $court->setCourtVerificationStatus(true);
-            $em = $this->getDoctrine()->getManager();
-
-            $wardId = $form['ward']->getData();
-            $ward = $em->getRepository('AppBundle:Location\Ward')
-                ->find($wardId);
-
-            $court->setWard($ward);
-            $em->persist($court);
-            $em->flush();
-
-            $this->addFlash('success','Court successfully updated');
-
-            return $this->redirectToRoute('court_form_list');
-        }
-
-        return $this->render(
-            'administration/main/app.form.html.twig',
-            array(
-                'formTemplate'=>'court/court',
-                'form'=>$form->createView(),
-                'title'=>'Court Details',
-            )
-
-        );
     }
 
 
@@ -593,6 +564,38 @@ class CourtController extends Controller
         return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
     }
 
+
+    /**
+     * @Route("/administration/court-form/delete/{Id}", name="court_form_delete")
+     * @param $Id
+     * @return Response
+     * @internal param Request $request
+     */
+    public function deleteAction($Id)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('delete',$class);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $court = $em->getRepository('AppBundle:Court\Court')->find($Id);
+
+        if($court instanceof Court)
+        {
+            $em->remove($court);
+            $em->flush();
+            $this->addFlash('success', 'Court successfully removed !');
+        }
+        else
+        {
+            $this->addFlash('error', 'Court not found !');
+        }
+
+
+        return $this->redirectToRoute('court_form_list');
+
+    }
 
 
 
