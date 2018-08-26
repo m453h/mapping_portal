@@ -1,0 +1,56 @@
+    {{ form_start(form) }}
+
+    <div class="col3">
+        {% if court.firstCourtView is not null%}
+            {% set image = asset('file_uploads/court_images/' ~ court.firstCourtView) %}
+        {% else %}
+            {% set image = asset('images/backgrounds/white-background-abstract-shapes.jpg')%}
+        {% endif %}
+
+        <div class="col12 court-image" style="background: url({{ image }});background-size:cover "></div>
+
+        <div class="col12 space-10"></div>
+        {{ form_widget(form.firstCourtViewFile) }}
+    </div>
+
+    <div class="col3">
+        {% if court.secondCourtView is not null%}
+            {% set image = asset('file_uploads/court_images/' ~ court.secondCourtView) %}
+        {% else %}
+            {% set image = asset('images/backgrounds/white-background-abstract-shapes.jpg')%}
+        {% endif %}
+
+        <div class="col12 court-image" style="background: url({{ image }});background-size:cover "></div>
+
+        <div class="col12 space-10"></div>
+        {{ form_widget(form.secondCourtViewFile) }}
+    </div>
+
+
+
+    <div class="col3">
+        {% if court.thirdCourtView is not null%}
+            {% set image = asset('file_uploads/court_images/' ~ court.thirdCourtView) %}
+        {% else %}
+            {% set image = asset('images/backgrounds/white-background-abstract-shapes.jpg')%}
+        {% endif %}
+
+        <div class="col12 court-image" style="background: url({{ image }});background-size:cover "></div>
+
+        <div class="col12 space-10"></div>
+        {{ form_widget(form.thirdCourtViewFile) }}
+    </div>
+
+    <div class="col3 last">
+        {% if court.fourthCourtView is not null%}
+            {% set image = asset('file_uploads/court_images/' ~ court.fourthCourtView) %}
+        {% else %}
+            {% set image = asset('images/backgrounds/white-background-abstract-shapes.jpg')%}
+        {% endif %}
+
+        <div class="col12 court-image" style="background: url({{ image }});background-size:cover "></div>
+
+        <div class="col12 space-10"></div>
+        {{ form_widget(form.fourthCourtViewFile) }}
+    </div>
+    {{ form_end(form) }}

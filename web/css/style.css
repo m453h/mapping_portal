@@ -199,7 +199,7 @@ div.header {
 	left:0;
 	background:#FFFFFF;
 	color:#7F96AC;
-	z-index: 99;
+	z-index: 9999;
 }
 
 .header:after {
@@ -1459,6 +1459,15 @@ h2.lighter{
 	font-weight: lighter;
 }
 
+a.edit-link{
+    text-decoration: none;
+    color:#5B9BD1;
+    font-weight: bolder;
+    font-size: 0.7em;
+}
+a.edit-link:hover{
+    text-decoration: underline;
+}
 h3.normal{
 	font-weight: normal;
 	height:30px;
@@ -1469,6 +1478,10 @@ div.divider {
 	height: 3px;
 	margin: 15px 0;
 	background: #FF0000;
+}
+
+div.court-image{
+	height:150px;
 }
 
 #map-routing .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar{

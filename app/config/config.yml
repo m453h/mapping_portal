@@ -99,3 +99,22 @@ vich_uploader:
     db_driver: orm # or mongodb or propel or phpcr
 
     mappings:
+        court_image_side_01:
+            uri_prefix:         /file_uploads/court_images
+            namer:              vich_uploader.namer_origname
+            upload_destination: '%kernel.root_dir%/../web/file_uploads/court_images'
+
+        court_image_side_02:
+            uri_prefix:         /file_uploads/court_images
+            namer:              vich_uploader.namer_origname
+            upload_destination: '%kernel.root_dir%/../web/file_uploads/court_images'
+
+        court_image_side_03:
+            uri_prefix:         /file_uploads/court_images
+            namer:              vich_uploader.namer_origname
+            upload_destination: '%kernel.root_dir%/../web/file_uploads/court_images'
+
+        court_image_side_04:
+            uri_prefix:         /file_uploads/court_images
+            namer:              vich_uploader.namer_origname
+            upload_destination: '%kernel.root_dir%/../web/file_uploads/court_images'

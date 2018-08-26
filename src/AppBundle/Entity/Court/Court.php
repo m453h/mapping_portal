@@ -4,10 +4,17 @@
 namespace AppBundle\Entity\Court;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
+
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Court\CourtRepository")
  * @ORM\Table(name="tbl_court_details",uniqueConstraints={@ORM\UniqueConstraint(name="court_details", columns={"unique_court_id","user_id"})})
+ * @Vich\Uploadable
  */
 class Court
 {
@@ -263,6 +270,53 @@ class Court
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $timeCreated;
+
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="court_image_side_01", fileNameProperty="firstCourtView")
+     * @var File
+     */
+    private $firstCourtViewFile;
+
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="court_image_side_02", fileNameProperty="firstCourtView")
+     * @var File
+     */
+    private $secondCourtViewFile;
+
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="court_image_side_03", fileNameProperty="firstCourtView")
+     * @var File
+     */
+    private $thirdCourtViewFile;
+
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="court_image_side_04", fileNameProperty="firstCourtView")
+     * @var File
+     */
+    private $fourthCourtViewFile;
 
 
     /**
@@ -1164,6 +1218,126 @@ class Court
     {
         $this->courtRecordStatus = $courtRecordStatus;
     }
-    
+
+    /**
+     * @return File
+     */
+    public function getFirstCourtViewFile()
+    {
+        return $this->firstCourtViewFile;
+    }
+
+    /**
+     * @param File $file
+     * @return Court
+     * @internal param File $image
+     */
+    public function setFirstCourtViewFile(File $file = null)
+    {
+        $this->firstCourtViewFile = $file;
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            //$this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getSecondCourtViewFile()
+    {
+        return $this->secondCourtViewFile;
+    }
+
+    /**
+     * @param File $file
+     * @return Court
+     * @internal param File $image
+     */
+    public function setSecondCourtViewFile(File $file = null)
+    {
+        $this->secondCourtViewFile = $file;
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            //$this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+    /**
+     * @return File
+     */
+    public function getThirdCourtViewFile()
+    {
+        return $this->thirdCourtViewFile;
+    }
+    /**
+     * @param File $file
+     * @return Court
+     * @internal param File $image
+     */
+    public function setThirdCourtViewFile(File $file = null)
+    {
+        $this->thirdCourtViewFile = $file;
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            //$this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getFourthCourtViewFile()
+    {
+        return $this->fourthCourtViewFile;
+    }
+
+    /**
+     * @param File $file
+     * @return Court
+     * @internal param File $image
+     */
+    public function setFourthCourtViewFile(File $file = null)
+    {
+        $this->fourthCourtViewFile = $file;
+
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            //$this->updatedAt = new \DateTime('now');
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
 
 }

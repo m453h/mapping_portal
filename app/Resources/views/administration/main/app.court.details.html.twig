@@ -17,7 +17,7 @@
              {{ include("administration/main/app.flash.message.html.twig") }}
              <div class="clear space-10"></div>
              <div class="col6">
-                 <h2 class="lighter">Basic Court Details</h2>
+                 <h2 class="lighter">Basic Court Details {% if canEdit %}<a href="{{ path('court_basic_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Name:</span>{{ court.courtName }}</li>
@@ -26,7 +26,7 @@
 
                  <div class="clear space-20"></div>
 
-                 <h2 class="lighter">Court Location Details</h2>
+                 <h2 class="lighter">Court Location Details {% if canEdit %}<a href="{{ path('court_building_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Region:</span>{{ court.ward.district.region.regionName|capitalize }}</li>
@@ -38,7 +38,7 @@
 
                  <div class="clear space-20"></div>
 
-                 <h2 class="lighter">Court Building Details</h2>
+                 <h2 class="lighter">Court Building Details {% if canEdit %}<a href="{{ path('court_building_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Building Ownership Status:</span>{{ court.buildingOwnershipStatus.description }}</li>
@@ -49,7 +49,7 @@
 
                  <div class="clear space-20"></div>
 
-                 <h2 class="lighter">Court Building Facilities Details</h2>
+                 <h2 class="lighter">Court Building Facilities Details {% if canEdit %}<a href="{{ path('court_building_facilities_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Does building meet functionality:</span>{{ court.meetsFunctionality }}</li>
@@ -61,7 +61,7 @@
 
                  <div class="clear space-20"></div>
 
-                 <h2 class="lighter">Land Details</h2>
+                 <h2 class="lighter">Land Details {% if canEdit %}<a href="{{ path('court_land_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Land Ownership:</span>{{ court.landOwnershipStatus.description|capitalize }}</li>
@@ -72,7 +72,7 @@
 
              </div>
              <div class="col6 last">
-                 <h2 class="lighter">Court Images</h2>
+                 <h2 class="lighter">Court Images {% if canEdit %}<a href="{{ path('court_images_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <div class="image-slider col12">
                      {% for image in images %}
@@ -98,13 +98,13 @@
 
              <div class="clear space-20"></div>
              <div class="col12">
-                <h2 class="lighter">Court Workload and Staff</h2>
+                <h2 class="lighter">Court Workload and Staff {% if canEdit %}<a href="{{ path('court_staff_workload_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                 <div class="divider"></div>
                  <p><span class="title">Cases Per Year:</span>{{ court.casesPerYear }} and <span class="title">Population Served:</span>{{ court.populationServed }}</p>
 
                  <table class="data-grid">
                     <tr>
-                        <th colspan="6" class="align-center"><span>NUMBER OF:</span></th>
+                        <th colspan="7" class="align-center"><span>NUMBER OF:</span></th>
                     </tr>
                     <tr>
                         <th><span>JUSTICES</span></th>
@@ -112,6 +112,7 @@
                         <th><span>RESIDENT <br/>MAGISTRATES</span></th>
                         <th><span>DISTRICT <br/>MAGISTRATES</span></th>
                         <th><span>MAGISTRATES</span></th>
+                        <th><span>COURT CLERKS</span></th>
                         <th><span>NON JUDICIARY <br/>STAFF</span></th>
                     </tr>
                     <tr>
@@ -120,6 +121,7 @@
                         <td class="align-right">{{ court.numberOfResidentMagistrates }}</td>
                         <td class="align-right">{{ court.numberOfDistrictMagistrates }}</td>
                         <td class="align-right">{{ court.numberOfMagistrates }}</td>
+                        <td class="align-right">{{ court.numberOfCourtClerks }}</td>
                         <td class="align-right">{{ court.numberOfNonJudiciaryStaff }}</td>
                     </tr>
                 </table>

@@ -8,7 +8,13 @@ use AppBundle\Entity\Court\Court;
 use AppBundle\Entity\Court\CourtEconomicActivities;
 use AppBundle\Entity\Court\CourtLandUse;
 use AppBundle\Entity\Court\CourtTransportModes;
+use AppBundle\Form\Court\CourtBasicDetailsFormType;
+use AppBundle\Form\Court\CourtBuildingDetailsFormType;
+use AppBundle\Form\Court\CourtBuildingFacilitiesFormType;
 use AppBundle\Form\Court\CourtFormType;
+use AppBundle\Form\Court\CourtImagesFormType;
+use AppBundle\Form\Court\CourtLandDetailsFormType;
+use AppBundle\Form\Court\CourtStaffWorkLoadFormType;
 use Doctrine\DBAL\Exception\DriverException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
@@ -188,11 +194,31 @@ class CourtController extends Controller
         }
 
 
+        //Make decision if this user can edit details of this specific court
+
+        $canEdit = false;
+
+        $userRoles = $this->getUser()->getRoleIds();
+
+        if(!empty($userRoles))
+        {
+            $acl =  $em->getRepository('AppBundle:UserAccounts\Permission')
+                ->getCurrentUserACLs($class, $userRoles);
+
+            if(in_array('edit',$acl))
+            {
+                $canEdit = true;
+            }
+        }
+
+
+
         //Render the output
         return $this->render(
             'administration/main/app.court.details.html.twig',array(
             'info'=>$info,
             'images'=>$images,
+            'canEdit'=>$canEdit,
             'title'=>'Court Details',
             'court'=>$data,
             'coordinates'=>$coordinates,
@@ -247,6 +273,268 @@ class CourtController extends Controller
 
         );
     }
+
+
+    /**
+     * @Route("/administration/court-basic-details-form/edit/{courtId}", name="court_basic_details_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function basicDetailsAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtBasicDetailsFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court basic details successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.basic.details',
+                'form'=>$form->createView(),
+                'title'=>'Court Basic Details',
+            )
+
+        );
+    }
+
+
+
+    /**
+     * @Route("/administration/court-building-details-form/edit/{courtId}", name="court_building_details_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function buildingDetailsAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtBuildingDetailsFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court building details successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.building.details',
+                'form'=>$form->createView(),
+                'title'=>'Court Building Details',
+            )
+
+        );
+    }
+
+
+
+    /**
+     * @Route("/administration/court-building-facilities-form/edit/{courtId}", name="court_building_facilities_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function buildingFacilitiesAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtBuildingFacilitiesFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court building facilities details successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.building.facilities',
+                'form'=>$form->createView(),
+                'title'=>'Court Building Facilities Details',
+            )
+
+        );
+    }
+
+
+
+    /**
+     * @Route("/administration/court-land-details-form/edit/{courtId}", name="court_land_details_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function landDetailsFormAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtLandDetailsFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court land details successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.land.details',
+                'form'=>$form->createView(),
+                'title'=>'Court Land Details',
+            )
+
+        );
+    }
+
+
+
+
+    /**
+     * @Route("/administration/staff-work-load-form/edit/{courtId}", name="court_staff_workload_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function staffWorkLoadFormAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtStaffWorkLoadFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court staff workload successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.staff.workload',
+                'form'=>$form->createView(),
+                'title'=>'Court Staff Workload Details',
+            )
+
+        );
+    }
+
+
+
+    /**
+     * @Route("/administration/court-images-form/edit/{courtId}", name="court_images_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function courtImagesFormAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtImagesFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $court = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($court);
+            $em->flush();
+
+            $this->addFlash('success','Court staff workload successfully updated');
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.images',
+                'form'=>$form->createView(),
+                'court'=>$court,
+                'isFullWidth'=>true,
+                'title'=>'Court Images',
+            )
+
+        );
+    }
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/administration/court-form/{action}/{courtId}", name="court_status_change")
