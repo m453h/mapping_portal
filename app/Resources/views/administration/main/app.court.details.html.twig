@@ -22,6 +22,32 @@
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Name:</span>{{ court.courtName }}</li>
                      <li class="fade"><span class="title">Level:</span>{{ court.courtLevel.description|upper }}</li>
+                     <li class="fade"><span class="title">Record Status:</span>
+                         {% if court.courtRecordStatus==true %}
+                             <span class="label green">Valid Record</span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-status','action':'invalidate','courtId':court.courtId}) }}" class="action-link invalidate">[Invalidate]</a></span>
+                         {% elseif court.courtRecordStatus==false %}
+                             <span class="label red">Test Record</span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-status','action':'validate','courtId':court.courtId}) }}" class="action-link validate">[Validate]</a></span>
+                         {% else %}
+                                <span class="label yellow">Not Specified</span>
+                                <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-status','action':'validate','courtId':court.courtId}) }}" class="action-link validate">[Validate]</a></span>
+                                <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-status','action':'invalidate','courtId':court.courtId}) }}" class="action-link invalidate">[Invalidate]</a></span>
+                         {% endif %}
+                     </li>
+                     <li class="fade"><span class="title">Record Verification Status:</span>
+                         {% if court.courtVerificationStatus==true %}
+                             <span class="label green">Verified</span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-verification-status','action':'unverify','courtId':court.courtId}) }}" class="action-link invalidate">[Unverify]</a></span>
+                         {% elseif court.courtVerificationStatus==false %}
+                             <span class="label red">Not Verified</span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-verification-status','action':'verify','courtId':court.courtId}) }}" class="action-link validate">[Verify]</a></span>
+                         {% else %}
+                             <span class="label yellow">Not Specified</span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-verification-status','action':'unverify','courtId':court.courtId}) }}" class="action-link invalidate">[Unverify]</a></span>
+                             <span class="icon-spacer-left"><a href="{{ path('court_status_change',{'parentAction':'court-verification-status','action':'verify','courtId':court.courtId}) }}" class="action-link validate">[Verify]</a></span>
+                         {% endif %}
+                     </li>
                  </ul>
 
                  <div class="clear space-20"></div>

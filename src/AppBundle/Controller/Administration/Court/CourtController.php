@@ -529,56 +529,68 @@ class CourtController extends Controller
     }
 
 
-
-
-
-
-
-
-
     /**
-     * @Route("/administration/court-form/{action}/{courtId}", name="court_status_change")
+     * @Route("/administration/court-status/{parentAction}/{action}/{courtId}", name="court_status_change")
      * @param Court $court
+     * @param $parentAction
      * @param $action
-     * @return Response
-     * @internal param Request $request
+     * @return Response* @internal param Request $request
      */
-    public function activateLinkAction(Court $court,$action)
+    public function activateLinkAction(Court $court,$parentAction,$action)
     {
 
         $class = get_class($this);
 
         $em = $this->getDoctrine()->getManager();
 
-        if($action=='activate')
-        {
-            $this->denyAccessUnlessGranted('approve',$class);
-
-            $action = 'marked as valid data';
-            $status = true;
-        }
-        else
-        {
-            $this->denyAccessUnlessGranted('decline',$class);
-
-            $action = 'marked as test data';
-            $status = false;
-        }
+        $status = null;
 
         if($court instanceof Court)
         {
-            $court->setCourtRecordStatus($status);
+            if ($parentAction == 'court-status')
+            {
+                if ($action == 'validate')
+                {
+                    $this->denyAccessUnlessGranted('edit', $class);
+                    $action = 'Court record status successfully marked as valid data';
+                    $status = true;
+                }
+                else if ($action == 'invalidate')
+                {
+                    $this->denyAccessUnlessGranted('edit', $class);
+                    $action = 'Court record status successfully marked as test data';
+                    $status = false;
+                }
+                $court->setCourtRecordStatus($status);
+            }
+            else if ($parentAction == 'court-verification-status')
+            {
+                if ($action == 'verify')
+                {
+                    $this->denyAccessUnlessGranted('edit', $class);
+                    $action = 'Court record successfully verified';
+                    $status = true;
+                }
+                else if ($action == 'unverify')
+                {
+                    $this->denyAccessUnlessGranted('edit', $class);
+                    $action = 'Court record successfully unverified';
+                    $status = false;
+                }
+
+                $court->setCourtVerificationStatus($status);
+            }
 
             $em->flush();
+            $this->addFlash('success', sprintf('%s !',$action));
 
-            $this->addFlash('success', sprintf('Court record status successfully %s !',$action));
         }
         else
         {
             $this->addFlash('error', 'Court not found !');
         }
 
-        return $this->redirectToRoute('court_form_list');
+        return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
     }
 
 

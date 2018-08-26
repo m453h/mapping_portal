@@ -1022,30 +1022,30 @@ span.icon-spacer-right{
 	padding: 0;
 	margin: 0;
 }
-.top-menu .sub-menu{
+.top-menu .sub-menu,.info-action .sub-menu{
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09);
 	border: 1px solid rgba(0, 0, 0, .15);
 	border-radius: 4px;
 	box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
 }
 .dropit .dropit-open .sub-menu { display: block; }
-.top-menu ul { display: none; } /* Hide before plugin loads */
-.top-menu ul.sub-menu {
+.top-menu ul{ display: none; } /* Hide before plugin loads */
+.top-menu ul.sub-menu,.info-action ul.sub-menu {
 	background-color: #fff;
 	padding: 6px 0;
 	margin: 0px 0 0 1px;
 }
 
-td .dropit .sub-menu{
+td .dropit .sub-menu,.info-action .dropit .sub-menu{
 	min-width: 150px;
 	background: #FFFFFF;
 }
 
-td .button-menu {
+td .button-menu,.info-action .button-menu{
 	min-width:180px;
 }
 
-td ul.sub-menu a{
+td ul.sub-menu a, .info-action ul.sub-menu a{
 	padding:5px 10px;
 	border: 1px solid #E7ECF1;
 	border-top:none;
@@ -1059,6 +1059,10 @@ td ul.sub-menu a:hover{
 td ul.sub-menu {
 	border-top: 1px solid #E7ECF1;
 }
+
+
+
+
 /* -- Drop Down Menu End -- */
 
 
@@ -1459,13 +1463,23 @@ h2.lighter{
 	font-weight: lighter;
 }
 
-a.edit-link{
+a.edit-link,a.action-link{
     text-decoration: none;
     color:#5B9BD1;
     font-weight: bolder;
     font-size: 0.7em;
 }
-a.edit-link:hover{
+a.action-link{
+    font-size:1em;
+    font-weight: normal;
+}
+a.action-link.validate{
+    color:#449d44;
+}
+a.action-link.invalidate{
+    color:red;
+}
+a.edit-link:hover,a.action-link:hover{
     text-decoration: underline;
 }
 h3.normal{
@@ -1664,6 +1678,9 @@ p.large{
 		text-align: center;
 	}
 
+	div.action-bar{
+		height:50px;
+	}
 
 }
 
