@@ -97,6 +97,9 @@ class CourtBuildingOwnershipStatusController extends Controller
 
             $this->addFlash('success','Status successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_OWNERSHIP_STATUS','ADD',null,$data);
+
             return $this->redirectToRoute('court_building_ownership_status_list');
         }
 
@@ -137,6 +140,9 @@ class CourtBuildingOwnershipStatusController extends Controller
 
             $this->addFlash('success', 'Status successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_OWNERSHIP_STATUS','EDIT',$status,$data);
+
             return $this->redirectToRoute('court_building_ownership_status_list');
         }
 
@@ -172,6 +178,9 @@ class CourtBuildingOwnershipStatusController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Status successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_OWNERSHIP_STATUS','DELETE',$data,null);
         }
         else
         {

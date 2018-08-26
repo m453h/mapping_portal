@@ -107,6 +107,9 @@ class TransportModeController extends Controller
 
             $this->addFlash('success','Transport mode successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\TRANSPORT_MODE','EDIT',null,$data);
+
             return $this->redirectToRoute('transport_mode_list');
         }
 
@@ -147,6 +150,9 @@ class TransportModeController extends Controller
 
             $this->addFlash('success', 'Transport mode successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\TRANSPORT_MODE','EDIT',$mode,$data);
+
             return $this->redirectToRoute('transport_mode_list');
         }
 
@@ -182,6 +188,8 @@ class TransportModeController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Transport mode successfully removed !');
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\TRANSPORT_MODE','DELETE',$data,null);
         }
         else
         {

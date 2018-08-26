@@ -105,6 +105,9 @@ class EconomicActivityController extends Controller
 
             $this->addFlash('success','Economic activity successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\ECONOMIC_ACTIVITY','EDIT',null,$data);
+
             return $this->redirectToRoute('economic_activity_list');
         }
 
@@ -135,7 +138,9 @@ class EconomicActivityController extends Controller
         $form = $this->createForm(EconomicActivityFormType::class,$activity);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
             $data = $form->getData();
 
@@ -144,6 +149,9 @@ class EconomicActivityController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Economic activity successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\ECONOMIC_ACTIVITY','EDIT',$activity,$data);
 
             return $this->redirectToRoute('economic_activity_list');
         }
@@ -180,6 +188,8 @@ class EconomicActivityController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Economic activity successfully removed !');
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\ECONOMIC_ACTIVITY','DELETE',$data,null);
         }
         else
         {

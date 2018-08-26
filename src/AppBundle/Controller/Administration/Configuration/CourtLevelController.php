@@ -103,6 +103,9 @@ class CourtLevelController extends Controller
 
             $this->addFlash('success','Court Level successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_LEVEL','EDIT',null,$data);
+
             return $this->redirectToRoute('court_level_list');
         }
 
@@ -143,6 +146,9 @@ class CourtLevelController extends Controller
 
             $this->addFlash('success', 'Court level successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_LEVEL','EDIT',$level,$data);
+
             return $this->redirectToRoute('court_level_list');
         }
 
@@ -178,6 +184,9 @@ class CourtLevelController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Court level successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_LEVEL','DELETE',$data,null);
         }
         else
         {

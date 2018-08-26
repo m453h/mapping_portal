@@ -95,6 +95,9 @@ class LandOwnershipStatusController extends Controller
 
             $this->addFlash('success','Status successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_OWNERSHIP_STATUS','EDIT',null,$data);
+
             return $this->redirectToRoute('land_ownership_status_list');
         }
 
@@ -135,6 +138,9 @@ class LandOwnershipStatusController extends Controller
 
             $this->addFlash('success', 'Status successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_OWNERSHIP_STATUS','EDIT',$status,$data);
+
             return $this->redirectToRoute('land_ownership_status_list');
         }
 
@@ -170,6 +176,9 @@ class LandOwnershipStatusController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Status successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_OWNERSHIP_STATUS','DELETE',$data,null);
         }
         else
         {

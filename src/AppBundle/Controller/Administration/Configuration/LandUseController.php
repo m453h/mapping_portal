@@ -107,6 +107,9 @@ class LandUseController extends Controller
 
             $this->addFlash('success','Land use successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_USE','EDIT',null,$data);
+
             return $this->redirectToRoute('land_ownership_status_list');
         }
 
@@ -147,6 +150,9 @@ class LandUseController extends Controller
 
             $this->addFlash('success', 'Land use successfully updated!');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_USE','EDIT',$activity,$data);
+
             return $this->redirectToRoute('land_use_list');
         }
 
@@ -182,6 +188,9 @@ class LandUseController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Land use successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\LAND_USE','DELETE',$data,null);
         }
         else
         {

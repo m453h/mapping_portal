@@ -99,6 +99,9 @@ class CourtBuildingStatusController extends Controller
 
             $this->addFlash('success','Status successfully created');
 
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_STATUS','ADD',null,$data);
+
             return $this->redirectToRoute('court_building_status_list');
         }
 
@@ -129,7 +132,9 @@ class CourtBuildingStatusController extends Controller
         $form = $this->createForm(CourtBuildingStatusFormType::class,$status);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
             $data = $form->getData();
 
@@ -138,6 +143,9 @@ class CourtBuildingStatusController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Status successfully updated!');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_STATUS','EDIT',$status,$data);
 
             return $this->redirectToRoute('court_building_status_list');
         }
@@ -174,6 +182,9 @@ class CourtBuildingStatusController extends Controller
             $em->remove($data);
             $em->flush();
             $this->addFlash('success', 'Status successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('CONFIGURATION\COURT_BUILDING_STATUS','DELETE',$data,null);
         }
         else
         {
