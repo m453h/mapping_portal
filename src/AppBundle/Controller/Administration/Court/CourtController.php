@@ -76,6 +76,7 @@ class CourtController extends Controller
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('court_form_list');
+        $grid->setIgnoredButtons(['add']);
         $grid->setCurrentObject($class);
         $grid->setButtons();
 
@@ -229,11 +230,10 @@ class CourtController extends Controller
 
     /**
      * @Route("/administration/court-form/edit/{courtId}", name="court_form_edit")
-     * @param Request $request
      * @param $courtId
      * @return Response
      */
-    public function editAction(Request $request,$courtId)
+    public function editAction($courtId)
     {
         $class = get_class($this);
 
@@ -242,7 +242,6 @@ class CourtController extends Controller
         $this->addFlash('info','Select an information criteria you want to edit under this court');
 
         return $this->redirectToRoute('court_form_info',['courtId'=>$courtId]);
-
     }
 
 
@@ -265,12 +264,16 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court basic details successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\BASIC_DETAILS','EDIT',$court,$data);
+
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -307,12 +310,17 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court building details successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\BUILDING_DETAILS','EDIT',$court,$data);
+
+
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -349,12 +357,15 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court building facilities details successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\BUILDING_FACILITIES','EDIT',$court,$data);
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -391,12 +402,15 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court land details successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\LAND_DETAILS','EDIT',$court,$data);
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -434,12 +448,16 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court staff workload successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\COURT_BASIC_DETAILS','EDIT',$court,$data);
+
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -476,12 +494,15 @@ class CourtController extends Controller
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $court = $form->getData();
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($court);
+            $em->persist($data);
             $em->flush();
 
             $this->addFlash('success','Court staff workload successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\IMAGES','EDIT',$court,$data);
 
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
@@ -515,6 +536,9 @@ class CourtController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $status = null;
+
+        $actionDescriptor = strtoupper($action);
+        $parentActionDescriptor = str_replace('-','_',strtoupper($parentAction));
 
         if($court instanceof Court)
         {
@@ -553,6 +577,11 @@ class CourtController extends Controller
             }
 
             $em->flush();
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\\'.$parentActionDescriptor,$actionDescriptor,null,$court);
+
+
             $this->addFlash('success', sprintf('%s !',$action));
 
         }
@@ -586,6 +615,9 @@ class CourtController extends Controller
             $em->remove($court);
             $em->flush();
             $this->addFlash('success', 'Court successfully removed !');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT','REMOVE',$court,null);
         }
         else
         {

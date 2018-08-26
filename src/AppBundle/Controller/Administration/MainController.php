@@ -33,9 +33,6 @@ class MainController extends Controller
 
         $wardCount = $em->getRepository('AppBundle:Location\Ward')->findTotalWards();
 
-        $court = $em->getRepository('AppBundle:Court\Court')
-            ->findOneBy(['courtId'=>987]);
-
         $data = array(
             'validDataCount'=>$validDataCount,
             'testDataCount'=>$testDataCount,
