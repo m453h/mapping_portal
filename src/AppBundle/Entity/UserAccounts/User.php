@@ -50,7 +50,6 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     private $accountStatus;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="string",nullable=true)
      */
     private $mobilePhone;
@@ -96,12 +95,10 @@ class User implements  UserInterface,EquatableInterface,\Serializable
     private $authenticationToken;
 
     /**
-     *@Assert\NotBlank()
      */
     private $givenNames;
 
     /**
-     * @Assert\NotBlank()
      */
     private $surname;
 

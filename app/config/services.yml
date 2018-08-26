@@ -119,6 +119,12 @@ services:
                     tags:
                         - { name: form.type }
 
+    app.form.type.portal_user_account_form:
+                    class: AppBundle\Form\Accounts\UserFormType
+                    autowire: true
+                    tags:
+                        - { name: form.type }
+
 
     app.form.type.app_court_data_form:
                     class: AppBundle\Form\Court\CourtFormType

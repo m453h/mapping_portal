@@ -103,7 +103,6 @@ class UserController extends Controller
 
             $fullName = $givenName.' '.$surname;
 
-            $user->setUsername($user->getEmail());
             $user->setAccountStatus('A');
             $user->setFullName($fullName);
             $user->setLoginTries(0);
@@ -112,8 +111,6 @@ class UserController extends Controller
             $encoded = $encoder->encodePassword($user, $user->getSurname());
 
             $user->setPassword($encoded);
-
-
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -230,20 +227,14 @@ class UserController extends Controller
 
             $givenName = $user->getGivenNames();
             $surname = $user->getSurname();
-            $user->setUsername($user->getEmail());
-
             $fullName = $givenName.' '.$surname;
-
             $user->setFullName($fullName);
-
-
             $em = $this->getDoctrine()->getManager();
-
             try
             {
                 $em->persist($user);
                 $em->flush();
-                $this->addFlash('success', 'Student successfully updated!');
+                $this->addFlash('success', 'User account successfully updated!');
             }
             catch(Exception $e)
             {
@@ -257,7 +248,7 @@ class UserController extends Controller
         return $this->render(
             'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'portal.users/user',
+                'formTemplate'=>'portal.users/user.edit',
                 'form'=>$form->createView(),
                 'title'=>'User Details'
             )
