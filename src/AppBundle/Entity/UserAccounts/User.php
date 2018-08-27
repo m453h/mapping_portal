@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\UserAccounts;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -68,6 +69,7 @@ class User implements  UserInterface,EquatableInterface,\Serializable
      * @ORM\Column(type="string")
      */
     private $password;
+
 
 
     private $plainPassword;

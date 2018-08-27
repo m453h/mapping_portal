@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Accounts;
 
 use AppBundle\Entity\UserAccounts\User;
+use Bafford\PasswordStrengthBundle\Validator\Constraints\PasswordStrength;
+use Bafford\PasswordStrengthBundle\Validator\Constraints\PasswordStrengthValidator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -30,7 +32,8 @@ class ResetMyPasswordForm extends AbstractType
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeated Password'),
                 'constraints'=>[
-                    new NotBlank(['message'=>'Password can not be empty'])
+                    new NotBlank(['message'=>'Password can not be empty']),
+                    new PasswordStrength(['minLength'=>8,'requireNumbers'=>true])
                 ]
         ));
     }

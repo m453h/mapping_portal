@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce1ac95cec23ed16bc4d0b9d072cdd55",
+    "content-hash": "e5a13c652d068295e5cfed66edd74760",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1189,6 +1189,49 @@
                 "parameters management"
             ],
             "time": "2018-02-13T18:05:56+00:00"
+        },
+        {
+            "name": "jbafford/password-strength-bundle",
+            "version": "v0.2",
+            "target-dir": "Bafford/PasswordStrengthBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbafford/PasswordStrengthBundle.git",
+                "reference": "503a483f20036c13184b07e2512e40f115b72a0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbafford/PasswordStrengthBundle/zipball/503a483f20036c13184b07e2512e40f115b72a0b",
+                "reference": "503a483f20036c13184b07e2512e40f115b72a0b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/symfony": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bafford\\PasswordStrengthBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Bafford"
+                }
+            ],
+            "description": "Provides a password strength validator",
+            "homepage": "https://github.com/jbafford/PasswordStrengthBundle",
+            "keywords": [
+                "bafford",
+                "password",
+                "strength"
+            ],
+            "time": "2014-10-22T15:05:21+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

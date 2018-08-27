@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Bafford\PasswordStrengthBundle\BaffordPasswordStrengthBundle(),
             new AppBundle\AppBundle(),
         ];
 
