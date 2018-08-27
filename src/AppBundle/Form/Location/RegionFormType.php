@@ -16,7 +16,7 @@ class RegionFormType extends  AbstractType
     {
         $builder
             ->add('regionName',null,['required'=>true])
-            ->add('regionCode',null,['required'=>true])
+            ->add('regionCode',null,['required'=>false])
             ->add('zone', EntityType::class, [
                 'placeholder' => 'Choose a zone',
                 'choice_label' => 'zoneName',
