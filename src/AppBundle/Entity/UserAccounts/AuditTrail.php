@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Accounts\RoleRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Accounts\AuditTrailRepository")
  * @ORM\Table(name="log_audit_trail")
  */
 class AuditTrail

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Administration\PortalUsers;
 
 use AppBundle\Entity\Configuration\Institute;
+use AppBundle\Entity\UserAccounts\AuditTrail;
 use AppBundle\Entity\UserAccounts\User;
 use AppBundle\Entity\UserAccounts\UserRole;
 use AppBundle\Form\Accounts\ResetPasswordForm;
@@ -188,6 +189,7 @@ class UserController extends Controller
 
             $info->setLink('Assign Roles','user_assign_role','module',$Id);
             $info->setLink('Reset Password','user_password_reset','password',$Id);
+            $info->setLink('View activity logs','activity_log_list','history',$Id);
 
             $info->setPath('portal_users_info');
 
@@ -492,6 +494,118 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * @Route("/administration/activity-log/{id}", name="activity_log_list",defaults={"id":0})
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function activityLogAction(Request $request,$id)
+    {
+        $class = get_class($this);
+
+
+        $this->denyAccessUnlessGranted('view',$class);
+        $page = $request->query->get('page',1);
+        $options['sortBy'] = $request->query->get('sortBy');
+        $options['sortType'] = $request->query->get('sortType');
+        $options['userId'] = $id;
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('AppBundle:UserAccounts\User')
+            ->findOneBy(['id'=>$options['userId']]);
+
+
+        if(!$user instanceof User)
+        {
+            throw new NotFoundHttpException('User Account Not Found');
+        }
+
+        $this->addFlash('info',sprintf('You are viewing activity logs for %s',$user->getUsername()));
+
+        $maxPerPage = $this->getParameter('grid_per_page_limit');
+
+        $qb1 = $em->getRepository('AppBundle:UserAccounts\AuditTrail')
+            ->findAllAuditTrailLogs($options);
+
+        $qb2 = $em->getRepository('AppBundle:UserAccounts\AuditTrail')
+            ->countAllAuditTrailLogs($qb1);
+
+        $adapter =new DoctrineDbalAdapter($qb1,$qb2);
+        $dataGrid = new Pagerfanta($adapter);
+        $dataGrid->setMaxPerPage($maxPerPage);
+        $dataGrid->setCurrentPage($page);
+        $dataGrid->getCurrentPageResults();
+
+        //Configure the grid
+        $grid = $this->get('app.helper.grid_builder');
+        $grid->addGridHeader('S/N',null,'index');
+        $grid->addGridHeader('Date',null,'text',false);
+        $grid->addGridHeader('IP Address',null,'text',false);
+        $grid->addGridHeader('Activity',null,'text',false);
+        $grid->addGridHeader('Entity',null,'text',false);
+        $grid->addGridHeader('Actions',null,'action');
+        $grid->setStartIndex($page,$maxPerPage);
+        $grid->setPath('activity_log_list');
+        $grid->setCurrentObject($class);
+        $grid->setIgnoredButtons(['add','edit','delete']);
+        $grid->setButtons();
+
+        //Render the output
+        return $this->render(
+            'administration/main/app.list.html.twig',array(
+            'records'=>$dataGrid,
+            'grid'=>$grid,
+            'title'=>'Existing Logs',
+            'gridTemplate'=>'administration/lists/accounts/activity.log.list.html.twig'
+        ));
+    }
+
+
+    /**
+     * @Route("/administration/activity-log/info/{Id}", name="activity_log_info",defaults={"Id":0})
+     * @param $Id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function auditLogDetailsAction($Id)
+    {
+        $this->denyAccessUnlessGranted('view',get_class($this));
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository('AppBundle:UserAccounts\AuditTrail')
+            ->findOneBy(['logId'=>$Id]);
+
+        if(!$data instanceof AuditTrail)
+        {
+            throw new NotFoundHttpException('User Audit Trail Log Not Found');
+        }
+        else
+        {
+            $info = $this->get('app.helper.info_builder');
+
+
+            $info->addTextElement('Date/Time','');
+            $info->addTextElement('Action',$data->getAction());
+            $info->addTextElement('IP Address',$data->getIpAddress());
+            $info->addTextElement('User Agent',$data->getUserAgent());
+            $info->addTextElement('Original Data',$data->getOriginalData());
+            $info->addTextElement('Final Data',$data->getFinalData());
+
+            $info->setPath('portal_users_info');
+
+            //Render the output
+            return $this->render(
+                'administration/main/app.info.html.twig',array(
+                'info'=>$info,
+                'title'=>'Log Details',
+                'infoTemplate'=>'base'
+            ));
+        }
+
+
+    }
    
 
 
