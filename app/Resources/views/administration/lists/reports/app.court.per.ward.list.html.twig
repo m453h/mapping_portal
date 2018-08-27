@@ -9,10 +9,19 @@
 </head>
 
     <body>
-        {% block header %}
+    {% block header %}
         <div class="col12 reportHeader">
-            <div class="col12">
-                <img src="{{ absolute_url(asset('images/logo/report-logo.png')) }}" class="logo" alt="Report Logo">
+            <div class="col12 align-left">
+                <div class="col2">
+                    <img src="{{ absolute_url(asset('images/logo/Coat_of_arms_of_Tanzania.svg.png')) }}" class="logo" alt="Report Logo">
+                </div>
+                <div class="col8 align-center">
+                    <h1> THE UNITED REPUBLIC OF TANZANIA<br/>
+                        JUDICIARY</h1>
+                </div>
+                <div class="col2 align-right last">
+                    <img src="{{ absolute_url(asset('images/logo/hpscalejustice.png')) }}" class="logo" alt="Report Logo">
+                </div>
             </div>
 
             {% block summary %}
@@ -24,7 +33,7 @@
                 </div>
             {% endblock %}
         </div>
-        {% endblock %}
+    {% endblock %}
         {% block body %}
         {% set headers = grid.getGridHeaders() %}
         <div class="col12 reportBody">

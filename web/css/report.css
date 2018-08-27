@@ -54,7 +54,7 @@ div.reportHeader h2{
 }
 
 .reportBody th{
-    background: #21ba45;
+    background: red;
     text-transform: uppercase;
     color: #FFFFFF;
     vertical-align: center;

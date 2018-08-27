@@ -34,12 +34,8 @@ class PredefinedReportFormType extends  AbstractType
                 'label'=>'Data selection'
             ))
             ->add('preview', SubmitType::class, array(
-                'label' => 'Preview form',
+                'label' => 'Preview Report',
                 'attr' =>['class'=>'btn-blue btn-preview']
-            ))
-            ->add('excel', SubmitType::class, array(
-                'label' => 'Export to Excel',
-                'attr' =>['class'=>'btn-green btn-excel']
             ))
             ->add('pdf', SubmitType::class, array(
                 'label' => 'Export to PDF',
