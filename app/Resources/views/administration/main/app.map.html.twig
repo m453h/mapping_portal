@@ -35,37 +35,58 @@
              <div id="map" style="width:100%;height:500px"></div>
              <script type="text/javascript">
                  $(document).ready(function() {
-                     var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                             maxZoom: 18,
-                             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
-                         }),
-                         latlng = L.latLng(-6.3690,34.8888);
+                     var courts = L.layerGroup();
 
-                 var map = L.map('map', {center: latlng, zoom: 6, layers: [tiles]});
-
-                 var markers = L.markerClusterGroup();
                      var addressPoints = [
                          {{ points|raw }}
                      ];
 
-        console.log(addressPoints.length);
-                 for (var i = 0; i < addressPoints.length; i++) {
-                     var a = addressPoints[i];
-                     var title = a[2];
+                     for (var i = 0; i < addressPoints.length; i++)
+                     {
+                         var a = addressPoints[i];
+                         var title = a[2];
 
-                     var customPopup = '<b>Court Level: </b>'+a[2]+'<br/>'+
+                         var customPopup = '<b>Court Level: </b>'+a[2]+'<br/>'+
                              '<b>Court Name:</b>'+a[3]+'<br/>'+
                              '<b>Region:</b>'+a[4]+'<br/>'+
                              '<b>District Name:</b>'+a[5]+'<br/>'+
                              '<b>Ward:</b>'+a[6]+'<br/>'+
                              '<a href="/administration/court-form/info/'+a[7]+'" title="Click to view more court details">More Details</a>';
 
-                     var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-                     marker.bindPopup(customPopup);
-                     markers.addLayer(marker);
-                 }
+                         var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+                         marker.bindPopup(customPopup);
+                         //marker.addTo(map);
+                         // markers.addLayer(marker);
+                         marker.addTo(courts)
+                     }
 
-                 map.addLayer(markers);
+
+                     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                         mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+                     var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+                         streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr}),
+                         Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
+
+                     var map = L.map('map', {
+                         center: [-6.3690,34.8888],
+                         zoom: 6,
+                         layers: [grayscale, courts]
+                     });
+
+                     var baseLayers = {
+                         "Grayscale": grayscale,
+                         "Streets": streets,
+                         "Satellite": Esri_WorldImagery
+                     };
+
+                     var overlays = {
+                         "Courts": courts
+                     };
+
+                     L.control.layers(baseLayers, overlays).addTo(map);
                  });
 
              </script>
