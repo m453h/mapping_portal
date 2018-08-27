@@ -31,14 +31,14 @@ class DistanceCalculatorReportFormType extends  AbstractType
     {
         $builder
             ->add('fromCourt', ChoiceType::class, array(
-                'placeholder' => 'Type a court name, region or district or ward name',
+                'placeholder' => 'Type a court name',
                 'attr'=>['class'=>'court-data-ajax from-court'],
                 'mapped' => true,
                 'required' => false
             ))
 
             ->add('toCourt', ChoiceType::class, array(
-                'placeholder' => 'Type a court name, region or district or ward name',
+                'placeholder' => 'Type a court name',
                 'choices' => [],
                 'attr'=>['class'=>'court-data-ajax'],
                 'mapped' => true,

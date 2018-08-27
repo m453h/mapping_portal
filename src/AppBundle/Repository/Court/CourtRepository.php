@@ -861,7 +861,7 @@ class CourtRepository extends EntityRepository
             ->addOrderBy('court_name','ASC')
             ->addOrderBy('ward_name','ASC')
             ->andWhere('court_record_status=:status')
-            ->andWhere('(court_name LIKE lower(:name))')
+            ->andWhere('(lower(court_name) LIKE lower(:name))')
             ->setParameter('status',true)
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('court_name','ASC')
