@@ -28,10 +28,10 @@ class IsUniqueRegionValidator extends ConstraintValidator
 
         if($regionName!=null)
         {
-            $total = $this->em->getRepository('AppBundle:Location\Region')
-                ->findTotalByName($regionName);
+            $id = $this->em->getRepository('AppBundle:Location\Region')
+                ->findRegionIdByName($regionName);
 
-            if ($total > 0) {
+            if ($id!=$data->getRegionId()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', 'This region already exists')
                     ->addViolation();

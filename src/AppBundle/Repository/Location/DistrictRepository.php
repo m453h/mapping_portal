@@ -10,13 +10,13 @@ class DistrictRepository extends EntityRepository
 
 
 
-    public function findTotalByName($name)
+    public function findDistrictIdByName($name)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('COUNT(*) AS total')
+        $queryBuilder->select('district_id as id')
             ->from('cfg_districts', 'd')
             ->andWhere('lower(d.district_name) LIKE lower(:name)')
             ->setParameter('name', strtolower($name));
@@ -24,7 +24,7 @@ class DistrictRepository extends EntityRepository
         $result = $queryBuilder->execute()
             ->fetch();
 
-        return $result['total'];
+        return $result['id'];
     }
 
 

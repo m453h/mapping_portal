@@ -9,13 +9,13 @@ class StreetVillageRepository extends EntityRepository
 {
 
 
-    public function findTotalByName($name)
+    public function findVillageStreetByName($name)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('COUNT(*) AS total')
+        $queryBuilder->select('area_id AS id')
             ->from('cfg_villages_streets', 'd')
             ->andWhere('lower(d.area_name) LIKE lower(:name)')
             ->setParameter('name', strtolower($name));
@@ -23,7 +23,7 @@ class StreetVillageRepository extends EntityRepository
         $result = $queryBuilder->execute()
             ->fetch();
 
-        return $result['total'];
+        return $result['id'];
     }
 
 

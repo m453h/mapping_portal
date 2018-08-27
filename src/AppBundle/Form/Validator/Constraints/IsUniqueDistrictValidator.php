@@ -29,10 +29,10 @@ class IsUniqueDistrictValidator extends ConstraintValidator
 
         if($districtName!=null)
         {
-            $total = $this->em->getRepository('AppBundle:Location\District')
-                ->findTotalByName($districtName);
+            $districtId = $this->em->getRepository('AppBundle:Location\District')
+                ->findDistrictIdByName($districtName);
 
-            if ($total>0) {
+            if ($districtId!=$data->getDistrictId()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', 'This district already exists')
                     ->addViolation();

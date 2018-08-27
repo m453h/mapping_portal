@@ -8,13 +8,13 @@ use Doctrine\ORM\EntityRepository;
 class WardRepository extends EntityRepository
 {
 
-    public function findTotalByName($name)
+    public function findWardIdByName($name)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('COUNT(*) AS total')
+        $queryBuilder->select('ward_id AS id')
             ->from('cfg_wards', 'd')
             ->andWhere('lower(d.ward_name) LIKE lower(:name)')
             ->setParameter('name', strtolower($name));
@@ -22,7 +22,7 @@ class WardRepository extends EntityRepository
         $result = $queryBuilder->execute()
             ->fetch();
 
-        return $result['total'];
+        return $result['id'];
     }
 
 

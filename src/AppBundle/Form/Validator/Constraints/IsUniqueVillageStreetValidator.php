@@ -29,10 +29,10 @@ class IsUniqueVillageStreetValidator extends ConstraintValidator
 
         if($areaName!=null)
         {
-            $total = $this->em->getRepository('AppBundle:Location\VillageStreet')
-                ->findTotalByName($areaName);
+            $id = $this->em->getRepository('AppBundle:Location\VillageStreet')
+                ->findVillageStreetByName($areaName);
 
-            if ($total>0) {
+            if ($id!=$data->getAreaId()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', 'This village/street already exists')
                     ->addViolation();

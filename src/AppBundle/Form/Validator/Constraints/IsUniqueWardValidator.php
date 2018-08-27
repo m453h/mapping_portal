@@ -30,10 +30,10 @@ class IsUniqueWardValidator extends ConstraintValidator
         {
             if($wardName!=null)
             {
-                $total = $this->em->getRepository('AppBundle:Location\Ward')
-                    ->findTotalByName($wardName);
+                $id = $this->em->getRepository('AppBundle:Location\Ward')
+                    ->findWardIdByName($wardName);
 
-                if ($total>0) {
+                if ($id!=$data->getWardId()) {
                     $this->context->buildViolation($constraint->message)
                         ->setParameter('{{ string }}', 'This ward already exists')
                         ->addViolation();

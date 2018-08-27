@@ -9,13 +9,13 @@ class ZoneRepository extends EntityRepository
 {
 
 
-    public function findTotalByName($name)
+    public function findZoneIdByName($name)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('COUNT(*) AS total')
+        $queryBuilder->select('zone_id AS id')
             ->from('cfg_zones', 'd')
             ->andWhere('lower(d.zone_name) LIKE lower(:name)')
             ->setParameter('name', strtolower($name));
@@ -23,7 +23,7 @@ class ZoneRepository extends EntityRepository
         $result = $queryBuilder->execute()
             ->fetch();
 
-        return $result['total'];
+        return $result['id'];
     }
 
 

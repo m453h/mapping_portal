@@ -499,7 +499,7 @@ class CourtController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Court staff workload successfully updated');
+            $this->addFlash('success','Court images successfully updated');
 
             $this->get('app.helper.audit_trail_logger')
                 ->logUserAction('COURT\IMAGES','EDIT',$court,$data);

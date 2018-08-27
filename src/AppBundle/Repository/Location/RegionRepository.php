@@ -10,13 +10,13 @@ class RegionRepository extends EntityRepository
 {
 
 
-    public function findTotalByName($name)
+    public function findRegionIdByName($name)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
-        $queryBuilder->select('COUNT(*) AS total')
+        $queryBuilder->select('region_id AS id')
             ->from('cfg_regions', 'r')
             ->andWhere('lower(r.region_name) LIKE lower(:name)')
             ->setParameter('name', strtolower($name));
@@ -24,7 +24,7 @@ class RegionRepository extends EntityRepository
         $result = $queryBuilder->execute()
             ->fetch();
 
-        return $result['total'];
+        return $result['id'];
     }
 
     /**

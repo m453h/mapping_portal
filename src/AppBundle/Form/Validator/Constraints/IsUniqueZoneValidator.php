@@ -28,10 +28,10 @@ class IsUniqueZoneValidator extends ConstraintValidator
 
         if($zoneName!=null)
         {
-            $total = $this->em->getRepository('AppBundle:Location\Zone')
-                ->findTotalByName($zoneName);
+            $id = $this->em->getRepository('AppBundle:Location\Zone')
+                ->findZoneIdByName($zoneName);
 
-            if ($total>0) {
+            if ($id!=$data->getZoneId()) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', 'This zone already exists')
                     ->addViolation();
