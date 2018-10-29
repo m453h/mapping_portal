@@ -134,7 +134,7 @@ class RoleController extends Controller
         return $this->render(
             'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'user.accounts/role',
+                'formTemplate'=>'portal.users/role',
                 'permissions'=>$permissions,
                 'form'=>$form->createView(),
                 'isFullWidth'=>true,

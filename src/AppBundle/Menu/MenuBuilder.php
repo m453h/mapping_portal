@@ -102,6 +102,7 @@ class MenuBuilder
             ->addChild('Visual reports', array('route' => 'visual_report_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->addChild('Map reports', array('route' => 'map_report_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->addChild('Distance calculator', array('route' => 'distance_calculator_builder', 'extras' => $this->getCrudLinks('region')))->getParent()
+            ->addChild('Report builder', array('route' => 'report_builder_menu', 'extras' => $this->getCrudLinks('region')))->getParent()
             ->getParent();
 
         $menu->addChild('User Accounts', array('uri' => '#', 'extras' => array('icon' => 'users')))
