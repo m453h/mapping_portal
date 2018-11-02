@@ -4,6 +4,13 @@ $(document).ready(function() {
 
 	$('#loader').hide();
 
+    $(function(){
+        $('#menu').slicknav({
+            prependTo:'.navigation-bar',
+            label: ''
+        });
+    });
+
 	$('.select2-basic').select2({ width: '99%'});
 
 	$(function() {

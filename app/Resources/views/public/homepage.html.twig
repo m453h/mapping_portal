@@ -1,7 +1,7 @@
 {% extends 'public/base.html.twig' %}
 
 {% block content %}
-    <div class='col12 intro'>
+    <div class='col12 intro align-center'>
         <div class='section-inner'>
             <div class='intro-caption col12'>
                 <div class='container'>
@@ -10,33 +10,10 @@
                     <form class='search-form user-form' action="{{path('public_search_results')}}" method="GET">
                         <input type='text' name='q' value='' placeholder='Search for a court... '/>
                         <div class='space-20 col12'></div>
-                        <div class='col3'>
-                            <input type='submit' class="btn btn-primary" value='Search'  />
-                        </div>
+                        <input type='submit' class="btn btn-primary" value='Search'  />
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
-    <div class="col12 white-space align-center">
-        <div class="col12 space"></div>
-        <div class="section-inner">
-            <h1 class="styled-header">Available Datasets</h1>
-            <div class="divider"></div>
-            <div class="space-20"></div>
-
-            {% for dataset in datasets %}
-                <div class="col2 data-element {% if loop.index==6 %}last{% endif %}">
-                    <div class="frame">
-                        <p><a href="{{ path('public_dataset_page',{'datasetName':dataset.path}) }}"><i class="fa fa-{{ dataset.icon }}" aria-hidden="true"></i>{{ dataset.name }}</a></p>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="col12 space"></div>
-        </div>
-    </div>
-
-
-
 {% endblock %}
