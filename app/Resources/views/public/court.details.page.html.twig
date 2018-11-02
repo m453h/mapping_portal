@@ -17,21 +17,19 @@
                 <h2 class="lighter">Basic Court Details</h2>
                 <div class="divider"></div>
                 <ul class="list-styled">
-                    <li class="fade"><span class="title">Name:</span>{{ court.courtName }}</li>
-                    <li class="fade"><span class="title">Court Level:</span>{{ court.courtLevel.description|upper }}</li>
+                    <li class="fade"><span class="title">Name: </span>{{ court.courtName }}</li>
+                    <li class="fade"><span class="title">Court Level: </span>{{ court.courtLevel.description|upper }}</li>
                 </ul>
 
                 <div class="clear space-20"></div>
-
-
 
             </div>
             <div class="col6 align-left last">
                 <h2 class="lighter">Court Location Details</h2>
                 <div class="divider"></div>
                 <ul class="list-styled">
-                    <li class="fade"><span class="title">Region:</span>{{ court.ward.district.region.regionName|capitalize }}, <span class="title">District:</span>{{ court.ward.district.districtName|capitalize }}, <span class="title">Ward:</span>{{ court.ward.wardName|capitalize }}</li>
-                    <li class="fade"><span class="title">Coordinates(DMS):</span>{{ court.CourtCoordinatesDMS }}</li>
+                    <li class="fade"><span class="title">Region: </span>{{ court.ward.district.region.regionName|capitalize }}, <span class="title">District: </span>{{ court.ward.district.districtName|capitalize }}, <span class="title">Ward: </span>{{ court.ward.wardName|capitalize }}</li>
+                    <li class="fade"><span class="title">Coordinates(DMS): </span>{{ court.CourtCoordinatesDMS }}</li>
                 </ul>
 
                 <div class="clear space-20"></div>
@@ -71,11 +69,6 @@
             <div class="clear"></div>
         </div>
 
-        <div class="space col12">
-
-
-        </div>
-
     </div>
 {% endblock %}
 
@@ -105,13 +98,13 @@
                     var map = L.map('map', {
                         center: [{{ coordinates.latitude }}, {{ coordinates.longitude }}],
                         zoom: 10,
-                        layers: [grayscale, courts]
+                        layers: [Esri_WorldImagery, courts]
                     });
 
                     var baseLayers = {
-                        "Grayscale": grayscale,
                         "Streets": streets,
-                        "Satellite": Esri_WorldImagery
+                        "Satellite": Esri_WorldImagery,
+                        "Grayscale": grayscale
                     };
 
                     var overlays = {

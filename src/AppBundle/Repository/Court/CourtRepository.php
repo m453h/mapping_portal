@@ -75,6 +75,19 @@ class CourtRepository extends EntityRepository
                 ->setParameter('location', '%' . $options['locationWithName'] . '%');
         }
 
+        if (isset($options['dataType']))
+        {
+            if($options['dataType']=='VERIFIED')
+            {
+                $queryBuilder
+                    ->andWhere('court_record_status=:recordStatus AND 
+                    court_verification_status=:verificationStatus AND is_plot_only=:plotOnly')
+                    ->setParameter('recordStatus',true)
+                    ->setParameter('plotOnly',0)
+                    ->setParameter('verificationStatus',true);
+            }
+        }
+
         return $queryBuilder;
     }
 
