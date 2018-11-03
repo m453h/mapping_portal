@@ -31,10 +31,27 @@ class CourtLevel
 
     /**
      * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $descriptionSwahili;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $identifier;
+
+
+    /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="integer", nullable=true)
      */
     private $hierarchy;
 
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $details;
 
     
     /**
@@ -51,6 +68,8 @@ class CourtLevel
     public function setDescription($description)
     {
         $this->description = $description;
+        $description = preg_replace('@[^A-Za-z0-9\w\ ]@', "", $description);
+        $this->identifier = strtolower(str_replace(' ','-',$description));
     }
 
     /**
@@ -83,6 +102,54 @@ class CourtLevel
     public function setHierarchy($hierarchy)
     {
         $this->hierarchy = $hierarchy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    /**
+     * @param mixed $details
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescriptionSwahili()
+    {
+        return $this->descriptionSwahili;
+    }
+
+    /**
+     * @param mixed $descriptionSwahili
+     */
+    public function setDescriptionSwahili($descriptionSwahili)
+    {
+        $this->descriptionSwahili = $descriptionSwahili;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param mixed $identifier
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
     }
 
 }

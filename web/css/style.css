@@ -199,7 +199,7 @@ div.header {
 	left:0;
 	background:#FFFFFF;
 	color:#7F96AC;
-	z-index: 9999;
+	z-index: 9000;
 }
 
 .header:after {
@@ -440,6 +440,14 @@ select,.form-wizard select,.form-wizard select.ui-state-default {
     color:#FFFFFF;
 	font-weight: bolder;
     transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+
+.editor-toolbar.fullscreen, .CodeMirror-fullscreen,.editor-preview-side {
+	z-index: 9999 !important;
+}
+
+.CodeMirror-lines {
+	overflow-y: auto;
 }
 
 .btn-white, #back-btn{

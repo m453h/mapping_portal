@@ -15,7 +15,12 @@ class CourtLevelFormType extends  AbstractType
     {
         $builder
             ->add('description',null,['required'=>true])
-            ->add('hierarchy',null,['required'=>true]);
+            ->add('descriptionSwahili',null,['required'=>true])
+            ->add('hierarchy',null,['required'=>true])
+            ->add('details',null, [
+                'required'=>true,
+                'attr' => ['class' => 'markdown'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

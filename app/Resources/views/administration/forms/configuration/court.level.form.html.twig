@@ -1,5 +1,9 @@
 {{ form_start(form) }}
 {{ form_row(form.description) }}
+{{ form_row(form.descriptionSwahili,{'label':'Description (Swahili)'}) }}
 {{ form_row(form.hierarchy) }}
+<div id="meme">
+    {{ form_row(form.details) }}
+</div>
 <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
 {{ form_end(form) }}
