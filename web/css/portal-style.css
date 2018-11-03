@@ -588,6 +588,52 @@ div.lo-footer{
 	padding-top:10px;
 }
 
+.markdown-content{
+	text-align: justify;
+}
+.markdown-content h2,.markdown-content h3{
+	color:#ff0000;
+	margin-bottom:5px;
+}
+
+.markdown-content h2{
+	text-transform: uppercase;
+}
+
+.markdown-content h4{
+	margin-bottom:5px;
+}
+
+.markdown-content ul {
+	text-align: left;
+}
+
+.markdown-content ul li {
+	margin-bottom: 8px;
+	list-style-image: url('../images/icons/bullet.png');
+}
+
+.markdown-content ol {
+	list-style: none;
+	counter-reset: item;
+}
+.markdown-content ol li {
+	counter-increment: item;
+	margin-bottom: 5px;
+	list-style-image: none;
+}
+.markdown-content ol li:before {
+	margin-right: 10px;
+	content: counter(item);
+	background: #ff0000;
+	border-radius: 100%;
+	color: white;
+	width: 1.2em;
+	text-align: center;
+	display: inline-block;
+	padding:0.5em;
+	font-weight:bolder;
+}
 
 /* Responsive Columns */
 /* Basic Column definitions */

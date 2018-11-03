@@ -135,4 +135,24 @@ class MainController extends Controller
         );
     }
 
+
+    /**
+     * @Route("/court-level-description/{level}", name="public_court_level_description")
+     * @param $level
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function courtLevelDescriptionAction($level)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $courtLevel = $em->getRepository('AppBundle:Configuration\CourtLevel')
+            ->findOneBy(['identifier'=>$level]);
+
+        return $this->render(
+            'public/court.level.details.page.html.twig', [
+                'courtLevel'=>$courtLevel
+            ]
+        );
+    }
+
 }

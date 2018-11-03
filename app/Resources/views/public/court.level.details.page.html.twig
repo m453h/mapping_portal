@@ -1,0 +1,31 @@
+{% extends 'public/base.html.twig' %}
+
+{% block content %}
+
+    <div class="page-title">
+            <div class="section-inner">
+                <h1>Courts \ {{ courtLevel.description }}</h1>
+            </div>
+    </div>
+
+    <div class="white-space">
+        <div class="space-20 col12"></div>
+
+        <div class="section-inner">
+            <div class="clear space-10"></div>
+            <div class="col8 markdown-content align-justify">
+                {{ courtLevel.details|markdown }}
+            </div>
+            <div class="col4 align-left last">
+
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

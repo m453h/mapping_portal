@@ -50,7 +50,7 @@
                                     <li><a href="#">Courts</a>
                                         <ul class="dropdown" style="display: none;">
                                             {% for courtLevel in courtLevels %}
-                                                <li><a href="#">{{ courtLevel.description }} </a></li>
+                                                <li><a href="{{ path('public_court_level_description',{'level':courtLevel.identifier}) }}">{{ courtLevel.description }} </a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
