@@ -46,15 +46,20 @@
                     <div class='col8 navigation-bar last'>
                         <div class='section-inner'>
                             <div id="menu-area">
-                                <ul id="menu" class="tabs"><li class="selected"><a href="{{ path('homepage') }}">Home</a></li>
-                                    <li><a href="#">Courts</a>
+                                <ul id="menu" class="tabs"><li class="{{ highlight_public_menu(currentPosition,'home') }}"><a href="{{ path('homepage') }}">Home</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'courts') }}"><a href="#">Courts</a>
                                         <ul class="dropdown" style="display: none;">
-                                            {% for courtLevel in courtLevels %}
-                                                <li><a href="{{ path('public_court_level_description',{'level':courtLevel.identifier}) }}">{{ courtLevel.description }} </a></li>
+                                            {% for level in courtLevels %}
+                                                {% if courtLevel is not defined %}
+                                                     <li><a href="{{ path('public_court_level_description',{'level':level.identifier}) }}">{{ level.description }} </a></li>
+                                                    {% else %}
+                                                        <li class="{{ highlight_public_menu(courtLevel.identifier,level.identifier) }}"><a href="{{ path('public_court_level_description',{'level':level.identifier}) }}">{{ level.description }} </a></li>
+                                                {% endif %}
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li><a href="#">About</a></li><li><a href="#">Contact</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'about') }}"><a href="#">About</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'contact') }}"><a href="#">Contact</a></li>
                                 </ul>
                             </div>
                         </div>

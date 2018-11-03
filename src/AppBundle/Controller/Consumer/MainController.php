@@ -23,7 +23,7 @@ class MainController extends Controller
 
         return $this->render(
             'public/homepage.html.twig',
-            []
+            ['currentPosition'=>'home']
         );
     }
 
@@ -46,7 +46,7 @@ class MainController extends Controller
 
         if(empty($options['locationWithName']))
         {
-            $data = ['results'=>[],'total'=>0,'paginate'=>false];
+            $data = ['results'=>[],'total'=>0,'paginate'=>false,'currentPosition'=>'search'];
 
             return $this->render(
                 'public/search.results.page.html.twig',
@@ -66,7 +66,7 @@ class MainController extends Controller
         $dataGrid->setCurrentPage($page);
         $results = $dataGrid->getCurrentPageResults();
 
-        $data = ['results'=>$results,'total'=>$dataGrid->count(),'records'=>$dataGrid,'paginate'=>true];
+        $data = ['results'=>$results,'total'=>$dataGrid->count(),'records'=>$dataGrid,'paginate'=>true,'currentPosition'=>'search'];
 
         return $this->render(
             'public/search.results.page.html.twig',
@@ -127,6 +127,7 @@ class MainController extends Controller
         $data = ['court'=>$data,
             'images'=>$images,
             'coordinates'=>$coordinates,
+            'currentPosition'=>'search'
         ];
 
         return $this->render(
@@ -150,7 +151,8 @@ class MainController extends Controller
 
         return $this->render(
             'public/court.level.details.page.html.twig', [
-                'courtLevel'=>$courtLevel
+                'courtLevel'=>$courtLevel,
+                'currentPosition'=>'courts'
             ]
         );
     }

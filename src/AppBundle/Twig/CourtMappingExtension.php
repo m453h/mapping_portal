@@ -32,7 +32,8 @@ class CourtMappingExtension extends Twig_Extension
 
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('get_court_list', array($this, 'getCourtList'))
+            new \Twig_SimpleFunction('get_court_list', array($this, 'getCourtList')),
+            new \Twig_SimpleFunction('highlight_public_menu', array($this, 'highlightPublicMenu'))
         );
     }
 
@@ -44,5 +45,12 @@ class CourtMappingExtension extends Twig_Extension
             ->fetchAll();
 
         return $results;
+    }
+
+    public function highlightPublicMenu($currentPosition,$expectedValue){
+        if($currentPosition==$expectedValue)
+            return 'selected';
+
+        return null;
     }
 }
