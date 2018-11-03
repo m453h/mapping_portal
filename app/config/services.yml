@@ -182,3 +182,9 @@ services:
                 autowire: true
                 tags:
                     - { name: validator.constraint_validator, alias: app.validator.village_street }
+
+    app.twig.court_mapping_extension:
+            class: AppBundle\Twig\CourtMappingExtension
+            autowire: true
+            tags:
+                - { name: twig.extension }

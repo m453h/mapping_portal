@@ -34,6 +34,7 @@
                 </div>
             </div>
 
+            {% set courtLevels = get_court_list() %}
             <!-- header -->
             <div class="header col12 white-space">
                 <div class="section-inner">
@@ -48,15 +49,9 @@
                                 <ul id="menu" class="tabs"><li class="selected"><a href="{{ path('homepage') }}">Home</a></li>
                                     <li><a href="#">Courts</a>
                                         <ul class="dropdown" style="display: none;">
-                                            <li><a href="#">Resident Magistrate Court </a></li>
-                                            <li><a href="#">Primary Court </a></li>
-                                            <li><a href="#">District Court </a></li>
-                                            <li><a href="#">High Court - Corruption Division	 </a></li>
-                                            <li><a href="#">High Court - Labour Division	 </a></li>
-                                            <li><a href="#">High Court - Commercial Division </a></li>
-                                            <li><a href="#">High Court - Land Division	 </a></li>
-                                            <li><a href="#">High Court - Zone Registry </a></li>
-                                            <li><a href="#">Court of Appeal </a></li>
+                                            {% for courtLevel in courtLevels %}
+                                                <li><a href="#">{{ courtLevel.description }} </a></li>
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                     <li><a href="#">About</a></li><li><a href="#">Contact</a></li>
