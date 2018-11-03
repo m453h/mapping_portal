@@ -118,7 +118,14 @@ $(document).ready(function() {
 
 	if ($(".markdown").length > 0)
 	{
-		var simplemde = new SimpleMDE({element: $(".markdown")[0]});
+		var simplemde = new SimpleMDE({
+			element: $(".markdown")[0],
+            /*toolbar: ["bold", "italic","|",
+                "heading-1","heading-2","heading-3","|",
+                "quote","unordered-list","ordered-list","|",
+                "link","image","|","preview","guide"
+            ]*/
+        });
 	}
 
 	$(':file').filer({limit:1});
