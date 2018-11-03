@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="sw" datatype="plaintext"
+            original="file.ext">
+        <body>
+            <trans-unit id="text.welcome">
+                <source>text.welcome</source>
+                <target>Karibu kwenye mfumo wa Ramani za Mahakama za Tanzania</target>
+            </trans-unit>
+            <trans-unit id="text.judiciary.tanzania">
+                <source>text.judiciary.tanzania</source>
+                <target>Mahakama, Jamuhuri ya Muungano Wa Tanzania</target>
+            </trans-unit>
+            <trans-unit id="text.open.data.portal">
+                <source>text.open.data.portal</source>
+                <target>Tovuti ya Data Huru</target>
+            </trans-unit>
+            <trans-unit id="text.search.court">
+                <source>text.search.court</source>
+                <target>Tafuta mahakama...</target>
+            </trans-unit>
+            <trans-unit id="action.search">
+                <source>action.search</source>
+                <target>Tafuta</target>
+            </trans-unit>
+            <trans-unit id="action.staff.login">
+                <source>action.staff.login</source>
+                <target>Ingia Kama Mfanyakazi</target>
+            </trans-unit>
+            <trans-unit id="text.rights.reserved">
+                <source>text.rights.reserved</source>
+                <target>Haki zote zimehifadhiwa</target>
+            </trans-unit>
+            <trans-unit id="menu.home">
+                <source>menu.home</source>
+                <target>Nyumbani</target>
+            </trans-unit>
+            <trans-unit id="menu.courts">
+                <source>menu.courts</source>
+                <target>Mahakama</target>
+            </trans-unit>
+            <trans-unit id="menu.about">
+                <source>menu.about</source>
+                <target>Kuhusu</target>
+            </trans-unit>
+            <trans-unit id="menu.contact">
+                <source>menu.contact</source>
+                <target>Mawasiliano</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

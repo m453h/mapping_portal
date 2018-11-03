@@ -16,9 +16,11 @@ class MainController extends Controller
 {
 
     /**
-     * @Route("/", name="public_home_page")
+     * @Route("/{_locale}", name="public_home_page",defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepageAction()
+    public function homepageAction(Request $request)
     {
 
         return $this->render(

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext"
+          original="file.ext">
+        <body>
+            <trans-unit id="text.welcome">
+                <source>text.welcome</source>
+                <target>Welcome To The Tanzania Judiciary Open Data Portal</target>
+            </trans-unit>
+            <trans-unit id="text.judiciary.tanzania">
+                <source>text.judiciary.tanzania</source>
+                <target>The Judiciary, United Republic of Tanzania</target>
+            </trans-unit>
+            <trans-unit id="text.open.data.portal">
+                <source>text.open.data.portal</source>
+                <target>Open Data Portal</target>
+            </trans-unit>
+            <trans-unit id="text.search.court">
+                <source>text.search.court</source>
+                <target>Search for a court...</target>
+            </trans-unit>
+            <trans-unit id="action.search">
+                <source>action.search</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="action.staff.login">
+                <source>action.staff.login</source>
+                <target>Staff Login</target>
+            </trans-unit>
+            <trans-unit id="text.rights.reserved">
+                <source>text.rights.reserved</source>
+                <target>All Rights Reserved</target>
+            </trans-unit>
+            <trans-unit id="menu.home">
+                <source>menu.home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="menu.courts">
+                <source>menu.courts</source>
+                <target>Courts</target>
+            </trans-unit>
+            <trans-unit id="menu.about">
+                <source>menu.about</source>
+                <target>About</target>
+            </trans-unit>
+            <trans-unit id="menu.contact">
+                <source>menu.contact</source>
+                <target>Contact</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

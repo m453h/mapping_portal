@@ -5,12 +5,12 @@
         <div class='section-inner'>
             <div class='intro-caption col12'>
                 <div class='container'>
-                    <h2>THE JUDICIARY, UNITED REPUBLIC OF TANZANIA</h2>
-                    <h1>OPEN DATA PORTAL</h1>
+                    <h2>{{ 'text.judiciary.tanzania'|trans|upper }}</h2>
+                    <h1>{{ 'text.open.data.portal'|trans|upper }}</h1>
                     <form class='search-form user-form' action="{{path('public_search_results')}}" method="GET">
-                        <input type='text' name='q' value='' placeholder='Search for a court... '/>
+                        <input type='text' name='q' value='' placeholder='{{ 'text.search.court'|trans }}'/>
                         <div class='space-20 col12'></div>
-                        <input type='submit' class="btn btn-primary" value='Search'  />
+                        <input type='submit' class="btn btn-primary" value='{{ 'action.search'|trans }}'  />
                     </form>
                 </div>
             </div>

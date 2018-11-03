@@ -29,8 +29,8 @@
         <div class="white-space col12">
             <div class="top-bar">
                 <div class="section-inner">
-                    <div class="col6 no-mobile"><p>Welcome To The Tanzania Judiciary Open Data Portal</p></div>
-                    <div class="col6 last align-right"><a href="{{ path('admin_security_login') }}">Staff Login</a></div>
+                    <div class="col6 no-mobile"><p>{{ 'text.welcome'|trans }}</p></div>
+                    <div class="col6 last align-right"><a href="{{ path('admin_security_login') }}">{{ 'action.staff.login'|trans }}</a></div>
                 </div>
             </div>
 
@@ -46,8 +46,8 @@
                     <div class='col8 navigation-bar last'>
                         <div class='section-inner'>
                             <div id="menu-area">
-                                <ul id="menu" class="tabs"><li class="{{ highlight_public_menu(currentPosition,'home') }}"><a href="{{ path('homepage') }}">Home</a></li>
-                                    <li class="{{ highlight_public_menu(currentPosition,'courts') }}"><a href="#">Courts</a>
+                                <ul id="menu" class="tabs"><li class="{{ highlight_public_menu(currentPosition,'home') }}"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'courts') }}"><a href="#">{{ 'menu.courts'|trans }}</a>
                                         <ul class="dropdown" style="display: none;">
                                             {% for level in courtLevels %}
                                                 {% if courtLevel is not defined %}
@@ -58,8 +58,8 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
-                                    <li class="{{ highlight_public_menu(currentPosition,'about') }}"><a href="#">About</a></li>
-                                    <li class="{{ highlight_public_menu(currentPosition,'contact') }}"><a href="#">Contact</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'about') }}"><a href="#">{{ 'menu.about'|trans }}</a></li>
+                                    <li class="{{ highlight_public_menu(currentPosition,'contact') }}"><a href="#">{{ 'menu.contact'|trans }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
             <div class="col12 space-30"></div>
             <div class='col12 align-center lo-footer'>
                 <div class='section-inner'>
-                    <p>&copy; {{ 'now'|date('Y') }} The Judiciary of Tanzania.All Rights Reserved.</p>
+                    <p>&copy; {{ 'now'|date('Y') }} {{ 'text.judiciary.tanzania'|trans }}. {{ 'text.rights.reserved'|trans }}.</p>
                 </div>
             </div>
         {% endblock %}

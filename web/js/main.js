@@ -8,20 +8,6 @@ $(document).ready(function() {
 
     $( "#accordion" ).accordion();
 
-    $(function() {
-
-		var index = $('li.current_ancestor').index();
-
-		index<0 ? index=false : index;
-
-		$( '#sidebar-menu' ).accordion({
-			heightStyle: 'content',
-			icons: false,
-			collapsible: true,
-			active: index
-		});
-	});
-
 	$('.dropdown').dropit();
 
 	$(".close").click(function(event) {
@@ -115,18 +101,6 @@ $(document).ready(function() {
 		minuteText: 'Min',
 		dateFormat:'yy-mm-dd'
 	});
-
-	if ($(".markdown").length > 0)
-	{
-		var simplemde = new SimpleMDE({
-			element: $(".markdown")[0],
-            /*toolbar: ["bold", "italic","|",
-                "heading-1","heading-2","heading-3","|",
-                "quote","unordered-list","ordered-list","|",
-                "link","image","|","preview","guide"
-            ]*/
-        });
-	}
 
 	$(':file').filer({limit:1});
 
