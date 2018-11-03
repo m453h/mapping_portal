@@ -47,6 +47,40 @@
                 <source>menu.contact</source>
                 <target>Contact</target>
             </trans-unit>
+
+            <!-- Search Results Page !-->
+            <trans-unit id="text.search.results">
+                <source>text.search.results</source>
+                <target>Search results</target>
+            </trans-unit>
+            <trans-unit id="text.court.is.located">
+                <source>text.court.is.located</source>
+                <target>This court is located at %region% region, %district% district, %ward% ward</target>
+            </trans-unit>
+            <trans-unit id="text.region">
+                <source>text.region</source>
+                <target>region</target>
+            </trans-unit>
+            <trans-unit id="text.district">
+                <source>text.district</source>
+                <target>district</target>
+            </trans-unit>
+            <trans-unit id="text.ward">
+                <source>text.ward</source>
+                <target>ward</target>
+            </trans-unit>
+            <trans-unit id="text.court.level">
+                <source>text.court.level</source>
+                <target>Court Level</target>
+            </trans-unit>
+            <trans-unit id="text.total.results">
+                <source>text.total.results</source>
+                <target>A total of %total% results were found</target>
+            </trans-unit>
+            <trans-unit id="action.view.more.details">
+                <source>action.view.more.details</source>
+                <target>View more details</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

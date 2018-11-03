@@ -31,7 +31,7 @@ class MainController extends Controller
 
 
     /**
-     * @Route("/search-results", name="public_search_results")
+     * @Route("/{_locale}/search-results", name="public_search_results",defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

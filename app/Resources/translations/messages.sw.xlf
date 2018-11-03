@@ -47,6 +47,41 @@
                 <source>menu.contact</source>
                 <target>Mawasiliano</target>
             </trans-unit>
+
+
+            <!-- Search Results Page !-->
+            <trans-unit id="text.search.results">
+                <source>text.search.results</source>
+                <target>Matokeo ya utafutaji</target>
+            </trans-unit>
+            <trans-unit id="text.court.is.located">
+                <source>text.court.is.located</source>
+                <target>Mahakama hii inapatikana mkoani %region%, wilaya ya %district%, kata ya %ward%</target>
+            </trans-unit>
+            <trans-unit id="text.region">
+                <source>text.region</source>
+                <target>mkoa</target>
+            </trans-unit>
+            <trans-unit id="text.district">
+                <source>text.district</source>
+                <target>wilaya</target>
+            </trans-unit>
+            <trans-unit id="text.ward">
+                <source>text.ward</source>
+                <target>kata</target>
+            </trans-unit>
+            <trans-unit id="text.court.level">
+                <source>text.court.level</source>
+                <target>Ngazi ya Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.total.results">
+                <source>text.total.results</source>
+                <target>Jumla ya matokeo %total% yamepatikana</target>
+            </trans-unit>
+            <trans-unit id="action.view.more.details">
+                <source>action.view.more.details</source>
+                <target>Tazama taarifa zaidi</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

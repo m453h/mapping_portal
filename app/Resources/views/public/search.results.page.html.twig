@@ -4,7 +4,7 @@
 
     <div class="page-title">
             <div class="section-inner">
-                <h1>Search results</h1>
+                <h1>{{ 'text.search.results'|trans }}</h1>
             </div>
     </div>
 
@@ -12,15 +12,21 @@
         <div class="space-20 col12"></div>
 
         <div class="section-inner">
-            <p><i>A total of {{ total }} results were found</i></p>
+            <p><i>{{ 'text.total.results'|trans({'%total%': total}) }}</i></p>
+
             <ul class="search-results">
                 {% if results|length>0 %}
                     {% for result in results %}
                     <li>
                         <h2><a href="{{ path('public_court_details',{'courtId':result.court_id}) }}">{{ result.court_name }}</a></h2>
-                        <p><span class="icon-spacer-right"><i class="fa fa-map-marker" aria-hidden="true"></i></span>This court is located at {{ result.region_name }} region, {{ result.district_name }} district, {{ result.ward_name }} ward </p>
-                        <p><span class="icon-spacer-right"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>Court Level: {{ result.description }}</p>
-                        <p><a href="{{ path('public_court_details',{'courtId':result.court_id}) }}" class="minor-link">View more details</a></p>
+                        <p><span class="icon-spacer-right"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                            {{ 'text.court.is.located'|trans({
+                                '%region%': result.region_name,
+                                '%district%': result.district_name,
+                                '%ward%': result.ward_name }) }}
+                        </p>
+                        <p><span class="icon-spacer-right"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>{{ 'text.court.level'|trans }}: {{ result.description }}</p>
+                        <p><a href="{{ path('public_court_details',{'courtId':result.court_id}) }}" class="minor-link">{{ 'action.view.more.details'|trans }}</a></p>
                     </li>
                     {% endfor %}
                     {% else %}
