@@ -413,9 +413,12 @@ div.jfilestyle input{
     margin-bottom: 21px;
 }
 div.image-frame img{
-    max-width: 100%;
+    max-width: 98%;
     background:#EEE;
     padding:5px;
+}
+.slick-initialized .slick-slide{
+    outline: none;
 }
 div.image-frame{
     text-align: center;
