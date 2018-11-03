@@ -77,9 +77,47 @@
                 <source>text.total.results</source>
                 <target>A total of %total% results were found</target>
             </trans-unit>
+            <trans-unit id="text.no.results.found">
+                <source>text.no.results.found</source>
+                <target>No results found</target>
+            </trans-unit>
+            <trans-unit id="text.unable.to.find">
+                <source>text.unable.to.find</source>
+                <target>We are unable to find results for your searched court</target>
+            </trans-unit>
             <trans-unit id="action.view.more.details">
                 <source>action.view.more.details</source>
                 <target>View more details</target>
+            </trans-unit>
+
+            <!-- Court Details Page !-->
+            <trans-unit id="text.court.details">
+                <source>text.court.details</source>
+                <target>Court Details</target>
+            </trans-unit>
+            <trans-unit id="text.court.basic.details">
+                <source>text.court.basic.details</source>
+                <target>Basic Court Details</target>
+            </trans-unit>
+            <trans-unit id="text.court.location.details">
+                <source>text.court.location.details</source>
+                <target>Court Location Details</target>
+            </trans-unit>
+            <trans-unit id="text.court.images.details">
+                <source>text.court.images.details</source>
+                <target>Court Images</target>
+            </trans-unit>
+            <trans-unit id="text.court.map">
+                <source>text.court.map</source>
+                <target>Court Map</target>
+            </trans-unit>
+            <trans-unit id="text.court.name">
+                <source>text.court.name</source>
+                <target>Court Name</target>
+            </trans-unit>
+            <trans-unit id="text.court.coordinates">
+                <source>text.court.coordinates</source>
+                <target>Coordinates(DMS)</target>
             </trans-unit>
         </body>
     </file>

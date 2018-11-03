@@ -13,7 +13,7 @@
             </trans-unit>
             <trans-unit id="text.open.data.portal">
                 <source>text.open.data.portal</source>
-                <target>Tovuti ya Data Huru</target>
+                <target>Tovuti ya Data Huria</target>
             </trans-unit>
             <trans-unit id="text.search.court">
                 <source>text.search.court</source>
@@ -78,9 +78,47 @@
                 <source>text.total.results</source>
                 <target>Jumla ya matokeo %total% yamepatikana</target>
             </trans-unit>
+            <trans-unit id="text.no.results.found">
+                <source>text.no.results.found</source>
+                <target>Hakuna matokeo yaliyopatikana</target>
+            </trans-unit>
+            <trans-unit id="text.unable.to.find">
+                <source>text.unable.to.find</source>
+                <target>Tumeshindwa kupata matokeo ya Mahakama uliyoitafuta</target>
+            </trans-unit>
             <trans-unit id="action.view.more.details">
                 <source>action.view.more.details</source>
                 <target>Tazama taarifa zaidi</target>
+            </trans-unit>
+
+            <!-- Court Details Page !-->
+            <trans-unit id="text.court.details">
+                <source>text.court.details</source>
+                <target>Maelezo ya Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.court.basic.details">
+                <source>text.court.basic.details</source>
+                <target>Maelezo ya Msingi kuhusu Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.court.location.details">
+                <source>text.court.location.details</source>
+                <target>Maelezo ya Eneo La Upatikanaji</target>
+            </trans-unit>
+            <trans-unit id="text.court.images.details">
+                <source>text.court.images.details</source>
+                <target>Picha za Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.court.map">
+                <source>text.court.map</source>
+                <target>Ramani ya Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.court.name">
+                <source>text.court.name</source>
+                <target>Jina la Mahakama</target>
+            </trans-unit>
+            <trans-unit id="text.court.coordinates">
+                <source>text.court.coordinates</source>
+                <target>Taarifa za kijiografia</target>
             </trans-unit>
         </body>
     </file>

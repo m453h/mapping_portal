@@ -35,6 +35,15 @@ class CourtLevelRepository extends EntityRepository
                 ->setParameter('name', '%' . $options['name'] . '%');
         }
 
+        if (isset($options['locale']))
+        {
+            if($options['locale']=='sw')
+            {
+                $queryBuilder->select('level_id,description_sw AS description,identifier');
+            }
+        }
+
+
         return $queryBuilder;
     }
 

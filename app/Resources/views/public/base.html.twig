@@ -34,19 +34,18 @@
                 </div>
             </div>
 
-            {% set courtLevels = get_court_list() %}
+            {% set courtLevels = get_court_list(app.request.locale) %}
             <!-- header -->
             <div class="header col12 white-space">
                 <div class="section-inner">
                     <div class='col4'>
-                        <a href='{{ path('homepage') }}'>
+                        <a href='{{ path('public_home_page',{'_locale': app.request.locale}) }}'>
                             <img src='{{ asset('images/logo/portal-logo.png') }}' class='header-logo' alt='Tanzania Judiciary Open Data Logo'/>
                         </a>
                     </div>
-                    <div class='col8 navigation-bar last'>
-                        <div class='section-inner'>
+                    <div class='col7 navigation-bar last'>
                             <div id="menu-area">
-                                <ul id="menu" class="tabs"><li class="{{ highlight_public_menu(currentPosition,'home') }}"><a href="{{ path('homepage') }}">{{ 'menu.home'|trans }}</a></li>
+                                <ul id="menu" class="tabs"><li class="{{ highlight_public_menu(currentPosition,'home') }}"><a href="{{ path('public_home_page',{'_locale': app.request.locale}) }}">{{ 'menu.home'|trans }}</a></li>
                                     <li class="{{ highlight_public_menu(currentPosition,'courts') }}"><a href="#">{{ 'menu.courts'|trans }}</a>
                                         <ul class="dropdown" style="display: none;">
                                             {% for level in courtLevels %}
@@ -62,7 +61,10 @@
                                     <li class="{{ highlight_public_menu(currentPosition,'contact') }}"><a href="#">{{ 'menu.contact'|trans }}</a></li>
                                 </ul>
                             </div>
-                        </div>
+
+                    </div>
+                    <div class="col1 language-switcher">
+                        <a href="#" title="English">EN</a> / <a href="#" title="Swahili">SW</a>
                     </div>
                 </div>
             </div>
@@ -79,7 +81,7 @@
             <div class="col12 space-30"></div>
             <div class='col12 align-center lo-footer'>
                 <div class='section-inner'>
-                    <p>&copy; {{ 'now'|date('Y') }} {{ 'text.judiciary.tanzania'|trans }}. {{ 'text.rights.reserved'|trans }}.</p>
+                    <p>&copy; {{ 'now'|date('Y') }} {{ 'text.judiciary.tanzania'|trans }}.{{ 'text.rights.reserved'|trans }}.</p>
                 </div>
             </div>
         {% endblock %}

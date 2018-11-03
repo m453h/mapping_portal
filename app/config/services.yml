@@ -188,3 +188,8 @@ services:
             autowire: true
             tags:
                 - { name: twig.extension }
+
+    AppBundle\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
+        # redundant if you're using autoconfigure
+        tags: [kernel.event_subscriber]

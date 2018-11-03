@@ -4,7 +4,7 @@
 
     <div class="page-title">
             <div class="section-inner">
-                <h1>Court Details</h1>
+                <h1>{{ 'text.court.details'|trans }}</h1>
             </div>
     </div>
 
@@ -14,22 +14,22 @@
         <div class="section-inner">
             <div class="clear space-10"></div>
             <div class="col6 align-left">
-                <h2 class="lighter">Basic Court Details</h2>
+                <h2 class="lighter">{{ 'text.court.basic.details'|trans }}</h2>
                 <div class="divider"></div>
                 <ul class="list-styled">
-                    <li class="fade"><span class="title">Name: </span>{{ court.courtName }}</li>
-                    <li class="fade"><span class="title">Court Level: </span>{{ court.courtLevel.description|upper }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.name'|trans }}: </span>{{ court.courtName }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.level'|trans }}: </span>{{ court.courtLevel.description|upper }}</li>
                 </ul>
 
                 <div class="clear space-20"></div>
 
             </div>
             <div class="col6 align-left last">
-                <h2 class="lighter">Court Location Details</h2>
+                <h2 class="lighter">{{ 'text.court.location.details'|trans }}</h2>
                 <div class="divider"></div>
                 <ul class="list-styled">
-                    <li class="fade"><span class="title">Region: </span>{{ court.ward.district.region.regionName|capitalize }}, <span class="title">District: </span>{{ court.ward.district.districtName|capitalize }}, <span class="title">Ward: </span>{{ court.ward.wardName|capitalize }}</li>
-                    <li class="fade"><span class="title">Coordinates(DMS): </span>{{ court.CourtCoordinatesDMS }}</li>
+                    <li class="fade"><span class="title">{{ 'text.region'|trans|capitalize }}: </span>{{ court.ward.district.region.regionName|capitalize }}, <span class="title">{{ 'text.district'|trans|capitalize }}: </span>{{ court.ward.district.districtName|capitalize }}, <span class="title">{{ 'text.ward'|trans|capitalize }}: </span>{{ court.ward.wardName|capitalize }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.coordinates'|trans }}: </span>{{ court.CourtCoordinatesDMS }}</li>
                 </ul>
 
                 <div class="clear space-20"></div>
@@ -38,7 +38,7 @@
 
             <div class="col6 align-left">
 
-                <h2 class="lighter">Court Images</h2>
+                <h2 class="lighter">{{ 'text.court.images.details'|trans }}</h2>
                 <div class="divider"></div>
                 <div class="image-slider col12">
                     {% for image in images %}
@@ -56,7 +56,7 @@
                 {% if coordinates is defined %}
                     {% if coordinates.longitude!=null and coordinates.latitude!=null %}
                         <div>
-                            <h2 class="lighter">Court Map</h2>
+                            <h2 class="lighter">{{ 'text.court.map'|trans }}</h2>
                             <div class="divider"></div>
                             <div id="map" style="width:100%; height: 400px;"></div>
                         </div>

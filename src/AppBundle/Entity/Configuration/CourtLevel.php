@@ -33,7 +33,7 @@ class CourtLevel
      * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
-    private $descriptionSwahili;
+    private $descriptionSw;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -61,6 +61,17 @@ class CourtLevel
     {
         return $this->description;
     }
+
+    /**
+     * @param $locale
+     * @return mixed
+     */
+    public function getLocalizedDescription($locale)
+    {
+        dump($locale);
+        return $this->description;
+    }
+
 
     /**
      * @param mixed $description
@@ -123,17 +134,17 @@ class CourtLevel
     /**
      * @return mixed
      */
-    public function getDescriptionSwahili()
+    public function getDescriptionSw()
     {
-        return $this->descriptionSwahili;
+        return $this->descriptionSw;
     }
 
     /**
-     * @param mixed $descriptionSwahili
+     * @param mixed $descriptionSw
      */
-    public function setDescriptionSwahili($descriptionSwahili)
+    public function setDescriptionSw($descriptionSw)
     {
-        $this->descriptionSwahili = $descriptionSwahili;
+        $this->descriptionSw = $descriptionSw;
     }
 
     /**

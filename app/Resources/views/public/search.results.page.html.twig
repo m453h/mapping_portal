@@ -30,8 +30,8 @@
                     </li>
                     {% endfor %}
                     {% else %}
-                    <h2>No results found</h2>
-                    <p>We are unable to find results for your searched court</p>
+                    <h2>{{ 'text.no.results.found'|trans }}</h2>
+                    <p>{{ 'text.unable.to.find'|trans }}</p>
                 {% endif %}
             </ul>
             <div class="pagination-list">

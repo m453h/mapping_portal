@@ -77,7 +77,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/court-details/court-name", name="public_court_details")
+     * @Route("/{_locale}/court-details/court-name", name="public_court_details",defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

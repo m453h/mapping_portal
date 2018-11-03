@@ -37,10 +37,14 @@ class CourtMappingExtension extends Twig_Extension
         );
     }
 
-    public function getCourtList(){
+    /**
+     * @param $locale
+     * @return array
+     */
+    public function getCourtList($locale){
 
         $results = $this->entityManager->getRepository('AppBundle:Configuration\CourtLevel')
-            ->findAllCourtLevels(['sortType'=>null,'sortBy'=>null])
+            ->findAllCourtLevels(['sortType'=>null,'sortBy'=>null,'locale'=>$locale])
             ->execute()
             ->fetchAll();
 

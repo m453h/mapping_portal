@@ -204,7 +204,18 @@ img.header-logo{
 	height:100px;
 	margin-top: 5px;
 }
-
+div.language-switcher{
+	height:100px;
+	padding-top:42px;
+	text-align:center;
+}
+.language-switcher a{
+	color:#34495e;
+	font-weight:bolder;
+}
+.language-switcher a:hover{
+	text-decoration: underline;
+}
 /* end of styling header */
 
 
