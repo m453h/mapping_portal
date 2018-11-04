@@ -4,7 +4,7 @@
 
     <div class="page-title">
             <div class="section-inner">
-                <h1>Courts \ {{ courtLevel.description }}</h1>
+                <h1>{{ 'menu.courts'|trans }} \ {{ courtLevel.localizedDescription(app.request.locale) }}</h1>
             </div>
     </div>
 
@@ -14,7 +14,13 @@
         <div class="section-inner">
             <div class="clear space-10"></div>
             <div class="col8 markdown-content align-justify">
-                {{ courtLevel.details|markdown }}
+                {% set details = courtLevel.localizedDetails(app.request.locale) %}
+                {% if details|length > 0 %}
+                    {{ courtLevel.localizedDetails(app.request.locale)|markdown }}
+                {% else %}
+                    <h2>{{ 'text.no.details.found'|trans }}</h2>
+                    <p>{{ 'text.no.details.found.explanation'|trans }}</p>
+                {% endif %}
             </div>
             <div class="col4 align-left last">
 

@@ -120,6 +120,23 @@
                 <source>text.court.coordinates</source>
                 <target>Taarifa za kijiografia</target>
             </trans-unit>
+
+            <!-- Court Level Details Page !-->
+            <trans-unit id="text.no.details.found">
+                <source>text.no.details.found</source>
+                <target>Hakuna Taarifa Zilizopatikana</target>
+            </trans-unit>
+
+            <trans-unit id="text.no.details.found.explanation">
+                <source>text.no.details.found.explanation</source>
+                <target>Samahani, Hakuna taarifa zilizochapishwa katika lugha hii</target>
+            </trans-unit>
+
+            <trans-unit id="action.click.to.view.court.level">
+                <source>action.click.to.view.court.level</source>
+                <target>Bonyeza hapa kupata maelezo ya ngazi hii ya Mahakama</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

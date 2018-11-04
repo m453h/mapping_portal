@@ -18,7 +18,7 @@
                 <div class="divider"></div>
                 <ul class="list-styled">
                     <li class="fade"><span class="title">{{ 'text.court.name'|trans }}: </span>{{ court.courtName }}</li>
-                    <li class="fade"><span class="title">{{ 'text.court.level'|trans }}: </span>{{ court.courtLevel.description|upper }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.level'|trans }}: </span><a href="{{ path('public_court_level_description',{'level':court.courtLevel.identifier, '_locale': app.request.locale}) }}" title="{{ 'action.click.to.view.court.level'|trans }}" class="styled-link">{{ court.courtLevel.localizedDescription(app.request.locale)|upper }}</a></li>
                 </ul>
 
                 <div class="clear space-20"></div>

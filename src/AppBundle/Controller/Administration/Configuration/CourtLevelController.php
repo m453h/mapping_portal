@@ -61,7 +61,7 @@ class CourtLevelController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Description','name','text',true);
+        $grid->addGridHeader('Title(EN)','name','text',true);
         $grid->addGridHeader('Actions',null,'action');
         $grid->setStartIndex($page,$maxPerPage);
         $grid->setPath('court_level_list');
@@ -74,7 +74,7 @@ class CourtLevelController extends Controller
                 'records'=>$dataGrid,
                 'grid'=>$grid,
                 'title'=>'Existing Court Levels',
-                'gridTemplate'=>'administration/lists/base.list.html.twig'
+                'gridTemplate'=>'administration/lists/configuration/court.level.list.html.twig'
         ));
     }
 

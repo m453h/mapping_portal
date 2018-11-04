@@ -17,10 +17,9 @@ class MainController extends Controller
 
     /**
      * @Route("/{_locale}", name="public_home_page",defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepageAction(Request $request)
+    public function homepageAction()
     {
 
         return $this->render(
@@ -140,7 +139,7 @@ class MainController extends Controller
 
 
     /**
-     * @Route("/court-level-description/{level}", name="public_court_level_description")
+     * @Route("/{_locale}/court-level-description/{level}", name="public_court_level_description", defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
      * @param $level
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -158,5 +157,18 @@ class MainController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/locale-changer/{_locale}", name="public_locale_changer")
+     * @param Request $request
+     * @param $_locale
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function localeChangeAction(Request $request,$_locale)
+    {
+
+        return $this->redirectToRoute('public_home_page',['_locale'=>$_locale]);
+    }
+
 
 }

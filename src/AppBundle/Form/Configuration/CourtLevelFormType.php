@@ -15,11 +15,15 @@ class CourtLevelFormType extends  AbstractType
     {
         $builder
             ->add('description',null,['required'=>true])
-            ->add('description_sw',null,['required'=>true])
+            ->add('descriptionSw',null,['required'=>true])
             ->add('hierarchy',null,['required'=>true])
             ->add('details',null, [
-                'required'=>true,
+                'required'=>false,
                 'attr' => ['class' => 'markdown'],
+            ])
+            ->add('detailsSw',null, [
+                'required'=>false,
+                'attr' => ['class' => 'markdown-sw'],
             ]);
     }
 

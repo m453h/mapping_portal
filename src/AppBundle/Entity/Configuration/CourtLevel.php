@@ -51,6 +51,11 @@ class CourtLevel
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $detailsSw;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $details;
 
     
@@ -68,7 +73,8 @@ class CourtLevel
      */
     public function getLocalizedDescription($locale)
     {
-        dump($locale);
+       if($locale=='sw')
+           return $this->descriptionSw;
         return $this->description;
     }
 
@@ -161,6 +167,33 @@ class CourtLevel
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetailsSw()
+    {
+        return $this->detailsSw;
+    }
+
+    /**
+     * @param mixed $detailsSw
+     */
+    public function setDetailsSw($detailsSw)
+    {
+        $this->detailsSw = $detailsSw;
+    }
+
+    /**
+     * @param $locale
+     * @return mixed
+     */
+    public function getLocalizedDetails($locale)
+    {
+        if($locale=='sw')
+            return $this->detailsSw;
+        return $this->getDetails();
     }
 
 }

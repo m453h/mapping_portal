@@ -119,6 +119,21 @@
                 <source>text.court.coordinates</source>
                 <target>Coordinates(DMS)</target>
             </trans-unit>
+
+            <!-- Court Level Details Page !-->
+            <trans-unit id="text.no.details.found">
+                <source>text.no.details.found</source>
+                <target>No Available Content</target>
+            </trans-unit>
+
+            <trans-unit id="text.no.details.found.explanation">
+                <source>text.no.details.found.explanation</source>
+                <target>Sorry, No content has been published in your selected language</target>
+            </trans-unit>
+            <trans-unit id="action.click.to.view.court.level">
+                <source>action.click.to.view.court.level</source>
+                <target>Click here to view Court level details</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

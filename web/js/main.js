@@ -1,58 +1,72 @@
 $(document).ready(function() {
 
-	$('.main-content').show();
+    $('.main-content').show();
 
-	$('#loader').hide();
+    $('#loader').hide();
 
-	$('.select2-basic').select2({ width: '99%'});
+    $('.select2-basic').select2({ width: '99%'});
 
     $( "#accordion" ).accordion();
 
-	$('.dropdown').dropit();
+    $(function() {
 
-	$(".close").click(function(event) {
+        var index = $('li.current_ancestor').index();
 
-		event.preventDefault();
+        index<0 ? index=false : index;
 
-		$(this).parents('.alert-large').remove();
-	});
+        $( '#sidebar-menu' ).accordion({
+            heightStyle: 'content',
+            icons: false,
+            collapsible: true,
+            active: index
+        });
+    });
 
-	$('.confirm-delete-modal').click(function(event){
+    $('.dropdown').dropit();
 
-		event.preventDefault();
+    $(".close").click(function(event) {
 
-		window.clickedURL = $(this).attr("href");
+        event.preventDefault();
 
-		var buttons = [
-			{
-				text: "No",
-				class: 'btn btn-red',
-				click: function() {
-					$( this ).dialog( "close" );
-				}
-			},
-			{
-				text: "Yes",
-				class: 'btn btn-green',
-				click: function() {
-					window.open(window.clickedURL,'_parent');
-				}
-			}
-		];
+        $(this).parents('.alert-large').remove();
+    });
 
-		dialog('Confirm Action',"Are you sure you want to <a href='#'>delete</a> this record !",buttons);
+    $('.confirm-delete-modal').click(function(event){
 
-	});
+        event.preventDefault();
 
-	$('.btn-disabled').click(function(event){
+        window.clickedURL = $(this).attr("href");
 
-		event.preventDefault();
+        var buttons = [
+            {
+                text: "No",
+                class: 'btn btn-red',
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            {
+                text: "Yes",
+                class: 'btn btn-green',
+                click: function() {
+                    window.open(window.clickedURL,'_parent');
+                }
+            }
+        ];
 
-		window.clickedURL = $(this).attr("href");
+        dialog('Confirm Action',"Are you sure you want to <a href='#'>delete</a> this record !",buttons);
 
-		dialog('Action not allowed',"Action is <a href='#'>not</a> allowed for this record !",getCommonActions('confirm'));
+    });
 
-	});
+    $('.btn-disabled').click(function(event){
+
+        event.preventDefault();
+
+        window.clickedURL = $(this).attr("href");
+
+        dialog('Action not allowed',"Action is <a href='#'>not</a> allowed for this record !",getCommonActions('confirm'));
+
+    });
 
 
     $('.multi-select').multiSelect({
@@ -93,152 +107,177 @@ $(document).ready(function() {
 
 
     $('.date').datepicker({
-			dateFormat: 'yy-mm-dd'
-	});
+        dateFormat: 'yy-mm-dd'
+    });
 
-	$('.datetime').datetimepicker({
-		hourText: 'Hr',
-		minuteText: 'Min',
-		dateFormat:'yy-mm-dd'
-	});
+    $('.datetime').datetimepicker({
+        hourText: 'Hr',
+        minuteText: 'Min',
+        dateFormat:'yy-mm-dd'
+    });
 
-	$(':file').filer({limit:1});
+    if ($(".markdown").length > 0)
+    {
+        var simplemde = new SimpleMDE({
+            element: $(".markdown")[0],
+            /*toolbar: ["bold", "italic","|",
+                "heading-1","heading-2","heading-3","|",
+                "quote","unordered-list","ordered-list","|",
+                "link","image","|","preview","guide"
+            ]*/
+        });
+    }
 
-	$(".form-wizard").formwizard({
-			formPluginEnabled: false,
-			validationEnabled: false,
-			focusFirstInput : false,
-			disableInputFields: true,
-			textSubmit:'Save'
-	});
-	
-	if ($("#imageUploadBox").length > 0) {
+    if ($(".markdown-sw").length > 0)
+    {
+        var simplemdeSW = new SimpleMDE({
+            element: $(".markdown-sw")[0],
+            /*toolbar: ["bold", "italic","|",
+                "heading-1","heading-2","heading-3","|",
+                "quote","unordered-list","ordered-list","|",
+                "link","image","|","preview","guide"
+            ]*/
+        });
+    }
 
-		//noinspection JSUnresolvedVariable
-		var options = {
-			thumbBox: '.thumbBox',
-			spinner: '.spinner',
-			imgSrc: imageFile
-		}
 
-		var cropper = $('.imageBox').cropbox(options);
+    $(':file').filer({limit:1});
 
-		$('#file').on('change', function () {
-			var reader = new FileReader();
-			reader.onload = function (e) {
-				options.imgSrc = e.target.result;
-				cropper = $('.imageBox').cropbox(options);
-			}
-			reader.readAsDataURL(this.files[0]);
-			if (!this.files[0].type.match("^image")) {
-				dialog('Action Failed', 'File type not supported', getCommonActions('confirm'));
-			}
+    $(".form-wizard").formwizard({
+        formPluginEnabled: false,
+        validationEnabled: false,
+        focusFirstInput : false,
+        disableInputFields: true,
+        textSubmit:'Save'
+    });
 
-		})
+    if ($("#imageUploadBox").length > 0) {
 
-		$('#btnCrop').on('click', function () {
-			var img = cropper.getDataURL();
+        //noinspection JSUnresolvedVariable
+        var options = {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: imageFile
+        }
 
-			$('#loader').show();
+        var cropper = $('.imageBox').cropbox(options);
 
-			//noinspection JSUnresolvedVariable
-			$.ajax({
-				type: 'POST',
-				url: imageUploadPath,
-				data: {image: img, primaryIdentifier: primaryIdentifier},
-				dataType: 'json',
-				success: function (data) {
-					$('#loader').hide();
-					if (data.status == 'success') {
-						dialog('Action Complete', data.message, getCommonActions('confirm'));
-					} else {
-						dialog('Action Failed', data.message, getCommonActions('confirm'));
-					}
-				},
-				error: function () {
-					$('#loader').hide();
-					dialog('Action Failed', "Internal server error", getCommonActions('confirm'));
-				}
-			});
-		})
+        $('#file').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            }
+            reader.readAsDataURL(this.files[0]);
+            if (!this.files[0].type.match("^image")) {
+                dialog('Action Failed', 'File type not supported', getCommonActions('confirm'));
+            }
 
-		$('#btnZoomIn').on('click', function () {
-			cropper.zoomIn();
-		})
+        })
 
-		$('#btnZoomOut').on('click', function () {
-			cropper.zoomOut();
-		})
-	}
+        $('#btnCrop').on('click', function () {
+            var img = cropper.getDataURL();
 
-	$('.image-slider').slick({
-		dots: true,
-		infinite: true,
+            $('#loader').show();
+
+            //noinspection JSUnresolvedVariable
+            $.ajax({
+                type: 'POST',
+                url: imageUploadPath,
+                data: {image: img, primaryIdentifier: primaryIdentifier},
+                dataType: 'json',
+                success: function (data) {
+                    $('#loader').hide();
+                    if (data.status == 'success') {
+                        dialog('Action Complete', data.message, getCommonActions('confirm'));
+                    } else {
+                        dialog('Action Failed', data.message, getCommonActions('confirm'));
+                    }
+                },
+                error: function () {
+                    $('#loader').hide();
+                    dialog('Action Failed', "Internal server error", getCommonActions('confirm'));
+                }
+            });
+        })
+
+        $('#btnZoomIn').on('click', function () {
+            cropper.zoomIn();
+        })
+
+        $('#btnZoomOut').on('click', function () {
+            cropper.zoomOut();
+        })
+    }
+
+    $('.image-slider').slick({
+        dots: true,
+        infinite: true,
         autoplay:true,
         autoplaySpeed:1500,
-		speed: 300,
-		slidesToShow: 1,
-		adaptiveHeight: true,
+        speed: 300,
+        slidesToShow: 1,
+        adaptiveHeight: true,
         prevArrow: false,
         nextArrow: false
-	});
-
-$('.open-map').on('click', function () {
-    $("#dialog-message").dialog({
-        modal: true,
-        minWidth: 620
-
     });
-});
-	
+
+    $('.open-map').on('click', function () {
+        $("#dialog-message").dialog({
+            modal: true,
+            minWidth: 620
+
+        });
+    });
+
 });
 
 function hideBasedOnChoice(target,affected){
 
-	if($(target+':checked').val()!='1')
-	{
-		$(affected).hide();
-	}
+    if($(target+':checked').val()!='1')
+    {
+        $(affected).hide();
+    }
 
-	$(target).change(function(){
+    $(target).change(function(){
 
-		var value=$(target+':checked').val();
+        var value=$(target+':checked').val();
 
-		if (value =='1') {
-			$(affected).show('slow');
-		}
-		else {
-			$(affected).hide('fast');
-		}
-	});
+        if (value =='1') {
+            $(affected).show('slow');
+        }
+        else {
+            $(affected).hide('fast');
+        }
+    });
 
 }
 
 function dialog(heading,message,buttons) {
-	
-	$( ".dialog-message" ).html(message);
-	
-	$( "#dialog" ).attr('title', heading).dialog({
-		draggable: false,
-		hide: 'fade',
-		show: 'fade',
-		modal:true,
-		buttons:buttons
-	});
+
+    $( ".dialog-message" ).html(message);
+
+    $( "#dialog" ).attr('title', heading).dialog({
+        draggable: false,
+        hide: 'fade',
+        show: 'fade',
+        modal:true,
+        buttons:buttons
+    });
 
 }
 
 function getCommonActions(type){
-	if(type=='confirm')
-	{
-		 return [
-			{
-				text: "OK",
-				class: 'btn btn-blue',
-				click: function() {
-					$( this ).dialog( "close" );
-				}
-			}
-		];
-	}
+    if(type=='confirm')
+    {
+        return [
+            {
+                text: "OK",
+                class: 'btn btn-blue',
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        ];
+    }
 }

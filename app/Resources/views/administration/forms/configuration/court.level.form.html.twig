@@ -1,9 +1,17 @@
-{{ form_start(form) }}
-{{ form_row(form.description) }}
-{{ form_row(form.descriptionSw,{'label':'Description (Swahili)'}) }}
-{{ form_row(form.hierarchy) }}
-<div id="meme">
-    {{ form_row(form.details) }}
+<div class="form-wizard">
+    {{ form_start(form) }}
+    <div id="first-page" class="step">
+        {{ form_row(form.hierarchy) }}
+        {{ form_row(form.description,{'label':'Title (English)'}) }}
+        {{ form_row(form.details,{'label':'Details (English)'}) }}
+    </div>
+    <div id="second-page" class="step">
+        {{ form_row(form.descriptionSw,{'label':'Title (Swahili)'}) }}
+        {{ form_row(form.detailsSw,{'label':'Details (Swahili)'}) }}
+    </div>
+    <div id="wizard-navigation">
+        <input class="btn btn-white" id="back-btn" value="Back" type="reset" />
+        <input class="btn btn-primary" id="next-btn" value="Next" type="submit">
+    </div>
+    {{ form_end(form) }}
 </div>
-<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
-{{ form_end(form) }}

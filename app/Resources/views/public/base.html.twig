@@ -50,9 +50,9 @@
                                         <ul class="dropdown" style="display: none;">
                                             {% for level in courtLevels %}
                                                 {% if courtLevel is not defined %}
-                                                     <li><a href="{{ path('public_court_level_description',{'level':level.identifier}) }}">{{ level.description }} </a></li>
+                                                     <li><a href="{{ path('public_court_level_description',{'level':level.identifier, '_locale': app.request.locale}) }}">{{ level.description }} </a></li>
                                                     {% else %}
-                                                        <li class="{{ highlight_public_menu(courtLevel.identifier,level.identifier) }}"><a href="{{ path('public_court_level_description',{'level':level.identifier}) }}">{{ level.description }} </a></li>
+                                                        <li class="{{ highlight_public_menu(courtLevel.identifier,level.identifier) }}"><a href="{{ path('public_court_level_description',{'level':level.identifier, '_locale': app.request.locale}) }}">{{ level.description }} </a></li>
                                                 {% endif %}
                                             {% endfor %}
                                         </ul>
@@ -64,7 +64,7 @@
 
                     </div>
                     <div class="col1 language-switcher">
-                        <a href="#" title="English">EN</a> / <a href="#" title="Swahili">SW</a>
+                        <a href="{{ path('public_locale_changer',{'_locale': 'en'}) }}" title="English">EN</a> / <a href="{{ path('public_locale_changer',{'_locale': 'sw'}) }}" title="Swahili">SW</a>
                     </div>
                 </div>
             </div>
