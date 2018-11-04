@@ -23,4 +23,5 @@ parameters:
     court_images: '%kernel.root_dir%/../web/file_uploads/court_images'
 
     permissions_file: '%kernel.root_dir%/config/permissions.yml'
-
+    uglifyjs2_bin: '/usr/local/bin/uglifyjs'
+    uglifycss_bin: '/usr/local/bin/uglifycss'

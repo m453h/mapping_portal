@@ -98,9 +98,9 @@ assetic:
         cssrewrite: ~
         uglifyjs2:
             # the path to the uglifyjs executable
-            bin: /usr/local/bin/uglifyjs
+            bin: '%uglifyjs2_bin%'
         uglifycss:
-            bin: /usr/local/bin/uglifycss
+            bin: '%uglifycss_bin%'
 
 # Menu Configuration
 knp_menu:
