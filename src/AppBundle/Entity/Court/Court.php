@@ -354,6 +354,11 @@ class Court
      */
     private $courtName;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $courtCode;
+
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -1338,6 +1343,22 @@ class Court
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCourtCode()
+    {
+        return $this->courtCode;
+    }
+
+    /**
+     * @param mixed $courtCode
+     */
+    public function setCourtCode($courtCode)
+    {
+        $this->courtCode = $courtCode;
     }
 
 }

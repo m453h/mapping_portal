@@ -45,7 +45,7 @@ class CourtController extends Controller
         $page = $request->query->get('page',1);
         $options['sortBy'] = $request->query->get('sortBy');
         $options['sortType'] = $request->query->get('sortType');
-        $options['name'] = $request->query->get('name');
+        $options['courtName'] = $request->query->get('courtName');
         $options['location'] = $request->query->get('location');
 
         $maxPerPage = $this->getParameter('grid_per_page_limit');
@@ -67,8 +67,7 @@ class CourtController extends Controller
         //Configure the grid
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
-        $grid->addGridHeader('Date',null,'text',false);
-        $grid->addGridHeader('Recorded by','name','text',true);
+        $grid->addGridHeader('Court Name','courtName','text',true);
         $grid->addGridHeader('Court Level',null,'text',false);
         $grid->addGridHeader('Location','location','text',true);
         $grid->addGridHeader('Data Type',null,'text',false);

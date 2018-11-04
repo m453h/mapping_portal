@@ -57,6 +57,12 @@ class CourtRepository extends EntityRepository
                 ->setParameter('location', '%' . $options['location'] . '%');
         }
 
+        if (!empty($options['courtName']))
+        {
+            $queryBuilder->andWhere('lower(court_name) LIKE lower(:courtName)')
+                ->setParameter('courtName', '%' . $options['courtName'] . '%');
+        }
+
         if (!empty($options['regionId']))
         {
              $queryBuilder->andWhere('r.region_id=:regionId')

@@ -30,7 +30,9 @@ class CourtBasicDetailsFormType extends  AbstractType
                         ->orderBy('l.description','ASC');
                 }
             ])
-            ->add('courtName',null,['required'=>false]);
+            ->add('courtName',null,['required'=>false])
+            ->add('courtCode',null,['required'=>false,'label'=>'Court Code'])
+            ->add('isPlotOnly',null,['required'=>false,'label'=>'Mark this record as plot']);
 
     }
 
