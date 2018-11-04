@@ -18,3 +18,5 @@
 /app/DoctrineMigrations/*
 /web/file_uploads/*
 app/DoctrineMigrations/
+web/css/compiled/app.css
+web/js/compiled/app.js
