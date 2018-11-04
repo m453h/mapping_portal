@@ -91,6 +91,16 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: /usr/local/bin/uglifyjs
+        uglifycss:
+            bin: /usr/local/bin/uglifycss
 
 # Menu Configuration
 knp_menu:

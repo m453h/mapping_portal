@@ -11,10 +11,6 @@ $(document).ready(function() {
         });
     });
 
-    $('.select2-basic').select2({ width: '99%'});
-
-	$('.dropdown').dropit();
-
 	$(".close").click(function(event) {
 
 		event.preventDefault();

@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width">
     <title>{% block title %}Court Mapping | App Management Portal{% endblock %}</title>
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/jquery-ui-theme.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/jquery.filer/css/jquery.filer.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/select2-4.0.3/dist/css/select2.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/slick-carousel/slick/slick.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/slick-carousel/slick/slick-theme.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/leaflet/leaflet.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/leaflet/MarkerCluster.Default.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/leaflet/MarkerCluster.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/slicknav/slicknav.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/form.theme.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/portal-style.css') }}">
+        {% stylesheets
+            'vendor/fontawesome/css/font-awesome.min.css'
+            'vendor/jquery-ui-1.12.1/jquery-ui.min.css'
+            'css/jquery-ui-theme.css'
+            'vendor/slick-carousel/slick/slick.css'
+            'vendor/slick-carousel/slick/slick-theme.css'
+            'vendor/leaflet/leaflet.css'
+            'vendor/leaflet/MarkerCluster.Default.css'
+            'vendor/leaflet/MarkerCluster.css'
+            'vendor/slicknav/slicknav.min.css'
+            'css/form.theme.css'
+            'css/portal-style.css'
+            filter='cssrewrite'
+            output='css/compiled/app.css'
+            filter='uglifycss'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
@@ -52,7 +56,7 @@
                                                 {% if courtLevel is not defined %}
                                                      <li><a href="{{ path('public_court_level_description',{'level':level.identifier, '_locale': app.request.locale}) }}">{{ level.description }} </a></li>
                                                     {% else %}
-                                                        <li class="{{ highlight_public_menu(courtLevel.identifier,level.identifier) }}"><a href="{{ path('public_court_level_description',{'level':level.identifier, '_locale': app.request.locale}) }}">{{ level.description }} </a></li>
+                                                        <li class="{{ highlight_public_menu(courtLevel.identifier,level.identifier) }}"><a href="{{ path('public_court_level_description',{'level':level.identifier, }) }}">{{ level.description }} </a></li>
                                                 {% endif %}
                                             {% endfor %}
                                         </ul>
@@ -89,22 +93,23 @@
     {% endblock %}
 </div>
 {% block javascripts %}
-    <script src="{{ asset('vendor/jquery/jquery-1.9.1.min.js') }}"></script>
-    <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('vendor/jquery-form-wizard/jquery.form.wizard.js') }}"></script>
-    <script src="{{ asset('vendor/dropit-js/dropit.js') }}"></script>
-    <script src="{{ asset('vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.js') }}"></script>
-    <script src="{{ asset('vendor/select2-4.0.3/dist/js/select2.min.js') }}"></script>
-    <script src="{{ asset('vendor/slick-carousel/slick/slick.min.js') }}"></script>
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ asset('vendor/leaflet/leaflet.js') }}"></script>
-    <script src="{{ asset('vendor/dropdown/jquery.easing.1.3.min.js') }}"></script>
-    <script src="{{ asset('vendor/dropdown/hoverIntent.js') }}"></script>
-    <script src="{{ asset('vendor/dropdown/dropdown.js') }}"></script>
-    <script src="{{ asset('vendor/slicknav/jquery.slicknav.min.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-    <script src="{{ asset('js/portal-main.js') }}"></script>
-    <script src="{{ asset('js/ajax.js') }}"></script>
+
+    {% javascripts
+        'vendor/jquery/jquery-1.9.1.min.js'
+        'vendor/jquery-ui-1.12.1/jquery-ui.min.js'
+        'vendor/slick-carousel/slick/slick.min.js'
+        'bundles/fosjsrouting/js/router.js'
+        'vendor/leaflet/leaflet.js'
+        'vendor/dropdown/jquery.easing.1.3.min.js'
+        'vendor/dropdown/hoverIntent.js'
+        'vendor/dropdown/dropdown.js'
+        'vendor/slicknav/jquery.slicknav.min.js'
+        'js/portal-main.js'
+        output='js/compiled/app.js'
+        filter='uglifyjs2'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 </body>
 </html>
