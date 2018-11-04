@@ -108,6 +108,7 @@
         output='js/compiled/app.js'
         filter='uglifyjs2'
     %}
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
