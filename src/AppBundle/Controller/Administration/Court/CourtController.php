@@ -46,6 +46,7 @@ class CourtController extends Controller
         $options['sortBy'] = $request->query->get('sortBy');
         $options['sortType'] = $request->query->get('sortType');
         $options['courtName'] = $request->query->get('courtName');
+        $options['courtLevel'] = $request->query->get('courtLevel');
         $options['location'] = $request->query->get('location');
 
         $maxPerPage = $this->getParameter('grid_per_page_limit');
@@ -68,7 +69,7 @@ class CourtController extends Controller
         $grid = $this->get('app.helper.grid_builder');
         $grid->addGridHeader('S/N',null,'index');
         $grid->addGridHeader('Court Name','courtName','text',true);
-        $grid->addGridHeader('Court Level',null,'text',false);
+        $grid->addGridHeader('Court Level','courtLevel','text',true);
         $grid->addGridHeader('Location','location','text',true);
         $grid->addGridHeader('Data Type',null,'text',false);
         $grid->addGridHeader('Verification',null,'text',false);
@@ -84,7 +85,7 @@ class CourtController extends Controller
             'administration/main/app.list.html.twig',array(
             'records'=>$dataGrid,
             'grid'=>$grid,
-            'title'=>'Existing Court Details',
+            'title'=>'Existing Court List',
             'gridTemplate'=>'administration/lists/court/court.list.html.twig'
         ));
     }
