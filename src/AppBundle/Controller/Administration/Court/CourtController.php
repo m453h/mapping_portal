@@ -500,13 +500,13 @@ class CourtController extends Controller
             $em->flush();
 
             $this->addFlash('success','Court images successfully updated');
-            $data->setFirstCourtViewFile(null);
+            /*$data->setFirstCourtViewFile(null);
             $data->setSecondCourtViewFile(null);
             $data->setThirdCourtViewFile(null);
             $data->setFourthCourtViewFile(null);
             $this->get('app.helper.audit_trail_logger')
                 ->logUserAction('COURT\IMAGES','EDIT',$court,$data);
-
+            */
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
 
