@@ -41,6 +41,10 @@ class HashPasswordListener implements  EventSubscriber
     {
         $entity = $args->getEntity();
 
+        if($this->request==null) {
+            return;
+        }
+
         $isEncodeRequest = $this->request->getPathInfo() == '/login_check';
         
         if(!$entity instanceof  User || !$isEncodeRequest){

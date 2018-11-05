@@ -33,7 +33,7 @@
         "white-october/pagerfanta-bundle": "^1.0",
         "knplabs/knp-snappy-bundle": "^1.4",
         "knplabs/knp-markdown-bundle": "^1.5",
-        "vich/uploader-bundle": "^1.5",
+        "vich/uploader-bundle": "^1.7",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "jsor/doctrine-postgis": "^1.5",
         "jbafford/password-strength-bundle": "^0.2.0",
