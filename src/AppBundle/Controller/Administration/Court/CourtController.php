@@ -275,7 +275,7 @@ class CourtController extends Controller
                 ->logUserAction('COURT\BASIC_DETAILS','EDIT',$court,$data);
 
 
-            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+          //  return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
 
         return $this->render(
