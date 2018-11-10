@@ -39,6 +39,11 @@ Configuration:
       actions: ["view","add","edit","delete"]
       key: land-use
 
+    Contca:
+      roleClass: AppBundle\Controller\Administration\Configuration\ContactController
+      actions: ["view","add","edit","delete"]
+      key: contact
+
 Location:
     Zone:
       roleClass: AppBundle\Controller\Administration\Location\ZoneController
