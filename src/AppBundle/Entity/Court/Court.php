@@ -293,7 +293,7 @@ class Court
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="court_image_side_02", fileNameProperty="firstCourtView")
+     * @Vich\UploadableField(mapping="court_image_side_02", fileNameProperty="secondCourtView")
      * @var File
      */
     private $secondCourtViewFile;
@@ -303,7 +303,7 @@ class Court
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="court_image_side_03", fileNameProperty="firstCourtView")
+     * @Vich\UploadableField(mapping="court_image_side_03", fileNameProperty="thirdCourtView")
      * @var File
      */
     private $thirdCourtViewFile;
@@ -313,7 +313,7 @@ class Court
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="court_image_side_04", fileNameProperty="firstCourtView")
+     * @Vich\UploadableField(mapping="court_image_side_04", fileNameProperty="fourthCourtView")
      * @var File
      */
     private $fourthCourtViewFile;
