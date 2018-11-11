@@ -134,6 +134,32 @@
                 <source>action.click.to.view.court.level</source>
                 <target>Click here to view Court level details</target>
             </trans-unit>
+
+            <!-- Contact us Page !-->
+            <trans-unit id="text.contact.us">
+                <source>text.contact.us</source>
+                <target>Contact us</target>
+            </trans-unit>
+            <trans-unit id="text.phone">
+                <source>text.phone</source>
+                <target>Phone</target>
+            </trans-unit>
+            <trans-unit id="text.fax">
+                <source>text.fax</source>
+                <target>Fax</target>
+            </trans-unit>
+            <trans-unit id="text.email">
+                <source>text.email</source>
+                <target>Contact us</target>
+            </trans-unit>
+            <trans-unit id="text.road">
+                <source>text.road</source>
+                <target>Road</target>
+            </trans-unit>
+            <trans-unit id="text.address">
+                <source>text.address</source>
+                <target>Address</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

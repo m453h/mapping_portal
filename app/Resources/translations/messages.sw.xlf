@@ -137,6 +137,32 @@
                 <target>Bonyeza hapa kupata maelezo ya ngazi hii ya Mahakama</target>
             </trans-unit>
 
+            <!-- Contact us Page !-->
+            <trans-unit id="text.contact.us">
+                <source>text.contact.us</source>
+                <target>Wasiliana Nasi</target>
+            </trans-unit>
+            <trans-unit id="text.phone">
+                <source>text.phone</source>
+                <target>Namba ya Simu</target>
+            </trans-unit>
+            <trans-unit id="text.fax">
+                <source>text.fax</source>
+                <target>Fax</target>
+            </trans-unit>
+            <trans-unit id="text.email">
+                <source>text.email</source>
+                <target>Barua Pepe</target>
+            </trans-unit>
+            <trans-unit id="text.road">
+                <source>text.road</source>
+                <target>Barabara</target>
+            </trans-unit>
+            <trans-unit id="text.address">
+                <source>text.address</source>
+                <target>Anuani</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

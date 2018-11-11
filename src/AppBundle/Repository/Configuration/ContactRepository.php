@@ -45,7 +45,7 @@ class ContactRepository extends EntityRepository
 
          if ($options['sortBy'] === 'name')
          {
-             return $queryBuilder->addOrderBy('description', $sortType);
+             return $queryBuilder->addOrderBy('name', $sortType);
          }
 
         return $queryBuilder->addOrderBy('contact_id', 'desc');

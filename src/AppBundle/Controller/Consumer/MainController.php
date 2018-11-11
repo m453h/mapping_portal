@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller\Consumer;
 
-use AppBundle\Entity\Configuration\CourtLevel;
-use AppBundle\Form\Consumer\DataLevelReportFormType;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -157,6 +155,52 @@ class MainController extends Controller
             ]
         );
     }
+
+
+    /**
+     * @Route("/{_locale}/contact", name="public_contact", defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function contactAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $qb1 = $em->getRepository('AppBundle:Configuration\Contact')
+            ->findAllContacts(['sortBy'=>null,'sortType'=>'DESC'])
+            ->addSelect('address,road,fax');
+
+        $qb2 = $em->getRepository('AppBundle:Configuration\Contact')
+            ->countAllContacts($qb1);
+
+        $page = $request->query->get('page',1);
+
+        $adapter =new DoctrineDbalAdapter($qb1,$qb2);
+        $dataGrid = new Pagerfanta($adapter);
+        $dataGrid->setMaxPerPage(20);
+        $dataGrid->setCurrentPage($page);
+        $dataGrid->getCurrentPageResults();
+
+        return $this->render(
+            'public/contact.page.html.twig', [
+                'records'=>$dataGrid,
+                'contacts'=>$dataGrid->getCurrentPageResults(),
+                'currentPosition'=>'contact'
+            ]
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/locale-changer/{_locale}", name="public_locale_changer")

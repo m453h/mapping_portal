@@ -1,0 +1,51 @@
+{% extends 'public/base.html.twig' %}
+
+{% block content %}
+
+    <div class="page-title">
+            <div class="section-inner">
+                <h1>{{ 'text.contact.us'|trans }}</h1>
+            </div>
+    </div>
+
+    <div class="white-space">
+        <div class="space-20 col12"></div>
+
+        <div class="section-inner">
+            <table class="data-grid">
+                <thead>
+                    <tr>
+                        <th class="number"><span>#</span></th>
+                        <th><span>{{ 'text.court.name'|trans }}</span></th>
+                        <th><span>{{ 'text.road'|trans }}</span></th>
+                        <th><span>{{ 'text.address'|trans }}</span></th>
+                        <th><span>{{ 'text.phone'|trans }}</span></th>
+                        <th><span>{{ 'text.fax'|trans }}</span></th>
+                        <th><span>{{ 'text.email'|trans }}</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                        <tr {% if loop.index%2 !=0 %} class="odd"{% endif %}>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ contact.name }}</td>
+                            <td>{{ contact.road }}</td>
+                            <td>{{ contact.address }}</td>
+                            <td>{{ contact.phone }}</td>
+                            <td>{{ contact.fax }}</td>
+                            <td>{{ contact.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <div class="pagination-list">
+                {{ pagerfanta(records,'twitter_bootstrap3_translated') }}
+            </div>
+        </div>
+
+        <div class="space col12"></div>
+
+    </div>
+{% endblock %}
