@@ -79,6 +79,7 @@ class MenuBuilder
             ->addChild('Court Environmental Status', array('route' => 'court_environmental_status_list', 'extras' => $this->getCrudLinks('court_environmental_status')))->getParent()
             ->addChild('Land use', array('route' => 'land_use_list', 'extras' => $this->getCrudLinks('land_use')))->getParent()
             ->addChild('Web Contacts', array('route' => 'contact_list', 'extras' => $this->getCrudLinks('contact')))->getParent()
+            ->addChild('Web About', array('route' => 'about_details', 'extras' => $this->getCrudLinks('about_details')))->getParent()
             ->getParent();
 
 

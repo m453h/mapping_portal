@@ -1,0 +1,15 @@
+{{ include("administration/main/app.flash.message.html.twig") }}
+<div class="form-wizard">
+    {{ form_start(form) }}
+    <div id="first-page" class="step">
+        {{ form_row(form.textEn) }}
+    </div>
+    <div id="second-page" class="step">
+        {{ form_row(form.textSw) }}
+    </div>
+    <div id="wizard-navigation">
+        <input class="btn btn-white" id="back-btn" value="Back" type="reset" />
+        <input class="btn btn-primary" id="next-btn" value="Next" type="submit">
+    </div>
+    {{ form_end(form) }}
+</div>
