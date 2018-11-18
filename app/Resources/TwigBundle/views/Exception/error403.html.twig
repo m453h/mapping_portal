@@ -1,0 +1,9 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'app.error.html.twig' %}
+{% block title %}Access Denied{% endblock %}
+{% block errorImage %}<img src="{{ asset('images/backgrounds/scale.png') }}" alt="Access Denied"/>{% endblock %}
+{% block errorTitle %}<h1>Access Denied</h1>{% endblock %}
+{% block errorParagraph %}
+<p>You have no permission to view this page if you think this is a mistake please contact the administrator
+    or <a href="{{ path('public_home_page') }}" class="styled-link">return to the homepage</a></p>
+{% endblock %}

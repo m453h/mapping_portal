@@ -1,0 +1,10 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'app.error.html.twig' %}
+
+{% block title %}Page Not Found{% endblock %}
+{% block errorImage %}<img src="{{ asset('images/backgrounds/scale.png') }}" alt="Page not found"/>{% endblock %}
+{% block errorTitle %}<h1>Page not found</h1>{% endblock %}
+{% block errorParagraph %}
+<p>The requested page couldn't be located. Checkout for any URL
+    misspelling or <a href="{{ path('public_home_page') }}" class="styled-link">return to the homepage</a></p>
+{% endblock %}

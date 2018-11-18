@@ -19,6 +19,11 @@ class MainController extends Controller
      */
     public function homepageAction()
     {
+        return $this->render(
+            '::app.error.html.twig', [
+                'currentPosition'=>'about'
+            ]
+        );
 
         return $this->render(
             'public/homepage.html.twig',

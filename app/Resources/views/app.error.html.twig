@@ -1,0 +1,44 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+
+{% block title %}{% endblock %}
+{% set errorSection=true %}
+
+<style>
+    body{
+        background:#EEEEEE;
+        font-family: Arial, serif;
+    }
+    div.space{
+        height:30px;
+    }
+    div.align-center{
+        text-align: center;
+    }
+    a.styled-link{
+        color:#ff0000;
+        font-weight: bolder;
+        text-decoration: none;
+    }
+    a.styled-link:hover{
+        text-decoration: underline;
+    }
+</style>
+
+{% block body %}
+    <div class="error-panel align-center">
+        <div class="white-space panel-body">
+            <div class="container">
+                <div class="clear space"></div>
+                <div class="clear space"></div>
+                <div class="col12">
+                    {% block errorImage %}{% endblock %}
+                    {% block errorTitle %}{% endblock %}
+                    {% block errorParagraph %}{% endblock %}
+                </div>
+                <div class='clear space-20'></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+

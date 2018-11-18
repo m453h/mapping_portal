@@ -1,0 +1,11 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'app.error.html.twig' %}
+
+{% block title %}Internal Error{% endblock %}
+{% block errorImage %}<img src="{{ asset('images/backgrounds/scale.png') }}" alt="Internal Error"/>{% endblock %}
+{% block errorTitle %}<h1>Internal Error</h1>{% endblock %}
+{% block errorParagraph %}
+<p>We are having some technical difficulties please try again later or contact the system administrator
+    or <a href="{{ path('public_home_page') }}" class="styled-link">return to the homepage</a></p>
+</p>
+{% endblock %}
