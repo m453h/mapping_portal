@@ -191,6 +191,28 @@ class MainController extends Controller
     }
 
 
+    /**
+     * @Route("/{_locale}/about", name="public_about", defaults={"_locale":"en"},requirements={"_locale":"en|sw"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function aboutAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $about = $em->getRepository('AppBundle:Configuration\About')
+            ->find(1);
+
+        return $this->render(
+            'public/about.page.html.twig', [
+                'about'=>$about,
+                'currentPosition'=>'about'
+            ]
+        );
+    }
+
+
+
 
 
 

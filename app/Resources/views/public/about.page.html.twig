@@ -1,0 +1,29 @@
+{% extends 'public/base.html.twig' %}
+
+{% block content %}
+
+    <div class="page-title">
+            <div class="section-inner">
+                <h1>{{ 'menu.about'|trans }}</h1>
+            </div>
+    </div>
+
+    <div class="section-inner">
+        <div class="clear space-10"></div>
+        <div class="col8 markdown-content align-justify">
+            {% set details = about.localizedDetails(app.request.locale) %}
+            {% if details|length > 0 %}
+                {{ details|markdown }}
+            {% else %}
+                <h2>{{ 'text.no.details.found'|trans }}</h2>
+                <p>{{ 'text.no.details.found.explanation'|trans }}</p>
+            {% endif %}
+        </div>
+        <div class="col4 align-left last">
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+{% endblock %}
