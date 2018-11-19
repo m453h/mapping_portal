@@ -30,6 +30,9 @@
 
 <body>
 {% block body %}
+
+    {% set homeLink = path(get_current_access_level()) %}
+
     <div class="error-panel align-center">
         <div class="white-space panel-body">
             <div class="container">
