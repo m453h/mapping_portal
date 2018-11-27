@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Administration\Reports;
 
+use AppBundle\Form\Reports\CustomReportBuilderFormType;
 use AppBundle\Form\Reports\MapReportFormType;
 use AppBundle\Form\Reports\PredefinedReportFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -22,67 +23,135 @@ class ReportBuilderController extends Controller
     public function reportAction(Request $request)
     {
 
-        $form = $this->createForm(MapReportFormType::class);
+        $form = $this->createForm(CustomReportBuilderFormType::class);
 
         // only handles data on POST
         $form->handleRequest($request);
        
         if ($form->isSubmitted() && $form->isValid())
         {
-            $title = 'SPATIAL REPORT';
+
+            $fileName = 'JUDICIARY_REPORT';
+
+            $em = $this->getDoctrine()->getManager();
 
             $level = $form['courtLevel']->getData();
             $region = $form['region']->getData();
             $district = $form['district']->getData();
             $ward = $form['ward']->getData();
+            $columns = $form['columns']->getData();
 
-            $em = $this->getDoctrine()->getManager();
+            $columnMappings = [
+                    'court_name'=>'court_name',
+                    'court_code'=>'court_code',
+                    'court_level'=>'l.description',
+                    'land_ownership_status'=>'lo.description AS land_ownership',
+                    'court_building_status'=>'bs.description AS building_status',
+                    'environmental_status'=>'es.description AS environmental_status',
+                    'year_constructed'=>'year_constructed',
+                    'is_land_surveyed'=>'CASE WHEN is_land_surveyed THEN \'YES\' ELSE \'NO\' END',
+                    'has_title_deed'=>'CASE WHEN has_title_deed THEN \'YES\' ELSE \'NO\' END',
+                    'plot_number'=>'plot_number',
+                    'meets_functionality'=>'CASE WHEN meets_functionality THEN \'YES\' ELSE \'NO\' END',
+                    'has_last_mile_connectivity'=>'CASE WHEN has_last_mile_connectivity THEN \'YES\' ELSE \'NO\' END',
+                    'number_of_computers'=>'number_of_computers',
+                    'internet_availability'=>'CASE WHEN internet_availability THEN \'YES\' ELSE \'NO\' END',
+                    'bandwidth'=>'bandwidth',
+                    'available_systems'=>'available_systems',
+                    'cases_per_year'=>'cases_per_year',
+                    'population_served'=>'population_served',
+                    'number_of_justices'=>'number_of_justices',
+                    'number_of_judges'=>'number_of_judges',
+                    'number_of_resident_magistrates'=>'number_of_resident_magistrates',
+                    'number_of_district_magistrates'=>'number_of_district_magistrates',
+                    'number_of_magistrates'=>'number_of_magistrates',
+                    'number_of_court_clerks'=>'number_of_court_clerks',
+                    'number_of_non_judiciary_staff'=>'number_of_non_judiciary_staff',
+                    'court_latitude'=>'court_latitude',
+                    'court_longitude'=>'court_longitude',
+                    'areas_entitled'=>'areas_entitled',
+
+                ];
 
             $data = $em->getRepository('AppBundle:Court\Court')
-                ->getAllCourts(['region'=>$region,'district'=>$district,'ward'=>$ward,'level'=>$level]);
+                ->getCourtsForCustomReportBuilder(['region'=>$region,'district'=>$district,'ward'=>$ward,'level'=>$level]);
 
-            $points = [];
-            $count = 0;
-            foreach ($data as $item)
+            $title = 'CUSTOM REPORT';
+
+            $grid = $this->get('app.helper.grid_builder');
+
+            $grid->addGridHeader('S/N',null,'index');
+
+            foreach ($columns as $column)
             {
-                if(empty($item['court_name']))
-                    $name = $item['ward_name'];
-                else
-                    $name = $item['court_name'];
+                $grid->addGridHeader(str_replace('_',' ',$column),null,null,false);
 
-                $points[$count]=sprintf('[%s, %s , "%s", "%s","%s","%s","%s",%s]',
-                    $item['court_latitude'],
-                    $item['court_longitude'],
-                    $item['court_level'],
-                    $name,
-                    $item['region_name'],
-                    $item['district_name'],
-                    $item['ward_name'],
-                    $item['court_id']
-                    );
-
-                $count++;
+                if(isset($columnMappings[$column]))
+                {
+                    $data->addSelect($columnMappings[$column]);
+                }
+                else{dump($column);}
 
             }
 
-            $points = implode(',',$points);
+            $data = $data
+                ->execute()
+                ->fetchAll();
+
+            $gridTemplate = 'administration/lists/base.list.html.twig';
+
+            $mainTemplate = 'administration/main/app.report.list.html.twig';
+
+            $regionTotals = null;
+
+            $districtTotals = null;
+
+            $summary = array(
+                $title
+            );
+
 
 
             $data = array(
-                'points'=>"$points",
-                'title'=>$title
+                'records'=>$data,
+                'grid'=>$grid,
+                'summary'=>$summary,
+                'gridTemplate'=>$gridTemplate,
+                'regionTotals'=>$regionTotals,
+                'districtTotals'=>$districtTotals
             );
 
-            return $this->render('administration/main/app.map.html.twig',$data);
+
+            if($form->get('pdf')->isClicked())
+            {
+                $html = $this->renderView($mainTemplate,$data);
+
+                return new Response(
+                    $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+                    200,
+                    array(
+                        'Content-Type'          => 'application/pdf',
+                        'Content-Disposition'   => 'attachment; filename="'.$fileName.'.pdf"'
+                    )
+                );
+            }
+            else if($form->get('preview')->isClicked())
+            {
+                return $this->render($mainTemplate,$data);
+            }
+
+
+
+
 
         }
 
         return $this->render(
             'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'reports/map.report',
+                'formTemplate'=>'reports/custom.report',
                 'form'=>$form->createView(),
-                'title'=>'Pre defined Report Builder'
+                'title'=>'Custom Report Builder'
             )
 
         );

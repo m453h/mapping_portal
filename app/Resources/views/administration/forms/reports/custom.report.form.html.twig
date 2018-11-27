@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+{{ form_row(form.region,{'id':'regionId'}) }}
+{{ form_row(form.district,{'id':'districtId'}) }}
+{{ form_row(form.ward,{'id':'wardId'}) }}
+{{ form_row(form.courtLevel) }}
+{{ form_row(form.columns) }}
+<div class="col12 space-10"></div>
+<div class="form-buttons">
+    {{ form_row(form.preview) }}
+    {{ form_row(form.pdf) }}
+</div>
+{{ form_end(form) }}

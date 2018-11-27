@@ -841,12 +841,12 @@ class CourtRepository extends EntityRepository
             ->andWhere('court_latitude IS NOT NULL AND court_longitude IS NOT NULL')
             ->setParameter('status',true);
 
+
         if($options['level']!=null)
         {
             $queryBuilder->andWhere('c.level_id=:level')
                 ->setParameter('level',$options['level']->getLevelId());
         }
-
 
 
         if($options['ward']!=null)
@@ -894,6 +894,55 @@ class CourtRepository extends EntityRepository
             ->addOrderBy('district_name','ASC')
             ->addOrderBy('ward_name','ASC');
 
+    }
+
+
+    public function getCourtsForCustomReportBuilder($options = [])
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+        $queryBuilder->select('
+        court_id')
+            ->from('tbl_court_details', 'c')
+            ->join('c','cfg_wards','w','w.ward_id=c.ward_id')
+            ->join('w','cfg_districts','d','d.district_id=w.district_id')
+            ->join('d','cfg_regions','r','d.region_id=r.region_id')
+            ->join('c','cfg_court_levels','l','l.level_id=c.level_id')
+            ->join('c','cfg_land_ownership_status','lo','lo.status_id=c.land_ownership_status_id')
+            ->join('c','cfg_court_building_status','bs','bs.status_id=c.court_building_status_id')
+            ->join('c','cfg_court_environmental_status','es','es.status_id=c.environmental_status')
+            ->andWhere('court_record_status=:status')
+            ->setParameter('status',true);
+
+
+        if($options['level']!=null)
+        {
+            $queryBuilder->andWhere('c.level_id=:level')
+                ->setParameter('level',$options['level']->getLevelId());
+        }
+
+
+        if($options['ward']!=null)
+        {
+            $queryBuilder->andWhere('w.ward_id=:ward')
+                ->setParameter('ward',$options['ward']);
+        }
+
+        if($options['district']!=null)
+        {
+            $queryBuilder->andWhere('d.district_id=:district')
+                ->setParameter('district',$options['district']);
+        }
+
+        if($options['region']!=null)
+        {
+            $queryBuilder->andWhere('r.region_id=:region')
+                ->setParameter('region',$options['region']);
+        }
+
+        return $queryBuilder;
     }
 
 }
