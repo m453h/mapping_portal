@@ -528,7 +528,7 @@ class CourtRepository extends EntityRepository
             ->execute()
             ->fetch();
 
-        if($locale=='SW')
+        if($locale=='sw')
             return $result['description_sw'];
 
         return $result['description'];
