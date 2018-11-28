@@ -437,14 +437,16 @@ class CourtRepository extends EntityRepository
         return $result['total'];
     }
 
-    public function findEconomicActivitiesByCourtId($courtId)
+    public function findEconomicActivitiesByCourtId($courtId,$locale)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description')
+        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description,
+        string_agg(ea.description_sw,\',\') AS description_sw
+        ')
             ->from('tbl_court_economic_activities', 'ce')
             ->join('ce','cfg_economic_activities','ea','ea.activity_id=ce.activity_id')
             ->andWhere('court_id=:courtId')
@@ -452,18 +454,22 @@ class CourtRepository extends EntityRepository
             ->execute()
             ->fetch();
 
-        
+        if($locale=='sw')
+            return $result['description_sw'];
+
         return $result['description'];
     }
 
-    public function findLandUseByCourtId($courtId)
+    public function findLandUseByCourtId($courtId,$locale)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description')
+        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description,
+        string_agg(ea.description_sw,\',\') AS description_sw
+        ')
             ->from('tbl_court_land_uses', 'ce')
             ->join('ce','cfg_land_uses','ea','ea.activity_id=ce.activity_id')
             ->andWhere('court_id=:courtId')
@@ -471,18 +477,50 @@ class CourtRepository extends EntityRepository
             ->execute()
             ->fetch();
 
+        if($locale=='sw')
+            return $result['description_sw'];
 
         return $result['description'];
     }
 
-    public function findTransportModesByCourtId($courtId)
+
+    public function findEnvironmentalStatusByCourtId($courtId,$locale)
     {
 
         $conn = $this->getEntityManager()->getConnection();
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $result = $queryBuilder->select('string_agg(tm.description,\',\') AS description')
+        $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description,
+        string_agg(ea.description_sw,\',\') AS description_sw
+        ')
+            ->from('tbl_court_land_uses', 'ce')
+            ->join('ce','cfg_court_environmental_status','ea','ea.status_id=ce.activity_id')
+            ->andWhere('court_id=:courtId')
+            ->setParameter('courtId',$courtId)
+            ->execute()
+            ->fetch();
+
+        if($locale=='sw')
+            return $result['description_sw'];
+
+        return $result['description'];
+    }
+
+
+
+
+
+    public function findTransportModesByCourtId($courtId,$locale)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $result = $queryBuilder->select('string_agg(tm.description,\',\') AS description,
+                string_agg(tm.description_sw,\',\') AS descriptionSW
+        ')
             ->from('tbl_court_transport_modes', 'ct')
             ->join('ct','cfg_transport_modes','tm','ct.mode_id=tm.mode_id')
             ->andWhere('court_id=:courtId')
@@ -490,6 +528,8 @@ class CourtRepository extends EntityRepository
             ->execute()
             ->fetch();
 
+        if($locale=='SW')
+            return $result['description_sw'];
 
         return $result['description'];
     }

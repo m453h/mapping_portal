@@ -124,6 +124,21 @@
                 <target>Coordinates(DMS)</target>
             </trans-unit>
 
+            <trans-unit id="text.court.economic.activities">
+                <source>text.court.economic.activities</source>
+                <target>Economic Activities</target>
+            </trans-unit>
+
+            <trans-unit id="text.court.environmental.status">
+                <source>text.court.environmental.status</source>
+                <target>Court Environmental Status</target>
+            </trans-unit>
+
+            <trans-unit id="text.court.transport.modes">
+                <source>text.court.transport.modes</source>
+                <target>Transport Modes</target>
+            </trans-unit>
+
             <!-- Court Level Details Page !-->
             <trans-unit id="text.no.details.found">
                 <source>text.no.details.found</source>

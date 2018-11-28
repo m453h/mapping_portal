@@ -19,6 +19,9 @@
                 <ul class="list-styled">
                     <li class="fade"><span class="title">{{ 'text.court.name'|trans }}: </span>{{ court.courtName }}</li>
                     <li class="fade"><span class="title">{{ 'text.court.level'|trans }}: </span><a href="{{ path('public_court_level_description',{'level':court.courtLevel.identifier, '_locale': app.request.locale}) }}" title="{{ 'action.click.to.view.court.level'|trans }}" class="styled-link">{{ court.courtLevel.localizedDescription(app.request.locale)|upper }}</a></li>
+                    <li class="fade"><span class="title">{{ 'text.court.economic.activities'|trans }}: </span>{{ courtEconomicActivities }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.environmental.status'|trans }}: </span>{{ environmentalStatus }}</li>
+                    <li class="fade"><span class="title">{{ 'text.court.transport.modes'|trans }}: </span>{{ transportModes }}</li>
                 </ul>
 
                 <div class="clear space-20"></div>

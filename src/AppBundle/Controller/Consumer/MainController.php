@@ -123,7 +123,23 @@ class MainController extends Controller
             array_push($images, $data->getFourthCourtView());
         }
 
-        $data = ['court'=>$data,
+        $locale = $request->getLocale();
+
+        $economicActivities = $em->getRepository('AppBundle:Court\Court')
+            ->findEconomicActivitiesByCourtId($courtId,$locale);
+
+        $environmentalStatus = $em->getRepository('AppBundle:Court\Court')
+            ->findEnvironmentalStatusByCourtId($courtId,$locale);
+
+        $transportModes = $em->getRepository('AppBundle:Court\Court')
+            ->findTransportModesByCourtId($courtId,$locale);
+
+
+        $data = [
+            'court'=>$data,
+            'courtEconomicActivities'=>$economicActivities,
+            'environmentalStatus'=>$environmentalStatus,
+            'transportModes'=>$transportModes,
             'images'=>$images,
             'coordinates'=>$coordinates,
             'currentPosition'=>'search'

@@ -125,6 +125,22 @@
                 <target>Taarifa za kijiografia</target>
             </trans-unit>
 
+            <trans-unit id="text.court.economic.activities">
+                <source>text.court.economic.activities</source>
+                <target>Shughuli za Kiuchumi</target>
+            </trans-unit>
+
+            <trans-unit id="text.court.environmental.status">
+                <source>text.court.environmental.status</source>
+                <target>Hali ya Kimazingira ya Mahakama</target>
+            </trans-unit>
+
+            <trans-unit id="text.court.transport.modes">
+                <source>text.court.transport.modes</source>
+                <target>Njia za usafiri kufika Mahakamani</target>
+            </trans-unit>
+
+
             <!-- Court Level Details Page !-->
             <trans-unit id="text.no.details.found">
                 <source>text.no.details.found</source>

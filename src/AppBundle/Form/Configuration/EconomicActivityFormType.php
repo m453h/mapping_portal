@@ -14,7 +14,8 @@ class EconomicActivityFormType extends  AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description',null,['required'=>true]);
+            ->add('description',null,['required'=>true])
+            ->add('descriptionSw',null,['required'=>true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

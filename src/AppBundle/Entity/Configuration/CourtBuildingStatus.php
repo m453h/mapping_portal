@@ -29,6 +29,13 @@ class CourtBuildingStatus
 
 
 
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $descriptionSw;
+
+
     
     /**
      * @return mixed
@@ -62,5 +69,20 @@ class CourtBuildingStatus
         $this->statusId = $statusId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescriptionSw()
+    {
+        return $this->descriptionSw;
+    }
+
+    /**
+     * @param mixed $descriptionSw
+     */
+    public function setDescriptionSw($descriptionSw)
+    {
+        $this->descriptionSw = $descriptionSw;
+    }
 
 }
