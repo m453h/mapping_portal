@@ -13,7 +13,7 @@
             </trans-unit>
             <trans-unit id="text.judiciary">
                 <source>text.judiciary</source>
-                <target>The Judiciary</target>
+                <target>Judiciary</target>
             </trans-unit>
             <trans-unit id="text.open.data.portal">
                 <source>text.open.data.portal</source>
