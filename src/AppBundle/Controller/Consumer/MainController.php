@@ -134,7 +134,6 @@ class MainController extends Controller
         $transportModes = $em->getRepository('AppBundle:Court\Court')
             ->findTransportModesByCourtId($courtId,$locale);
 
-
         $data = [
             'court'=>$data,
             'courtEconomicActivities'=>$economicActivities,

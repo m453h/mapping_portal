@@ -519,7 +519,7 @@ class CourtRepository extends EntityRepository
         $queryBuilder = new QueryBuilder($conn);
 
         $result = $queryBuilder->select('string_agg(tm.description,\',\') AS description,
-                string_agg(tm.description_sw,\',\') AS descriptionSW
+                string_agg(tm.description_sw,\',\') AS description_sw
         ')
             ->from('tbl_court_transport_modes', 'ct')
             ->join('ct','cfg_transport_modes','tm','ct.mode_id=tm.mode_id')
