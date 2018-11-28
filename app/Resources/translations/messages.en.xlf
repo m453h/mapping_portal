@@ -9,7 +9,11 @@
             </trans-unit>
             <trans-unit id="text.judiciary.tanzania">
                 <source>text.judiciary.tanzania</source>
-                <target>The Judiciary, United Republic of Tanzania</target>
+                <target>The United Republic of Tanzania</target>
+            </trans-unit>
+            <trans-unit id="text.judiciary">
+                <source>text.judiciary</source>
+                <target>The Judiciary</target>
             </trans-unit>
             <trans-unit id="text.open.data.portal">
                 <source>text.open.data.portal</source>

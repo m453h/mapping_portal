@@ -52,7 +52,7 @@
 
                  <div class="clear space-20"></div>
 
-                 <h2 class="lighter">Court Location Details {% if canEdit %}<a href="{{ path('court_building_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
+                 <h2 class="lighter">Court Location Details {% if canEdit %}<a href="{{ path('court_location_details_form_edit',{'courtId':court.courtId}) }}" class="edit-link">[Edit Details]</a>{% endif %}</h2>
                  <div class="divider"></div>
                  <ul class="list-styled">
                      <li class="fade"><span class="title">Region:</span>{{ court.ward.district.region.regionName|capitalize }}</li>

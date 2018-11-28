@@ -14,6 +14,7 @@ use AppBundle\Form\Court\CourtBuildingFacilitiesFormType;
 use AppBundle\Form\Court\CourtFormType;
 use AppBundle\Form\Court\CourtImagesFormType;
 use AppBundle\Form\Court\CourtLandDetailsFormType;
+use AppBundle\Form\Court\CourtLocationFormType;
 use AppBundle\Form\Court\CourtStaffWorkLoadFormType;
 use Doctrine\DBAL\Exception\DriverException;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
@@ -304,6 +305,53 @@ class CourtController extends Controller
         $this->denyAccessUnlessGranted('edit',$class);
 
         $form = $this->createForm(CourtBuildingDetailsFormType::class,$court);
+
+        // only handles data on POST
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($data);
+            $em->flush();
+
+            $this->addFlash('success','Court building details successfully updated');
+
+            $this->get('app.helper.audit_trail_logger')
+                ->logUserAction('COURT\BUILDING_DETAILS','EDIT',$court,$data);
+
+
+
+            return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
+        }
+
+        return $this->render(
+            'administration/main/app.form.html.twig',
+            array(
+                'formTemplate'=>'court/court.building.details',
+                'form'=>$form->createView(),
+                'title'=>'Court Building Details',
+            )
+
+        );
+    }
+
+
+
+    /**
+     * @Route("/administration/court-location-details-form/edit/{courtId}", name="court_location_details_form_edit")
+     * @param Request $request
+     * @param Court $court
+     * @return Response
+     */
+    public function courtLocationDetailsAction(Request $request,Court $court)
+    {
+        $class = get_class($this);
+
+        $this->denyAccessUnlessGranted('edit',$class);
+
+        $form = $this->createForm(CourtLocationFormType::class,$court);
 
         // only handles data on POST
         $form->handleRequest($request);

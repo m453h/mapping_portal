@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,17 +37,31 @@ class CourtLocationFormType extends  AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ward', EntityType::class, [
-                'placeholder' => 'Choose the ward',
-                'choice_label' => 'wardName',
-                'required'=>true,
-                'class' => 'AppBundle\Entity\Location\Ward',
-                'query_builder' => function(EntityRepository $repo) {
-                    return $repo->createQueryBuilder('w')
-                        ->orderBy('w.wardName','ASC');
+            ->add('region', EntityType::class, [
+                'placeholder' => 'Choose a region',
+                'choice_label' => 'regionName',
+                'mapped'=>false,
+                'required'=>false,
+                'class' => 'AppBundle\Entity\Location\Region',
+                'query_builder' => function(EntityRepository  $er) {
+                    return $er->createQueryBuilder('r')
+                        ->orderBy('r.regionName', 'ASC');
                 }
             ])
-            ->add('isPlotOnly',null,['required'=>false,'label'=>'This is a record of a plot only'])
+            ->add('district', ChoiceType::class, array(
+                'placeholder' => 'Choose District',
+                'choices' => [],
+                'mapped' => false,
+                'required' => false
+            ))
+            ->add('ward', ChoiceType::class, array(
+                'placeholder' => 'Choose Ward',
+                'choices' => [],
+                'mapped' => false,
+                'required' => false
+            ))
+            ->add('courtLongitude',null,['required'=>false,'label'=>'Court Longitude'])
+            ->add('courtLatitude',null,['required'=>false,'label'=>'Court Latitude'])
             ->addEventSubscriber(new AddSelectedDataCourtForm($this->em));
 
         $builder->get('ward')->resetViewTransformers();

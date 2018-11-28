@@ -9,7 +9,11 @@
             </trans-unit>
             <trans-unit id="text.judiciary.tanzania">
                 <source>text.judiciary.tanzania</source>
-                <target>Mahakama, Jamuhuri ya Muungano Wa Tanzania</target>
+                <target>Jamhuri ya Muungano Wa Tanzania</target>
+            </trans-unit>
+            <trans-unit id="text.judiciary">
+                <source>text.judiciary</source>
+                <target>Mahakama</target>
             </trans-unit>
             <trans-unit id="text.open.data.portal">
                 <source>text.open.data.portal</source>
