@@ -368,17 +368,15 @@ class CourtController extends Controller
             $this->get('app.helper.audit_trail_logger')
                 ->logUserAction('COURT\LOCATION_DETAILS','EDIT',$court,$data);
 
-
-
             return $this->redirectToRoute('court_form_info',['courtId'=>$court->getCourtId()]);
         }
 
         return $this->render(
             'administration/main/app.form.html.twig',
             array(
-                'formTemplate'=>'court/court.building.details',
+                'formTemplate'=>'court/court.location.details',
                 'form'=>$form->createView(),
-                'title'=>'Court Building Details',
+                'title'=>'Court Location Details',
             )
 
         );

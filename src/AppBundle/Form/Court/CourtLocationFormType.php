@@ -62,6 +62,7 @@ class CourtLocationFormType extends  AbstractType
             ))
             ->add('courtLongitude',null,['required'=>false,'label'=>'Court Longitude'])
             ->add('courtLatitude',null,['required'=>false,'label'=>'Court Latitude'])
+            ->add('courtCoordinatesDMS',null,['required'=>false,'label'=>'Court Coordinates (DMS)'])
             ->addEventSubscriber(new AddSelectedDataCourtForm($this->em));
 
         $builder->get('ward')->resetViewTransformers();
