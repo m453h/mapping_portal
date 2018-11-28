@@ -363,10 +363,10 @@ class CourtController extends Controller
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success','Court building details successfully updated');
+            $this->addFlash('success','Court location details successfully updated');
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('COURT\BUILDING_DETAILS','EDIT',$court,$data);
+                ->logUserAction('COURT\LOCATION_DETAILS','EDIT',$court,$data);
 
 
 

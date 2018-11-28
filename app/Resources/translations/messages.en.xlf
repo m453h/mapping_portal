@@ -17,7 +17,7 @@
             </trans-unit>
             <trans-unit id="text.open.data.portal">
                 <source>text.open.data.portal</source>
-                <target>Open Data Portal</target>
+                <target>Information Portal</target>
             </trans-unit>
             <trans-unit id="text.search.court">
                 <source>text.search.court</source>
