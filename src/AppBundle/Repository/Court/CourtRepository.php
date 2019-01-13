@@ -468,7 +468,7 @@ class CourtRepository extends EntityRepository
         $queryBuilder = new QueryBuilder($conn);
 
         $result = $queryBuilder->select('string_agg(ea.description,\',\') AS description,
-        string_agg(ea.description_sw,\',\') AS description_sw
+        string_agg(ea.description,\',\') AS description_sw
         ')
             ->from('tbl_court_land_uses', 'ce')
             ->join('ce','cfg_land_uses','ea','ea.activity_id=ce.activity_id')
@@ -478,7 +478,7 @@ class CourtRepository extends EntityRepository
             ->fetch();
 
         if($locale=='sw')
-            return $result['description_sw'];
+            return $result['description'];
 
         return $result['description'];
     }

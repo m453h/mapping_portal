@@ -149,13 +149,13 @@ class CourtController extends Controller
 
         //Other Details
         $economicActivities = $em->getRepository('AppBundle:Court\Court')
-            ->findEconomicActivitiesByCourtId($courtId);
+            ->findEconomicActivitiesByCourtId($courtId,'en');
 
         $landUses = $em->getRepository('AppBundle:Court\Court')
-            ->findLandUseByCourtId($courtId);
+            ->findLandUseByCourtId($courtId,'en');
 
         $transportModes = $em->getRepository('AppBundle:Court\Court')
-            ->findTransportModesByCourtId($courtId);
+            ->findTransportModesByCourtId($courtId,'en');
 
         $info->addTextElement('Economic Activities',$economicActivities);
         $info->addTextElement('More Details on Economic Activities',$data->getEconomicActivitiesDescription());
