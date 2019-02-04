@@ -681,7 +681,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/administration/api/submitCourtForm", name="api_court_form")
+     * @Route("/api/submitCourtForm", name="api_court_form")
      * @param Request $request
      * @return Response
      *
@@ -727,7 +727,7 @@ class CourtController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $user = $em->getRepository('AppBundle:AppUsers\User')
+            $user = $em->getRepository('AppBundle:DataCollector\User')
                 ->findOneBy(['token' => $data['authToken']]);
 
             $court = new Court();
@@ -971,7 +971,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/administration/api/getIncompleteCourts", name="api_incomplete_court_list")
+     * @Route("/api/getIncompleteCourts", name="api_incomplete_court_list")
      * @param Request $request
      * @return Response
      *
@@ -995,7 +995,7 @@ class CourtController extends Controller
 
 
     /**
-     * @Route("/administration/api/submitCourtImages", name="api_court_image_form")
+     * @Route("/api/submitCourtImages", name="api_court_image_form")
      * @param Request $request
      * @return Response
      *
@@ -1050,7 +1050,7 @@ class CourtController extends Controller
     }
 
     /**
-     * @Route("/administration/api/getCourts",options={"expose"=true}, name="api_get_courts")
+     * @Route("/api/getCourts",options={"expose"=true}, name="api_get_courts")
      * @param Request $request
      * @return JsonResponse
      */
