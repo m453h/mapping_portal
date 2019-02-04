@@ -3,6 +3,7 @@
 
 namespace AppBundle\Menu;
 
+use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher;
@@ -27,6 +28,10 @@ class MenuBuilder
      * @var RequestStack
      */
     private $requestStack;
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
 
     /**
      * @param FactoryInterface $factory
@@ -35,14 +40,16 @@ class MenuBuilder
      * @param Router $router
      * @param TokenStorage $tokenStorage
      * @param RequestStack $requestStack
+     * @param EntityManager $entityManager
      */
-    public function __construct(FactoryInterface $factory, Router $router,TokenStorage $tokenStorage,RequestStack $requestStack)
+    public function __construct(FactoryInterface $factory, Router $router,TokenStorage $tokenStorage,RequestStack $requestStack,EntityManager $entityManager)
     {
         $this->factory = $factory;
         $this->router = $router;
 
         $this->tokenStorage = $tokenStorage;
         $this->requestStack = $requestStack;
+        $this->entityManager = $entityManager;
     }
 
     public function createMainMenu()
@@ -57,11 +64,7 @@ class MenuBuilder
         $root = $menu->getRoot();
         $root->setChildrenAttributes(array('id' => 'sidebar-menu'));
 
-        if(in_array('ROLE_ADMINISTRATOR',$roleNames))
-        {
-            $menu = $this->createAdminMenu($menu);
-        }
-
+        $menu = $this->createAdminMenu($menu);
 
         return $menu;
     }

@@ -41,6 +41,46 @@ class PermissionRepository extends EntityRepository
         return $ACLs;
     }
 
+
+    /**
+     * @param $userRoles
+     * @return array
+     */
+    public function getAllUserACLs($userRoles)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $queryBuilder = new QueryBuilder($conn);
+
+        $results = $queryBuilder->select('object')
+            ->from('user_roles_permissions', 'd');
+
+        $counter = 0;
+
+        foreach ($userRoles as $userRole)
+        {
+            $results->orWhere("role_id=:role_id_$counter")
+                ->setParameter(":role_id_$counter", $userRole);
+
+            $counter++;
+        }
+
+        $results=$results
+            ->execute()
+            ->fetchAll();
+
+        $ACLs = [] ;
+
+        foreach ($results as $result)
+        {
+           array_push($ACLs,$result['object']);
+        }
+
+        return $ACLs;
+    }
+
+
+
     /**
      * @param $object
      * @param $roleId
