@@ -52,8 +52,10 @@ class PermissionRepository extends EntityRepository
 
         $queryBuilder = new QueryBuilder($conn);
 
-        $results = $queryBuilder->select('object')
-            ->from('user_roles_permissions', 'd');
+        $results = $queryBuilder->select("split_part(\"object\", '\', 4) as \"menu\"")
+            ->from('user_roles_permissions', 'd')
+            ->addGroupBy('menu')
+            ->addOrderBy('menu');
 
         $counter = 0;
 
@@ -73,7 +75,7 @@ class PermissionRepository extends EntityRepository
 
         foreach ($results as $result)
         {
-           array_push($ACLs,$result['object']);
+           array_push($ACLs,$result['menu']);
         }
 
         return $ACLs;
