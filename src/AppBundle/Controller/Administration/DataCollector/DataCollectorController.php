@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
@@ -107,13 +108,13 @@ class DataCollectorController extends Controller
             $em->persist($appUser);
             $em->flush();
 
-            $appUser->setPassword('*******');
+            $appUserLog = $this->getUserLogObject($appUser);
 
             $this->addFlash('success','Data collector successfully created');
 
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',null,$appUser);
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',null,$appUserLog);
 
             return $this->redirectToRoute('data_collectors_list');
         }
@@ -156,11 +157,12 @@ class DataCollectorController extends Controller
 
             $this->addFlash('success','Data collector successfully updated');
 
-            $user->setPassword('*******');
-            $appUser->setPassword('*******');
+            $userLog = $this->getUserLogObject($user);
+
+            $appUserLog = $this->getUserLogObject($appUser);
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$user,$appUser);
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$userLog,$appUserLog);
 
             return $this->redirectToRoute('data_collectors_list');
         }
@@ -199,10 +201,10 @@ class DataCollectorController extends Controller
             $em->flush();
             $this->addFlash('success', 'Data collector successfully removed !');
 
-            $user->setPassword('*******');
+            $userLog = $this->getUserLogObject($user);
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$user,null);
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','ADD',$userLog,null);
 
         }
         else
@@ -246,11 +248,10 @@ class DataCollectorController extends Controller
 
             $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
 
-
-            $user->setPassword('*******');
+            $userLog = $this->getUserLogObject($user);
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$user,null);
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$userLog,null);
 
         }
         else if($accountStatus == 'I')
@@ -295,10 +296,10 @@ class DataCollectorController extends Controller
 
             $this->addFlash('success', sprintf('Data collector account successfully %s !',$action));
 
-            $user->setPassword('*******');
+            $userLog = $this->getUserLogObject($user);
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$user,null);
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR',strtoupper($action),$userLog,null);
         }
         else if($accountStatus == 'I')
         {
@@ -333,18 +334,20 @@ class DataCollectorController extends Controller
             $user = $form->getData();
 
             $encoder = $this->get('security.password_encoder');
-            $user->setPassword($encoder->encodePassword($this->getUser(),$user->getPassword()));
+
+            $userObject = new \AppBundle\Entity\UserAccounts\User();
+
+            $user->setPassword($encoder->encodePassword($userObject,$user->getPassword()));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Data collector password successfully updated!');
 
-            $user->setPassword('*******');
+            $userLog = $this->getUserLogObject($user);
 
             $this->get('app.helper.audit_trail_logger')
-                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','RESET_PASSWORD',$user,null);
-
+                ->logUserAction('USER_ACCOUNTS\DATA_COLLECTOR','RESET_PASSWORD',$userLog,null);
 
             return $this->redirectToRoute('data_collectors_list');
         }
@@ -422,18 +425,17 @@ class DataCollectorController extends Controller
 
     }
 
-    
+
     /**
      * @Route("/api/login", name="api_login")
      * @param Request $request
      * @return Response
      *
+     * @throws \Exception
      */
     public function loginAction(Request $request)
     {
         $content =  $request->getContent();
-
-       // $content = '{"username":"0654061261","password":"password"}';
 
         $data = json_decode($content,true);
 
@@ -630,6 +632,15 @@ class DataCollectorController extends Controller
 
 
 
+    private function getUserLogObject(User $user){
+        $userLog['userId'] = $user->getUserId();
+        $userLog['fullName'] = $user->getFullName();
+        $userLog['mobile'] = $user->getMobile();
+        $userLog['username'] = $user->getUsername();
+        $userLog['accountStatus'] = $user->getAccountStatus();
+
+        return $userLog;
+    }
 
 
 }

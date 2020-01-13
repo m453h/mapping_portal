@@ -67,7 +67,7 @@ class SecurityController extends  Controller
     {
         
         return $this->render(
-            'main/privacy.policy.html.twig',
+            'administration/main/privacy.policy.html.twig',
             array(
             )
         );
