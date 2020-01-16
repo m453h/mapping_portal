@@ -10,6 +10,7 @@ use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -437,6 +438,10 @@ class DataCollectorController extends Controller
     {
         $content =  $request->getContent();
 
+        #$content = '{"username":"0654061261","password":"password"}';
+
+        //$this->get('logger')->err($content);
+
         $data = json_decode($content,true);
 
         $em = $this->getDoctrine()->getManager();
@@ -642,5 +647,38 @@ class DataCollectorController extends Controller
         return $userLog;
     }
 
+    /**
+     * @Route("/api/version", name="api_version")
+     * @param Request $request
+     * @return Response
+     */
+    public function appVersionAction(Request $request)
+    {
+        $baseURL = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath() . '/app.php/apk';
+
+        $data['latestVersion'] = $this->getParameter('current_app_version');
+        $data['latestVersionCode'] = $this->getParameter('latest_version_code');
+        $data['url'] = $baseURL;
+        $data['releaseNotes'] = ['- Improve overall user experience'];
+
+
+        return new JsonResponse($data);
+    }
+
+
+    /**
+     * @Route("/apk", name="app_download")
+     * @return BinaryFileResponse
+     *
+     */
+    public function applicationDownloadAction()
+    {
+
+        $publicResourcesFolderPath = $this->get('kernel')->getRootDir() . '/../web/file_uploads/apk/';
+        $filename = "jmap-1.0.9.apk";
+
+        return $this->file($publicResourcesFolderPath.$filename, $filename);
+
+    }
 
 }
