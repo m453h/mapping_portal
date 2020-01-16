@@ -25,5 +25,3 @@ parameters:
     permissions_file: '%kernel.root_dir%/config/permissions.yml'
     uglifyjs2_bin: '/usr/local/bin/uglifyjs'
     uglifycss_bin: '/usr/local/bin/uglifycss'
-    current_app_version: 1.0.9
-    latest_version_code: 9
