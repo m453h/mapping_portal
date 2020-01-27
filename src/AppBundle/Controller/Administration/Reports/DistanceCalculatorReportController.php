@@ -37,6 +37,7 @@ class DistanceCalculatorReportController extends Controller
         }
 
         $data['type'] = 'SPATIAL_DISTANCE';
+        $data['routingURL'] = $this->getParameter('routing_engine');
 
         return $this->render(
             'administration/main/app.spatial.html.twig',

@@ -49,7 +49,7 @@
                         L.latLng({{ data.toCourt.courtLatitude }},{{ data.toCourt.courtLongitude }})
                     ],
                     router: new L.Routing.OSRMv1({
-                        serviceUrl: 'https://map.evolve.co.tz/route/v1'
+                        serviceUrl: '{{ data.routingURL }}'
                     }),
                     routeWhileDragging: true
                 });
