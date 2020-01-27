@@ -26,4 +26,4 @@ parameters:
     uglifyjs2_bin: '/usr/local/bin/uglifyjs'
     uglifycss_bin: '/usr/local/bin/uglifycss'
 
-    routing_engine: https://127.0.0.1:5000/route/v1
+    routing_engine: http://127.0.0.1:5000/route/v1
