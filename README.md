@@ -1,4 +1,4 @@
-Court Mapping CMS
+Mapping CMS
 ===================
 
-A content management system for the court mapping web portal
+A content management system for the property mapping web portal
